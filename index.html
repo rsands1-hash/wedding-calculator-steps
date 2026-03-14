@@ -21,8 +21,12 @@ window.addEventListener('load', function() {
 });
 </script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=PT+Sans+Narrow:wght@400;700&display=swap');
 body { background: #e7e4e6; }
+[data-p-collection] ul li,
+[data-v-collection] ul li {
+  font-family: 'PT Sans Narrow', sans-serif;
+}
 
 @keyframes glowDrift {
   0% { background-position: 0% 50%; }
@@ -57,12 +61,12 @@ body { background: #e7e4e6; }
 .col-card.col-active::before {
   content: '';
   position: absolute;
-  top: -4px; left: -4px; right: -4px; bottom: -4px;
-  background: linear-gradient(90deg, #a89aff, #c4b5ff, #e88bf7, #ef8aaa, #f7bdd0, #d1a8f0, #dbbfff, #a8b8ff, #8dd4f7, #f0d89a, #b8adff, #f7a8d0, #ef8aaa, #a89aff);
+  top: -2px; left: -2px; right: -2px; bottom: -2px;
+  background: linear-gradient(90deg, #7c6aff, #a78bff, #d946ef, #e63983, #f472b6, #b84ddf, #c084fc, #7c8aff, #60b5f7, #f0c050, #9080ff, #f472b6, #e63983, #7c6aff);
   background-size: 300% 100%;
-  border-radius: 20px;
+  border-radius: 18px;
   z-index: -2;
-  filter: blur(12px);
+  filter: blur(6px);
   opacity: 1;
   animation: glowDrift 20s linear infinite;
 }
@@ -75,8 +79,11 @@ body { background: #e7e4e6; }
   z-index: -1;
 }
 .col-card.col-active[data-credit] img,
-.col-card.col-active[data-p-credit] img {
-  filter: drop-shadow(0 0 4px rgba(168,154,255,1)) drop-shadow(0 0 8px rgba(232,139,247,0.9));
+.col-card.col-active[data-p-credit] img,
+.col-card.col-active[data-pay-method] img,
+.col-card.col-active[data-p-pay-method] img,
+.col-card.col-active[data-v-pay-method] img {
+  filter: drop-shadow(0 0 3px rgba(124,106,255,1)) drop-shadow(0 0 5px rgba(217,70,239,1));
   transition: filter 0.3s ease;
 }
 [data-credit] > p:first-of-type,
@@ -101,20 +108,20 @@ body { background: #e7e4e6; }
 [data-pay-method] img,
 [data-p-pay-method] img,
 [data-v-pay-method] img {
-  width: 4rem !important;
-  height: 4rem !important;
+  width: 5.5rem !important;
+  height: 5.5rem !important;
   margin-bottom: 0.5rem !important;
 }
 [data-pay-method] > p:first-of-type,
 [data-p-pay-method] > p:first-of-type,
 [data-v-pay-method] > p:first-of-type {
-  font-size: 0.85rem !important;
+  font-size: 1rem !important;
   line-height: 1.2 !important;
 }
 [data-pay-method] > p:last-of-type,
 [data-p-pay-method] > p:last-of-type,
 [data-v-pay-method] > p:last-of-type {
-  font-size: 0.7rem !important;
+  font-size: 0.8rem !important;
 }
 @media (min-width: 768px) {
   [data-pay-method],
@@ -125,19 +132,19 @@ body { background: #e7e4e6; }
   [data-pay-method] img,
   [data-p-pay-method] img,
   [data-v-pay-method] img {
-    width: 5.5rem !important;
-    height: 5.5rem !important;
+    width: 7rem !important;
+    height: 7rem !important;
     margin-bottom: 0.75rem !important;
   }
   [data-pay-method] > p:first-of-type,
   [data-p-pay-method] > p:first-of-type,
   [data-v-pay-method] > p:first-of-type {
-    font-size: 1.1rem !important;
+    font-size: 1.25rem !important;
   }
   [data-pay-method] > p:last-of-type,
   [data-p-pay-method] > p:last-of-type,
   [data-v-pay-method] > p:last-of-type {
-    font-size: 0.85rem !important;
+    font-size: 1rem !important;
   }
 }
 .col-card.col-active .col-card-name {
@@ -315,18 +322,18 @@ body { background: #e7e4e6; }
   position: relative;
   overflow: visible;
   z-index: 1;
-  background: linear-gradient(135deg, #f7f5ff, #fff5fa, #f5f7ff, #fff8f5, #f7f5ff) !important;
+  background: transparent !important;
   border-color: transparent !important;
 }
 .coverage-active::before {
   content: '';
   position: absolute;
-  top: -4px; left: -4px; right: -4px; bottom: -4px;
-  background: linear-gradient(90deg, #a89aff, #c4b5ff, #e88bf7, #ef8aaa, #f7bdd0, #d1a8f0, #dbbfff, #a8b8ff, #8dd4f7, #f0d89a, #b8adff, #f7a8d0, #ef8aaa, #a89aff);
+  top: -2px; left: -2px; right: -2px; bottom: -2px;
+  background: linear-gradient(90deg, #7c6aff, #a78bff, #d946ef, #e63983, #f472b6, #b84ddf, #c084fc, #7c8aff, #60b5f7, #f0c050, #9080ff, #f472b6, #e63983, #7c6aff);
   background-size: 300% 100%;
-  border-radius: 16px;
+  border-radius: 14px;
   z-index: -2;
-  filter: blur(12px);
+  filter: blur(6px);
   opacity: 1;
   animation: glowDrift 20s linear infinite;
 }
@@ -334,7 +341,7 @@ body { background: #e7e4e6; }
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: linear-gradient(135deg, #f7f5ff, #fff5fa, #f5f7ff, #fff8f5, #f7f5ff);
+  background: #fff;
   border-radius: 12px;
   z-index: -1;
 }
@@ -1271,26 +1278,22 @@ body { background: #e7e4e6; }
   </div>
 </div>
 
-<div class="max-w-6xl mx-auto grid grid-cols-1 gap-3 md:gap-5">
-  <!-- Unlock More Credits -->
-  <div class="col-card flex flex-col p-[15px] md:p-[24px]" data-credits="unlock">
-    <div class="flex items-center gap-3 mb-3">
-      <img src="https://static.showit.co/file/oSrIOpGKGgGvXVnMdQL-AQ/293041/key.png" alt="key" class="w-10 h-10 md:w-12 md:h-12 object-contain">
-      <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800">Unlock More Credits</div>
-    </div>
-    <p class="text-xs md:text-base text-stone-500 leading-relaxed mb-4 italic">Want to save even more? We've got a couple easy ways for you to unlock extra credits toward your package!</p>
-    <div class="flex flex-col gap-4 mb-2">
-      <div>
-        <label class="anim-cb"><input type="checkbox" id="consultationCb" onchange="toggleUnlock(this)"><span class="checkmark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Book a Consultation</span> ($100 Credit)</span></label>
-        <p class="text-xs md:text-base text-stone-500 ml-11 italic" style="margin-top:-1px">Let's chat! Schedule a quick phone or video call and earn $100 toward your package.</p>
-      </div>
-      <div>
-        <label class="anim-cb"><input type="checkbox" id="instagramCb" onchange="toggleUnlock(this)"><span class="checkmark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Follow on Instagram</span> ($25 Credit)</span></label>
-        <p class="text-xs md:text-base text-stone-500 ml-11 italic" style="margin-top:-1px">Follow me on IG @ryansandsphotography and earn yourself a cool $25 credit.</p>
-      </div>
-    </div>
-  </div>
+<!-- Unlock More Credits Mini Header -->
+<div class="flex items-center justify-center gap-3 mb-2 mt-8">
+  <img src="https://static.showit.co/file/oSrIOpGKGgGvXVnMdQL-AQ/293041/key.png" alt="key" class="w-10 h-10 md:w-12 md:h-12 object-contain">
+  <div class="text-xs md:text-xl font-extrabold text-stone-800">Unlock More Credits</div>
+</div>
+<p class="text-center text-xs md:text-base text-stone-500 leading-relaxed mb-6 italic">Want to save even more? We've got a couple easy ways for you to unlock extra credits toward your package!</p>
 
+<div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+  <div class="col-card flex flex-col p-[15px] md:p-[24px]" data-credits="consultation">
+    <label class="anim-cb"><input type="checkbox" id="consultationCb" onchange="toggleUnlock(this)"><span class="checkmark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Book a Consultation</span> ($100 Credit)</span></label>
+    <p class="text-xs md:text-base text-stone-500 ml-11 italic" style="margin-top:-1px">Let's chat! Schedule a quick phone or video call and earn $100 toward your package.</p>
+  </div>
+  <div class="col-card flex flex-col p-[15px] md:p-[24px]" data-credits="instagram">
+    <label class="anim-cb"><input type="checkbox" id="instagramCb" onchange="toggleUnlock(this)"><span class="checkmark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Follow on Instagram</span> ($25 Credit)</span></label>
+    <p class="text-xs md:text-base text-stone-500 ml-11 italic" style="margin-top:-1px">Follow me on IG @ryansandsphotography and earn yourself a cool $25 credit.</p>
+  </div>
 </div>
 
 <!-- Choose a Payment Plan -->
@@ -1300,7 +1303,7 @@ body { background: #e7e4e6; }
 </div>
 <p class="text-center text-stone-500 text-base md:text-lg mb-10">Select your wedding date and choose a payment schedule</p>
 
-<div class="max-w-6xl mx-auto">
+<div class="max-w-4xl mx-auto">
   <div class="col-card p-[15px] md:p-[24px]" data-payment="plan">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
 
@@ -1432,12 +1435,12 @@ body { background: #e7e4e6; }
     <div class="col-card-name text-sm md:text-2xl font-extrabold text-stone-800 mb-1 text-center">Essential</div>
     <div class="col-card-price text-2xl md:text-5xl font-bold text-stone-800 mb-1" style="letter-spacing: -0.02em;">$3,000</div>
     <div class="col-card-badge text-sm md:text-lg font-semibold text-stone-500 mb-4 pb-4 border-b border-stone-200 w-full text-center tracking-wide uppercase">50–100 Guests</div>
-    <ul class="w-full space-y-5 md:space-y-6 text-[11px] md:text-sm mb-6">
-      <li class="flex items-start gap-1.5 md:gap-2 text-stone-600 font-bold leading-tight whitespace-nowrap"><span class="check-icon flex-shrink-0 relative top-[2px]">✦</span>8 Hours of Photo Coverage</li>
-      <li class="flex items-start gap-1.5 md:gap-2 text-stone-600 font-bold leading-tight whitespace-nowrap"><span class="check-icon flex-shrink-0 relative top-[2px]">✦</span>30 Min Engagement Session</li>
-      <li class="flex items-start gap-1.5 md:gap-2 text-stone-600 font-bold leading-tight whitespace-nowrap"><span class="check-icon flex-shrink-0 relative top-[2px]">✦</span>8×8 Album (30 Pages)</li>
-      <li class="flex items-start gap-1.5 md:gap-2 text-stone-600 font-bold leading-tight whitespace-nowrap"><span class="check-icon flex-shrink-0 relative top-[2px]">✦</span>Online Gallery (2)</li>
-      <li class="flex items-start gap-1.5 md:gap-2 text-stone-600 font-bold leading-tight whitespace-nowrap"><span class="check-icon flex-shrink-0 relative top-[2px]">✦</span>Printing Rights</li>
+    <ul class="w-full space-y-5 md:space-y-6 text-[15px] md:text-xl mb-6">
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">8 Hours of Photo Coverage</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">30 Min Engagement Session</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">8×8 Album (30 Pages)</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">Online Gallery (2)</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">Printing Rights</li>
     </ul>
     <button class="col-card-btn">Choose Collection</button>
   </div>
@@ -1447,12 +1450,12 @@ body { background: #e7e4e6; }
     <div class="col-card-name text-sm md:text-2xl font-extrabold text-stone-800 mb-1 text-center">Premium</div>
     <div class="col-card-price text-2xl md:text-5xl font-bold text-stone-800 mb-1" style="letter-spacing: -0.02em;">$4,000</div>
     <div class="col-card-badge text-sm md:text-lg font-semibold text-stone-500 mb-4 pb-4 border-b border-stone-200 w-full text-center tracking-wide uppercase">100–150 Guests</div>
-    <ul class="w-full space-y-5 md:space-y-6 text-[11px] md:text-sm mb-6">
-      <li class="flex items-start gap-1.5 md:gap-2 text-stone-600 font-bold leading-tight whitespace-nowrap"><span class="check-icon flex-shrink-0 relative top-[2px]">✦</span>10 Hours of Photo Coverage</li>
-      <li class="flex items-start gap-1.5 md:gap-2 text-stone-600 font-bold leading-tight whitespace-nowrap"><span class="check-icon flex-shrink-0 relative top-[2px]">✦</span>1 Hour Engagement Session</li>
-      <li class="flex items-start gap-1.5 md:gap-2 text-stone-600 font-bold leading-tight whitespace-nowrap"><span class="check-icon flex-shrink-0 relative top-[2px]">✦</span>10×10 Album (40 Pages)</li>
-      <li class="flex items-start gap-1.5 md:gap-2 text-stone-600 font-bold leading-tight whitespace-nowrap"><span class="check-icon flex-shrink-0 relative top-[2px]">✦</span>Online Gallery (2)</li>
-      <li class="flex items-start gap-1.5 md:gap-2 text-stone-600 font-bold leading-tight whitespace-nowrap"><span class="check-icon flex-shrink-0 relative top-[2px]">✦</span>Printing Rights</li>
+    <ul class="w-full space-y-5 md:space-y-6 text-[15px] md:text-xl mb-6">
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">10 Hours of Photo Coverage</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">1 Hour Engagement Session</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">10×10 Album (40 Pages)</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">Online Gallery (2)</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">Printing Rights</li>
     </ul>
     <button class="col-card-btn">Choose Collection</button>
   </div>
@@ -1462,13 +1465,13 @@ body { background: #e7e4e6; }
     <div class="col-card-name text-sm md:text-2xl font-extrabold text-stone-800 mb-1 text-center">Signature</div>
     <div class="col-card-price text-2xl md:text-5xl font-bold text-stone-800 mb-1" style="letter-spacing: -0.02em;">$5,500</div>
     <div class="col-card-badge text-sm md:text-lg font-semibold text-stone-500 mb-4 pb-4 border-b border-stone-200 w-full text-center tracking-wide uppercase">150–200 Guests</div>
-    <ul class="w-full space-y-5 md:space-y-6 text-[11px] md:text-sm mb-6">
-      <li class="flex items-start gap-1.5 md:gap-2 text-stone-600 font-bold leading-tight whitespace-nowrap"><span class="check-icon flex-shrink-0 relative top-[2px]">✦</span>10 Hours of Photo Coverage</li>
-      <li class="flex items-start gap-1.5 md:gap-2 text-stone-600 font-bold leading-tight whitespace-nowrap"><span class="check-icon flex-shrink-0 relative top-[2px]">✦</span>1 Hour Engagement Session</li>
-      <li class="flex items-start gap-1.5 md:gap-2 text-stone-600 font-bold leading-tight whitespace-nowrap"><span class="check-icon flex-shrink-0 relative top-[2px]">✦</span>10×10 Album (50 Pages)</li>
-      <li class="flex items-start gap-1.5 md:gap-2 text-stone-600 font-bold leading-tight whitespace-nowrap"><span class="check-icon flex-shrink-0 relative top-[2px]">✦</span>2nd Photographer (10 Hrs)</li>
-      <li class="flex items-start gap-1.5 md:gap-2 text-stone-600 font-bold leading-tight whitespace-nowrap"><span class="check-icon flex-shrink-0 relative top-[2px]">✦</span>Online Gallery (2)</li>
-      <li class="flex items-start gap-1.5 md:gap-2 text-stone-600 font-bold leading-tight whitespace-nowrap"><span class="check-icon flex-shrink-0 relative top-[2px]">✦</span>Printing Rights</li>
+    <ul class="w-full space-y-5 md:space-y-6 text-[15px] md:text-xl mb-6">
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">10 Hours of Photo Coverage</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">1 Hour Engagement Session</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">10×10 Album (50 Pages)</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">2nd Photographer (10 Hrs)</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">Online Gallery (2)</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">Printing Rights</li>
     </ul>
     <button class="col-card-btn">Choose Collection</button>
   </div>
@@ -1478,13 +1481,13 @@ body { background: #e7e4e6; }
     <div class="col-card-name text-sm md:text-2xl font-extrabold text-stone-800 mb-1 text-center">Prestige</div>
     <div class="col-card-price text-2xl md:text-5xl font-bold text-stone-800 mb-1" style="letter-spacing: -0.02em;">$6,500</div>
     <div class="col-card-badge text-sm md:text-lg font-semibold text-stone-500 mb-4 pb-4 border-b border-stone-200 w-full text-center tracking-wide uppercase">200+ Guests</div>
-    <ul class="w-full space-y-5 md:space-y-6 text-[11px] md:text-sm mb-6">
-      <li class="flex items-start gap-1.5 md:gap-2 text-stone-600 font-bold leading-tight whitespace-nowrap"><span class="check-icon flex-shrink-0 relative top-[2px]">✦</span>12 Hours of Photo Coverage</li>
-      <li class="flex items-start gap-1.5 md:gap-2 text-stone-600 font-bold leading-tight whitespace-nowrap"><span class="check-icon flex-shrink-0 relative top-[2px]">✦</span>1 Hour Engagement Session</li>
-      <li class="flex items-start gap-1.5 md:gap-2 text-stone-600 font-bold leading-tight whitespace-nowrap"><span class="check-icon flex-shrink-0 relative top-[2px]">✦</span>12×12 Album (60 Pages)</li>
-      <li class="flex items-start gap-1.5 md:gap-2 text-stone-600 font-bold leading-tight whitespace-nowrap"><span class="check-icon flex-shrink-0 relative top-[2px]">✦</span>2nd Photographer (12 Hrs)</li>
-      <li class="flex items-start gap-1.5 md:gap-2 text-stone-600 font-bold leading-tight whitespace-nowrap"><span class="check-icon flex-shrink-0 relative top-[2px]">✦</span>Online Gallery (2)</li>
-      <li class="flex items-start gap-1.5 md:gap-2 text-stone-600 font-bold leading-tight whitespace-nowrap"><span class="check-icon flex-shrink-0 relative top-[2px]">✦</span>Printing Rights</li>
+    <ul class="w-full space-y-5 md:space-y-6 text-[15px] md:text-xl mb-6">
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">12 Hours of Photo Coverage</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">1.5 Hour Engagement Session</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">12×12 Album (60 Pages)</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">2nd Photographer (12 Hrs)</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">Online Gallery (2)</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">Printing Rights</li>
     </ul>
     <button class="col-card-btn">Choose Collection</button>
   </div>
@@ -1692,26 +1695,22 @@ body { background: #e7e4e6; }
   </div>
 </div>
 
-<div class="max-w-6xl mx-auto grid grid-cols-1 gap-3 md:gap-5">
-  <!-- Unlock More Credits -->
-  <div class="col-card flex flex-col p-[15px] md:p-[24px]" data-p-credits="unlock">
-    <div class="flex items-center gap-3 mb-3">
-      <img src="https://static.showit.co/file/oSrIOpGKGgGvXVnMdQL-AQ/293041/key.png" alt="key" class="w-10 h-10 md:w-12 md:h-12 object-contain">
-      <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800">Unlock More Credits</div>
-    </div>
-    <p class="text-xs md:text-base text-stone-500 leading-relaxed mb-4 italic">Want to save even more? We've got a couple easy ways for you to unlock extra credits toward your package!</p>
-    <div class="flex flex-col gap-4 mb-2">
-      <div>
-        <label class="anim-cb"><input type="checkbox" id="p_consultationCb" onchange="p_toggleUnlock(this)"><span class="checkmark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Book a Consultation</span> ($100 Credit)</span></label>
-        <p class="text-xs md:text-base text-stone-500 ml-11 italic" style="margin-top:-1px">Let's chat! Schedule a quick phone or video call and earn $100 toward your package.</p>
-      </div>
-      <div>
-        <label class="anim-cb"><input type="checkbox" id="p_instagramCb" onchange="p_toggleUnlock(this)"><span class="checkmark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Follow on Instagram</span> ($25 Credit)</span></label>
-        <p class="text-xs md:text-base text-stone-500 ml-11 italic" style="margin-top:-1px">Follow me on IG @ryansandsphotography and earn yourself a cool $25 credit.</p>
-      </div>
-    </div>
-  </div>
+<!-- Unlock More Credits Mini Header -->
+<div class="flex items-center justify-center gap-3 mb-2 mt-8">
+  <img src="https://static.showit.co/file/oSrIOpGKGgGvXVnMdQL-AQ/293041/key.png" alt="key" class="w-10 h-10 md:w-12 md:h-12 object-contain">
+  <div class="text-xs md:text-xl font-extrabold text-stone-800">Unlock More Credits</div>
+</div>
+<p class="text-center text-xs md:text-base text-stone-500 leading-relaxed mb-6 italic">Want to save even more? We've got a couple easy ways for you to unlock extra credits toward your package!</p>
 
+<div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+  <div class="col-card flex flex-col p-[15px] md:p-[24px]" data-p-credits="consultation">
+    <label class="anim-cb"><input type="checkbox" id="p_consultationCb" onchange="p_toggleUnlock(this)"><span class="checkmark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Book a Consultation</span> ($100 Credit)</span></label>
+    <p class="text-xs md:text-base text-stone-500 ml-11 italic" style="margin-top:-1px">Let's chat! Schedule a quick phone or video call and earn $100 toward your package.</p>
+  </div>
+  <div class="col-card flex flex-col p-[15px] md:p-[24px]" data-p-credits="instagram">
+    <label class="anim-cb"><input type="checkbox" id="p_instagramCb" onchange="p_toggleUnlock(this)"><span class="checkmark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Follow on Instagram</span> ($25 Credit)</span></label>
+    <p class="text-xs md:text-base text-stone-500 ml-11 italic" style="margin-top:-1px">Follow me on IG @ryansandsphotography and earn yourself a cool $25 credit.</p>
+  </div>
 </div>
 
 <!-- Choose a Payment Plan -->
@@ -1721,7 +1720,7 @@ body { background: #e7e4e6; }
 </div>
 <p class="text-center text-stone-500 text-base md:text-lg mb-10">Select your wedding date and choose a payment schedule</p>
 
-<div class="max-w-6xl mx-auto">
+<div class="max-w-4xl mx-auto">
   <div class="col-card p-[15px] md:p-[24px]" data-p-payment="plan">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
 
@@ -1864,10 +1863,10 @@ body { background: #e7e4e6; }
     <div class="col-card-name text-sm md:text-2xl font-extrabold text-stone-800 mb-1 text-center">Bronze</div>
     <div class="col-card-price text-2xl md:text-5xl font-bold text-stone-800 mb-1" style="letter-spacing: -0.02em;">$1,800</div>
     <div class="col-card-badge text-sm md:text-lg font-semibold text-stone-500 mb-4 pb-4 border-b border-stone-200 w-full text-center tracking-wide uppercase">50–100 Guests</div>
-    <ul class="w-full space-y-5 md:space-y-6 text-[11px] md:text-sm mb-6">
-      <li class="flex items-start gap-1.5 md:gap-2 text-stone-600 font-bold leading-tight whitespace-nowrap"><span class="check-icon flex-shrink-0 relative top-[2px]">✦</span>6 Hours Video Coverage</li>
-      <li class="flex items-start gap-1.5 md:gap-2 text-stone-600 font-bold leading-tight whitespace-nowrap"><span class="check-icon flex-shrink-0 relative top-[2px]">✦</span>3–4 Min Highlight Reel</li>
-      <li class="flex items-start gap-1.5 md:gap-2 text-stone-600 font-bold leading-tight whitespace-nowrap"><span class="check-icon flex-shrink-0 relative top-[2px]">✦</span>1–1.5 Hour Feature Film</li>
+    <ul class="w-full space-y-5 md:space-y-6 text-[15px] md:text-xl mb-6">
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">6 Hours Video Coverage</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">3–4 Min Highlight Reel</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">1–1.5 Hour Feature Film</li>
     </ul>
     <button class="col-card-btn">Choose Collection</button>
   </div>
@@ -1877,10 +1876,10 @@ body { background: #e7e4e6; }
     <div class="col-card-name text-sm md:text-2xl font-extrabold text-stone-800 mb-1 text-center">Silver</div>
     <div class="col-card-price text-2xl md:text-5xl font-bold text-stone-800 mb-1" style="letter-spacing: -0.02em;">$2,400</div>
     <div class="col-card-badge text-sm md:text-lg font-semibold text-stone-500 mb-4 pb-4 border-b border-stone-200 w-full text-center tracking-wide uppercase">100–150 Guests</div>
-    <ul class="w-full space-y-5 md:space-y-6 text-[11px] md:text-sm mb-6">
-      <li class="flex items-start gap-1.5 md:gap-2 text-stone-600 font-bold leading-tight whitespace-nowrap"><span class="check-icon flex-shrink-0 relative top-[2px]">✦</span>8 Hours Video Coverage</li>
-      <li class="flex items-start gap-1.5 md:gap-2 text-stone-600 font-bold leading-tight whitespace-nowrap"><span class="check-icon flex-shrink-0 relative top-[2px]">✦</span>3–4 Min Highlight Reel</li>
-      <li class="flex items-start gap-1.5 md:gap-2 text-stone-600 font-bold leading-tight whitespace-nowrap"><span class="check-icon flex-shrink-0 relative top-[2px]">✦</span>1–1.5 Hour Feature Film</li>
+    <ul class="w-full space-y-5 md:space-y-6 text-[15px] md:text-xl mb-6">
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">8 Hours Video Coverage</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">3–4 Min Highlight Reel</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">1–1.5 Hour Feature Film</li>
     </ul>
     <button class="col-card-btn">Choose Collection</button>
   </div>
@@ -1890,10 +1889,10 @@ body { background: #e7e4e6; }
     <div class="col-card-name text-sm md:text-2xl font-extrabold text-stone-800 mb-1 text-center">Gold</div>
     <div class="col-card-price text-2xl md:text-5xl font-bold text-stone-800 mb-1" style="letter-spacing: -0.02em;">$3,000</div>
     <div class="col-card-badge text-sm md:text-lg font-semibold text-stone-500 mb-4 pb-4 border-b border-stone-200 w-full text-center tracking-wide uppercase">Most Popular</div>
-    <ul class="w-full space-y-5 md:space-y-6 text-[11px] md:text-sm mb-6">
-      <li class="flex items-start gap-1.5 md:gap-2 text-stone-600 font-bold leading-tight whitespace-nowrap"><span class="check-icon flex-shrink-0 relative top-[2px]">✦</span>10 Hours Video Coverage</li>
-      <li class="flex items-start gap-1.5 md:gap-2 text-stone-600 font-bold leading-tight whitespace-nowrap"><span class="check-icon flex-shrink-0 relative top-[2px]">✦</span>3–4 Min Highlight Reel</li>
-      <li class="flex items-start gap-1.5 md:gap-2 text-stone-600 font-bold leading-tight whitespace-nowrap"><span class="check-icon flex-shrink-0 relative top-[2px]">✦</span>1–1.5 Hour Feature Film</li>
+    <ul class="w-full space-y-5 md:space-y-6 text-[15px] md:text-xl mb-6">
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">10 Hours Video Coverage</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">3–4 Min Highlight Reel</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">1–1.5 Hour Feature Film</li>
     </ul>
     <button class="col-card-btn">Choose Collection</button>
   </div>
@@ -1903,10 +1902,10 @@ body { background: #e7e4e6; }
     <div class="col-card-name text-sm md:text-2xl font-extrabold text-stone-800 mb-1 text-center">Platinum</div>
     <div class="col-card-price text-2xl md:text-5xl font-bold text-stone-800 mb-1" style="letter-spacing: -0.02em;">$3,600</div>
     <div class="col-card-badge text-sm md:text-lg font-semibold text-stone-500 mb-4 pb-4 border-b border-stone-200 w-full text-center tracking-wide uppercase">150+ Guests</div>
-    <ul class="w-full space-y-5 md:space-y-6 text-[11px] md:text-sm mb-6">
-      <li class="flex items-start gap-1.5 md:gap-2 text-stone-600 font-bold leading-tight whitespace-nowrap"><span class="check-icon flex-shrink-0 relative top-[2px]">✦</span>12 Hours Video Coverage</li>
-      <li class="flex items-start gap-1.5 md:gap-2 text-stone-600 font-bold leading-tight whitespace-nowrap"><span class="check-icon flex-shrink-0 relative top-[2px]">✦</span>3–4 Min Highlight Reel</li>
-      <li class="flex items-start gap-1.5 md:gap-2 text-stone-600 font-bold leading-tight whitespace-nowrap"><span class="check-icon flex-shrink-0 relative top-[2px]">✦</span>1–1.5 Hour Feature Film</li>
+    <ul class="w-full space-y-5 md:space-y-6 text-[15px] md:text-xl mb-6">
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">12 Hours Video Coverage</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">3–4 Min Highlight Reel</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">1–1.5 Hour Feature Film</li>
     </ul>
     <button class="col-card-btn">Choose Collection</button>
   </div>
@@ -1920,7 +1919,7 @@ body { background: #e7e4e6; }
 </div>
 <p class="text-center text-stone-500 text-base md:text-lg mb-10">Select your wedding date and choose a payment schedule</p>
 
-<div class="max-w-6xl mx-auto">
+<div class="max-w-4xl mx-auto">
   <div class="col-card p-[15px] md:p-[24px]" data-v-payment="plan">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
 
@@ -2061,7 +2060,7 @@ const collections = {
   ]},
   prestige: {name: 'Prestige Collection', price: 6500, items: [
     {name: '12 Hours of Photography Coverage', value: 0, removable: false},
-    {name: '1 Hour Engagement Session', value: 600, removable: true, id: 'engagement'},
+    {name: '1.5 Hour Engagement Session', value: 600, removable: true, id: 'engagement'},
     {name: '12x12 Album (60 Pages)', value: 500, removable: true},
     {name: '2nd Photographer (12 Hrs)', value: 1800, removable: true, id: 'second_photographer'},
     {name: 'Online Gallery (2)', value: 0, removable: false, id: 'online_gallery'},
@@ -2112,6 +2111,7 @@ function selectCollection(card) {
     removedItems = [];
   }
   renderInvestment();
+  updatePaymentSchedule();
 }
 
 // Coverage +/- buttons
@@ -2368,10 +2368,15 @@ function selectPayPlan(radio) {
 function calculatePaymentSchedule(total, weddingDateObj, planType) {
   if (!weddingDateObj) return null;
   const today = new Date();
-  const daysUntil = Math.ceil((weddingDateObj - today) / (1000 * 60 * 60 * 24));
+  today.setHours(0, 0, 0, 0);
+  const weddingCopy = new Date(weddingDateObj);
+  weddingCopy.setHours(0, 0, 0, 0);
+  const daysUntil = Math.round((weddingCopy - today) / (1000 * 60 * 60 * 24));
   if (daysUntil < 1) return null;
   const retainer = 1000;
   const remaining = total - retainer;
+  // Calculate months using actual calendar difference
+  const monthsUntil = (weddingCopy.getFullYear() - today.getFullYear()) * 12 + (weddingCopy.getMonth() - today.getMonth());
   if (planType === 'day_of') {
     return { type: 'Day of Your Wedding', payments: [{amount: remaining, date: new Date(weddingDateObj), label: 'Final Payment (day of wedding)'}], isMonthly: false };
   }
@@ -2382,14 +2387,12 @@ function calculatePaymentSchedule(total, weddingDateObj, planType) {
     return { type: '15 Days Before Wedding', payments: [{amount: remaining, date: dueDate, label: 'Final Payment (15 days before wedding)'}], isMonthly: false };
   }
   if (planType === 'monthly') {
-    const months = Math.floor(daysUntil / 30);
-    if (months < 2) return null;
-    return { type: 'Monthly Payments', payments: [{amount: remaining / months, count: months, label: 'Monthly Payment'}], isMonthly: true };
+    if (monthsUntil < 2) return null;
+    return { type: 'Monthly Payments', payments: [{amount: remaining / monthsUntil, count: monthsUntil, label: 'Monthly Payment'}], isMonthly: true };
   }
   if (planType === '3_months') {
-    const months = Math.floor(daysUntil / 30);
-    if (months < 3) return null;
-    const n = Math.floor(months / 3);
+    if (monthsUntil < 3) return null;
+    const n = Math.floor(monthsUntil / 3);
     if (n < 1) return null;
     const amt = remaining / n;
     const payments = [];
@@ -2397,9 +2400,8 @@ function calculatePaymentSchedule(total, weddingDateObj, planType) {
     return { type: 'Every 3 Months', payments, isMonthly: false };
   }
   if (planType === '6_months') {
-    const months = Math.floor(daysUntil / 30);
-    if (months < 6) return null;
-    const n = Math.floor(months / 6);
+    if (monthsUntil < 6) return null;
+    const n = Math.floor(monthsUntil / 6);
     if (n < 1) return null;
     const amt = remaining / n;
     const payments = [];
@@ -2453,14 +2455,16 @@ function getEstimatedTotal() {
 }
 
 function updatePaymentSchedule() {
-  const total = getEstimatedTotal();
-  const schedule = calculatePaymentSchedule(total, weddingDate, paymentPlan);
   const display = document.getElementById('paymentScheduleDisplay');
   const tooSoon = document.getElementById('paymentTooSoon');
+  if (!weddingDate) { display.innerHTML = ''; renderInvestment(); return; }
+  const total = getEstimatedTotal();
+  const schedule = calculatePaymentSchedule(total, weddingDate, paymentPlan);
 
   if (!schedule) {
     display.innerHTML = '';
     tooSoon.classList.remove('hidden');
+    renderInvestment();
     return;
   }
   tooSoon.classList.add('hidden');
@@ -2751,14 +2755,18 @@ function resetAll() {
   // Reset calendar
   weddingDate = null;
   paymentPlan = '15_days';
+  const now = new Date();
+  viewYear = now.getFullYear();
+  viewMonth = now.getMonth();
+  setYear(viewYear);
   document.getElementById('selectedDateDisplay').classList.add('hidden');
   document.getElementById('payPlanOptions').classList.add('hidden');
   document.getElementById('pickDatePrompt').classList.remove('hidden');
   document.getElementById('paymentScheduleDisplay').innerHTML = '';
+  document.getElementById('paymentTooSoon').classList.add('hidden');
   document.querySelectorAll('[name="payPlan"]').forEach(r => { r.checked = false; });
   const planLabels = document.querySelectorAll('[data-payment="plan"] .anim-radio');
   planLabels.forEach(l => { const txt = l.querySelector('span:last-child'); txt.className = 'text-stone-700'; txt.style.fontSize = '17px'; });
-  renderDays();
   renderInvestment();
 }
 
@@ -2908,6 +2916,7 @@ function p_selectCollection(card) {
   }
   p_renderCustomize();
   p_renderInvestment();
+  p_updatePaymentSchedule();
 }
 
 function p_adjustQty(btn, delta) {
@@ -2928,6 +2937,7 @@ function p_adjustQty(btn, delta) {
   if (qty > 0) { card.classList.add('coverage-active'); resetBtn.style.opacity = '1'; resetBtn.style.pointerEvents = 'auto'; }
   else { card.classList.remove('coverage-active'); resetBtn.style.opacity = '0.35'; resetBtn.style.pointerEvents = 'none'; }
   p_renderInvestment();
+  p_updatePaymentSchedule();
 }
 
 function p_resetQty(btn) {
@@ -2936,6 +2946,7 @@ function p_resetQty(btn) {
   card.classList.remove('coverage-active');
   btn.style.opacity = '0.35'; btn.style.pointerEvents = 'none';
   p_renderInvestment();
+  p_updatePaymentSchedule();
 }
 
 function p_adjustAlbumQty(btn, delta) {
@@ -2948,6 +2959,7 @@ function p_adjustAlbumQty(btn, delta) {
   if (qty > 0) { card.classList.add('coverage-active'); resetBtn.style.opacity = '1'; resetBtn.style.pointerEvents = 'auto'; }
   else { card.classList.remove('coverage-active'); resetBtn.style.opacity = '0.35'; resetBtn.style.pointerEvents = 'none'; }
   p_renderInvestment();
+  p_updatePaymentSchedule();
 }
 
 function p_resetAlbumQty(btn) {
@@ -2956,6 +2968,7 @@ function p_resetAlbumQty(btn) {
   card.classList.remove('coverage-active');
   btn.style.opacity = '0.35'; btn.style.pointerEvents = 'none';
   p_renderInvestment();
+  p_updatePaymentSchedule();
 }
 
 const p_hourlyServices = ['bridal_shower', 'rehearsal_dinner'];
@@ -2975,6 +2988,7 @@ function p_adjustServiceQty(btn, delta) {
   if (qty > 0) { card.classList.add('coverage-active'); resetBtn.style.opacity = '1'; resetBtn.style.pointerEvents = 'auto'; }
   else { card.classList.remove('coverage-active'); resetBtn.style.opacity = '0.35'; resetBtn.style.pointerEvents = 'none'; }
   p_renderInvestment();
+  p_updatePaymentSchedule();
 }
 
 function p_resetServiceQty(btn) {
@@ -2984,6 +2998,7 @@ function p_resetServiceQty(btn) {
   card.classList.remove('coverage-active');
   btn.style.opacity = '0.35'; btn.style.pointerEvents = 'none';
   p_renderInvestment();
+  p_updatePaymentSchedule();
 }
 
 function p_toggleCreditCard(card) {
@@ -2999,6 +3014,7 @@ function p_toggleCreditCard(card) {
     else { c.style.opacity = '1'; c.style.pointerEvents = 'auto'; }
   });
   p_renderInvestment();
+  p_updatePaymentSchedule();
 }
 
 function p_toggleUnlock(cb) {
@@ -3007,6 +3023,7 @@ function p_toggleUnlock(cb) {
   txt.className = cb.checked ? 'text-green-700' : 'text-stone-700';
   txt.style.fontSize = '17px';
   p_renderInvestment();
+  p_updatePaymentSchedule();
 }
 
 function p_selectPayMethodCard(card) {
@@ -3103,15 +3120,16 @@ function p_getEstimatedTotal() {
   if (instaCb && instaCb.checked) total -= 25;
   if (p_paymentMethod === 'cash') total -= 50;
   if (p_paymentMethod === 'credit') total *= 1.05;
-  return total || 3000;
+  return total;
 }
 
 function p_updatePaymentSchedule() {
-  const total = p_getEstimatedTotal();
-  const schedule = calculatePaymentSchedule(total, p_weddingDate, p_paymentPlan);
   const display = document.getElementById('p_paymentScheduleDisplay');
   const tooSoon = document.getElementById('p_paymentTooSoon');
-  if (!schedule) { display.innerHTML = ''; tooSoon.classList.remove('hidden'); return; }
+  if (!p_weddingDate) { display.innerHTML = ''; p_renderInvestment(); return; }
+  const total = p_getEstimatedTotal();
+  const schedule = calculatePaymentSchedule(total, p_weddingDate, p_paymentPlan);
+  if (!schedule) { display.innerHTML = ''; tooSoon.classList.remove('hidden'); p_renderInvestment(); return; }
   tooSoon.classList.add('hidden');
   const fmtDate = (d) => d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
   const fmtMoney = (n) => '$' + n.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
@@ -3243,13 +3261,17 @@ function p_resetAll() {
   const p_payMethodGrid = document.getElementById('p_payMethodGrid');
   if (p_payMethodGrid) { p_payMethodGrid.querySelectorAll('[data-p-pay-method]').forEach(c => { c.classList.toggle('col-active', c.dataset.pPayMethod === 'venmo'); }); }
   p_weddingDate = null; p_paymentPlan = '15_days';
+  const p_now = new Date();
+  p_viewYear = p_now.getFullYear();
+  p_viewMonth = p_now.getMonth();
+  p_setYear(p_viewYear);
   document.getElementById('p_selectedDateDisplay').classList.add('hidden');
   document.getElementById('p_payPlanOptions').classList.add('hidden');
   document.getElementById('p_pickDatePrompt').classList.remove('hidden');
   document.getElementById('p_paymentScheduleDisplay').innerHTML = '';
+  document.getElementById('p_paymentTooSoon').classList.add('hidden');
   document.querySelectorAll('[name="p_payPlan"]').forEach(r => r.checked = false);
   document.querySelectorAll('[data-p-payment="plan"] .anim-radio').forEach(l => { const txt = l.querySelector('span:last-child'); txt.className = 'text-stone-700'; txt.style.fontSize = '17px'; });
-  p_renderDays();
   p_renderCustomize();
   p_renderInvestment();
 }
@@ -3292,6 +3314,7 @@ function v_selectCollection(card) {
     v_currentCollection = null;
   }
   v_renderInvestment();
+  v_updatePaymentSchedule();
 }
 
 function v_selectPayMethodCard(card) {
@@ -3381,11 +3404,12 @@ function v_getEstimatedTotal() {
 }
 
 function v_updatePaymentSchedule() {
-  const total = v_getEstimatedTotal();
-  const schedule = calculatePaymentSchedule(total, v_weddingDate, v_paymentPlan);
   const display = document.getElementById('v_paymentScheduleDisplay');
   const tooSoon = document.getElementById('v_paymentTooSoon');
-  if (!schedule) { display.innerHTML = ''; tooSoon.classList.remove('hidden'); return; }
+  if (!v_weddingDate) { display.innerHTML = ''; v_renderInvestment(); return; }
+  const total = v_getEstimatedTotal();
+  const schedule = calculatePaymentSchedule(total, v_weddingDate, v_paymentPlan);
+  if (!schedule) { display.innerHTML = ''; tooSoon.classList.remove('hidden'); v_renderInvestment(); return; }
   tooSoon.classList.add('hidden');
   const fmtDate = (d) => d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
   const fmtMoney = (n) => '$' + n.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
@@ -3457,13 +3481,17 @@ function v_resetAll() {
   const v_payMethodGridReset = document.getElementById('v_payMethodGrid');
   if (v_payMethodGridReset) { v_payMethodGridReset.querySelectorAll('[data-v-pay-method]').forEach(c => { c.classList.toggle('col-active', c.dataset.vPayMethod === 'venmo'); }); }
   v_weddingDate = null; v_paymentPlan = '15_days';
+  const v_now = new Date();
+  v_viewYear = v_now.getFullYear();
+  v_viewMonth = v_now.getMonth();
+  v_setYear(v_viewYear);
   document.getElementById('v_selectedDateDisplay').classList.add('hidden');
   document.getElementById('v_payPlanOptions').classList.add('hidden');
   document.getElementById('v_pickDatePrompt').classList.remove('hidden');
   document.getElementById('v_paymentScheduleDisplay').innerHTML = '';
+  document.getElementById('v_paymentTooSoon').classList.add('hidden');
   document.querySelectorAll('[name="v_payPlan"]').forEach(r => r.checked = false);
   document.querySelectorAll('[data-v-payment="plan"] .anim-radio').forEach(l => { const txt = l.querySelector('span:last-child'); txt.className = 'text-stone-700'; txt.style.fontSize = '17px'; });
-  v_renderDays();
   v_renderInvestment();
 }
 
