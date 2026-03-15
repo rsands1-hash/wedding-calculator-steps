@@ -2657,26 +2657,33 @@ function renderInvestment() {
     html += `<div class="flex justify-between items-center text-sm md:text-base text-stone-600"><p>Credit Card Fee (5%)</p><p>+${fmtMoney(feeAmount)}</p></div>`;
   }
 
+  const isCash = paymentMethod === 'cash';
+  const strikeStyle = isCash ? 'text-decoration: line-through; text-decoration-color: red; text-decoration-thickness: 2px;' : '';
+
   if (paymentPlan) {
-    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Payment Plan</p><p class="text-stone-800">${payPlanLabels[paymentPlan] || paymentPlan}</p></div>`;
+    html += `<div class="flex justify-between items-center text-sm md:text-base" style="${strikeStyle}"><p class="text-stone-600">Payment Plan</p><p class="text-stone-800">${payPlanLabels[paymentPlan] || paymentPlan}</p></div>`;
   }
 
   // Payment schedule breakdown
   const fmtDate = (d) => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-  html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Retainer (due at signing)</p><p class="text-stone-800">${fmtMoney(1000)}</p></div>`;
+  if (isCash) {
+    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Full Payment (due within 14 days)</p><p class="text-stone-800">${fmtMoney(total)}</p></div>`;
+  } else {
+    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Retainer (due at signing)</p><p class="text-stone-800">${fmtMoney(1000)}</p></div>`;
+  }
   if (weddingDate && paymentPlan) {
     const schedule = calculatePaymentSchedule(total, weddingDate, paymentPlan);
     if (schedule) {
       if (schedule.isMonthly) {
         const p = schedule.payments[0];
-        html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">${p.count} Monthly Payments</p><p class="text-stone-800">${fmtMoney(p.amount)}/mo</p></div>`;
+        html += `<div class="flex justify-between items-center text-sm md:text-base" style="${strikeStyle}"><p class="text-stone-600">${p.count} Monthly Payments</p><p class="text-stone-800">${fmtMoney(p.amount)}/mo</p></div>`;
       } else {
         schedule.payments.forEach(p => {
-          html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">${p.label} (${fmtDate(p.date)})</p><p class="text-stone-800">${fmtMoney(p.amount)}</p></div>`;
+          html += `<div class="flex justify-between items-center text-sm md:text-base" style="${strikeStyle}"><p class="text-stone-600">${p.label} (${fmtDate(p.date)})</p><p class="text-stone-800">${fmtMoney(p.amount)}</p></div>`;
         });
       }
     }
-  } else {
+  } else if (!isCash) {
     html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Remaining Balance</p><p class="text-stone-800">${fmtMoney(total - 1000)}</p></div>`;
   }
 
@@ -2702,6 +2709,7 @@ function renderInvestment() {
 
 function handleGetQuote() {
   document.getElementById('quoteModal').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
   window.parent.postMessage({scrollToCalc: true}, '*');
 }
 
@@ -3226,19 +3234,26 @@ function p_renderInvestment() {
   html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Payment Method</p><p class="text-stone-800">${payMethodLabels[p_paymentMethod] || p_paymentMethod}</p></div>`;
   if (p_paymentMethod === 'cash') { html += '<div class="flex justify-between items-center text-sm md:text-base text-green-700"><p>Cash Discount</p><p>-$50</p></div>'; html += `<p class="text-sm md:text-base text-stone-500 mt-2 italic">*To qualify for the $50 cash discount, your entire balance must be paid in physical cash within 14 days of signing your contract. Digital payments such as Venmo, Zelle, and PayPal do not qualify.</p>`; }
   if (p_paymentMethod === 'credit') { const ccTotal = p_getEstimatedTotal(); const feeAmount = (ccTotal / 1.05) * 0.05; html += `<div class="flex justify-between items-center text-sm md:text-base text-stone-600"><p>Credit Card Fee (5%)</p><p>+${fmtMoney(feeAmount)}</p></div>`; }
-  if (p_paymentPlan) { html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Payment Plan</p><p class="text-stone-800">${payPlanLabels[p_paymentPlan] || p_paymentPlan}</p></div>`; }
+  const p_isCash = p_paymentMethod === 'cash';
+  const p_strikeStyle = p_isCash ? 'text-decoration: line-through; text-decoration-color: red; text-decoration-thickness: 2px;' : '';
+
+  if (p_paymentPlan) { html += `<div class="flex justify-between items-center text-sm md:text-base" style="${p_strikeStyle}"><p class="text-stone-600">Payment Plan</p><p class="text-stone-800">${payPlanLabels[p_paymentPlan] || p_paymentPlan}</p></div>`; }
 
   // Payment schedule breakdown
   const p_fmtDate = (d) => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
   const p_schedTotal = p_getEstimatedTotal();
-  html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Retainer (due at signing)</p><p class="text-stone-800">${fmtMoney(1000)}</p></div>`;
+  if (p_isCash) {
+    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Full Payment (due within 14 days)</p><p class="text-stone-800">${fmtMoney(p_schedTotal)}</p></div>`;
+  } else {
+    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Retainer (due at signing)</p><p class="text-stone-800">${fmtMoney(1000)}</p></div>`;
+  }
   if (p_weddingDate && p_paymentPlan) {
     const schedule = calculatePaymentSchedule(p_schedTotal, p_weddingDate, p_paymentPlan);
     if (schedule) {
-      if (schedule.isMonthly) { const p = schedule.payments[0]; html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">${p.count} Monthly Payments</p><p class="text-stone-800">${fmtMoney(p.amount)}/mo</p></div>`; }
-      else { schedule.payments.forEach(p => { html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">${p.label} (${p_fmtDate(p.date)})</p><p class="text-stone-800">${fmtMoney(p.amount)}</p></div>`; }); }
+      if (schedule.isMonthly) { const p = schedule.payments[0]; html += `<div class="flex justify-between items-center text-sm md:text-base" style="${p_strikeStyle}"><p class="text-stone-600">${p.count} Monthly Payments</p><p class="text-stone-800">${fmtMoney(p.amount)}/mo</p></div>`; }
+      else { schedule.payments.forEach(p => { html += `<div class="flex justify-between items-center text-sm md:text-base" style="${p_strikeStyle}"><p class="text-stone-600">${p.label} (${p_fmtDate(p.date)})</p><p class="text-stone-800">${fmtMoney(p.amount)}</p></div>`; }); }
     }
-  } else {
+  } else if (!p_isCash) {
     html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Remaining Balance</p><p class="text-stone-800">${fmtMoney(p_schedTotal - 1000)}</p></div>`;
   }
 
@@ -3253,7 +3268,7 @@ function p_renderInvestment() {
   container.innerHTML = html;
 }
 
-function p_handleGetQuote() { document.getElementById('quoteModal').style.display = 'block'; window.parent.postMessage({scrollToCalc: true}, '*'); }
+function p_handleGetQuote() { document.getElementById('quoteModal').style.display = 'block'; window.scrollTo({ top: 0, behavior: 'smooth' }); window.parent.postMessage({scrollToCalc: true}, '*'); }
 
 function p_resetAll() {
   p_currentCollection = null; p_removedItems = [];
@@ -3462,18 +3477,25 @@ function v_renderInvestment() {
   html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Payment Method</p><p class="text-stone-800">${payMethodLabels[v_paymentMethod] || v_paymentMethod}</p></div>`;
   if (v_paymentMethod === 'cash') { html += '<div class="flex justify-between items-center text-sm md:text-base text-green-700"><p>Cash Discount</p><p>-$50</p></div>'; html += `<p class="text-sm md:text-base text-stone-500 mt-2 italic">*To qualify for the $50 cash discount, your entire balance must be paid in physical cash within 14 days of signing your contract. Digital payments such as Venmo, Zelle, and PayPal do not qualify.</p>`; }
   if (v_paymentMethod === 'credit') { const ccTotal = v_getEstimatedTotal(); const feeAmount = (ccTotal / 1.05) * 0.05; html += `<div class="flex justify-between items-center text-sm md:text-base text-stone-600"><p>Credit Card Fee (5%)</p><p>+${fmtMoney(feeAmount)}</p></div>`; }
-  if (v_paymentPlan) { html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Payment Plan</p><p class="text-stone-800">${payPlanLabels[v_paymentPlan] || v_paymentPlan}</p></div>`; }
+  const v_isCash = v_paymentMethod === 'cash';
+  const v_strikeStyle = v_isCash ? 'text-decoration: line-through; text-decoration-color: red; text-decoration-thickness: 2px;' : '';
+
+  if (v_paymentPlan) { html += `<div class="flex justify-between items-center text-sm md:text-base" style="${v_strikeStyle}"><p class="text-stone-600">Payment Plan</p><p class="text-stone-800">${payPlanLabels[v_paymentPlan] || v_paymentPlan}</p></div>`; }
 
   const v_fmtDate = (d) => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
   const v_schedTotal = v_getEstimatedTotal();
-  html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Retainer (due at signing)</p><p class="text-stone-800">${fmtMoney(1000)}</p></div>`;
+  if (v_isCash) {
+    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Full Payment (due within 14 days)</p><p class="text-stone-800">${fmtMoney(v_schedTotal)}</p></div>`;
+  } else {
+    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Retainer (due at signing)</p><p class="text-stone-800">${fmtMoney(1000)}</p></div>`;
+  }
   if (v_weddingDate && v_paymentPlan) {
     const schedule = calculatePaymentSchedule(v_schedTotal, v_weddingDate, v_paymentPlan);
     if (schedule) {
-      if (schedule.isMonthly) { const p = schedule.payments[0]; html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">${p.count} Monthly Payments</p><p class="text-stone-800">${fmtMoney(p.amount)}/mo</p></div>`; }
-      else { schedule.payments.forEach(p => { html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">${p.label} (${v_fmtDate(p.date)})</p><p class="text-stone-800">${fmtMoney(p.amount)}</p></div>`; }); }
+      if (schedule.isMonthly) { const p = schedule.payments[0]; html += `<div class="flex justify-between items-center text-sm md:text-base" style="${v_strikeStyle}"><p class="text-stone-600">${p.count} Monthly Payments</p><p class="text-stone-800">${fmtMoney(p.amount)}/mo</p></div>`; }
+      else { schedule.payments.forEach(p => { html += `<div class="flex justify-between items-center text-sm md:text-base" style="${v_strikeStyle}"><p class="text-stone-600">${p.label} (${v_fmtDate(p.date)})</p><p class="text-stone-800">${fmtMoney(p.amount)}</p></div>`; }); }
     }
-  } else {
+  } else if (!v_isCash) {
     html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Remaining Balance</p><p class="text-stone-800">${fmtMoney(v_schedTotal - 1000)}</p></div>`;
   }
 
@@ -3487,7 +3509,7 @@ function v_renderInvestment() {
   container.innerHTML = html;
 }
 
-function v_handleGetQuote() { document.getElementById('quoteModal').style.display = 'block'; window.parent.postMessage({scrollToCalc: true}, '*'); }
+function v_handleGetQuote() { document.getElementById('quoteModal').style.display = 'block'; window.scrollTo({ top: 0, behavior: 'smooth' }); window.parent.postMessage({scrollToCalc: true}, '*'); }
 
 function v_resetAll() {
   v_currentCollection = null;
@@ -3523,6 +3545,26 @@ function resetEverything() {
     if (label) label.textContent = '+1 hr';
   }
 }
+
+// ===== Phone Number Auto-Formatting =====
+document.addEventListener('DOMContentLoaded', function() {
+  const phoneInput = document.getElementById('clientPhone');
+  if (phoneInput) {
+    phoneInput.addEventListener('input', function(e) {
+      let digits = this.value.replace(/\D/g, '');
+      if (digits.length > 10) digits = digits.substring(0, 10);
+      let formatted = '';
+      if (digits.length > 6) {
+        formatted = digits.substring(0, 3) + '-' + digits.substring(3, 6) + '-' + digits.substring(6);
+      } else if (digits.length > 3) {
+        formatted = digits.substring(0, 3) + '-' + digits.substring(3);
+      } else {
+        formatted = digits;
+      }
+      this.value = formatted;
+    });
+  }
+});
 
 // ===== Quote Modal & Submission =====
 function closeQuoteModal() {
@@ -4042,7 +4084,7 @@ v_initCalendar();
       </div>
       <div>
         <label style="display:block;color:#57534e;font-weight:500;margin-bottom:0.5rem;font-size:0.95rem;">Phone Number (Optional)</label>
-        <input type="tel" id="clientPhone" placeholder="(555) 123-4567" style="width:100%;padding:0.5rem 1rem;background:#f5f5f4;border:2px solid #a8a29e;border-radius:0.5rem;font-size:1rem;box-sizing:border-box;">
+        <input type="tel" id="clientPhone" placeholder="555-123-4567" style="width:100%;padding:0.5rem 1rem;background:#f5f5f4;border:2px solid #a8a29e;border-radius:0.5rem;font-size:1rem;box-sizing:border-box;">
       </div>
       <div id="submitStatus" style="display:none;"></div>
       <div style="display:flex;gap:0.75rem;padding-top:0.5rem;">
