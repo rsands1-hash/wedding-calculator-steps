@@ -118,9 +118,9 @@ body { background: #e7e4e6; }
   font-size: 1rem !important;
   line-height: 1.2 !important;
 }
-[data-pay-method] > p:last-of-type,
-[data-p-pay-method] > p:last-of-type,
-[data-v-pay-method] > p:last-of-type {
+[data-pay-method] > p:last-of-type:not(:first-of-type),
+[data-p-pay-method] > p:last-of-type:not(:first-of-type),
+[data-v-pay-method] > p:last-of-type:not(:first-of-type) {
   font-size: 0.8rem !important;
 }
 @media (min-width: 768px) {
@@ -141,9 +141,9 @@ body { background: #e7e4e6; }
   [data-v-pay-method] > p:first-of-type {
     font-size: 1.25rem !important;
   }
-  [data-pay-method] > p:last-of-type,
-  [data-p-pay-method] > p:last-of-type,
-  [data-v-pay-method] > p:last-of-type {
+  [data-pay-method] > p:last-of-type:not(:first-of-type),
+  [data-p-pay-method] > p:last-of-type:not(:first-of-type),
+  [data-v-pay-method] > p:last-of-type:not(:first-of-type) {
     font-size: 1rem !important;
   }
 }
@@ -1237,7 +1237,7 @@ body { background: #e7e4e6; }
 
 <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-4 mb-10" id="serviceCreditsList">
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-credit="law_enforcement" onclick="toggleCreditCard(this)">
-    <img src="https://static.showit.co/file/dr9_VGpMzgNOYxe5J6bdiQ/293041/police.png" alt="Police" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3">
+    <img src="https://static.showit.co/file/dr9_VGpMzgNOYxe5J6bdiQ/293041/police.png" alt="Police" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3" style="transform: scaleX(-1)">
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Police Officer</p>
     <p class="text-sm md:text-base text-green-600 text-center">$50 Credit</p>
   </div>
@@ -1247,7 +1247,7 @@ body { background: #e7e4e6; }
     <p class="text-sm md:text-base text-green-600 text-center">$50 Credit</p>
   </div>
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-credit="emt" onclick="toggleCreditCard(this)">
-    <img src="https://static.showit.co/file/l9WERuLpJwxwjDKuLhxuvw/293041/emt.png" alt="EMT" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3">
+    <img src="https://static.showit.co/file/l9WERuLpJwxwjDKuLhxuvw/293041/emt.png" alt="EMT" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3" style="transform: scaleX(-1)">
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">EMT</p>
     <p class="text-sm md:text-base text-green-600 text-center">$50 Credit</p>
   </div>
@@ -1256,18 +1256,18 @@ body { background: #e7e4e6; }
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Nurse</p>
     <p class="text-sm md:text-base text-green-600 text-center">$50 Credit</p>
   </div>
+  <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-credit="teacher" onclick="toggleCreditCard(this)">
+    <img src="https://static.showit.co/file/0ykozwXusradv-95nF8Hrw/293041/teacher.png" alt="Teacher" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3" style="transform: scaleX(-1)">
+    <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Teacher</p>
+    <p class="text-sm md:text-base text-green-600 text-center">$50 Credit</p>
+  </div>
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-credit="military" onclick="toggleCreditCard(this)">
     <img src="https://static.showit.co/file/UXKgFtqqmaYXGOsIoHB2nQ/293041/military.png" alt="Military" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3">
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Military</p>
     <p class="text-sm md:text-base text-green-600 text-center">$50 Credit</p>
   </div>
-  <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-credit="teacher" onclick="toggleCreditCard(this)">
-    <img src="https://static.showit.co/file/0ykozwXusradv-95nF8Hrw/293041/teacher.png" alt="Teacher" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3">
-    <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Teacher</p>
-    <p class="text-sm md:text-base text-green-600 text-center">$50 Credit</p>
-  </div>
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-credit="clergy" onclick="toggleCreditCard(this)">
-    <img src="https://static.showit.co/file/bFvxLbewkRqjrqfDRuFqtg/293041/clergy.png" alt="Clergy" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3">
+    <img src="https://static.showit.co/file/bFvxLbewkRqjrqfDRuFqtg/293041/clergy.png" alt="Clergy" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3" style="transform: scaleX(-1)">
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Clergy</p>
     <p class="text-sm md:text-base text-green-600 text-center">$50 Credit</p>
   </div>
@@ -1369,26 +1369,26 @@ body { background: #e7e4e6; }
 
 <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4" id="payMethodGrid">
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-pay-method="cash" onclick="selectPayMethodCard(this)">
-    <img src="https://static.showit.co/file/ueHGE8iMCHrL5egxLgOVLQ/293041/cash.png" alt="Cash" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3">
+    <img src="https://static.showit.co/file/ueHGE8iMCHrL5egxLgOVLQ/293041/cash.png" alt="Cash" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3 mt-[30px]">
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Cash</p>
-    <p class="text-[10px] md:text-xs text-green-600 text-center">(Save $50)</p>
+    <p class="text-[10px] md:text-xs text-green-600 text-center mt-[10px]">(Save $50)</p>
   </div>
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-pay-method="zelle" onclick="selectPayMethodCard(this)">
     <img src="https://static.showit.co/file/uzLi83Rl8oKf4yKm4oijHw/293041/zelle.png" alt="Zelle" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3">
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Zelle</p>
   </div>
-  <div class="col-card flex flex-col items-center justify-center p-3 md:p-4 cursor-pointer transition-all hover:shadow-md col-active" data-pay-method="venmo" onclick="selectPayMethodCard(this)">
+  <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-pay-method="venmo" onclick="selectPayMethodCard(this)">
     <img src="https://static.showit.co/file/Y6q4eECGJW8cqmoRhfoutg/293041/venmo.png" alt="Venmo" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3">
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Venmo</p>
   </div>
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-pay-method="paypal" onclick="selectPayMethodCard(this)">
     <img src="https://static.showit.co/file/zTBhVZcg5p0IQ5LCAobmSg/293041/paypal.png" alt="PayPal" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3">
-    <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">PayPal Gift</p>
+    <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">PayPal</p>
   </div>
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-pay-method="credit" onclick="selectPayMethodCard(this)">
-    <img src="https://static.showit.co/file/kN5dwSDD1VZ2PRPu6NhYKQ/293041/credit-card.png" alt="Credit Card" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3">
+    <img src="https://static.showit.co/file/kN5dwSDD1VZ2PRPu6NhYKQ/293041/credit-card.png" alt="Credit Card" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3 mt-[27px]">
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Credit Card</p>
-    <p class="text-[10px] md:text-xs text-stone-400 text-center">(+5% fee)</p>
+    <p class="text-[10px] md:text-xs text-stone-400 text-center mt-[10px]">(+5% fee)</p>
   </div>
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-pay-method="check" onclick="selectPayMethodCard(this)">
     <img src="https://static.showit.co/file/AiK4rUuHqz94F-e1ZsMX4w/293041/check.png" alt="Check" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3">
@@ -1654,7 +1654,7 @@ body { background: #e7e4e6; }
 
 <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-4 mb-10" id="p_serviceCreditsList">
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-p-credit="law_enforcement" onclick="p_toggleCreditCard(this)">
-    <img src="https://static.showit.co/file/dr9_VGpMzgNOYxe5J6bdiQ/293041/police.png" alt="Police" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3">
+    <img src="https://static.showit.co/file/dr9_VGpMzgNOYxe5J6bdiQ/293041/police.png" alt="Police" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3" style="transform: scaleX(-1)">
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Police Officer</p>
     <p class="text-sm md:text-base text-green-600 text-center">$50 Credit</p>
   </div>
@@ -1664,7 +1664,7 @@ body { background: #e7e4e6; }
     <p class="text-sm md:text-base text-green-600 text-center">$50 Credit</p>
   </div>
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-p-credit="emt" onclick="p_toggleCreditCard(this)">
-    <img src="https://static.showit.co/file/l9WERuLpJwxwjDKuLhxuvw/293041/emt.png" alt="EMT" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3">
+    <img src="https://static.showit.co/file/l9WERuLpJwxwjDKuLhxuvw/293041/emt.png" alt="EMT" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3" style="transform: scaleX(-1)">
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">EMT</p>
     <p class="text-sm md:text-base text-green-600 text-center">$50 Credit</p>
   </div>
@@ -1673,18 +1673,18 @@ body { background: #e7e4e6; }
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Nurse</p>
     <p class="text-sm md:text-base text-green-600 text-center">$50 Credit</p>
   </div>
+  <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-p-credit="teacher" onclick="p_toggleCreditCard(this)">
+    <img src="https://static.showit.co/file/0ykozwXusradv-95nF8Hrw/293041/teacher.png" alt="Teacher" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3" style="transform: scaleX(-1)">
+    <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Teacher</p>
+    <p class="text-sm md:text-base text-green-600 text-center">$50 Credit</p>
+  </div>
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-p-credit="military" onclick="p_toggleCreditCard(this)">
     <img src="https://static.showit.co/file/UXKgFtqqmaYXGOsIoHB2nQ/293041/military.png" alt="Military" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3">
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Military</p>
     <p class="text-sm md:text-base text-green-600 text-center">$50 Credit</p>
   </div>
-  <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-p-credit="teacher" onclick="p_toggleCreditCard(this)">
-    <img src="https://static.showit.co/file/0ykozwXusradv-95nF8Hrw/293041/teacher.png" alt="Teacher" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3">
-    <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Teacher</p>
-    <p class="text-sm md:text-base text-green-600 text-center">$50 Credit</p>
-  </div>
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-p-credit="clergy" onclick="p_toggleCreditCard(this)">
-    <img src="https://static.showit.co/file/bFvxLbewkRqjrqfDRuFqtg/293041/clergy.png" alt="Clergy" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3">
+    <img src="https://static.showit.co/file/bFvxLbewkRqjrqfDRuFqtg/293041/clergy.png" alt="Clergy" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3" style="transform: scaleX(-1)">
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Clergy</p>
     <p class="text-sm md:text-base text-green-600 text-center">$50 Credit</p>
   </div>
@@ -1786,26 +1786,26 @@ body { background: #e7e4e6; }
 
 <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4" id="p_payMethodGrid">
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-p-pay-method="cash" onclick="p_selectPayMethodCard(this)">
-    <img src="https://static.showit.co/file/ueHGE8iMCHrL5egxLgOVLQ/293041/cash.png" alt="Cash" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3">
+    <img src="https://static.showit.co/file/ueHGE8iMCHrL5egxLgOVLQ/293041/cash.png" alt="Cash" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3 mt-[30px]">
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Cash</p>
-    <p class="text-[10px] md:text-xs text-green-600 text-center">(Save $50)</p>
+    <p class="text-[10px] md:text-xs text-green-600 text-center mt-[10px]">(Save $50)</p>
   </div>
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-p-pay-method="zelle" onclick="p_selectPayMethodCard(this)">
     <img src="https://static.showit.co/file/uzLi83Rl8oKf4yKm4oijHw/293041/zelle.png" alt="Zelle" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3">
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Zelle</p>
   </div>
-  <div class="col-card flex flex-col items-center justify-center p-3 md:p-4 cursor-pointer transition-all hover:shadow-md col-active" data-p-pay-method="venmo" onclick="p_selectPayMethodCard(this)">
+  <div class="col-card flex flex-col items-center justify-center p-3 md:p-4 cursor-pointer transition-all hover:shadow-md" data-p-pay-method="venmo" onclick="p_selectPayMethodCard(this)">
     <img src="https://static.showit.co/file/Y6q4eECGJW8cqmoRhfoutg/293041/venmo.png" alt="Venmo" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3">
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Venmo</p>
   </div>
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-p-pay-method="paypal" onclick="p_selectPayMethodCard(this)">
     <img src="https://static.showit.co/file/zTBhVZcg5p0IQ5LCAobmSg/293041/paypal.png" alt="PayPal" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3">
-    <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">PayPal Gift</p>
+    <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">PayPal</p>
   </div>
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-p-pay-method="credit" onclick="p_selectPayMethodCard(this)">
-    <img src="https://static.showit.co/file/kN5dwSDD1VZ2PRPu6NhYKQ/293041/credit-card.png" alt="Credit Card" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3">
+    <img src="https://static.showit.co/file/kN5dwSDD1VZ2PRPu6NhYKQ/293041/credit-card.png" alt="Credit Card" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3 mt-[27px]">
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Credit Card</p>
-    <p class="text-[10px] md:text-xs text-stone-400 text-center">(+5% fee)</p>
+    <p class="text-[10px] md:text-xs text-stone-400 text-center mt-[10px]">(+5% fee)</p>
   </div>
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-p-pay-method="check" onclick="p_selectPayMethodCard(this)">
     <img src="https://static.showit.co/file/AiK4rUuHqz94F-e1ZsMX4w/293041/check.png" alt="Check" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3">
@@ -1985,26 +1985,26 @@ body { background: #e7e4e6; }
 
 <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4" id="v_payMethodGrid">
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-v-pay-method="cash" onclick="v_selectPayMethodCard(this)">
-    <img src="https://static.showit.co/file/ueHGE8iMCHrL5egxLgOVLQ/293041/cash.png" alt="Cash" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3">
+    <img src="https://static.showit.co/file/ueHGE8iMCHrL5egxLgOVLQ/293041/cash.png" alt="Cash" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3 mt-[30px]">
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Cash</p>
-    <p class="text-[10px] md:text-xs text-green-600 text-center">(Save $50)</p>
+    <p class="text-[10px] md:text-xs text-green-600 text-center mt-[10px]">(Save $50)</p>
   </div>
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-v-pay-method="zelle" onclick="v_selectPayMethodCard(this)">
     <img src="https://static.showit.co/file/uzLi83Rl8oKf4yKm4oijHw/293041/zelle.png" alt="Zelle" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3">
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Zelle</p>
   </div>
-  <div class="col-card flex flex-col items-center justify-center p-3 md:p-4 cursor-pointer transition-all hover:shadow-md col-active" data-v-pay-method="venmo" onclick="v_selectPayMethodCard(this)">
+  <div class="col-card flex flex-col items-center justify-center p-3 md:p-4 cursor-pointer transition-all hover:shadow-md" data-v-pay-method="venmo" onclick="v_selectPayMethodCard(this)">
     <img src="https://static.showit.co/file/Y6q4eECGJW8cqmoRhfoutg/293041/venmo.png" alt="Venmo" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3">
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Venmo</p>
   </div>
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-v-pay-method="paypal" onclick="v_selectPayMethodCard(this)">
     <img src="https://static.showit.co/file/zTBhVZcg5p0IQ5LCAobmSg/293041/paypal.png" alt="PayPal" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3">
-    <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">PayPal Gift</p>
+    <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">PayPal</p>
   </div>
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-v-pay-method="credit" onclick="v_selectPayMethodCard(this)">
-    <img src="https://static.showit.co/file/kN5dwSDD1VZ2PRPu6NhYKQ/293041/credit-card.png" alt="Credit Card" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3">
+    <img src="https://static.showit.co/file/kN5dwSDD1VZ2PRPu6NhYKQ/293041/credit-card.png" alt="Credit Card" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3 mt-[27px]">
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Credit Card</p>
-    <p class="text-[10px] md:text-xs text-stone-400 text-center">(+5% fee)</p>
+    <p class="text-[10px] md:text-xs text-stone-400 text-center mt-[10px]">(+5% fee)</p>
   </div>
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-v-pay-method="check" onclick="v_selectPayMethodCard(this)">
     <img src="https://static.showit.co/file/AiK4rUuHqz94F-e1ZsMX4w/293041/check.png" alt="Check" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3">
@@ -2257,9 +2257,14 @@ function toggleUnlock(cb) {
 // Payment Method (single-select using checkboxes)
 function selectPayMethodCard(card) {
   const grid = document.getElementById('payMethodGrid');
+  const wasActive = card.classList.contains('col-active');
   grid.querySelectorAll('[data-pay-method]').forEach(c => c.classList.remove('col-active'));
-  card.classList.add('col-active');
-  paymentMethod = card.dataset.payMethod;
+  if (wasActive) {
+    paymentMethod = '';
+  } else {
+    card.classList.add('col-active');
+    paymentMethod = card.dataset.payMethod;
+  }
   renderInvestment();
   updatePaymentSchedule();
 }
@@ -2547,7 +2552,7 @@ function renderInvestment() {
     return;
   }
 
-  const payMethodLabels = { cash: 'Cash', zelle: 'Zelle', venmo: 'Venmo', paypal: 'PayPal Gift', credit: 'Credit Card', check: 'Check' };
+  const payMethodLabels = { cash: 'Cash', zelle: 'Zelle', venmo: 'Venmo', paypal: 'PayPal', credit: 'Credit Card', check: 'Check' };
   const payPlanLabels = { monthly: 'Monthly Payments', '3_months': 'Every 3 Months', '6_months': 'Every 6 Months', '15_days': '15 Days Before Wedding', day_of: 'Day of Your Wedding' };
 
   let html = '<div class="space-y-4 mb-6">';
@@ -3028,9 +3033,14 @@ function p_toggleUnlock(cb) {
 
 function p_selectPayMethodCard(card) {
   const grid = document.getElementById('p_payMethodGrid');
+  const wasActive = card.classList.contains('col-active');
   grid.querySelectorAll('[data-p-pay-method]').forEach(c => c.classList.remove('col-active'));
-  card.classList.add('col-active');
-  p_paymentMethod = card.dataset.pPayMethod;
+  if (wasActive) {
+    p_paymentMethod = '';
+  } else {
+    card.classList.add('col-active');
+    p_paymentMethod = card.dataset.pPayMethod;
+  }
   p_renderInvestment();
   p_updatePaymentSchedule();
 }
@@ -3172,7 +3182,7 @@ function p_renderInvestment() {
   const coverageHours = parseInt(col.items[0].name) || 0;
   const removableTotal = col.items.filter(i => i.value > 0).reduce((s, i) => s + i.value, 0);
   const photoCoveragePrice = col.price - removableTotal;
-  const payMethodLabels = { cash: 'Cash', zelle: 'Zelle', venmo: 'Venmo', paypal: 'PayPal Gift', credit: 'Credit Card', check: 'Check' };
+  const payMethodLabels = { cash: 'Cash', zelle: 'Zelle', venmo: 'Venmo', paypal: 'PayPal', credit: 'Credit Card', check: 'Check' };
   const payPlanLabels = { monthly: 'Monthly Payments', '3_months': 'Every 3 Months', '6_months': 'Every 6 Months', '15_days': '15 Days Before Wedding', day_of: 'Day of Your Wedding' };
 
   let html = '<div class="space-y-4 mb-6">';
@@ -3319,9 +3329,14 @@ function v_selectCollection(card) {
 
 function v_selectPayMethodCard(card) {
   const grid = document.getElementById('v_payMethodGrid');
+  const wasActive = card.classList.contains('col-active');
   grid.querySelectorAll('[data-v-pay-method]').forEach(c => c.classList.remove('col-active'));
-  card.classList.add('col-active');
-  v_paymentMethod = card.dataset.vPayMethod;
+  if (wasActive) {
+    v_paymentMethod = '';
+  } else {
+    card.classList.add('col-active');
+    v_paymentMethod = card.dataset.vPayMethod;
+  }
   v_renderInvestment();
   v_updatePaymentSchedule();
 }
@@ -3427,7 +3442,7 @@ function v_renderInvestment() {
   const col = v_collections[v_currentCollection];
   const fmtMoney = (n) => '$' + n.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
   const fmtWhole = (n) => '$' + n.toLocaleString();
-  const payMethodLabels = { cash: 'Cash', zelle: 'Zelle', venmo: 'Venmo', paypal: 'PayPal Gift', credit: 'Credit Card', check: 'Check' };
+  const payMethodLabels = { cash: 'Cash', zelle: 'Zelle', venmo: 'Venmo', paypal: 'PayPal', credit: 'Credit Card', check: 'Check' };
   const payPlanLabels = { monthly: 'Monthly Payments', '3_months': 'Every 3 Months', '6_months': 'Every 6 Months', '15_days': '15 Days Before Wedding', day_of: 'Day of Your Wedding' };
 
   let html = '<div class="space-y-4 mb-6">';
@@ -3521,7 +3536,7 @@ function closeQuoteModal() {
 }
 
 function getPayMethodLabel(method) {
-  const labels = { cash: 'Cash', zelle: 'Zelle', venmo: 'Venmo', paypal: 'PayPal Gift', credit: 'Credit Card', check: 'Check' };
+  const labels = { cash: 'Cash', zelle: 'Zelle', venmo: 'Venmo', paypal: 'PayPal', credit: 'Credit Card', check: 'Check' };
   return labels[method] || method;
 }
 
