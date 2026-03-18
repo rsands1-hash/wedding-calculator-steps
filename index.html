@@ -357,6 +357,7 @@ body { background: #e7e4e6; }
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
 /* Keycap Button */
 .col-card-btn {
   font: inherit;
@@ -1181,8 +1182,8 @@ body { background: #e7e4e6; }
     padding-bottom: 4px !important;
   }
 
-  /* Feature list — always visible on mobile */
-  .wizard-step .col-card ul {
+  /* Feature list — always visible on mobile, but not desktop-only lists */
+  .wizard-step .col-card ul:not([class*="hidden"]) {
     display: block !important;
     margin-bottom: 8px !important;
   }
@@ -1278,7 +1279,7 @@ body { background: #e7e4e6; }
   .p-collection-list .col-card-btn {
     width: auto !important;
     padding: 8px 32px !important;
-    margin-top: 10px !important;
+    margin: 0 !important;
   }
 
   /* Custom tab — large icons that fill most of the card */
@@ -1655,7 +1656,7 @@ body { background: #e7e4e6; }
 
   <!-- Content Creator -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-coverage="content">
-    <img src="https://static.showit.co/file/AYHOBmdx1ikAIW9YG2HYJg/293041/content-creator.png" alt="Content Creator" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
+    <img src="https://static.showit.co/file/AYHOBmdx1ikAIW9YG2HYJg/293041/content-creator.png" alt="Content Creator" class="w-32 h-32 md:w-40 md:h-40 object-contain content-creator-img" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35)); margin-top: 10px; margin-bottom: 2px;">
     <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">Content Creator</div>
     <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$150/hr</div>
     <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">Behind-the-scenes content, Instagram reels &amp; stories plus live streaming key moments from your day.</p>
@@ -1737,9 +1738,9 @@ body { background: #e7e4e6; }
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-album="parent_album">
     <img src="https://static.showit.co/file/8JbNdU-Id1akSnx8mpXJDw/293041/parent-album.png" alt="Parent Album" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
     <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">Parent Album</div>
-    <div class="text-xs md:text-base text-stone-400 mb-1 text-center">(copy of your wedding album)</div>
+    <div class="text-xs md:text-base text-stone-400 mb-1 text-center">(copy of your album)</div>
     <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$500</div>
-    <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">A carbon copy of your wedding album. The perfect keepsake gift for family.</p>
+    <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">A carbon copy of your album. The perfect keepsake gift for family.</p>
     <div class="flex flex-col items-center mt-auto">
       <div class="qty-group">
         <button class="te-btn" onclick="adjustAlbumQty(this, -1)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
@@ -2203,7 +2204,7 @@ body { background: #e7e4e6; }
 
   <!-- Content Creator -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-p-coverage="content">
-    <img src="https://static.showit.co/file/AYHOBmdx1ikAIW9YG2HYJg/293041/content-creator.png" alt="Content Creator" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35)); margin-top: 10px;">
+    <img src="https://static.showit.co/file/AYHOBmdx1ikAIW9YG2HYJg/293041/content-creator.png" alt="Content Creator" class="w-32 h-32 md:w-40 md:h-40 object-contain content-creator-img" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35)); margin-top: 10px; margin-bottom: 2px;">
     <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">Content Creator</div>
     <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$150/hr</div>
     <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">Behind-the-scenes content, Instagram reels &amp; stories plus live streaming key moments from your day.</p>
@@ -2228,10 +2229,10 @@ body { background: #e7e4e6; }
 </div>
 <p class="text-center text-stone-500 text-base md:text-lg mb-10">Add even more coverage to make your wedding experience unforgettable</p>
 
-<div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5 wizard-carousel mobile-grid-2x2">
+<div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-2 md:max-w-2xl gap-3 md:gap-5 wizard-carousel mobile-grid-2x2">
 
-  <!-- 30 Minute Engagement Session -->
-  <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-p-service="engagement_30min">
+  <!-- 30 Minute Engagement Session (mobile only) -->
+  <div class="col-card flex flex-col items-center p-[15px] md:p-[24px] md:!hidden" data-p-service="engagement_30min">
     <img src="https://static.showit.co/file/eTv486_m5iEjoOQD8HEQzw/293041/engagement-session.png" alt="30 Min Engagement" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
     <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">30 Minute<br>Engagement Session</div>
     <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$300</div>
@@ -2246,8 +2247,8 @@ body { background: #e7e4e6; }
     </div>
   </div>
 
-  <!-- 1 Hour Engagement Session -->
-  <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-p-service="engagement_session">
+  <!-- 1 Hour Engagement Session (mobile only) -->
+  <div class="col-card flex flex-col items-center p-[15px] md:p-[24px] md:!hidden" data-p-service="engagement_session">
     <img src="https://static.showit.co/file/ze8z3dNzN-JHGQ9Mn5TG-w/293041/engagement-session-1hr.png" alt="1 Hour Engagement" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
     <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">1 Hour<br>Engagement Session</div>
     <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$600</div>
