@@ -980,7 +980,7 @@ body { background: #e7e4e6; }
 
   /* --- A. GLOBAL MOBILE OVERRIDES --- */
   body {
-    padding: 8px 16px 130px 16px !important;
+    padding: 6px 12px 110px 12px !important;
   }
 
   /* --- B. TAB HEADER AREA --- */
@@ -1027,7 +1027,7 @@ body { background: #e7e4e6; }
     background: #fff;
     border-top: 1px solid #d6d3d1;
     box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
-    padding: 8px 16px calc(16px + env(safe-area-inset-bottom, 0px));
+    padding: 6px 12px calc(10px + env(safe-area-inset-bottom, 0px));
     z-index: 50;
     display: flex;
     flex-direction: column;
@@ -1043,12 +1043,12 @@ body { background: #e7e4e6; }
     margin-bottom: 2px;
   }
   .wizard-bar-total {
-    font-size: 22px;
+    font-size: 19px;
     font-weight: 800;
     color: #292524;
     text-align: center;
     letter-spacing: -0.02em;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
   }
   .wizard-bar-nav {
     display: flex;
@@ -1056,11 +1056,11 @@ body { background: #e7e4e6; }
   }
   .wizard-bar-nav button {
     flex: 1;
-    padding: 14px 0;
+    padding: 11px 0;
     border: none;
     border-radius: 10px;
     font-weight: 700;
-    font-size: 16px;
+    font-size: 15px;
     cursor: pointer;
     transition: all 0.2s ease;
   }
@@ -1080,19 +1080,19 @@ body { background: #e7e4e6; }
 
   /* --- G. HEADING ICON + TEXT --- */
   .wizard-step > div:first-child img {
-    width: 40px !important;
-    height: 40px !important;
+    width: 32px !important;
+    height: 32px !important;
   }
   .wizard-step h2 {
-    font-size: 24px !important;
+    font-size: 20px !important;
     line-height: 1.3 !important;
     text-align: left !important;
   }
 
   /* --- H. STEP SUBTITLES --- */
   .wizard-step > p {
-    font-size: 16px !important;
-    margin-bottom: 16px !important;
+    font-size: 14px !important;
+    margin-bottom: 10px !important;
     line-height: 1.4 !important;
     text-align: left !important;
   }
@@ -1104,16 +1104,16 @@ body { background: #e7e4e6; }
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
-    gap: 16px;
-    padding: 12px 8px 12px 8px;
+    gap: 12px;
+    padding: 8px 6px 8px 6px;
     overflow-y: visible;
     grid-template-columns: unset !important;
     scrollbar-width: none;
   }
   .wizard-carousel::-webkit-scrollbar { display: none; }
   .wizard-carousel > * {
-    min-width: 88vw;
-    max-width: 88vw;
+    min-width: 84vw;
+    max-width: 84vw;
     scroll-snap-align: center;
     flex-shrink: 0;
   }
@@ -1123,80 +1123,80 @@ body { background: #e7e4e6; }
   /* Card padding — high specificity to beat Tailwind p-[15px] and p-5 */
   .wizard-step .col-card[class*="p-"],
   .wizard-step .col-card {
-    padding: 24px !important;
+    padding: 16px !important;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.10) !important;
   }
 
   /* Card name */
   .wizard-step .col-card-name,
   .wizard-step .coverage-name {
-    font-size: 20px !important;
-    margin-bottom: 8px !important;
+    font-size: 18px !important;
+    margin-bottom: 4px !important;
   }
   .wizard-step .coverage-name br { display: none; }
 
   /* Card price */
   .wizard-step .col-card-price,
   .wizard-step .coverage-price {
-    font-size: 32px !important;
-    margin-bottom: 16px !important;
+    font-size: 28px !important;
+    margin-bottom: 8px !important;
   }
 
   /* Card badge (guest count) */
   .wizard-step .col-card-badge {
-    font-size: 18px !important;
-    margin-bottom: 8px !important;
-    padding-bottom: 8px !important;
+    font-size: 14px !important;
+    margin-bottom: 6px !important;
+    padding-bottom: 6px !important;
   }
 
   /* Feature list */
   .wizard-step .col-card ul {
-    margin-bottom: 16px !important;
+    margin-bottom: 10px !important;
   }
   .wizard-step .col-card ul li {
-    font-size: 16px !important;
+    font-size: 14px !important;
     white-space: normal !important;
-    margin-top: 8px !important;
+    margin-top: 6px !important;
   }
   .wizard-step .col-card ul li:first-child {
     margin-top: 0 !important;
   }
   /* Beat Tailwind space-y-5 specificity */
   .wizard-step .col-card ul > *:not(:first-child) {
-    margin-top: 8px !important;
+    margin-top: 6px !important;
   }
 
   /* Card description text */
   .wizard-step .col-card p {
-    font-size: 14px !important;
-    line-height: 1.5 !important;
-    margin-bottom: 16px !important;
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+    margin-bottom: 10px !important;
   }
 
   /* Card images */
   .wizard-step .col-card > img {
-    width: 104px !important;
-    height: 104px !important;
-    margin-bottom: 16px !important;
+    width: 80px !important;
+    height: 80px !important;
+    margin-bottom: 10px !important;
   }
 
   /* Choose Collection button */
   .wizard-step .col-card-btn {
-    font-size: 16px !important;
-    padding: 14px 24px !important;
+    font-size: 15px !important;
+    padding: 10px 20px !important;
     width: 100%;
   }
 
   /* Qty controls */
   .wizard-step .qty-display {
-    font-size: 20px !important;
+    font-size: 18px !important;
     font-weight: 700;
-    min-width: 70px;
+    min-width: 60px;
     text-align: center;
   }
   .wizard-step .te-btn {
-    width: 50px !important;
-    height: 50px !important;
+    width: 44px !important;
+    height: 44px !important;
   }
   .wizard-step .te-reset {
     font-size: 13px !important;
@@ -1219,7 +1219,7 @@ body { background: #e7e4e6; }
     min-width: unset !important;
     max-width: unset !important;
     scroll-snap-align: unset !important;
-    padding: 16px !important;
+    padding: 12px !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
@@ -1230,8 +1230,8 @@ body { background: #e7e4e6; }
   }
   #serviceCreditsList img,
   #p_serviceCreditsList img {
-    width: 72px !important;
-    height: 72px !important;
+    width: 56px !important;
+    height: 56px !important;
     margin-bottom: 8px !important;
   }
   #serviceCreditsList p,
@@ -1255,12 +1255,12 @@ body { background: #e7e4e6; }
   /* Fix unlock heading text-xs (12px) — too small */
   .wizard-step > div > div.text-xs,
   .wizard-step div.text-xs {
-    font-size: 16px !important;
+    font-size: 14px !important;
   }
   /* Checkbox labels — beat inline style="font-size:17px" */
   .wizard-step .anim-cb > span[style],
   .wizard-step .col-card label.anim-cb span {
-    font-size: 16px !important;
+    font-size: 14px !important;
   }
   .wizard-step .col-card label.anim-cb + p {
     font-size: 14px !important;
@@ -1288,7 +1288,7 @@ body { background: #e7e4e6; }
     min-width: unset !important;
     max-width: unset !important;
     scroll-snap-align: unset !important;
-    padding: 16px !important;
+    padding: 12px !important;
   }
   #payMethodGrid::after,
   #p_payMethodGrid::after,
@@ -1298,8 +1298,8 @@ body { background: #e7e4e6; }
   #payMethodGrid img,
   #p_payMethodGrid img,
   #v_payMethodGrid img {
-    width: 68px !important;
-    height: 68px !important;
+    width: 52px !important;
+    height: 52px !important;
     margin-top: 0 !important;
     margin-bottom: 8px !important;
   }
@@ -1313,12 +1313,12 @@ body { background: #e7e4e6; }
   .wizard-step [data-payment="plan"],
   .wizard-step [data-p-payment="plan"],
   .wizard-step [data-v-payment="plan"] {
-    padding: 16px !important;
+    padding: 12px !important;
   }
   .wizard-step [data-payment="plan"] h3,
   .wizard-step [data-p-payment="plan"] h3,
   .wizard-step [data-v-payment="plan"] h3 {
-    font-size: 20px !important;
+    font-size: 18px !important;
     margin-bottom: 8px !important;
     text-align: left !important;
   }
@@ -1327,17 +1327,17 @@ body { background: #e7e4e6; }
   }
   .wizard-step .anim-radio span,
   .wizard-step .anim-cb span {
-    font-size: 16px !important;
+    font-size: 14px !important;
   }
 
   /* --- P. INVESTMENT / SUMMARY --- */
   .wizard-step [id$="investmentBox"],
   .wizard-step [id$="customizeBox"] {
-    padding: 24px !important;
+    padding: 16px !important;
   }
   .wizard-step [id$="investmentBox"] h3,
   .wizard-step [id$="customizeBox"] h3 {
-    font-size: 20px !important;
+    font-size: 18px !important;
     text-align: left !important;
   }
 
