@@ -611,6 +611,8 @@ body { background: #e7e4e6; }
 @media (min-width: 768px) { .cal-day { font-size: 1.125rem; } }
 .cal-day:hover { background: #f0fdf4; color: #166534; }
 .cal-day.cal-today { background: #f5f5f4; color: #1c1917; }
+/* Heart button on selected day */
+.cal-heart-btn { transform: scale(1.25); }
 /* Toggle slider */
 .tog-slider {
   width: 70px;
@@ -976,282 +978,558 @@ body { background: #e7e4e6; }
   .halfhour-btn .rb-inner span { font-size: 17.5px; }
 }
 
-/* ===== MOBILE WIZARD (< 768px only) ===== */
+/* ===== MOBILE REDESIGN — PREMIUM SCROLLABLE (< 768px) ===== */
 @media (max-width: 767px) {
 
-  /* --- A. GLOBAL MOBILE OVERRIDES --- */
+  /* --- A. GLOBAL --- */
   body {
-    padding: 4px 10px 60px 10px !important;
+    padding: 0 !important;
+    padding-bottom: 24px !important;
+    background: #f5f3f4 !important;
   }
 
-  /* --- B. TAB HEADER AREA --- */
+  /* --- B. STICKY MOBILE HEADER --- */
+  #mobileHeader {
+    display: flex !important;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: 12px 20px;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    align-items: center;
+    justify-content: space-between;
+  }
+  .mh-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #78716c;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  .mh-total {
+    font-size: 24px;
+    font-weight: 800;
+    color: #1c1917;
+    letter-spacing: -0.03em;
+  }
+
+  /* --- C. TAB HEADER — iOS SEGMENTED CONTROL --- */
   .max-w-6xl.mx-auto.mb-10 {
-    margin-bottom: 4px !important;
+    margin: 0 !important;
+    padding: 8px 16px 0 !important;
+    position: sticky;
+    top: 49px;
+    z-index: 99;
+    background: rgba(245,243,244,0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  .max-w-6xl.mx-auto.mb-10 > .flex {
+    gap: 0 !important;
   }
   .tab-header {
-    height: 38px !important;
-    padding: 4px !important;
-    border-radius: 20px !important;
-    --tab-pad: 4px !important;
+    height: 36px !important;
+    padding: 3px !important;
+    border-radius: 10px !important;
+    --tab-pad: 3px !important;
+    background: rgba(0,0,0,0.06) !important;
+    border: none !important;
+    box-shadow: none !important;
   }
   .tab-header .tab-label {
     font-size: 13px !important;
-    font-weight: 700;
+    font-weight: 600;
+    color: #57534e !important;
+    transition: color 0.2s;
+  }
+  .tab-header .tab-label.tab-active {
+    color: #1c1917 !important;
   }
   .tab-header .tab-slider {
-    top: 4px !important;
-    bottom: 4px !important;
-    border-radius: 16px !important;
+    top: 3px !important;
+    bottom: 3px !important;
+    border-radius: 8px !important;
+    background: #fff !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06) !important;
   }
 
-  /* --- C. WIZARD STEP CONTAINERS --- */
-  .wizard-step { display: none; }
-  .wizard-step.wizard-active { display: block; }
 
-  /* --- D. PROGRESS DOTS --- */
-  .wizard-progress {
-    display: flex;
-    justify-content: center;
-    gap: 6px;
-    padding: 5px 0;
-    position: sticky;
-    top: 0;
-    z-index: 20;
-    background: #e7e4e6;
+  /* --- D. ALL SECTIONS VISIBLE (NO WIZARD) --- */
+  .wizard-step {
+    display: block !important;
   }
-  .wizard-dot {
-    width: 10px; height: 10px;
-    border-radius: 50%;
-    background: #d6d3d1;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  .wizard-dot.active {
-    background: #7c6aff;
-    width: 12px;
-    height: 12px;
-    box-shadow: 0 0 8px rgba(124,106,255,0.5);
-  }
-  .wizard-dot.completed {
-    background: #a78bff;
-  }
-
-  /* --- E. FLOATING BOTTOM BAR — SINGLE ROW --- */
   #wizardBottomBar {
-    position: fixed;
-    bottom: 0; left: 0; right: 0;
-    background: #fff;
-    border-top: 1px solid #d6d3d1;
-    box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
-    padding: 6px 10px calc(6px + env(safe-area-inset-bottom, 0px));
-    z-index: 50;
-    display: flex !important;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
+    display: none !important;
   }
-  .wizard-bar-step {
-    display: none;
-  }
-  .wizard-bar-total {
-    font-size: 16px;
-    font-weight: 800;
-    color: #292524;
-    letter-spacing: -0.02em;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-  .wizard-bar-nav {
-    display: flex;
-    gap: 6px;
-    flex: 1;
-  }
-  .wizard-bar-nav button {
-    flex: 1;
-    padding: 10px 0;
-    border: none;
-    border-radius: 10px;
-    font-weight: 700;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.15s ease;
-  }
-  #wizardBackBtn { background: #f5f5f4; color: #78716c; }
-  #wizardNextBtn { background: #7c6aff; color: #fff; }
-  #wizardNextBtn:active { background: #6355d8; }
-  #wizardBackBtn:active { background: #e7e5e4; }
-  #wizardNextBtn.wizard-btn-quote { background: #16a34a; }
-  #wizardNextBtn.wizard-btn-quote:active { background: #15803d; }
-
-  /* --- F. STEP HEADINGS — KILL DEAD SPACE --- */
-  .wizard-step > div:first-child {
-    margin-top: 0 !important;
-    margin-bottom: 4px !important;
-    justify-content: flex-start !important;
-    gap: 8px !important;
-  }
-
-  /* --- G. HEADING ICON + TEXT --- */
-  .wizard-step > div:first-child img {
-    width: 26px !important;
-    height: 26px !important;
-  }
-  .wizard-step h2 {
-    font-size: 18px !important;
-    line-height: 1.2 !important;
-    text-align: left !important;
-  }
-
-  /* --- H. STEP SUBTITLES — HIDDEN ON MOBILE --- */
-  .wizard-step > p {
+  .wizard-progress {
     display: none !important;
   }
 
-  /* --- I. CAROUSEL — FILL THE SCREEN --- */
-  .wizard-carousel {
-    display: flex !important;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    gap: 10px;
-    padding: 4px 6px 4px 6px;
-    overflow-y: visible;
-    grid-template-columns: unset !important;
-    scrollbar-width: none;
-  }
-  .wizard-carousel::-webkit-scrollbar { display: none; }
-  .wizard-carousel > * {
-    min-width: 84vw;
-    max-width: 84vw;
-    scroll-snap-align: center;
-    flex-shrink: 0;
+  /* --- E. TAB CONTENT PANELS --- */
+  #tabContent-alacarte,
+  #tabContent-photography,
+  #tabContent-videography {
+    padding: 0 16px !important;
   }
 
-  /* 2x2 grid instead of carousel on mobile */
+  /* --- F. SECTION HEADINGS --- */
+  .wizard-step > div:first-child {
+    margin-top: 24px !important;
+    margin-bottom: 12px !important;
+    justify-content: flex-start !important;
+    gap: 8px !important;
+    padding: 0 4px;
+  }
+  .wizard-step > div:first-child img {
+    width: 24px !important;
+    height: 24px !important;
+  }
+  .wizard-step h2 {
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    line-height: 1.3 !important;
+    text-align: left !important;
+    color: #1c1917;
+  }
+  .wizard-step > p {
+    font-size: 13px !important;
+    color: #a8a29e !important;
+    margin-bottom: 12px !important;
+    text-align: left !important;
+    padding: 0 4px;
+  }
+
+  /* --- G. OPTION ROWS (Coverage, Albums, Services) --- */
+  .wizard-carousel,
   .mobile-grid-2x2 {
     display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
-    overflow-x: hidden !important;
+    grid-template-columns: 1fr !important;
+    gap: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
     scroll-snap-type: none !important;
-    width: 100% !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
   }
+  .wizard-carousel::-webkit-scrollbar { display: none; }
+  .wizard-carousel > *,
   .mobile-grid-2x2 > * {
     min-width: 0 !important;
     max-width: 100% !important;
     scroll-snap-align: unset !important;
     flex-shrink: unset !important;
-    overflow-wrap: break-word !important;
-    word-wrap: break-word !important;
-  }
-  .mobile-grid-2x2 .col-card ul li,
-  .mobile-grid-2x2 .col-card-name,
-  .mobile-grid-2x2 .coverage-name,
-  .mobile-grid-2x2 .col-card-badge {
-    white-space: normal !important;
   }
 
-  /* --- K. CARD INTERNALS --- */
-
-  /* Card padding — high specificity to beat Tailwind p-[15px] and p-5 */
-  .wizard-step .col-card[class*="p-"],
-  .wizard-step .col-card {
-    padding: 14px !important;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.10) !important;
-  }
-
-  /* Card name */
-  .wizard-step .col-card-name,
-  .wizard-step .coverage-name {
-    font-size: 17px !important;
-    margin-bottom: 2px !important;
-  }
-  .wizard-step .coverage-name br { display: none; }
-  #tabContent-alacarte .wizard-step .coverage-name br { display: inline !important; }
-
-  /* Card price */
-  .wizard-step .col-card-price,
-  .wizard-step .coverage-price {
-    font-size: 26px !important;
-    margin-bottom: 6px !important;
-  }
-
-  /* Card badge (guest count) */
-  .wizard-step .col-card-badge {
-    font-size: 13px !important;
-    margin-bottom: 4px !important;
-    padding-bottom: 4px !important;
-  }
-
-  /* Feature list — always visible on mobile, but not desktop-only lists */
-  .wizard-step .col-card ul:not([class*="hidden"]) {
-    display: block !important;
+  /* Each option = compact horizontal row (exclude special containers) */
+  .col-card:not([data-payment]):not([data-p-payment]):not([data-v-payment]):not([id$="investmentBox"]):not([id$="customizeBox"]):not([data-credits]):not([data-p-credits]):not([data-collection]):not([data-p-collection]):not([data-v-collection]),
+  .wizard-step .col-card:not([data-payment]):not([data-p-payment]):not([data-v-payment]):not([id$="investmentBox"]):not([id$="customizeBox"]):not([data-credits]):not([data-p-credits]):not([data-collection]):not([data-p-collection]):not([data-v-collection]),
+  .wizard-step .col-card[class*="p-"]:not([data-payment]):not([data-p-payment]):not([data-v-payment]):not([id$="investmentBox"]):not([id$="customizeBox"]):not([data-credits]):not([data-p-credits]):not([data-collection]):not([data-p-collection]):not([data-v-collection]) {
+    border-radius: 14px !important;
+    border: 1px solid rgba(0,0,0,0.08) !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04) !important;
+    padding: 14px 16px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 12px !important;
+    background: #fff !important;
+    cursor: pointer;
     margin-bottom: 8px !important;
   }
-  .wizard-step .col-card ul li {
-    font-size: 12px !important;
-    white-space: normal !important;
-    margin-top: 2px !important;
-    text-align: center !important;
+  /* Animated gradient border on selected items (mobile) */
+  .col-card.col-active:not([data-payment]):not([data-p-payment]):not([data-v-payment]):not([id$="investmentBox"]):not([id$="customizeBox"]) {
+    position: relative !important;
+    border-color: transparent !important;
+    overflow: visible !important;
+    z-index: 1 !important;
+    background: transparent !important;
   }
-  .wizard-step .col-card ul li:first-child {
-    margin-top: 0 !important;
-  }
-
-  /* Card description text — HIDDEN on coverage/service cards */
-  .wizard-step .col-card p {
-    display: none !important;
-  }
-  /* But keep description visible on credits unlock cards */
-  .wizard-step .col-card label.anim-cb + p {
+  .col-card.col-active:not([data-payment]):not([data-p-payment]):not([data-v-payment]):not([id$="investmentBox"]):not([id$="customizeBox"])::before {
+    content: '' !important;
     display: block !important;
-    font-size: 12px !important;
-    line-height: 1.3 !important;
-    margin-bottom: 4px !important;
+    position: absolute !important;
+    top: -3px !important; left: -3px !important; right: -3px !important; bottom: -3px !important;
+    background: linear-gradient(90deg, #7c6aff, #a78bff, #d946ef, #e63983, #f472b6, #b84ddf, #c084fc, #7c8aff, #60b5f7, #f0c050, #9080ff, #f472b6, #e63983, #7c6aff) !important;
+    background-size: 300% 100% !important;
+    border-radius: 16px !important;
+    z-index: -2 !important;
+    animation: glowDrift 20s linear infinite !important;
+  }
+  .col-card.col-active:not([data-payment]):not([data-p-payment]):not([data-v-payment]):not([id$="investmentBox"]):not([id$="customizeBox"])::after {
+    content: '' !important;
+    display: block !important;
+    position: absolute !important;
+    top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
+    background: #fff !important;
+    border-radius: 12px !important;
+    z-index: -1 !important;
+  }
+  /* Coverage-active items get animated gradient border (same as col-active) */
+  .col-card.coverage-active {
+    position: relative !important;
+    border-color: transparent !important;
+    overflow: visible !important;
+    z-index: 1 !important;
+    background: transparent !important;
+  }
+  .col-card.coverage-active::before {
+    content: '' !important;
+    display: block !important;
+    position: absolute !important;
+    top: -3px !important; left: -3px !important; right: -3px !important; bottom: -3px !important;
+    background: linear-gradient(90deg, #7c6aff, #a78bff, #d946ef, #e63983, #f472b6, #b84ddf, #c084fc, #7c8aff, #60b5f7, #f0c050, #9080ff, #f472b6, #e63983, #7c6aff) !important;
+    background-size: 300% 100% !important;
+    border-radius: 16px !important;
+    z-index: -2 !important;
+    animation: glowDrift 20s linear infinite !important;
+    filter: none !important;
+    opacity: 1 !important;
+  }
+  .col-card.coverage-active::after {
+    content: '' !important;
+    display: block !important;
+    position: absolute !important;
+    top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
+    background: #fff !important;
+    border-radius: 12px !important;
+    z-index: -1 !important;
   }
 
-  /* Hide any leftover "See details" toggle buttons */
-  .mobile-details-toggle {
-    display: none !important;
-  }
-
-  /* Card images — compact */
-  .wizard-step .col-card > img {
-    width: 48px !important;
-    height: 48px !important;
-    margin-bottom: 6px !important;
-  }
-  /* Photo tab step 2 — large icons */
+  /* Card images — small icon in row */
+  .col-card > img,
+  .wizard-step .col-card > img,
+  #tabContent-alacarte .wizard-step .col-card > img,
   #tabContent-photography [data-step-index="1"] .col-card > img {
-    width: 85% !important;
-    height: auto !important;
-    max-height: 140px !important;
-    margin-bottom: 8px !important;
+    width: 40px !important;
+    height: 40px !important;
+    max-height: 40px !important;
+    margin: 0 !important;
+    flex-shrink: 0;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15)) !important;
   }
 
-  /* Choose button */
-  .wizard-step .col-card-btn {
+  /* Name + Price inline */
+  .coverage-name,
+  .col-card-name,
+  .wizard-step .coverage-name,
+  .wizard-step .col-card-name {
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    margin: 0 !important;
+    text-align: left !important;
+    flex: 1;
+    min-width: 0;
+  }
+  .coverage-name br { content: ' '; display: inline !important; }
+  .coverage-name br::after { content: ' '; }
+
+  .coverage-price,
+  .col-card-price,
+  .wizard-step .coverage-price,
+  .wizard-step .col-card-price {
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    text-align: right !important;
+    white-space: nowrap;
+    color: #1c1917;
+    flex-shrink: 0;
+  }
+  #tabContent-photography [data-step-index="1"] .coverage-name,
+  #tabContent-photography [data-step-index="1"] .coverage-price {
+    font-size: 15px !important;
+    margin-bottom: 0 !important;
+    border-bottom: none !important;
+    padding-bottom: 0 !important;
+  }
+
+  /* Hide description text on coverage/album/service/credit/collection cards only */
+  [data-coverage] > p,
+  [data-p-coverage] > p,
+  [data-album] > p,
+  [data-p-album] > p,
+  [data-service] > p,
+  [data-p-service] > p,
+  [data-collection] > p,
+  [data-p-collection] > p,
+  [data-v-collection] > p {
+    display: none !important;
+  }
+  /* Re-show all text inside investment, customize, and payment containers */
+  [id$="investmentContent"] p,
+  [id$="investmentContent"] div,
+  [id$="customizeContent"] p,
+  [id$="customizeContent"] div,
+  [id$="customizeContent"] span,
+  [data-payment] p,
+  [data-p-payment] p,
+  [data-v-payment] p {
+    display: revert !important;
+  }
+  /* Hide badges on coverage/album/service cards, show on collections */
+  .col-card-badge {
+    display: none !important;
+  }
+  .p-collection-list .col-card-badge,
+  [data-p-collection] .col-card-badge,
+  [data-v-collection] .col-card-badge {
+    display: block !important;
     font-size: 14px !important;
-    padding: 9px 16px !important;
-    width: 100%;
+    color: #a8a29e !important;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: -2px 0 0 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    width: auto !important;
+    text-align: left !important;
+    order: 2;
+    flex-basis: 100%;
+    font-weight: 500 !important;
+  }
+  /* Prepend "Perfect for" to guest count badges */
+  .p-collection-list .col-card-badge::before,
+  [data-p-collection] .col-card-badge::before,
+  [data-v-collection] .col-card-badge::before {
+    content: 'Perfect for ';
+    text-transform: none;
+  }
+  /* Hide feature lists on coverage/album/service cards, but show on collections */
+  .wizard-step .col-card ul {
+    display: none !important;
+  }
+  .p-collection-list .col-card ul,
+  .p-collection-list .col-card ul.hidden,
+  [data-p-collection] ul,
+  [data-v-collection] ul {
+    margin: 4px 0 0 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+  }
+  /* Hide the desktop ul (first), show the mobile ul (second) on collections */
+  .wizard-step .col-card[data-p-collection] ul:first-of-type,
+  .wizard-step .col-card[data-v-collection] ul:first-of-type,
+  .col-card[data-p-collection] ul:first-of-type,
+  .col-card[data-v-collection] ul:first-of-type {
+    display: none !important;
+  }
+  .wizard-step .col-card[data-p-collection] ul:last-of-type,
+  .wizard-step .col-card[data-v-collection] ul:last-of-type,
+  .col-card[data-p-collection] ul:last-of-type,
+  .col-card[data-v-collection] ul:last-of-type {
+    display: block !important;
+  }
+  .p-collection-list .col-card ul li,
+  [data-p-collection] ul li,
+  [data-v-collection] ul li {
+    font-size: 14px !important;
+    color: #78716c !important;
+    text-align: left !important;
+    margin: 0 !important;
+    line-height: 1.7 !important;
+    display: block !important;
+    white-space: normal !important;
+  }
+  .p-collection-list .col-card ul li::before,
+  [data-p-collection] ul li::before,
+  [data-v-collection] ul li::before {
+    content: '✓  ';
+    color: #7c6aff;
+    font-weight: 700;
+    font-size: 11px;
+  }
+  /* Combine Online Gallery + Printing Rights on one line */
+  .p-collection-list .col-card ul.hidden li:nth-last-child(2),
+  [data-p-collection] ul.hidden li:nth-last-child(2),
+  [data-v-collection] ul.hidden li:nth-last-child(2) {
+    display: inline !important;
+  }
+  .p-collection-list .col-card ul.hidden li:nth-last-child(2)::after,
+  [data-p-collection] ul.hidden li:nth-last-child(2)::after,
+  [data-v-collection] ul.hidden li:nth-last-child(2)::after {
+    content: ' + ';
+    color: #a8a29e;
+  }
+  .p-collection-list .col-card ul.hidden li:last-child,
+  [data-p-collection] ul.hidden li:last-child,
+  [data-v-collection] ul.hidden li:last-child {
+    display: inline !important;
+  }
+  .p-collection-list .col-card ul.hidden li:last-child::before,
+  [data-p-collection] ul.hidden li:last-child::before,
+  [data-v-collection] ul.hidden li:last-child::before {
+    content: '' !important;
+  }
+  .col-card-btn,
+  .wizard-step .col-card-btn {
+    display: none !important;
   }
 
-  /* 2x2 collection grids — compact */
-  .mobile-grid-2x2 > .col-card {
-    padding: 10px !important;
+  /* --- H. QUANTITY CONTROLS — CLEAN CIRCLE BUTTONS --- */
+  .qty-group,
+  .wizard-step .qty-group {
+    display: flex !important;
+    align-items: center;
+    gap: 4px !important;
+    flex-shrink: 0;
+    margin-left: auto;
   }
-  .mobile-grid-2x2 .col-card-btn {
-    padding: 6px 10px !important;
-    font-size: 13px !important;
+  #tabContent-photography [data-step-index="1"] .qty-group {
+    display: flex !important;
+    grid-template-columns: unset !important;
+    grid-template-rows: unset !important;
   }
 
-  /* Photo & video tab step 1 — single column list on mobile */
+  /* Tally display — plain number only, no background, no border, no blob */
+  .qty-display,
+  .wizard-step .qty-display,
+  #tabContent-photography [data-step-index="1"] .qty-group .qty-display {
+    font-size: 15px !important;
+    font-weight: 700;
+    min-width: 24px !important;
+    width: auto !important;
+    text-align: center;
+    color: #1c1917 !important;
+    grid-column: unset !important;
+    grid-row: unset !important;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    text-shadow: none !important;
+    -webkit-text-fill-color: unset !important;
+    position: relative;
+  }
+  .qty-display::before,
+  .wizard-step .qty-display::before,
+  #tabContent-photography [data-step-index="1"] .qty-group .qty-display::before {
+    display: none !important;
+  }
+
+  /* Clean circle button */
+  .te-btn,
+  .wizard-step .te-btn,
+  #tabContent-photography [data-step-index="1"] .qty-group .te-btn {
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 50% !important;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    padding: 0 !important;
+    grid-column: unset !important;
+    grid-row: unset !important;
+    position: relative;
+    transition: transform 0.15s ease !important;
+  }
+  .te-btn:active {
+    transform: scale(0.9) !important;
+  }
+  .te-btn::before {
+    display: none !important;
+  }
+  /* Hide the old inline SVGs — JS will replace them */
+  .te-btn > svg.te-old-icon {
+    display: none !important;
+  }
+  .te-btn svg {
+    width: 32px !important;
+    height: 32px !important;
+    position: relative;
+    z-index: 1;
+    opacity: 1 !important;
+  }
+  .te-btn svg path {
+    stroke: #57534e;
+    fill: none;
+    stroke-width: 1.5;
+    transition: stroke 0.2s ease, fill 0.2s ease;
+  }
+  .te-btn:active svg path {
+    stroke: #7c6aff;
+    fill: rgba(124,106,255,0.08);
+  }
+
+  /* Override desktop coverage-active styles — match collection selected look */
+  .coverage-active .te-btn {
+    background: none !important;
+    box-shadow: none !important;
+  }
+  .coverage-active .te-btn::before {
+    display: none !important;
+  }
+  .coverage-active .te-btn svg {
+    opacity: 1 !important;
+  }
+  .coverage-active .te-btn svg path {
+    stroke: #a78bff !important;
+    fill: none !important;
+  }
+  .coverage-active .qty-display {
+    background: none !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    padding: 0 !important;
+    color: #1c1917 !important;
+    -webkit-text-fill-color: unset !important;
+  }
+  .coverage-active .qty-display::before {
+    display: none !important;
+  }
+  .coverage-active .coverage-name,
+  .coverage-active .col-card-name {
+    background: linear-gradient(90deg, #c0baff, #ddd6fe, #f0abfc, #f2a5b8, #fcd5e0, #e0c3fc, #e9d5ff, #c7d2fe, #bae6fd, #f5e6c0, #d0c8fe, #fbc4e0, #f2a5b8, #c0baff) !important;
+    background-size: 300% 300% !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    animation: glowDrift 20s linear infinite !important;
+  }
+  .coverage-active .coverage-price,
+  .coverage-active .col-card-price {
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    background-clip: unset !important;
+    -webkit-text-fill-color: #1c1917 !important;
+  }
+
+  /* Hide reset button */
+  .te-reset,
+  .wizard-step .te-reset,
+  #tabContent-photography [data-step-index="1"] .te-reset {
+    font-size: 10px !important;
+    margin-top: 0 !important;
+    display: none !important;
+  }
+  .flex.flex-col.items-center.mt-auto {
+    margin-top: 0 !important;
+    flex-direction: row !important;
+  }
+
+  /* --- I. COLLECTION CARDS (Photo/Video tabs) — separate white boxes --- */
   .p-collection-list {
     display: grid !important;
     grid-template-columns: 1fr !important;
     overflow-x: visible !important;
     scroll-snap-type: none !important;
-    padding: 0 25px !important;
-    gap: 16px !important;
+    padding: 0 !important;
+    gap: 10px !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
   }
   .p-collection-list > * {
     min-width: unset !important;
@@ -1259,128 +1537,80 @@ body { background: #e7e4e6; }
     scroll-snap-align: unset !important;
     flex-shrink: unset !important;
   }
-  .wizard-step .p-collection-list .col-card[class*="p-"],
-  .wizard-step .p-collection-list .col-card {
-    width: fit-content !important;
-    margin: 0 auto !important;
-    padding: 25px !important;
+  .p-collection-list .col-card,
+  .wizard-step .p-collection-list .col-card,
+  .wizard-step .p-collection-list .col-card[class*="p-"] {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 16px !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: flex-start !important;
+    border: 1px solid rgba(0,0,0,0.06) !important;
+    border-radius: 14px !important;
+    background: #fff !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04) !important;
+    row-gap: 0 !important;
+    column-gap: 12px !important;
+    border-bottom: 1px solid rgba(0,0,0,0.06) !important;
   }
   .p-collection-list .col-card-name {
-    font-size: 26px !important;
-    margin-bottom: 6px !important;
+    font-size: 24px !important;
+    font-weight: 700 !important;
+    margin: 0 !important;
+    flex: 1;
   }
   .p-collection-list .col-card-price {
-    font-size: 38px !important;
-    margin-bottom: 10px !important;
+    font-size: 24px !important;
+    font-weight: 800 !important;
+    margin: 0 !important;
+    color: #1c1917;
+    flex-shrink: 0;
   }
-  .p-collection-list .col-card ul li {
-    font-size: 15px !important;
+  /* Feature list flows below name+price, full width */
+  .p-collection-list .col-card ul {
+    flex-basis: 100% !important;
+    order: 10;
+  }
+  .p-collection-list .col-card ul {
+    display: none !important;
   }
   .p-collection-list .col-card-btn {
-    width: auto !important;
-    padding: 8px 32px !important;
-    margin: 0 !important;
+    display: none !important;
+  }
+  .p-collection-list .col-card > img {
+    display: none !important;
   }
 
-  /* Custom tab — large icons that fill most of the card */
-  #tabContent-alacarte .wizard-step .col-card > img {
-    width: 85% !important;
-    height: auto !important;
-    max-height: 140px !important;
-    margin-bottom: 8px !important;
-  }
-
-  /* Qty controls */
-  .wizard-step .qty-display {
-    font-size: 17px !important;
-    font-weight: 700;
-    min-width: 56px;
-    text-align: center;
-  }
-  .wizard-step .te-btn {
-    width: 42px !important;
-    height: 42px !important;
-  }
-  .wizard-step .te-reset {
-    font-size: 12px !important;
-    margin-top: 4px !important;
-  }
-
-  /* Photo tab step 2 — stacked qty layout: tally on top, buttons below */
-  #tabContent-photography [data-step-index="1"] .qty-group {
-    display: grid !important;
-    grid-template-columns: 56px 56px !important;
-    grid-template-rows: auto auto !important;
-    gap: 8px !important;
-    justify-content: center !important;
-  }
-  #tabContent-photography [data-step-index="1"] .qty-group .qty-display {
-    grid-column: 1 / -1 !important;
-    grid-row: 1 !important;
-    width: 100% !important;
-    min-width: unset !important;
-    text-align: center !important;
-    box-sizing: border-box !important;
-    font-size: 22px !important;
-  }
-  #tabContent-photography [data-step-index="1"] .qty-group .te-btn {
-    width: 56px !important;
-    height: 56px !important;
-  }
-  #tabContent-photography [data-step-index="1"] .qty-group .te-btn svg {
-    width: 28px !important;
-    height: 28px !important;
-  }
-  #tabContent-photography [data-step-index="1"] .qty-group .te-btn:first-child {
-    grid-column: 1 !important;
-    grid-row: 2 !important;
-  }
-  #tabContent-photography [data-step-index="1"] .qty-group .te-btn:last-child {
-    grid-column: 2 !important;
-    grid-row: 2 !important;
-  }
-  #tabContent-photography [data-step-index="1"] .te-reset {
-    font-size: 15px !important;
-    margin-top: 10px !important;
-  }
-  /* Photo tab step 2 — remove border lines, space out elements */
-  #tabContent-photography [data-step-index="1"] .coverage-name {
-    font-size: 22px !important;
-    margin-bottom: 8px !important;
-  }
-  #tabContent-photography [data-step-index="1"] .coverage-price {
-    font-size: 32px !important;
-    border-bottom: none !important;
-    padding-bottom: 0 !important;
-    margin-bottom: 16px !important;
-  }
-  #tabContent-photography [data-step-index="1"] .qty-group {
-    gap: 8px !important;
-  }
-  #tabContent-photography [data-step-index="1"] .te-reset {
-    margin-top: 10px !important;
-  }
-
-  /* --- L. CREDITS: 4x2 GRID (8 items, 2 rows) --- */
+  /* --- J. SERVICE CREDITS — CHIP GRID --- */
   #serviceCreditsList,
   #p_serviceCreditsList {
     display: grid !important;
     grid-template-columns: repeat(4, 1fr) !important;
     overflow-x: visible !important;
     scroll-snap-type: none !important;
-    gap: 6px !important;
+    gap: 8px !important;
     padding: 0 !important;
     max-width: 100% !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
   }
   #serviceCreditsList > *,
   #p_serviceCreditsList > * {
     min-width: unset !important;
     max-width: unset !important;
     scroll-snap-align: unset !important;
-    padding: 8px 4px !important;
+    padding: 10px 4px 8px !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
+    background: #fff !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(0,0,0,0.06) !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03) !important;
+    gap: 2px !important;
   }
   #serviceCreditsList::after,
   #p_serviceCreditsList::after {
@@ -1388,63 +1618,77 @@ body { background: #e7e4e6; }
   }
   #serviceCreditsList img,
   #p_serviceCreditsList img {
-    width: 40px !important;
-    height: 40px !important;
-    margin-bottom: 4px !important;
+    width: 44px !important;
+    height: 44px !important;
+    margin-bottom: 2px !important;
   }
   #serviceCreditsList p,
   #p_serviceCreditsList p {
     font-size: 11px !important;
-    line-height: 1.3 !important;
-    margin-bottom: 2px !important;
+    line-height: 1.2 !important;
+    margin: 0 !important;
+    color: #57534e;
   }
   #serviceCreditsList p:last-child,
   #p_serviceCreditsList p:last-child {
-    font-size: 11px !important;
+    font-size: 10px !important;
     font-weight: 700;
+    color: #16a34a;
     margin-top: 1px !important;
   }
 
-  /* --- M. UNLOCK MORE CREDITS --- */
-  /* Left-justify all sub-headings (unlock credits, etc.) */
+  /* --- K. UNLOCK MORE CREDITS --- */
   .wizard-step > div:nth-child(n+3) {
     justify-content: flex-start !important;
-    margin-top: 8px !important;
-    margin-bottom: 4px !important;
+    margin-top: 16px !important;
+    margin-bottom: 8px !important;
+    padding: 0 4px;
   }
-  /* Fix unlock heading text-xs (12px) — too small */
   .wizard-step > div > div.text-xs,
   .wizard-step div.text-xs {
     font-size: 13px !important;
   }
-  /* Unlock subheading icon */
   .wizard-step > div:nth-child(n+3) img {
-    width: 24px !important;
-    height: 24px !important;
+    width: 20px !important;
+    height: 20px !important;
   }
-  /* Unlock description paragraph */
   .wizard-step > div:nth-child(n+3) + p {
     font-size: 12px !important;
-    margin-bottom: 6px !important;
+    margin-bottom: 8px !important;
+    padding: 0 4px;
   }
-  /* Unlock cards grid — tighter */
   .wizard-step > div:nth-child(n+3) + p + div {
-    gap: 6px !important;
+    gap: 8px !important;
   }
-  /* Checkbox labels — beat inline style="font-size:17px" */
+  /* Consultation + Instagram boxes: white bg, left-aligned */
+  [data-credits="consultation"],
+  [data-credits="instagram"],
+  [data-p-credits="consultation"],
+  [data-p-credits="instagram"] {
+    background: #fff !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(0,0,0,0.06) !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03) !important;
+    padding: 14px 16px !important;
+    text-align: left !important;
+    align-items: flex-start !important;
+  }
   .wizard-step .anim-cb > span[style],
   .wizard-step .col-card label.anim-cb span {
-    font-size: 13px !important;
+    font-size: 14px !important;
   }
   .wizard-step .col-card label.anim-cb + p {
+    display: block !important;
     font-size: 12px !important;
+    color: #78716c !important;
+    text-align: left !important;
   }
-  /* Tighten checkbox description left margin */
   .wizard-step .col-card p.ml-11 {
     margin-left: 32px !important;
+    text-align: left !important;
   }
 
-  /* --- N. PAYMENT METHODS: 3x2 GRID --- */
+  /* --- L. PAYMENT METHODS — ICON TOP, NAME BELOW --- */
   #payMethodGrid,
   #p_payMethodGrid,
   #v_payMethodGrid {
@@ -1452,9 +1696,13 @@ body { background: #e7e4e6; }
     grid-template-columns: repeat(3, 1fr) !important;
     overflow-x: visible !important;
     scroll-snap-type: none !important;
-    gap: 6px !important;
+    gap: 8px !important;
     padding: 0 !important;
     max-width: 100% !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
   }
   #payMethodGrid > *,
   #p_payMethodGrid > *,
@@ -1462,7 +1710,14 @@ body { background: #e7e4e6; }
     min-width: unset !important;
     max-width: unset !important;
     scroll-snap-align: unset !important;
-    padding: 10px 6px !important;
+    padding: 14px 8px !important;
+    background: #fff !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(0,0,0,0.06) !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03) !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
   }
   #payMethodGrid::after,
   #p_payMethodGrid::after,
@@ -1472,8 +1727,8 @@ body { background: #e7e4e6; }
   #payMethodGrid img,
   #p_payMethodGrid img,
   #v_payMethodGrid img {
-    width: 40px !important;
-    height: 40px !important;
+    width: 44px !important;
+    height: 44px !important;
     margin-top: 0 !important;
     margin-bottom: 6px !important;
   }
@@ -1481,87 +1736,241 @@ body { background: #e7e4e6; }
   #p_payMethodGrid p,
   #v_payMethodGrid p {
     font-size: 13px !important;
+    text-align: center !important;
   }
-  /* Hide the (Save $50) / (+5% fee) sub-labels on mobile */
-  #payMethodGrid p.text-\\[10px\\],
-  #p_payMethodGrid p.text-\\[10px\\],
-  #v_payMethodGrid p.text-\\[10px\\] {
+  #payMethodGrid p.text-\[10px\],
+  #p_payMethodGrid p.text-\[10px\],
+  #v_payMethodGrid p.text-\[10px\] {
     font-size: 10px !important;
     margin-top: 2px !important;
   }
 
-  /* --- O. CALENDAR & PAYMENT PLAN --- */
-  .wizard-step [data-payment="plan"],
-  .wizard-step [data-p-payment="plan"],
-  .wizard-step [data-v-payment="plan"] {
-    padding: 10px !important;
+  /* --- M. CALENDAR & PAYMENT PLAN --- */
+  /* Reset col-card row styling on calendar/payment containers */
+  [data-payment="plan"].col-card,
+  [data-p-payment="plan"].col-card,
+  [data-v-payment="plan"].col-card {
+    display: block !important;
+    flex-direction: unset !important;
+    padding: 16px !important;
+    background: #fff !important;
+    border-radius: 14px !important;
+    border: 1px solid rgba(0,0,0,0.05) !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04) !important;
+    border-bottom: 1px solid rgba(0,0,0,0.05) !important;
+    cursor: default !important;
   }
-  .wizard-step [data-payment="plan"] .grid,
-  .wizard-step [data-p-payment="plan"] .grid,
-  .wizard-step [data-v-payment="plan"] .grid {
-    gap: 12px !important;
+  /* Top-level layout grid inside calendar — stack on mobile */
+  [data-payment="plan"] > .grid,
+  [data-p-payment="plan"] > .grid,
+  [data-v-payment="plan"] > .grid {
+    gap: 16px !important;
+    display: block !important;
   }
-  .wizard-step [data-payment="plan"] h3,
-  .wizard-step [data-p-payment="plan"] h3,
-  .wizard-step [data-v-payment="plan"] h3 {
+  [data-payment="plan"] h3,
+  [data-p-payment="plan"] h3,
+  [data-v-payment="plan"] h3 {
     font-size: 16px !important;
-    margin-bottom: 6px !important;
+    font-weight: 700 !important;
+    margin-bottom: 12px !important;
     text-align: left !important;
+    color: #1c1917;
+  }
+  /* Month grid — no borders between months */
+  .month-btn {
+    border: none !important;
+    border-bottom: none !important;
+  }
+  /* Calendar inner container — stable width */
+  [data-payment="plan"] .border.border-stone-200.rounded-xl,
+  [data-p-payment="plan"] .border.border-stone-200.rounded-xl,
+  [data-v-payment="plan"] .border.border-stone-200.rounded-xl {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  /* Day grid — fixed layout to prevent resize on selection */
+  #dayGrid, #p_dayGrid, #v_dayGrid {
+    display: grid !important;
+    grid-template-columns: repeat(7, 1fr) !important;
+    width: 100% !important;
+  }
+  /* Prevent heart SVG from causing bounce — each cell is fixed size */
+  #dayGrid > div, #p_dayGrid > div, #v_dayGrid > div {
+    overflow: hidden !important;
+  }
+  /* Kill the scale(1.25) on the selected heart button */
+  #dayGrid button[style*="scale"], #p_dayGrid button[style*="scale"], #v_dayGrid button[style*="scale"] {
+    transform: none !important;
+  }
+  /* Month grid — stable sizing */
+  #monthGrid, #p_monthGrid, #v_monthGrid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    width: 100% !important;
+    gap: 0 !important;
+  }
+  /* Space between year tabs and month grid */
+  .tab-header-sm {
+    margin-bottom: 16px !important;
   }
   .wizard-step p[id$="pickDatePrompt"] {
     text-align: left !important;
     font-size: 13px !important;
+    color: #a8a29e;
   }
-  .wizard-step .anim-radio span,
-  .wizard-step .anim-cb span {
-    font-size: 13px !important;
+  .anim-radio span,
+  .anim-cb span {
+    font-size: 14px !important;
   }
-  .wizard-step .anim-radio,
-  .wizard-step .space-y-3 > * {
-    margin-top: 6px !important;
+  .anim-radio,
+  .space-y-3 > * {
+    margin-top: 8px !important;
   }
-  /* Calendar inner padding */
-  .wizard-step .border.border-stone-200.rounded-xl {
-    padding: 10px !important;
-  }
-  /* Tab header small (year tabs) */
-  .wizard-step .tab-header-sm {
-    margin-bottom: 10px !important;
-  }
-
-  /* --- P. INVESTMENT / SUMMARY --- */
-  .wizard-step [id$="investmentBox"],
-  .wizard-step [id$="customizeBox"] {
+  .border.border-stone-200.rounded-xl {
     padding: 12px !important;
-  }
-  .wizard-step [id$="investmentBox"] h3,
-  .wizard-step [id$="customizeBox"] h3 {
-    font-size: 16px !important;
-    text-align: left !important;
+    border-radius: 12px !important;
+    background: #fff;
   }
 
-  /* --- Q. MAX-WIDTH CONTAINERS — FILL MOBILE --- */
-  .wizard-step .max-w-6xl,
-  .wizard-step .max-w-4xl,
-  .wizard-step .max-w-3xl {
+  /* --- N. INVESTMENT / SUMMARY --- */
+  [id$="investmentBox"],
+  [id$="customizeBox"],
+  #p_investmentBox,
+  #p_customizeBox,
+  #investmentBox,
+  #customizeBox {
+    padding: 16px !important;
+    background: #fff !important;
+    border-radius: 14px !important;
+    border: 1px solid rgba(0,0,0,0.05) !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04) !important;
+    margin-top: 16px;
+    flex-direction: column !important;
+    display: flex !important;
+    border-bottom: 1px solid rgba(0,0,0,0.05) !important;
+  }
+  [id$="investmentBox"] h3,
+  [id$="customizeBox"] h3 {
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    text-align: left !important;
+    color: #1c1917;
+    margin-bottom: 12px !important;
+    width: 100% !important;
+    flex: none !important;
+  }
+
+  /* --- O. MAX-WIDTH — FILL MOBILE --- */
+  .max-w-6xl,
+  .max-w-4xl,
+  .max-w-3xl {
     max-width: 100% !important;
     padding-left: 0 !important;
     padding-right: 0 !important;
   }
 
-  /* --- R. TOUCH FEEDBACK --- */
-  .wizard-step .col-card:active {
+  /* --- P. TOUCH FEEDBACK --- */
+  .col-card:active {
     transform: scale(0.98);
     transition: transform 0.1s ease;
   }
-  /* Remove hover shadow on mobile (no hover on touch) */
-  .wizard-step .col-card:hover {
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.10) !important;
+  .col-card:hover {
+    box-shadow: none !important;
   }
 
-  /* --- S. QTY GROUP GAP --- */
-  .wizard-step .qty-group {
-    gap: 8px !important;
+  /* --- Q. QUOTE & RESET BUTTONS --- */
+  .quote-btn {
+    width: 100% !important;
+    border-radius: 14px !important;
+    font-size: 16px !important;
+    padding: 16px !important;
+  }
+  .reset-btn {
+    font-size: 14px !important;
+  }
+
+  /* --- R. GLOW TEXT — SIMPLER ON MOBILE --- */
+  .glow-text {
+    animation: none !important;
+    background: none !important;
+    -webkit-text-fill-color: #7c6aff !important;
+    color: #7c6aff !important;
+  }
+
+  /* --- S. HIDE DESKTOP-ONLY ELEMENTS --- */
+  .hidden.md\:flex,
+  #halfhourBtn {
+    display: none !important;
+  }
+
+  /* --- T. SECTION DIVIDERS --- */
+  .wizard-step + .wizard-step {
+    border-top: 1px solid rgba(0,0,0,0.06);
+    padding-top: 8px;
+  }
+
+  /* --- U. UNLOCK CREDIT CARDS --- */
+  .wizard-step .col-card label.anim-cb + p {
+    display: block !important;
+  }
+  .wizard-step > div:nth-child(n+3) + p + div .col-card {
+    flex-direction: column !important;
+    text-align: center;
+    padding: 12px !important;
+    background: #fff !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(0,0,0,0.06) !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03) !important;
+    border-bottom: 1px solid rgba(0,0,0,0.06) !important;
+  }
+
+  /* --- V. MOBILE SPACING OVERRIDES --- */
+  .wizard-step > .mt-16 { margin-top: 0 !important; }
+  .wizard-step > .mb-10 { margin-bottom: 8px !important; }
+
+  /* --- W. FIX ROW LAYOUT — override Tailwind block/width classes --- */
+  /* Coverage price must not be w-full block — it's inline in a row now */
+  .col-card .coverage-price,
+  .col-card .col-card-price {
+    width: auto !important;
+    flex: none !important;
+    flex-shrink: 0 !important;
+  }
+  /* Coverage name must flex-grow to fill remaining space */
+  .col-card .coverage-name,
+  .col-card .col-card-name {
+    flex: 1 !important;
+    min-width: 0 !important;
+    width: auto !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+  }
+  /* Sub-labels like "(30 Pages)" — hide on mobile row view */
+  .col-card .text-stone-400.mb-1 {
+    display: none !important;
+  }
+  /* Prevent body horizontal overflow */
+  body {
+    overflow-x: hidden !important;
+  }
+  #tabContent-alacarte,
+  #tabContent-photography,
+  #tabContent-videography {
+    overflow-x: hidden !important;
+  }
+
+  /* --- X. CREDIT CHIP LABELS — force visible --- */
+  #serviceCreditsList p,
+  #p_serviceCreditsList p {
+    display: block !important;
+  }
+
+  /* --- Y. PAYMENT METHOD LABELS --- */
+  #payMethodGrid p,
+  #p_payMethodGrid p,
+  #v_payMethodGrid p {
+    display: block !important;
   }
 }
 
@@ -1575,6 +1984,12 @@ body { background: #e7e4e6; }
 </style>
 </head>
 <body class="font-sans px-4 py-12 md:px-10 md:py-16">
+
+<!-- Mobile Sticky Header -->
+<div id="mobileHeader" style="display:none;">
+  <span class="mh-label">Your Estimate</span>
+  <span class="mh-total" id="mobileTotal">$0</span>
+</div>
 
 <div class="max-w-6xl mx-auto mb-10">
   <div class="flex items-center gap-4 md:gap-8">
@@ -1615,7 +2030,7 @@ body { background: #e7e4e6; }
     <div class="flex flex-col items-center mt-auto">
       <div class="qty-group">
         <button class="te-btn" onclick="adjustQty(this, -1)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
-        <span class="qty-display">0 hrs</span>
+        <span class="qty-display">0</span>
         <button class="te-btn" onclick="adjustQty(this, 1)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
       </div>
       <button class="te-reset" onclick="resetQty(this)" style="opacity: 0.35; pointer-events: none;">RESET</button>
@@ -1631,7 +2046,7 @@ body { background: #e7e4e6; }
     <div class="flex flex-col items-center mt-auto">
       <div class="qty-group">
         <button class="te-btn" onclick="adjustQty(this, -1)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
-        <span class="qty-display">0 hrs</span>
+        <span class="qty-display">0</span>
         <button class="te-btn" onclick="adjustQty(this, 1)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
       </div>
       <button class="te-reset" onclick="resetQty(this)" style="opacity: 0.35; pointer-events: none;">RESET</button>
@@ -1647,7 +2062,7 @@ body { background: #e7e4e6; }
     <div class="flex flex-col items-center mt-auto">
       <div class="qty-group">
         <button class="te-btn" onclick="adjustQty(this, -1)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
-        <span class="qty-display">0 hrs</span>
+        <span class="qty-display">0</span>
         <button class="te-btn" onclick="adjustQty(this, 1)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
       </div>
       <button class="te-reset" onclick="resetQty(this)" style="opacity: 0.35; pointer-events: none;">RESET</button>
@@ -1663,7 +2078,7 @@ body { background: #e7e4e6; }
     <div class="flex flex-col items-center mt-auto">
       <div class="qty-group">
         <button class="te-btn" onclick="adjustQty(this, -1)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
-        <span class="qty-display">0 hrs</span>
+        <span class="qty-display">0</span>
         <button class="te-btn" onclick="adjustQty(this, 1)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
       </div>
       <button class="te-reset" onclick="resetQty(this)" style="opacity: 0.35; pointer-events: none;">RESET</button>
@@ -1805,7 +2220,7 @@ body { background: #e7e4e6; }
     <div class="flex flex-col items-center mt-auto">
       <div class="qty-group">
         <button class="te-btn" onclick="adjustServiceQty(this, -1)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
-        <span class="qty-display">0 hrs</span>
+        <span class="qty-display">0</span>
         <button class="te-btn" onclick="adjustServiceQty(this, 1)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
       </div>
       <button class="te-reset" onclick="resetServiceQty(this)" style="opacity: 0.35; pointer-events: none;">RESET</button>
@@ -1821,7 +2236,7 @@ body { background: #e7e4e6; }
     <div class="flex flex-col items-center mt-auto">
       <div class="qty-group">
         <button class="te-btn" onclick="adjustServiceQty(this, -1)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
-        <span class="qty-display">0 hrs</span>
+        <span class="qty-display">0</span>
         <button class="te-btn" onclick="adjustServiceQty(this, 1)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
       </div>
       <button class="te-reset" onclick="resetServiceQty(this)" style="opacity: 0.35; pointer-events: none;">RESET</button>
@@ -1837,7 +2252,7 @@ body { background: #e7e4e6; }
   <img src="https://static.showit.co/file/NArGw95RaAiEJj5S2p6SyA/293041/credits.png" alt="credits" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
   <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 4: Service Credits</h2>
 </div>
-<p class="text-center text-stone-500 text-base md:text-lg mb-2 italic">As a small thank you to those who dedicate their lives to serving our community,<br>we're honored to offer these credits toward your wedding photography.</p>
+<p class="text-center text-stone-500 text-base md:text-lg mb-2 italic">As a small thank you to those who dedicate their lives to serving our community, we're honored to offer these credits toward your wedding photography.</p>
 <p class="text-center text-stone-400 text-sm md:text-base mb-10">(Two selections / One per Partner)</p>
 
 
@@ -2163,7 +2578,7 @@ body { background: #e7e4e6; }
     <div class="flex flex-col items-center mt-auto">
       <div class="qty-group">
         <button class="te-btn" onclick="p_adjustQty(this, -1)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
-        <span class="qty-display">0 hrs</span>
+        <span class="qty-display">0</span>
         <button class="te-btn" onclick="p_adjustQty(this, 1)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
       </div>
       <button class="te-reset" onclick="p_resetQty(this)" style="opacity: 0.35; pointer-events: none;">RESET</button>
@@ -2179,7 +2594,7 @@ body { background: #e7e4e6; }
     <div class="flex flex-col items-center mt-auto">
       <div class="qty-group">
         <button class="te-btn" onclick="p_adjustQty(this, -1)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
-        <span class="qty-display">0 hrs</span>
+        <span class="qty-display">0</span>
         <button class="te-btn" onclick="p_adjustQty(this, 1)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
       </div>
       <button class="te-reset" onclick="p_resetQty(this)" style="opacity: 0.35; pointer-events: none;">RESET</button>
@@ -2195,7 +2610,7 @@ body { background: #e7e4e6; }
     <div class="flex flex-col items-center mt-auto">
       <div class="qty-group">
         <button class="te-btn" onclick="p_adjustQty(this, -1)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
-        <span class="qty-display">0 hrs</span>
+        <span class="qty-display">0</span>
         <button class="te-btn" onclick="p_adjustQty(this, 1)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
       </div>
       <button class="te-reset" onclick="p_resetQty(this)" style="opacity: 0.35; pointer-events: none;">RESET</button>
@@ -2211,7 +2626,7 @@ body { background: #e7e4e6; }
     <div class="flex flex-col items-center mt-auto">
       <div class="qty-group">
         <button class="te-btn" onclick="p_adjustQty(this, -1)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
-        <span class="qty-display">0 hrs</span>
+        <span class="qty-display">0</span>
         <button class="te-btn" onclick="p_adjustQty(this, 1)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
       </div>
       <button class="te-reset" onclick="p_resetQty(this)" style="opacity: 0.35; pointer-events: none;">RESET</button>
@@ -2272,7 +2687,7 @@ body { background: #e7e4e6; }
     <div class="flex flex-col items-center mt-auto">
       <div class="qty-group">
         <button class="te-btn" onclick="p_adjustServiceQty(this, -1)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
-        <span class="qty-display">0 hrs</span>
+        <span class="qty-display">0</span>
         <button class="te-btn" onclick="p_adjustServiceQty(this, 1)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
       </div>
       <button class="te-reset" onclick="p_resetServiceQty(this)" style="opacity: 0.35; pointer-events: none;">RESET</button>
@@ -2288,7 +2703,7 @@ body { background: #e7e4e6; }
     <div class="flex flex-col items-center mt-auto">
       <div class="qty-group">
         <button class="te-btn" onclick="p_adjustServiceQty(this, -1)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
-        <span class="qty-display">0 hrs</span>
+        <span class="qty-display">0</span>
         <button class="te-btn" onclick="p_adjustServiceQty(this, 1)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
       </div>
       <button class="te-reset" onclick="p_resetServiceQty(this)" style="opacity: 0.35; pointer-events: none;">RESET</button>
@@ -2304,7 +2719,7 @@ body { background: #e7e4e6; }
   <img src="https://static.showit.co/file/NArGw95RaAiEJj5S2p6SyA/293041/credits.png" alt="credits" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
   <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 4: Service Credits</h2>
 </div>
-<p class="text-center text-stone-500 text-base md:text-lg mb-2 italic">As a small thank you to those who dedicate their lives to serving our community,<br>we're honored to offer these credits toward your wedding photography.</p>
+<p class="text-center text-stone-500 text-base md:text-lg mb-2 italic">As a small thank you to those who dedicate their lives to serving our community, we're honored to offer these credits toward your wedding photography.</p>
 <p class="text-center text-stone-400 text-sm md:text-base mb-10">(Two selections / One per Partner)</p>
 
 
@@ -2517,7 +2932,7 @@ body { background: #e7e4e6; }
 <div class="wizard-step" data-step-index="0" data-step-name="Package">
 <div class="flex items-center justify-center gap-3 mb-2">
   <img src="https://static.showit.co/file/bnOCMC9XnbvrlasKA2Pm0Q/293041/collection.png" alt="collection" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
-  <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 1: Choose Your Videography Package</h2>
+  <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 1: Choose A Videography Package</h2>
 </div>
 <p class="text-center text-stone-500 text-base md:text-lg mb-10">Everything included in each videography package</p>
 
@@ -2532,13 +2947,13 @@ body { background: #e7e4e6; }
     <ul class="w-full space-y-5 md:space-y-6 text-[15px] md:text-xl mb-6 hidden md:block">
       <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">6 Hours of Coverage</li>
       <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">3-4 Minute Highlight Reel</li>
-      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">1-1.5 Hour Feature Film</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">1+ Hour Feature Film</li>
     </ul>
     <!-- Mobile items -->
     <ul class="w-full space-y-5 text-[15px] mb-6 md:hidden">
       <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">6 Hours Video Coverage</li>
       <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">3–4 Min Highlight Reel</li>
-      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">1–1.5 Hour Feature Film</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">1+ Hour Feature Film</li>
     </ul>
     <button class="col-card-btn">Choose</button>
   </div>
@@ -2552,13 +2967,13 @@ body { background: #e7e4e6; }
     <ul class="w-full space-y-5 md:space-y-6 text-[15px] md:text-xl mb-6 hidden md:block">
       <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">8 Hours of Coverage</li>
       <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">3-4 Minute Highlight Reel</li>
-      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">1-1.5 Hour Feature Film</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">1+ Hour Feature Film</li>
     </ul>
     <!-- Mobile items -->
     <ul class="w-full space-y-5 text-[15px] mb-6 md:hidden">
       <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">8 Hours Video Coverage</li>
       <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">3–4 Min Highlight Reel</li>
-      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">1–1.5 Hour Feature Film</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">1+ Hour Feature Film</li>
     </ul>
     <button class="col-card-btn">Choose</button>
   </div>
@@ -2572,13 +2987,13 @@ body { background: #e7e4e6; }
     <ul class="w-full space-y-5 md:space-y-6 text-[15px] md:text-xl mb-6 hidden md:block">
       <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">10 Hours of Coverage</li>
       <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">3-4 Minute Highlight Reel</li>
-      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">1-1.5 Hour Feature Film</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">1+ Hour Feature Film</li>
     </ul>
     <!-- Mobile items -->
     <ul class="w-full space-y-5 text-[15px] mb-6 md:hidden">
       <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">10 Hours Video Coverage</li>
       <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">3–4 Min Highlight Reel</li>
-      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">1–1.5 Hour Feature Film</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">1+ Hour Feature Film</li>
     </ul>
     <button class="col-card-btn">Choose</button>
   </div>
@@ -2592,13 +3007,13 @@ body { background: #e7e4e6; }
     <ul class="w-full space-y-5 md:space-y-6 text-[15px] md:text-xl mb-6 hidden md:block">
       <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">12 Hours of Coverage</li>
       <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">3-4 Minute Highlight Reel</li>
-      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">1-1.5 Hour Feature Film</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">1+ Hour Feature Film</li>
     </ul>
     <!-- Mobile items -->
     <ul class="w-full space-y-5 text-[15px] mb-6 md:hidden">
       <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">12 Hours Video Coverage</li>
       <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">3–4 Min Highlight Reel</li>
-      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">1–1.5 Hour Feature Film</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">1+ Hour Feature Film</li>
     </ul>
     <button class="col-card-btn">Choose</button>
   </div>
@@ -2821,7 +3236,8 @@ function adjustQty(btn, delta) {
   const resetBtn = card.querySelector('.te-reset');
   let qty = parseInt(display.textContent) || 0;
   qty = Math.max(0, qty + delta);
-  display.textContent = qty + ' hrs';
+  var isMobile = window.innerWidth <= 768;
+  display.textContent = isMobile ? qty : qty + ' hrs';
 
   if (qty > 0) {
     card.classList.add('coverage-active');
@@ -2838,7 +3254,8 @@ function adjustQty(btn, delta) {
 function resetQty(btn) {
   const card = btn.closest('[data-coverage]');
   const display = card.querySelector('.qty-display');
-  display.textContent = '0 hrs';
+  var isMobile = window.innerWidth <= 768;
+  display.textContent = isMobile ? '0' : '0 hrs';
   card.classList.remove('coverage-active');
   btn.style.opacity = '0.35';
   btn.style.pointerEvents = 'none';
@@ -2890,7 +3307,7 @@ function adjustServiceQty(btn, delta) {
   const maxQty = maxOneServices.includes(serviceId) ? 1 : 999;
   let qty = parseInt(display.textContent) || 0;
   qty = Math.max(0, Math.min(maxQty, qty + delta));
-  display.textContent = isHourly ? qty + ' hrs' : qty;
+  display.textContent = (window.innerWidth <= 768) ? qty : (isHourly ? qty + ' hrs' : qty);
 
   if (qty > 0) {
     card.classList.add('coverage-active');
@@ -2908,7 +3325,7 @@ function resetServiceQty(btn) {
   const card = btn.closest('[data-service]');
   const isHourly = hourlyServices.includes(card.dataset.service);
   const display = card.querySelector('.qty-display');
-  display.textContent = isHourly ? '0 hrs' : '0';
+  display.textContent = '0';
   card.classList.remove('coverage-active');
   btn.style.opacity = '0.35';
   btn.style.pointerEvents = 'none';
@@ -3031,7 +3448,7 @@ function renderDays() {
     const isToday = todayDate.getFullYear() === viewYear && todayDate.getMonth() === viewMonth && todayDate.getDate() === d;
     if (isSelected) {
       html += `<div class="flex items-center justify-center" style="aspect-ratio:1">
-        <button onclick="selectDay(${d})" class="w-full h-full flex items-center justify-center p-0.5" style="transform:scale(1.25)">
+        <button onclick="selectDay(${d})" class="w-full h-full flex items-center justify-center p-0.5" class="cal-heart-btn">
           <svg viewBox="0 0 50 47" class="w-full h-full" style="filter:drop-shadow(0 2px 4px rgba(219,39,119,0.3))">
             <path d="M25 47 C25 47 0 30 0 14 C0 6 6 0 13 0 C18 0 22 3 25 7 C28 3 32 0 37 0 C44 0 50 6 50 14 C50 30 25 47 25 47Z" fill="#ec4899"/>
             <text x="25" y="29" text-anchor="middle" fill="white" font-weight="700" font-size="16" font-family="system-ui,sans-serif">${d}</text>
@@ -3410,6 +3827,7 @@ function renderInvestment() {
 
   html += '</div>';
   container.innerHTML = html;
+  updateMobileTotal();
 }
 
 function handleGetQuote() {
@@ -3428,7 +3846,7 @@ function resetAll() {
   });
   // Reset coverage
   document.querySelectorAll('[data-coverage]').forEach(card => {
-    card.querySelector('.qty-display').textContent = '0 hrs';
+    card.querySelector('.qty-display').textContent = '0';
     card.classList.remove('coverage-active');
     const rb = card.querySelector('.te-reset');
     rb.style.opacity = '0.35'; rb.style.pointerEvents = 'none';
@@ -3443,7 +3861,7 @@ function resetAll() {
   // Reset services
   document.querySelectorAll('[data-service]').forEach(card => {
     const isHourly = hourlyServices.includes(card.dataset.service);
-    card.querySelector('.qty-display').textContent = isHourly ? '0 hrs' : '0';
+    card.querySelector('.qty-display').textContent = '0';
     card.classList.remove('coverage-active');
     const rb = card.querySelector('.te-reset');
     rb.style.opacity = '0.35'; rb.style.pointerEvents = 'none';
@@ -3523,6 +3941,7 @@ function setMainTab(tab) {
   tabPanels[tab].style.display = '';
   // Reset wizard to step 0 on tab switch
   if (window.wizardActive) wizardGoToStep(0);
+  updateMobileTotal();
 }
 
 // ===== Mobile Wizard =====
@@ -3631,6 +4050,8 @@ function wizardUpdateTotal() {
   if (typeof total !== 'number' || isNaN(total)) total = 0;
   var totalEl = document.getElementById('wizardBarTotal');
   if (totalEl) totalEl.textContent = 'Est. Total: $' + total.toLocaleString();
+  // Also update mobile sticky header
+  updateMobileTotal();
 }
 
 function initWizardDots() {
@@ -3660,37 +4081,24 @@ function injectMobileDetailsToggles() {
 }
 
 function initMobileWizard() {
-  if (window.innerWidth >= 768) {
-    if (wizardActive) {
-      // Crossing from mobile to desktop — tear down wizard
-      wizardActive = false;
-      document.getElementById('wizardBottomBar').style.display = 'none';
-      document.querySelectorAll('.wizard-step').forEach(function(s) {
-        s.classList.remove('wizard-active');
-      });
-    }
-    return;
-  }
-  if (wizardActive) {
-    // Already active on mobile — just ensure bar is visible
-    document.getElementById('wizardBottomBar').style.display = '';
-    return;
-  }
-  // First time entering mobile — initialize
-  wizardActive = true;
-  initWizardDots();
-  injectMobileDetailsToggles();
-  ['photography', 'videography', 'alacarte'].forEach(function(tabKey) {
-    var panel = document.getElementById('tabContent-' + tabKey);
-    var steps = panel.querySelectorAll('.wizard-step');
-    steps.forEach(function(s, i) {
-      s.classList.remove('wizard-active');
-      if (i === 0) s.classList.add('wizard-active');
-    });
-    wizardState[tabKey].step = 0;
-  });
-  document.getElementById('wizardBottomBar').style.display = '';
-  updateBottomBar();
+  // Mobile redesign: wizard is disabled — all sections visible via CSS
+  wizardActive = false;
+  var bar = document.getElementById('wizardBottomBar');
+  if (bar) bar.style.display = 'none';
+}
+
+// ===== Mobile Sticky Header Total =====
+function updateMobileTotal() {
+  var el = document.getElementById('mobileTotal');
+  if (!el) return;
+  var total = 0;
+  try {
+    if (activeTab === 'photography') total = p_getEstimatedTotal();
+    else if (activeTab === 'videography') total = v_getEstimatedTotal();
+    else total = getEstimatedTotal();
+  } catch(e) { total = 0; }
+  if (typeof total !== 'number' || isNaN(total)) total = 0;
+  el.textContent = '$' + Math.round(total).toLocaleString();
 }
 
 // Init on load and handle resize
@@ -3767,7 +4175,7 @@ function toggleHalfHourMode() {
     } else {
       qty = Math.max(0, qty + delta);
     }
-    display.textContent = qty + ' hrs';
+    display.textContent = (window.innerWidth <= 768) ? qty : qty + ' hrs';
     if (qty > 0) {
       card.classList.add('coverage-active');
       resetBtn.style.opacity = '1';
@@ -3795,7 +4203,7 @@ function toggleHalfHourMode() {
     if (isHourly && halfHourMode) delta = delta * 0.5;
     let qty = parseFloat(display.textContent) || 0;
     qty = Math.max(0, Math.min(maxQty, qty + delta));
-    display.textContent = isHourly ? qty + ' hrs' : qty;
+    display.textContent = (window.innerWidth <= 768) ? qty : (isHourly ? qty + ' hrs' : qty);
     if (qty > 0) {
       card.classList.add('coverage-active');
       resetBtn.style.opacity = '1';
@@ -3864,7 +4272,7 @@ function p_adjustQty(btn, delta) {
   } else {
     qty = Math.max(0, qty + delta);
   }
-  display.textContent = qty + ' hrs';
+  display.textContent = (window.innerWidth <= 768) ? qty : qty + ' hrs';
   if (qty > 0) { card.classList.add('coverage-active'); resetBtn.style.opacity = '1'; resetBtn.style.pointerEvents = 'auto'; }
   else { card.classList.remove('coverage-active'); resetBtn.style.opacity = '0.35'; resetBtn.style.pointerEvents = 'none'; }
   p_renderInvestment();
@@ -3874,7 +4282,7 @@ function p_adjustQty(btn, delta) {
 
 function p_resetQty(btn) {
   const card = btn.closest('[data-p-coverage]');
-  card.querySelector('.qty-display').textContent = '0 hrs';
+  card.querySelector('.qty-display').textContent = '0';
   card.classList.remove('coverage-active');
   btn.style.opacity = '0.35'; btn.style.pointerEvents = 'none';
   p_renderInvestment();
@@ -3916,7 +4324,7 @@ function p_adjustServiceQty(btn, delta) {
   if (isHourly && halfHourMode) delta = delta * 0.5;
   let qty = parseFloat(display.textContent) || 0;
   qty = Math.max(0, Math.min(maxQty, qty + delta));
-  display.textContent = isHourly ? qty + ' hrs' : qty;
+  display.textContent = (window.innerWidth <= 768) ? qty : (isHourly ? qty + ' hrs' : qty);
   if (qty > 0) { card.classList.add('coverage-active'); resetBtn.style.opacity = '1'; resetBtn.style.pointerEvents = 'auto'; }
   else { card.classList.remove('coverage-active'); resetBtn.style.opacity = '0.35'; resetBtn.style.pointerEvents = 'none'; }
   p_renderInvestment();
@@ -3927,7 +4335,7 @@ function p_adjustServiceQty(btn, delta) {
 function p_resetServiceQty(btn) {
   const card = btn.closest('[data-p-service]');
   const isHourly = p_hourlyServices.includes(card.dataset.pService);
-  card.querySelector('.qty-display').textContent = isHourly ? '0 hrs' : '0';
+  card.querySelector('.qty-display').textContent = '0';
   card.classList.remove('coverage-active');
   btn.style.opacity = '0.35'; btn.style.pointerEvents = 'none';
   p_renderInvestment();
@@ -4017,7 +4425,7 @@ function p_renderDays() {
     const isSelected = p_weddingDate && p_weddingDate.getFullYear() === p_viewYear && p_weddingDate.getMonth() === p_viewMonth && p_weddingDate.getDate() === d;
     const isToday = todayDate.getFullYear() === p_viewYear && todayDate.getMonth() === p_viewMonth && todayDate.getDate() === d;
     if (isSelected) {
-      html += `<div class="flex items-center justify-center" style="aspect-ratio:1"><button onclick="p_selectDay(${d})" class="w-full h-full flex items-center justify-center p-0.5" style="transform:scale(1.25)"><svg viewBox="0 0 50 47" class="w-full h-full" style="filter:drop-shadow(0 2px 4px rgba(219,39,119,0.3))"><path d="M25 47 C25 47 0 30 0 14 C0 6 6 0 13 0 C18 0 22 3 25 7 C28 3 32 0 37 0 C44 0 50 6 50 14 C50 30 25 47 25 47Z" fill="#ec4899"/><text x="25" y="29" text-anchor="middle" fill="white" font-weight="700" font-size="16" font-family="system-ui,sans-serif">${d}</text></svg></button></div>`;
+      html += `<div class="flex items-center justify-center" style="aspect-ratio:1"><button onclick="p_selectDay(${d})" class="w-full h-full flex items-center justify-center p-0.5" class="cal-heart-btn"><svg viewBox="0 0 50 47" class="w-full h-full" style="filter:drop-shadow(0 2px 4px rgba(219,39,119,0.3))"><path d="M25 47 C25 47 0 30 0 14 C0 6 6 0 13 0 C18 0 22 3 25 7 C28 3 32 0 37 0 C44 0 50 6 50 14 C50 30 25 47 25 47Z" fill="#ec4899"/><text x="25" y="29" text-anchor="middle" fill="white" font-weight="700" font-size="16" font-family="system-ui,sans-serif">${d}</text></svg></button></div>`;
     } else {
       html += `<div class="flex items-center justify-center" style="aspect-ratio:1"><button onclick="p_selectDay(${d})" class="cal-day${isToday ? ' cal-today' : ''}">${d}</button></div>`;
     }
@@ -4107,7 +4515,7 @@ function p_renderCustomize() {
 
 function p_renderInvestment() {
   const container = document.getElementById('p_investmentContent');
-  if (!p_currentCollection) { container.innerHTML = '<p class="text-stone-500 text-center py-8 italic">Select a collection to see your investment</p>'; return; }
+  if (!p_currentCollection) { container.innerHTML = '<p class="text-stone-500 text-center py-8 italic">Select a collection to see your investment</p>'; updateMobileTotal(); return; }
   const col = collections[p_currentCollection];
   const fmtMoney = (n) => '$' + n.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
   const fmtWhole = (n) => '$' + n.toLocaleString();
@@ -4190,6 +4598,7 @@ function p_renderInvestment() {
   html += `<div class="pt-4"><div class="flex justify-between items-center"><p class="text-lg md:text-xl font-sans text-stone-800">Total Investment</p><p class="text-xl md:text-2xl font-bold text-stone-800">${fmtMoney(total)}</p></div></div>`;
   html += `<div class="flex flex-col items-center gap-6 my-16"><button onclick="p_handleGetQuote()" class="quote-btn">Get my FREE quote!</button><button onclick="p_resetAll()" class="reset-btn">Start Over</button></div>`;
   container.innerHTML = html;
+  updateMobileTotal();
 }
 
 function p_handleGetQuote() { document.getElementById('quoteModal').style.display = 'block'; window.scrollTo({ top: 0, behavior: 'smooth' }); window.parent.postMessage({scrollToCalc: true}, '*'); }
@@ -4197,9 +4606,9 @@ function p_handleGetQuote() { document.getElementById('quoteModal').style.displa
 function p_resetAll() {
   p_currentCollection = null; p_removedItems = [];
   document.querySelectorAll('[data-p-collection]').forEach(c => { c.classList.remove('col-active'); c.querySelector('.col-card-btn').textContent = 'Choose'; });
-  document.querySelectorAll('[data-p-coverage]').forEach(card => { card.querySelector('.qty-display').textContent = '0 hrs'; card.classList.remove('coverage-active'); const rb = card.querySelector('.te-reset'); rb.style.opacity = '0.35'; rb.style.pointerEvents = 'none'; });
+  document.querySelectorAll('[data-p-coverage]').forEach(card => { card.querySelector('.qty-display').textContent = '0'; card.classList.remove('coverage-active'); const rb = card.querySelector('.te-reset'); rb.style.opacity = '0.35'; rb.style.pointerEvents = 'none'; });
   document.querySelectorAll('[data-p-album]').forEach(card => { card.querySelector('.qty-display').textContent = '0'; card.classList.remove('coverage-active'); const rb = card.querySelector('.te-reset'); rb.style.opacity = '0.35'; rb.style.pointerEvents = 'none'; });
-  document.querySelectorAll('[data-p-service]').forEach(card => { const isHourly = p_hourlyServices.includes(card.dataset.pService); card.querySelector('.qty-display').textContent = isHourly ? '0 hrs' : '0'; card.classList.remove('coverage-active'); const rb = card.querySelector('.te-reset'); rb.style.opacity = '0.35'; rb.style.pointerEvents = 'none'; });
+  document.querySelectorAll('[data-p-service]').forEach(card => { const isHourly = p_hourlyServices.includes(card.dataset.pService); card.querySelector('.qty-display').textContent = '0'; card.classList.remove('coverage-active'); const rb = card.querySelector('.te-reset'); rb.style.opacity = '0.35'; rb.style.pointerEvents = 'none'; });
   const p_creditGridReset = document.getElementById('p_serviceCreditsList');
   if (p_creditGridReset) { p_creditGridReset.querySelectorAll('[data-p-credit]').forEach(c => { c.classList.remove('col-active'); c.style.opacity = '1'; c.style.pointerEvents = 'auto'; }); }
   const consultCb = document.getElementById('p_consultationCb');
@@ -4322,7 +4731,7 @@ function v_renderDays() {
     const isSelected = v_weddingDate && v_weddingDate.getFullYear() === v_viewYear && v_weddingDate.getMonth() === v_viewMonth && v_weddingDate.getDate() === d;
     const isToday = todayDate.getFullYear() === v_viewYear && todayDate.getMonth() === v_viewMonth && todayDate.getDate() === d;
     if (isSelected) {
-      html += `<div class="flex items-center justify-center" style="aspect-ratio:1"><button onclick="v_selectDay(${d})" class="w-full h-full flex items-center justify-center p-0.5" style="transform:scale(1.25)"><svg viewBox="0 0 50 47" class="w-full h-full" style="filter:drop-shadow(0 2px 4px rgba(219,39,119,0.3))"><path d="M25 47 C25 47 0 30 0 14 C0 6 6 0 13 0 C18 0 22 3 25 7 C28 3 32 0 37 0 C44 0 50 6 50 14 C50 30 25 47 25 47Z" fill="#ec4899"/><text x="25" y="29" text-anchor="middle" fill="white" font-weight="700" font-size="16" font-family="system-ui,sans-serif">${d}</text></svg></button></div>`;
+      html += `<div class="flex items-center justify-center" style="aspect-ratio:1"><button onclick="v_selectDay(${d})" class="w-full h-full flex items-center justify-center p-0.5" class="cal-heart-btn"><svg viewBox="0 0 50 47" class="w-full h-full" style="filter:drop-shadow(0 2px 4px rgba(219,39,119,0.3))"><path d="M25 47 C25 47 0 30 0 14 C0 6 6 0 13 0 C18 0 22 3 25 7 C28 3 32 0 37 0 C44 0 50 6 50 14 C50 30 25 47 25 47Z" fill="#ec4899"/><text x="25" y="29" text-anchor="middle" fill="white" font-weight="700" font-size="16" font-family="system-ui,sans-serif">${d}</text></svg></button></div>`;
     } else {
       html += `<div class="flex items-center justify-center" style="aspect-ratio:1"><button onclick="v_selectDay(${d})" class="cal-day${isToday ? ' cal-today' : ''}">${d}</button></div>`;
     }
@@ -4380,7 +4789,7 @@ function v_updatePaymentSchedule() {
 
 function v_renderInvestment() {
   const container = document.getElementById('v_investmentContent');
-  if (!v_currentCollection) { container.innerHTML = '<p class="text-stone-500 text-center py-8 italic">Select a package to see your investment</p>'; return; }
+  if (!v_currentCollection) { container.innerHTML = '<p class="text-stone-500 text-center py-8 italic">Select a package to see your investment</p>'; updateMobileTotal(); return; }
   const col = v_collections[v_currentCollection];
   const fmtMoney = (n) => '$' + n.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
   const fmtWhole = (n) => '$' + n.toLocaleString();
@@ -4434,6 +4843,7 @@ function v_renderInvestment() {
   html += `<div class="pt-4"><div class="flex justify-between items-center"><p class="text-lg md:text-xl font-sans text-stone-800">Total Investment</p><p class="text-xl md:text-2xl font-bold text-stone-800">${fmtMoney(total)}</p></div></div>`;
   html += `<div class="flex flex-col items-center gap-6 my-16"><button onclick="v_handleGetQuote()" class="quote-btn">Get my FREE quote!</button><button onclick="v_resetAll()" class="reset-btn">Start Over</button></div>`;
   container.innerHTML = html;
+  updateMobileTotal();
 }
 
 function v_handleGetQuote() { document.getElementById('quoteModal').style.display = 'block'; window.scrollTo({ top: 0, behavior: 'smooth' }); window.parent.postMessage({scrollToCalc: true}, '*'); }
@@ -5021,6 +5431,28 @@ v_initCalendar();
     </form>
   </div>
 </div>
+
+<!-- Mobile SVG swap for +/- buttons -->
+<script>
+(function() {
+  if (window.innerWidth > 768) return;
+  const minusSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke-width="1.5"></path><path d="M8 12H16" stroke-width="1.5"></path></svg>';
+  const plusSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke-width="1.5"></path><path d="M8 12H16" stroke-width="1.5"></path><path d="M12 16V8" stroke-width="1.5"></path></svg>';
+  function swapBtns() {
+    document.querySelectorAll('.te-btn').forEach(function(btn) {
+      if (btn.dataset.svgSwapped) return;
+      var oldSvg = btn.querySelector('svg');
+      if (!oldSvg) return;
+      var isMinus = !oldSvg.querySelector('line[x1="12"][y1="5"]') && !oldSvg.innerHTML.includes('M12 16V8');
+      btn.innerHTML = isMinus ? minusSvg : plusSvg;
+      btn.dataset.svgSwapped = '1';
+    });
+  }
+  swapBtns();
+  new MutationObserver(swapBtns).observe(document.body, {childList:true, subtree:true});
+  window.addEventListener('load', swapBtns);
+})();
+</script>
 
 <!-- Mobile Wizard Bottom Bar -->
 <div id="wizardBottomBar" class="md:hidden" style="display:none;">
