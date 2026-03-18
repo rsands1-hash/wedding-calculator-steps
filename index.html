@@ -1308,9 +1308,9 @@ body { background: #e7e4e6; }
   /* Photo tab step 2 — stacked qty layout: tally on top, buttons below */
   #tabContent-photography [data-step-index="1"] .qty-group {
     display: grid !important;
-    grid-template-columns: 42px 42px !important;
+    grid-template-columns: 56px 56px !important;
     grid-template-rows: auto auto !important;
-    gap: 6px !important;
+    gap: 8px !important;
     justify-content: center !important;
   }
   #tabContent-photography [data-step-index="1"] .qty-group .qty-display {
@@ -1320,6 +1320,15 @@ body { background: #e7e4e6; }
     min-width: unset !important;
     text-align: center !important;
     box-sizing: border-box !important;
+    font-size: 22px !important;
+  }
+  #tabContent-photography [data-step-index="1"] .qty-group .te-btn {
+    width: 56px !important;
+    height: 56px !important;
+  }
+  #tabContent-photography [data-step-index="1"] .qty-group .te-btn svg {
+    width: 28px !important;
+    height: 28px !important;
   }
   #tabContent-photography [data-step-index="1"] .qty-group .te-btn:first-child {
     grid-column: 1 !important;
@@ -1328,6 +1337,10 @@ body { background: #e7e4e6; }
   #tabContent-photography [data-step-index="1"] .qty-group .te-btn:last-child {
     grid-column: 2 !important;
     grid-row: 2 !important;
+  }
+  #tabContent-photography [data-step-index="1"] .te-reset {
+    font-size: 15px !important;
+    margin-top: 10px !important;
   }
   /* Photo tab step 2 — remove border lines, space out elements */
   #tabContent-photography [data-step-index="1"] .coverage-name {
@@ -3621,6 +3634,37 @@ window.addEventListener('resize', function() {
   clearTimeout(wizardResizeTimer);
   wizardResizeTimer = setTimeout(initMobileWizard, 150);
 });
+
+// ===== Swipe Between Steps =====
+(function() {
+  var touchStartX = 0;
+  var touchStartY = 0;
+  var swiping = false;
+  var minSwipeDistance = 50;
+
+  document.addEventListener('touchstart', function(e) {
+    if (!wizardActive) return;
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+    swiping = true;
+  }, { passive: true });
+
+  document.addEventListener('touchend', function(e) {
+    if (!wizardActive || !swiping) return;
+    swiping = false;
+    var dx = e.changedTouches[0].clientX - touchStartX;
+    var dy = e.changedTouches[0].clientY - touchStartY;
+    // Only trigger if horizontal swipe is dominant
+    if (Math.abs(dx) < minSwipeDistance || Math.abs(dy) > Math.abs(dx)) return;
+    if (dx < 0) {
+      // Swipe left — next step
+      wizardNext();
+    } else {
+      // Swipe right — previous step
+      wizardBack();
+    }
+  }, { passive: true });
+})();
 
 // ===== Half Hour Mode =====
 let halfHourMode = false;
