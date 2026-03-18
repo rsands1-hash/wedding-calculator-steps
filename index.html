@@ -61,10 +61,10 @@ body { background: #e7e4e6; }
 .col-card.col-active::before {
   content: '';
   position: absolute;
-  top: -2px; left: -2px; right: -2px; bottom: -2px;
+  top: -6px; left: -6px; right: -6px; bottom: -6px;
   background: linear-gradient(90deg, #7c6aff, #a78bff, #d946ef, #e63983, #f472b6, #b84ddf, #c084fc, #7c8aff, #60b5f7, #f0c050, #9080ff, #f472b6, #e63983, #7c6aff);
   background-size: 300% 100%;
-  border-radius: 18px;
+  border-radius: 22px;
   z-index: -2;
   filter: blur(6px);
   opacity: 1;
@@ -328,10 +328,10 @@ body { background: #e7e4e6; }
 .coverage-active::before {
   content: '';
   position: absolute;
-  top: -2px; left: -2px; right: -2px; bottom: -2px;
+  top: -6px; left: -6px; right: -6px; bottom: -6px;
   background: linear-gradient(90deg, #7c6aff, #a78bff, #d946ef, #e63983, #f472b6, #b84ddf, #c084fc, #7c8aff, #60b5f7, #f0c050, #9080ff, #f472b6, #e63983, #7c6aff);
   background-size: 300% 100%;
-  border-radius: 14px;
+  border-radius: 22px;
   z-index: -2;
   filter: blur(6px);
   opacity: 1;
@@ -974,6 +974,405 @@ body { background: #e7e4e6; }
   .halfhour-btn { display: block; font-size: 17.5px; }
   .halfhour-btn .rb-inner span { font-size: 17.5px; }
 }
+
+/* ===== MOBILE WIZARD (< 768px only) ===== */
+@media (max-width: 767px) {
+
+  /* --- A. GLOBAL MOBILE OVERRIDES --- */
+  body {
+    padding: 8px 16px 130px 16px !important;
+  }
+
+  /* --- B. TAB HEADER AREA --- */
+  .max-w-6xl.mx-auto.mb-10 {
+    margin-bottom: 8px !important;
+  }
+
+  /* --- C. WIZARD STEP CONTAINERS --- */
+  .wizard-step { display: none; }
+  .wizard-step.wizard-active { display: block; }
+
+  /* --- D. PROGRESS DOTS --- */
+  .wizard-progress {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 0;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: #e7e4e6;
+  }
+  .wizard-dot {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: #d6d3d1;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .wizard-dot.active {
+    background: #7c6aff;
+    width: 14px;
+    height: 14px;
+    box-shadow: 0 0 8px rgba(124,106,255,0.5);
+  }
+  .wizard-dot.completed {
+    background: #a78bff;
+  }
+
+  /* --- E. FLOATING BOTTOM BAR --- */
+  #wizardBottomBar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: #fff;
+    border-top: 1px solid #d6d3d1;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+    padding: 8px 16px calc(16px + env(safe-area-inset-bottom, 0px));
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .wizard-bar-step {
+    font-size: 13px;
+    font-weight: 600;
+    color: #78716c;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 2px;
+  }
+  .wizard-bar-total {
+    font-size: 22px;
+    font-weight: 800;
+    color: #292524;
+    text-align: center;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+  .wizard-bar-nav {
+    display: flex;
+    gap: 8px;
+  }
+  .wizard-bar-nav button {
+    flex: 1;
+    padding: 14px 0;
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  #wizardBackBtn { background: #f5f5f4; color: #78716c; }
+  #wizardNextBtn { background: #7c6aff; color: #fff; }
+  #wizardNextBtn:active { background: #6355d8; }
+  #wizardBackBtn:active { background: #e7e5e4; }
+  #wizardNextBtn.wizard-btn-quote { background: #16a34a; }
+  #wizardNextBtn.wizard-btn-quote:active { background: #15803d; }
+
+  /* --- F. STEP HEADINGS — KILL DEAD SPACE --- */
+  .wizard-step > div:first-child {
+    margin-top: 0 !important;
+    margin-bottom: 8px !important;
+    justify-content: flex-start !important;
+  }
+
+  /* --- G. HEADING ICON + TEXT --- */
+  .wizard-step > div:first-child img {
+    width: 40px !important;
+    height: 40px !important;
+  }
+  .wizard-step h2 {
+    font-size: 24px !important;
+    line-height: 1.3 !important;
+    text-align: left !important;
+  }
+
+  /* --- H. STEP SUBTITLES --- */
+  .wizard-step > p {
+    font-size: 16px !important;
+    margin-bottom: 16px !important;
+    line-height: 1.4 !important;
+    text-align: left !important;
+  }
+  .wizard-step > p br { display: none; }
+
+  /* --- I. CAROUSEL — FILL THE SCREEN --- */
+  .wizard-carousel {
+    display: flex !important;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 16px;
+    padding: 12px 8px 12px 8px;
+    overflow-y: visible;
+    grid-template-columns: unset !important;
+    scrollbar-width: none;
+  }
+  .wizard-carousel::-webkit-scrollbar { display: none; }
+  .wizard-carousel > * {
+    min-width: 88vw;
+    max-width: 88vw;
+    scroll-snap-align: center;
+    flex-shrink: 0;
+  }
+
+  /* --- K. CARD INTERNALS --- */
+
+  /* Card padding — high specificity to beat Tailwind p-[15px] and p-5 */
+  .wizard-step .col-card[class*="p-"],
+  .wizard-step .col-card {
+    padding: 24px !important;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.10) !important;
+  }
+
+  /* Card name */
+  .wizard-step .col-card-name,
+  .wizard-step .coverage-name {
+    font-size: 20px !important;
+    margin-bottom: 8px !important;
+  }
+  .wizard-step .coverage-name br { display: none; }
+
+  /* Card price */
+  .wizard-step .col-card-price,
+  .wizard-step .coverage-price {
+    font-size: 32px !important;
+    margin-bottom: 16px !important;
+  }
+
+  /* Card badge (guest count) */
+  .wizard-step .col-card-badge {
+    font-size: 18px !important;
+    margin-bottom: 8px !important;
+    padding-bottom: 8px !important;
+  }
+
+  /* Feature list */
+  .wizard-step .col-card ul {
+    margin-bottom: 16px !important;
+  }
+  .wizard-step .col-card ul li {
+    font-size: 16px !important;
+    white-space: normal !important;
+    margin-top: 8px !important;
+  }
+  .wizard-step .col-card ul li:first-child {
+    margin-top: 0 !important;
+  }
+  /* Beat Tailwind space-y-5 specificity */
+  .wizard-step .col-card ul > *:not(:first-child) {
+    margin-top: 8px !important;
+  }
+
+  /* Card description text */
+  .wizard-step .col-card p {
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    margin-bottom: 16px !important;
+  }
+
+  /* Card images */
+  .wizard-step .col-card > img {
+    width: 104px !important;
+    height: 104px !important;
+    margin-bottom: 16px !important;
+  }
+
+  /* Choose Collection button */
+  .wizard-step .col-card-btn {
+    font-size: 16px !important;
+    padding: 14px 24px !important;
+    width: 100%;
+  }
+
+  /* Qty controls */
+  .wizard-step .qty-display {
+    font-size: 20px !important;
+    font-weight: 700;
+    min-width: 70px;
+    text-align: center;
+  }
+  .wizard-step .te-btn {
+    width: 50px !important;
+    height: 50px !important;
+  }
+  .wizard-step .te-reset {
+    font-size: 13px !important;
+    margin-top: 8px !important;
+  }
+
+  /* --- L. CREDITS: 2x4 GRID --- */
+  #serviceCreditsList,
+  #p_serviceCreditsList {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    overflow-x: visible !important;
+    scroll-snap-type: none !important;
+    gap: 8px !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+  #serviceCreditsList > *,
+  #p_serviceCreditsList > * {
+    min-width: unset !important;
+    max-width: unset !important;
+    scroll-snap-align: unset !important;
+    padding: 16px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+  #serviceCreditsList::after,
+  #p_serviceCreditsList::after {
+    display: none !important;
+  }
+  #serviceCreditsList img,
+  #p_serviceCreditsList img {
+    width: 72px !important;
+    height: 72px !important;
+    margin-bottom: 8px !important;
+  }
+  #serviceCreditsList p,
+  #p_serviceCreditsList p {
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+    margin-bottom: 4px !important;
+  }
+  #serviceCreditsList p:last-child,
+  #p_serviceCreditsList p:last-child {
+    font-size: 14px !important;
+    font-weight: 700;
+    margin-top: 2px !important;
+  }
+
+  /* --- M. UNLOCK MORE CREDITS --- */
+  /* Left-justify all sub-headings (unlock credits, etc.) */
+  .wizard-step > div:nth-child(n+3) {
+    justify-content: flex-start !important;
+  }
+  /* Fix unlock heading text-xs (12px) — too small */
+  .wizard-step > div > div.text-xs,
+  .wizard-step div.text-xs {
+    font-size: 16px !important;
+  }
+  /* Checkbox labels — beat inline style="font-size:17px" */
+  .wizard-step .anim-cb > span[style],
+  .wizard-step .col-card label.anim-cb span {
+    font-size: 16px !important;
+  }
+  .wizard-step .col-card label.anim-cb + p {
+    font-size: 14px !important;
+  }
+  /* Tighten checkbox description left margin */
+  .wizard-step .col-card p.ml-11 {
+    margin-left: 36px !important;
+  }
+
+  /* --- N. PAYMENT METHODS: 2x3 GRID --- */
+  #payMethodGrid,
+  #p_payMethodGrid,
+  #v_payMethodGrid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    overflow-x: visible !important;
+    scroll-snap-type: none !important;
+    gap: 8px !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+  #payMethodGrid > *,
+  #p_payMethodGrid > *,
+  #v_payMethodGrid > * {
+    min-width: unset !important;
+    max-width: unset !important;
+    scroll-snap-align: unset !important;
+    padding: 16px !important;
+  }
+  #payMethodGrid::after,
+  #p_payMethodGrid::after,
+  #v_payMethodGrid::after {
+    display: none !important;
+  }
+  #payMethodGrid img,
+  #p_payMethodGrid img,
+  #v_payMethodGrid img {
+    width: 68px !important;
+    height: 68px !important;
+    margin-top: 0 !important;
+    margin-bottom: 8px !important;
+  }
+  #payMethodGrid p,
+  #p_payMethodGrid p,
+  #v_payMethodGrid p {
+    font-size: 16px !important;
+  }
+
+  /* --- O. CALENDAR & PAYMENT PLAN --- */
+  .wizard-step [data-payment="plan"],
+  .wizard-step [data-p-payment="plan"],
+  .wizard-step [data-v-payment="plan"] {
+    padding: 16px !important;
+  }
+  .wizard-step [data-payment="plan"] h3,
+  .wizard-step [data-p-payment="plan"] h3,
+  .wizard-step [data-v-payment="plan"] h3 {
+    font-size: 20px !important;
+    margin-bottom: 8px !important;
+    text-align: left !important;
+  }
+  .wizard-step p[id$="pickDatePrompt"] {
+    text-align: left !important;
+  }
+  .wizard-step .anim-radio span,
+  .wizard-step .anim-cb span {
+    font-size: 16px !important;
+  }
+
+  /* --- P. INVESTMENT / SUMMARY --- */
+  .wizard-step [id$="investmentBox"],
+  .wizard-step [id$="customizeBox"] {
+    padding: 24px !important;
+  }
+  .wizard-step [id$="investmentBox"] h3,
+  .wizard-step [id$="customizeBox"] h3 {
+    font-size: 20px !important;
+    text-align: left !important;
+  }
+
+  /* --- Q. MAX-WIDTH CONTAINERS — FILL MOBILE --- */
+  .wizard-step .max-w-6xl,
+  .wizard-step .max-w-4xl,
+  .wizard-step .max-w-3xl {
+    max-width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* --- R. TOUCH FEEDBACK --- */
+  .wizard-step .col-card:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+  /* Remove hover shadow on mobile (no hover on touch) */
+  .wizard-step .col-card:hover {
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.10) !important;
+  }
+
+  /* --- S. QTY GROUP GAP --- */
+  .wizard-step .qty-group {
+    gap: 8px !important;
+  }
+}
+
+/* Desktop safety: ensure wizard elements never show on desktop */
+@media (min-width: 768px) {
+  .wizard-step { display: block !important; }
+  #wizardBottomBar { display: none !important; }
+  .wizard-progress { display: none !important; }
+  .wizard-carousel { display: grid !important; }
+}
 </style>
 </head>
 <body class="font-sans px-4 py-12 md:px-10 md:py-16">
@@ -997,7 +1396,8 @@ body { background: #e7e4e6; }
 
 <!-- ===== TAB: À La Carte ===== -->
 <div id="tabContent-alacarte" style="display: none;">
-
+<div class="wizard-progress md:hidden" id="wizardProgress-alacarte"></div>
+<div class="wizard-step" data-step-index="0" data-step-name="Coverage">
 <!-- Choose Your Service -->
 <div class="flex items-center justify-center gap-3 mb-2">
   <img src="https://static.showit.co/file/LB0PBwkUcYlFGgQdar6cSQ/293041/tools.png" alt="tools" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
@@ -1005,7 +1405,7 @@ body { background: #e7e4e6; }
 </div>
 <p class="text-center text-stone-500 text-base md:text-lg mb-10">Create your perfect coverage starting at $300/hour with a 4 hour minimum</p>
 
-<div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-5">
+<div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-5 wizard-carousel">
 
   <!-- Photography -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-coverage="photo">
@@ -1072,7 +1472,9 @@ body { background: #e7e4e6; }
   </div>
 
 </div>
+</div>
 
+<div class="wizard-step" data-step-index="1" data-step-name="Albums">
 <!-- Wedding Albums -->
 <div class="flex items-center justify-center gap-3 mb-2 mt-16">
   <img src="https://static.showit.co/file/gWhA3U1p57GTjTp7KYkqKg/293041/album.png" alt="album" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
@@ -1080,7 +1482,7 @@ body { background: #e7e4e6; }
 </div>
 <p class="text-center text-stone-500 text-base md:text-lg mb-10">Beautiful, handcrafted albums to treasure for a lifetime</p>
 
-<div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-5">
+<div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-5 wizard-carousel">
 
   <!-- 8x8 Album -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-album="album_8x8">
@@ -1151,7 +1553,9 @@ body { background: #e7e4e6; }
   </div>
 
 </div>
+</div>
 
+<div class="wizard-step" data-step-index="2" data-step-name="Services">
 <!-- Other Services -->
 <div class="flex items-center justify-center gap-3 mb-2 mt-16">
   <img src="https://static.showit.co/file/eFfc8a1XACHVPrdxtk9HeA/293041/other.png" alt="other services" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
@@ -1159,7 +1563,7 @@ body { background: #e7e4e6; }
 </div>
 <p class="text-center text-stone-500 text-base md:text-lg mb-10">Add even more coverage to make your wedding experience unforgettable</p>
 
-<div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-5">
+<div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-5 wizard-carousel">
 
   <!-- 30 Minute Engagement Session -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-service="engagement_30min">
@@ -1226,7 +1630,9 @@ body { background: #e7e4e6; }
   </div>
 
 </div>
+</div>
 
+<div class="wizard-step" data-step-index="3" data-step-name="Credits">
 <!-- Service Credits -->
 <div class="flex items-center justify-center gap-3 mb-2 mt-16">
   <img src="https://static.showit.co/file/NArGw95RaAiEJj5S2p6SyA/293041/credits.png" alt="credits" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
@@ -1236,7 +1642,7 @@ body { background: #e7e4e6; }
 <p class="text-center text-stone-400 text-sm md:text-base mb-10">(Two selections / One per Partner)</p>
 
 
-<div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-4 mb-10" id="serviceCreditsList">
+<div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-4 mb-10 wizard-carousel" id="serviceCreditsList">
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-credit="law_enforcement" onclick="toggleCreditCard(this)">
     <img src="https://static.showit.co/file/dr9_VGpMzgNOYxe5J6bdiQ/293041/police.png" alt="Police" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3" style="transform: scaleX(-1)">
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Police Officer</p>
@@ -1296,7 +1702,9 @@ body { background: #e7e4e6; }
     <p class="text-xs md:text-base text-stone-500 ml-11 italic" style="margin-top:-1px">Follow me on IG @ryansandsphotography and earn yourself a cool $25 credit.</p>
   </div>
 </div>
+</div>
 
+<div class="wizard-step" data-step-index="4" data-step-name="Date &amp; Plan">
 <!-- Choose a Payment Plan -->
 <div class="flex items-center justify-center gap-3 mb-2 mt-16">
   <img src="https://static.showit.co/file/aPLMXJ_TUyQH5ii36mai5Q/293041/calendar.png" alt="calendar" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
@@ -1360,7 +1768,9 @@ body { background: #e7e4e6; }
     </div>
   </div>
 </div>
+</div>
 
+<div class="wizard-step" data-step-index="5" data-step-name="Payment">
 <!-- Step 6: Payment Method -->
 <div class="flex items-center justify-center gap-3 mb-2 mt-16">
   <img src="https://static.showit.co/file/kN5dwSDD1VZ2PRPu6NhYKQ/293041/credit-card.png" alt="credit card" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
@@ -1368,7 +1778,7 @@ body { background: #e7e4e6; }
 </div>
 <p class="text-center text-stone-500 text-base md:text-lg mb-10">Choose how you'd like to pay</p>
 
-<div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4" id="payMethodGrid">
+<div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 wizard-carousel" id="payMethodGrid">
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-pay-method="cash" onclick="selectPayMethodCard(this)">
     <img src="https://static.showit.co/file/ueHGE8iMCHrL5egxLgOVLQ/293041/cash.png" alt="Cash" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3 mt-[30px]">
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Cash</p>
@@ -1396,7 +1806,9 @@ body { background: #e7e4e6; }
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Check</p>
   </div>
 </div>
+</div>
 
+<div class="wizard-step" data-step-index="6" data-step-name="Summary">
 <!-- Step 7: Your Investment -->
 <div class="flex items-center justify-center gap-3 mb-2 mt-16">
   <img src="https://static.showit.co/file/ueHGE8iMCHrL5egxLgOVLQ/293041/cash.png" alt="cash" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
@@ -1418,18 +1830,21 @@ body { background: #e7e4e6; }
   </div>
 
 </div>
+</div>
 
 </div><!-- /tabContent-alacarte -->
 
 <!-- ===== TAB: Photography ===== -->
 <div id="tabContent-photography">
+<div class="wizard-progress md:hidden" id="wizardProgress-photography"></div>
+<div class="wizard-step" data-step-index="0" data-step-name="Collection">
 <div class="flex items-center justify-center gap-3 mb-2">
   <img src="https://static.showit.co/file/bnOCMC9XnbvrlasKA2Pm0Q/293041/collection.png" alt="collection" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
   <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 1: Choose Your Wedding Collection</h2>
 </div>
 <p class="text-center text-stone-500 text-base md:text-lg mb-10">I offer customizable packages to suit you and your fiance's every need</p>
 
-<div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-5">
+<div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-5 wizard-carousel">
 
   <!-- Essential -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-p-collection="essential" onclick="p_selectCollection(this)">
@@ -1494,7 +1909,9 @@ body { background: #e7e4e6; }
   </div>
 
 </div>
+</div>
 
+<div class="wizard-step" data-step-index="1" data-step-name="Coverage">
 <!-- Additional Coverage Time -->
 <div class="flex items-center justify-center gap-3 mb-2 mt-16">
   <img src="https://static.showit.co/file/Q86uOG_Zc1KRe2oQdXaRXA/293041/clock.png" alt="clock" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
@@ -1502,7 +1919,7 @@ body { background: #e7e4e6; }
 </div>
 <p class="text-center text-stone-500 text-base md:text-lg mb-10">Need more time? No problem! Add on as much as you like : )</p>
 
-<div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-5">
+<div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-5 wizard-carousel">
 
   <!-- Photography -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-p-coverage="photo">
@@ -1569,7 +1986,9 @@ body { background: #e7e4e6; }
   </div>
 
 </div>
+</div>
 
+<div class="wizard-step" data-step-index="2" data-step-name="Services">
 <!-- Other Services -->
 <div class="flex items-center justify-center gap-3 mb-2 mt-16">
   <img src="https://static.showit.co/file/eFfc8a1XACHVPrdxtk9HeA/293041/other.png" alt="other services" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
@@ -1577,7 +1996,7 @@ body { background: #e7e4e6; }
 </div>
 <p class="text-center text-stone-500 text-base md:text-lg mb-10">Add even more coverage to make your wedding experience unforgettable</p>
 
-<div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-5">
+<div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-5 wizard-carousel">
 
   <!-- 30 Minute Engagement Session -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-p-service="engagement_30min">
@@ -1644,7 +2063,9 @@ body { background: #e7e4e6; }
   </div>
 
 </div>
+</div>
 
+<div class="wizard-step" data-step-index="3" data-step-name="Credits">
 <!-- Service Credits -->
 <div class="flex items-center justify-center gap-3 mb-2 mt-16">
   <img src="https://static.showit.co/file/NArGw95RaAiEJj5S2p6SyA/293041/credits.png" alt="credits" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
@@ -1654,7 +2075,7 @@ body { background: #e7e4e6; }
 <p class="text-center text-stone-400 text-sm md:text-base mb-10">(Two selections / One per Partner)</p>
 
 
-<div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-4 mb-10" id="p_serviceCreditsList">
+<div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-4 mb-10 wizard-carousel" id="p_serviceCreditsList">
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-p-credit="law_enforcement" onclick="p_toggleCreditCard(this)">
     <img src="https://static.showit.co/file/dr9_VGpMzgNOYxe5J6bdiQ/293041/police.png" alt="Police" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3" style="transform: scaleX(-1)">
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Police Officer</p>
@@ -1714,7 +2135,9 @@ body { background: #e7e4e6; }
     <p class="text-xs md:text-base text-stone-500 ml-11 italic" style="margin-top:-1px">Follow me on IG @ryansandsphotography and earn yourself a cool $25 credit.</p>
   </div>
 </div>
+</div>
 
+<div class="wizard-step" data-step-index="4" data-step-name="Date &amp; Plan">
 <!-- Choose a Payment Plan -->
 <div class="flex items-center justify-center gap-3 mb-2 mt-16">
   <img src="https://static.showit.co/file/aPLMXJ_TUyQH5ii36mai5Q/293041/calendar.png" alt="calendar" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
@@ -1778,7 +2201,9 @@ body { background: #e7e4e6; }
     </div>
   </div>
 </div>
+</div>
 
+<div class="wizard-step" data-step-index="5" data-step-name="Payment">
 <!-- Step 6: Payment Method -->
 <div class="flex items-center justify-center gap-3 mb-2 mt-16">
   <img src="https://static.showit.co/file/kN5dwSDD1VZ2PRPu6NhYKQ/293041/credit-card.png" alt="credit card" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
@@ -1786,7 +2211,7 @@ body { background: #e7e4e6; }
 </div>
 <p class="text-center text-stone-500 text-base md:text-lg mb-10">Choose how you'd like to pay</p>
 
-<div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4" id="p_payMethodGrid">
+<div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 wizard-carousel" id="p_payMethodGrid">
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-p-pay-method="cash" onclick="p_selectPayMethodCard(this)">
     <img src="https://static.showit.co/file/ueHGE8iMCHrL5egxLgOVLQ/293041/cash.png" alt="Cash" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3 mt-[30px]">
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Cash</p>
@@ -1814,7 +2239,9 @@ body { background: #e7e4e6; }
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Check</p>
   </div>
 </div>
+</div>
 
+<div class="wizard-step" data-step-index="6" data-step-name="Summary">
 <!-- Step 7: Your Investment -->
 <div class="flex items-center justify-center gap-3 mb-2 mt-16">
   <img src="https://static.showit.co/file/ueHGE8iMCHrL5egxLgOVLQ/293041/cash.png" alt="cash" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
@@ -1847,18 +2274,21 @@ body { background: #e7e4e6; }
   </div>
 
 </div>
+</div>
 
 </div>
 
 <!-- ===== TAB: Videography ===== -->
 <div id="tabContent-videography" style="display: none;">
+<div class="wizard-progress md:hidden" id="wizardProgress-videography"></div>
+<div class="wizard-step" data-step-index="0" data-step-name="Package">
 <div class="flex items-center justify-center gap-3 mb-2">
   <img src="https://static.showit.co/file/bnOCMC9XnbvrlasKA2Pm0Q/293041/collection.png" alt="collection" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
   <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 1: Choose Your Videography Package</h2>
 </div>
 <p class="text-center text-stone-500 text-base md:text-lg mb-10">Everything included in each videography package</p>
 
-<div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-5">
+<div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-5 wizard-carousel">
 
   <!-- Bronze -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-v-collection="bronze" onclick="v_selectCollection(this)">
@@ -1913,7 +2343,9 @@ body { background: #e7e4e6; }
   </div>
 
 </div>
+</div>
 
+<div class="wizard-step" data-step-index="1" data-step-name="Date &amp; Plan">
 <!-- Step 2: Choose a Payment Plan -->
 <div class="flex items-center justify-center gap-3 mb-2 mt-16">
   <img src="https://static.showit.co/file/aPLMXJ_TUyQH5ii36mai5Q/293041/calendar.png" alt="calendar" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
@@ -1977,7 +2409,9 @@ body { background: #e7e4e6; }
     </div>
   </div>
 </div>
+</div>
 
+<div class="wizard-step" data-step-index="2" data-step-name="Payment">
 <!-- Step 3: Payment Method -->
 <div class="flex items-center justify-center gap-3 mb-2 mt-16">
   <img src="https://static.showit.co/file/kN5dwSDD1VZ2PRPu6NhYKQ/293041/credit-card.png" alt="credit card" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
@@ -1985,7 +2419,7 @@ body { background: #e7e4e6; }
 </div>
 <p class="text-center text-stone-500 text-base md:text-lg mb-10">Choose how you'd like to pay</p>
 
-<div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4" id="v_payMethodGrid">
+<div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 wizard-carousel" id="v_payMethodGrid">
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-v-pay-method="cash" onclick="v_selectPayMethodCard(this)">
     <img src="https://static.showit.co/file/ueHGE8iMCHrL5egxLgOVLQ/293041/cash.png" alt="Cash" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3 mt-[30px]">
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Cash</p>
@@ -2013,7 +2447,9 @@ body { background: #e7e4e6; }
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Check</p>
   </div>
 </div>
+</div>
 
+<div class="wizard-step" data-step-index="3" data-step-name="Summary">
 <!-- Step 4: Your Investment -->
 <div class="flex items-center justify-center gap-3 mb-2 mt-16">
   <img src="https://static.showit.co/file/ueHGE8iMCHrL5egxLgOVLQ/293041/cash.png" alt="cash" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
@@ -2031,6 +2467,7 @@ body { background: #e7e4e6; }
       <p class="text-stone-500 text-center py-8 italic">Select a package to see your investment</p>
     </div>
   </div>
+</div>
 </div>
 
 </div>
@@ -2166,6 +2603,7 @@ function adjustAlbumQty(btn, delta) {
     resetBtn.style.pointerEvents = 'none';
   }
   updatePaymentSchedule();
+  if (window.wizardActive) wizardUpdateTotal();
 }
 
 function resetAlbumQty(btn) {
@@ -2241,6 +2679,7 @@ function toggleCreditCard(card) {
     }
   });
   updatePaymentSchedule();
+  if (window.wizardActive) wizardUpdateTotal();
 }
 
 // Unlock More Credits
@@ -2254,6 +2693,7 @@ function toggleUnlock(cb) {
   }
   txt.style.fontSize = '17px';
   updatePaymentSchedule();
+  if (window.wizardActive) wizardUpdateTotal();
 }
 
 // Payment Method (single-select using checkboxes)
@@ -2269,6 +2709,7 @@ function selectPayMethodCard(card) {
   }
   renderInvestment();
   updatePaymentSchedule();
+  if (window.wizardActive) wizardUpdateTotal();
 }
 
 
@@ -2370,6 +2811,7 @@ function selectPayPlan(radio) {
     txt.style.fontSize = '17px';
   });
   updatePaymentSchedule();
+  if (window.wizardActive) wizardUpdateTotal();
 }
 
 function calculatePaymentSchedule(total, weddingDateObj, planType) {
@@ -2818,7 +3260,180 @@ function setMainTab(tab) {
   // Show/hide content panels
   Object.values(tabPanels).forEach(p => p.style.display = 'none');
   tabPanels[tab].style.display = '';
+  // Reset wizard to step 0 on tab switch
+  if (window.wizardActive) wizardGoToStep(0);
 }
+
+// ===== Mobile Wizard =====
+var wizardActive = false;
+var wizardState = {
+  photography: { step: 0, total: 7, names: ['Collection','Coverage','Services','Credits','Date & Plan','Payment','Summary'] },
+  videography: { step: 0, total: 4, names: ['Package','Date & Plan','Payment','Summary'] },
+  alacarte: { step: 0, total: 7, names: ['Coverage','Albums','Services','Credits','Date & Plan','Payment','Summary'] }
+};
+
+function getActiveTabKey() {
+  if (activeTab === 'photography') return 'photography';
+  if (activeTab === 'videography') return 'videography';
+  return 'alacarte';
+}
+
+function getActiveTabPanel() {
+  return document.getElementById('tabContent-' + activeTab);
+}
+
+function wizardGoToStep(idx) {
+  var key = getActiveTabKey();
+  var state = wizardState[key];
+  if (idx < 0 || idx >= state.total) return;
+  state.step = idx;
+  var panel = getActiveTabPanel();
+  var steps = panel.querySelectorAll('.wizard-step');
+  steps.forEach(function(s) { s.classList.remove('wizard-active'); });
+  if (steps[idx]) {
+    steps[idx].classList.add('wizard-active');
+    // If going to summary step, render investment
+    if (idx === state.total - 1) {
+      if (key === 'photography') { if (typeof p_renderInvestment === 'function') p_renderInvestment(); }
+      else if (key === 'videography') { if (typeof v_renderInvestment === 'function') v_renderInvestment(); }
+      else { if (typeof renderInvestment === 'function') renderInvestment(); }
+    }
+  }
+  updateProgressDots();
+  updateBottomBar();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function wizardNext() {
+  var key = getActiveTabKey();
+  var state = wizardState[key];
+  if (state.step >= state.total - 1) {
+    // On last step, trigger Get a Quote
+    if (typeof handleGetQuote === 'function') handleGetQuote();
+    return;
+  }
+  wizardGoToStep(state.step + 1);
+}
+
+function wizardBack() {
+  var key = getActiveTabKey();
+  wizardGoToStep(wizardState[key].step - 1);
+}
+
+function updateProgressDots() {
+  var key = getActiveTabKey();
+  var state = wizardState[key];
+  var container = document.getElementById('wizardProgress-' + activeTab);
+  if (!container) return;
+  var dots = container.querySelectorAll('.wizard-dot');
+  dots.forEach(function(dot, i) {
+    dot.classList.remove('active', 'completed');
+    if (i === state.step) dot.classList.add('active');
+    else if (i < state.step) dot.classList.add('completed');
+  });
+}
+
+function updateBottomBar() {
+  var key = getActiveTabKey();
+  var state = wizardState[key];
+  var stepEl = document.getElementById('wizardBarStep');
+  var totalEl = document.getElementById('wizardBarTotal');
+  var backBtn = document.getElementById('wizardBackBtn');
+  var nextBtn = document.getElementById('wizardNextBtn');
+
+  stepEl.textContent = 'Step ' + (state.step + 1) + ' of ' + state.total + ': ' + state.names[state.step];
+
+  // Update total
+  wizardUpdateTotal();
+
+  // Back button visibility
+  backBtn.style.display = state.step === 0 ? 'none' : '';
+
+  // Next button - on last step, show "Get a Quote"
+  if (state.step >= state.total - 1) {
+    nextBtn.textContent = 'Get a Quote';
+    nextBtn.classList.add('wizard-btn-quote');
+  } else {
+    nextBtn.innerHTML = 'Next &#8594;';
+    nextBtn.classList.remove('wizard-btn-quote');
+  }
+}
+
+function wizardUpdateTotal() {
+  var key = getActiveTabKey();
+  var total = 0;
+  try {
+    if (key === 'photography') total = p_getEstimatedTotal();
+    else if (key === 'videography') total = v_getEstimatedTotal();
+    else total = getEstimatedTotal();
+  } catch(e) { total = 0; }
+  if (typeof total !== 'number' || isNaN(total)) total = 0;
+  var totalEl = document.getElementById('wizardBarTotal');
+  if (totalEl) totalEl.textContent = 'Est. Total: $' + total.toLocaleString();
+}
+
+function initWizardDots() {
+  ['photography', 'videography', 'alacarte'].forEach(function(tabKey) {
+    var container = document.getElementById('wizardProgress-' + tabKey);
+    if (!container) return;
+    container.innerHTML = '';
+    var state = wizardState[tabKey];
+    for (var i = 0; i < state.total; i++) {
+      var dot = document.createElement('div');
+      dot.className = 'wizard-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('data-dot-index', i);
+      (function(idx) {
+        dot.addEventListener('click', function() {
+          if (activeTab === tabKey || (tabKey === 'alacarte' && activeTab === 'alacarte')) {
+            wizardGoToStep(idx);
+          }
+        });
+      })(i);
+      container.appendChild(dot);
+    }
+  });
+}
+
+function initMobileWizard() {
+  if (window.innerWidth >= 768) {
+    if (wizardActive) {
+      // Crossing from mobile to desktop — tear down wizard
+      wizardActive = false;
+      document.getElementById('wizardBottomBar').style.display = 'none';
+      document.querySelectorAll('.wizard-step').forEach(function(s) {
+        s.classList.remove('wizard-active');
+      });
+    }
+    return;
+  }
+  if (wizardActive) {
+    // Already active on mobile — do NOT reset steps (iOS resize events)
+    return;
+  }
+  // First time entering mobile — initialize
+  wizardActive = true;
+  initWizardDots();
+  ['photography', 'videography', 'alacarte'].forEach(function(tabKey) {
+    var panel = document.getElementById('tabContent-' + tabKey);
+    var steps = panel.querySelectorAll('.wizard-step');
+    steps.forEach(function(s, i) {
+      s.classList.remove('wizard-active');
+      if (i === 0) s.classList.add('wizard-active');
+    });
+    wizardState[tabKey].step = 0;
+  });
+  document.getElementById('wizardBottomBar').style.display = '';
+  updateBottomBar();
+}
+
+// Init on load and handle resize
+window.addEventListener('DOMContentLoaded', initMobileWizard);
+window.addEventListener('load', initMobileWizard);
+var wizardResizeTimer;
+window.addEventListener('resize', function() {
+  clearTimeout(wizardResizeTimer);
+  wizardResizeTimer = setTimeout(initMobileWizard, 150);
+});
 
 // ===== Half Hour Mode =====
 let halfHourMode = false;
@@ -2865,6 +3480,7 @@ function toggleHalfHourMode() {
       resetBtn.style.pointerEvents = 'none';
     }
     renderInvestment();
+    if (window.wizardActive) wizardUpdateTotal();
   };
 })();
 
@@ -2892,6 +3508,7 @@ function toggleHalfHourMode() {
       resetBtn.style.pointerEvents = 'none';
     }
     renderInvestment();
+    if (window.wizardActive) wizardUpdateTotal();
   };
 })();
 
@@ -2932,6 +3549,7 @@ function p_selectCollection(card) {
   p_renderCustomize();
   p_renderInvestment();
   p_updatePaymentSchedule();
+  if (window.wizardActive) wizardUpdateTotal();
 }
 
 function p_adjustQty(btn, delta) {
@@ -2953,6 +3571,7 @@ function p_adjustQty(btn, delta) {
   else { card.classList.remove('coverage-active'); resetBtn.style.opacity = '0.35'; resetBtn.style.pointerEvents = 'none'; }
   p_renderInvestment();
   p_updatePaymentSchedule();
+  if (window.wizardActive) wizardUpdateTotal();
 }
 
 function p_resetQty(btn) {
@@ -3004,6 +3623,7 @@ function p_adjustServiceQty(btn, delta) {
   else { card.classList.remove('coverage-active'); resetBtn.style.opacity = '0.35'; resetBtn.style.pointerEvents = 'none'; }
   p_renderInvestment();
   p_updatePaymentSchedule();
+  if (window.wizardActive) wizardUpdateTotal();
 }
 
 function p_resetServiceQty(btn) {
@@ -3030,6 +3650,7 @@ function p_toggleCreditCard(card) {
   });
   p_renderInvestment();
   p_updatePaymentSchedule();
+  if (window.wizardActive) wizardUpdateTotal();
 }
 
 function p_toggleUnlock(cb) {
@@ -3039,6 +3660,7 @@ function p_toggleUnlock(cb) {
   txt.style.fontSize = '17px';
   p_renderInvestment();
   p_updatePaymentSchedule();
+  if (window.wizardActive) wizardUpdateTotal();
 }
 
 function p_selectPayMethodCard(card) {
@@ -3053,6 +3675,7 @@ function p_selectPayMethodCard(card) {
   }
   p_renderInvestment();
   p_updatePaymentSchedule();
+  if (window.wizardActive) wizardUpdateTotal();
 }
 
 // Photography tab calendar
@@ -3121,6 +3744,7 @@ function p_selectPayPlan(radio) {
   const card = radio.closest('[data-p-payment="plan"]');
   card.querySelectorAll('.anim-radio').forEach(l => { const inp = l.querySelector('input'); const txt = l.querySelector('span:last-child'); txt.className = inp.checked ? 'text-green-700' : 'text-stone-700'; txt.style.fontSize = '17px'; });
   p_updatePaymentSchedule();
+  if (window.wizardActive) wizardUpdateTotal();
 }
 
 function p_getEstimatedTotal() {
@@ -3342,6 +3966,7 @@ function v_selectCollection(card) {
   }
   v_renderInvestment();
   v_updatePaymentSchedule();
+  if (window.wizardActive) wizardUpdateTotal();
 }
 
 function v_selectPayMethodCard(card) {
@@ -3356,6 +3981,7 @@ function v_selectPayMethodCard(card) {
   }
   v_renderInvestment();
   v_updatePaymentSchedule();
+  if (window.wizardActive) wizardUpdateTotal();
 }
 
 function v_initCalendar() {
@@ -3423,6 +4049,7 @@ function v_selectPayPlan(radio) {
   const card = radio.closest('[data-v-payment="plan"]');
   card.querySelectorAll('.anim-radio').forEach(l => { const inp = l.querySelector('input'); const txt = l.querySelector('span:last-child'); txt.className = inp.checked ? 'text-green-700' : 'text-stone-700'; txt.style.fontSize = '17px'; });
   v_updatePaymentSchedule();
+  if (window.wizardActive) wizardUpdateTotal();
 }
 
 function v_getEstimatedTotal() {
@@ -4094,6 +4721,16 @@ v_initCalendar();
         <button type="submit" id="submitBtn" style="flex:1;padding:0.75rem;background:#16a34a;border:none;border-radius:0.5rem;font-weight:600;font-size:1rem;cursor:pointer;color:#fff;">Send Quote</button>
       </div>
     </form>
+  </div>
+</div>
+
+<!-- Mobile Wizard Bottom Bar -->
+<div id="wizardBottomBar" class="md:hidden" style="display:none;">
+  <div class="wizard-bar-step" id="wizardBarStep">Step 1 of 7: Collection</div>
+  <div class="wizard-bar-total" id="wizardBarTotal">Est. Total: $0</div>
+  <div class="wizard-bar-nav">
+    <button id="wizardBackBtn" onclick="wizardBack()">&#8592; Back</button>
+    <button id="wizardNextBtn" onclick="wizardNext()">Next &#8594;</button>
   </div>
 </div>
 
