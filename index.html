@@ -1219,6 +1219,13 @@ body { background: #e7e4e6; }
     height: 48px !important;
     margin-bottom: 6px !important;
   }
+  /* Photo tab step 2 — large icons */
+  #tabContent-photography [data-step-index="1"] .col-card > img {
+    width: 85% !important;
+    height: auto !important;
+    max-height: 140px !important;
+    margin-bottom: 8px !important;
+  }
 
   /* Choose button */
   .wizard-step .col-card-btn {
@@ -1296,6 +1303,48 @@ body { background: #e7e4e6; }
   .wizard-step .te-reset {
     font-size: 12px !important;
     margin-top: 4px !important;
+  }
+
+  /* Photo tab step 2 — stacked qty layout: tally on top, buttons below */
+  #tabContent-photography [data-step-index="1"] .qty-group {
+    display: grid !important;
+    grid-template-columns: 42px 42px !important;
+    grid-template-rows: auto auto !important;
+    gap: 6px !important;
+    justify-content: center !important;
+  }
+  #tabContent-photography [data-step-index="1"] .qty-group .qty-display {
+    grid-column: 1 / -1 !important;
+    grid-row: 1 !important;
+    width: 100% !important;
+    min-width: unset !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+  }
+  #tabContent-photography [data-step-index="1"] .qty-group .te-btn:first-child {
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+  }
+  #tabContent-photography [data-step-index="1"] .qty-group .te-btn:last-child {
+    grid-column: 2 !important;
+    grid-row: 2 !important;
+  }
+  /* Photo tab step 2 — remove border lines, space out elements */
+  #tabContent-photography [data-step-index="1"] .coverage-name {
+    font-size: 22px !important;
+    margin-bottom: 8px !important;
+  }
+  #tabContent-photography [data-step-index="1"] .coverage-price {
+    font-size: 32px !important;
+    border-bottom: none !important;
+    padding-bottom: 0 !important;
+    margin-bottom: 16px !important;
+  }
+  #tabContent-photography [data-step-index="1"] .qty-group {
+    gap: 8px !important;
+  }
+  #tabContent-photography [data-step-index="1"] .te-reset {
+    margin-top: 10px !important;
   }
 
   /* --- L. CREDITS: 4x2 GRID (8 items, 2 rows) --- */
@@ -2103,7 +2152,7 @@ body { background: #e7e4e6; }
 
   <!-- Content Creator -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-p-coverage="content">
-    <img src="https://static.showit.co/file/AYHOBmdx1ikAIW9YG2HYJg/293041/content-creator.png" alt="Content Creator" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
+    <img src="https://static.showit.co/file/AYHOBmdx1ikAIW9YG2HYJg/293041/content-creator.png" alt="Content Creator" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35)); margin-top: 10px;">
     <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">Content Creator</div>
     <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$150/hr</div>
     <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">Behind-the-scenes content, Instagram reels &amp; stories plus live streaming key moments from your day.</p>
