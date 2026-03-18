@@ -980,7 +980,7 @@ body { background: #e7e4e6; }
 
   /* --- A. GLOBAL MOBILE OVERRIDES --- */
   body {
-    padding: 4px 10px 90px 10px !important;
+    padding: 4px 10px 60px 10px !important;
   }
 
   /* --- B. TAB HEADER AREA --- */
@@ -1035,39 +1035,35 @@ body { background: #e7e4e6; }
     background: #a78bff;
   }
 
-  /* --- E. FLOATING BOTTOM BAR --- */
+  /* --- E. FLOATING BOTTOM BAR — SINGLE ROW --- */
   #wizardBottomBar {
     position: fixed;
     bottom: 0; left: 0; right: 0;
     background: #fff;
     border-top: 1px solid #d6d3d1;
-    box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
-    padding: 5px 12px calc(6px + env(safe-area-inset-bottom, 0px));
+    box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
+    padding: 6px 10px calc(6px + env(safe-area-inset-bottom, 0px));
     z-index: 50;
     display: flex !important;
-    flex-direction: column;
-    gap: 0;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
   }
   .wizard-bar-step {
-    font-size: 11px;
-    font-weight: 600;
-    color: #78716c;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 1px;
+    display: none;
   }
   .wizard-bar-total {
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 800;
     color: #292524;
-    text-align: center;
     letter-spacing: -0.02em;
-    margin-bottom: 5px;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
   .wizard-bar-nav {
     display: flex;
-    gap: 8px;
+    gap: 6px;
+    flex: 1;
   }
   .wizard-bar-nav button {
     flex: 1;
@@ -1077,7 +1073,7 @@ body { background: #e7e4e6; }
     font-weight: 700;
     font-size: 14px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.15s ease;
   }
   #wizardBackBtn { background: #f5f5f4; color: #78716c; }
   #wizardNextBtn { background: #7c6aff; color: #fff; }
@@ -1105,15 +1101,10 @@ body { background: #e7e4e6; }
     text-align: left !important;
   }
 
-  /* --- H. STEP SUBTITLES --- */
+  /* --- H. STEP SUBTITLES — HIDDEN ON MOBILE --- */
   .wizard-step > p {
-    font-size: 13px !important;
-    margin-bottom: 6px !important;
-    line-height: 1.3 !important;
-    text-align: left !important;
-    color: #78716c !important;
+    display: none !important;
   }
-  .wizard-step > p br { display: none; }
 
   /* --- I. CAROUSEL — FILL THE SCREEN --- */
   .wizard-carousel {
@@ -1166,35 +1157,56 @@ body { background: #e7e4e6; }
     padding-bottom: 4px !important;
   }
 
-  /* Feature list */
+  /* Feature list — COLLAPSED by default on mobile */
   .wizard-step .col-card ul {
+    display: none !important;
+  }
+  .wizard-step .col-card ul.mobile-expanded {
+    display: block !important;
     margin-bottom: 8px !important;
   }
-  .wizard-step .col-card ul li {
-    font-size: 13px !important;
+  .wizard-step .col-card ul.mobile-expanded li {
+    font-size: 12px !important;
     white-space: normal !important;
-    margin-top: 3px !important;
+    margin-top: 2px !important;
+    text-align: left !important;
   }
-  .wizard-step .col-card ul li:first-child {
+  .wizard-step .col-card ul.mobile-expanded li:first-child {
     margin-top: 0 !important;
   }
-  /* Beat Tailwind space-y-5 specificity */
-  .wizard-step .col-card ul > *:not(:first-child) {
-    margin-top: 3px !important;
-  }
 
-  /* Card description text */
+  /* Card description text — HIDDEN on coverage/service cards */
   .wizard-step .col-card p {
-    font-size: 13px !important;
+    display: none !important;
+  }
+  /* But keep description visible on credits unlock cards */
+  .wizard-step .col-card label.anim-cb + p {
+    display: block !important;
+    font-size: 12px !important;
     line-height: 1.3 !important;
-    margin-bottom: 8px !important;
+    margin-bottom: 4px !important;
   }
 
-  /* Card images */
+  /* "See details" toggle button */
+  .mobile-details-toggle {
+    display: block;
+    background: none;
+    border: none;
+    color: #7c6aff;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 4px 0;
+    margin-bottom: 6px;
+    text-align: center;
+    width: 100%;
+  }
+
+  /* Card images — compact */
   .wizard-step .col-card > img {
-    width: 64px !important;
-    height: 64px !important;
-    margin-bottom: 8px !important;
+    width: 48px !important;
+    height: 48px !important;
+    margin-bottom: 6px !important;
   }
 
   /* Choose Collection button */
@@ -3452,6 +3464,22 @@ function initWizardDots() {
   });
 }
 
+function injectMobileDetailsToggles() {
+  // Add "See details ▾" toggle to collection cards that have feature lists
+  document.querySelectorAll('.wizard-step .col-card ul').forEach(function(ul) {
+    if (ul.previousElementSibling && ul.previousElementSibling.classList.contains('mobile-details-toggle')) return;
+    var btn = document.createElement('button');
+    btn.className = 'mobile-details-toggle';
+    btn.textContent = 'See details ▾';
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var expanded = ul.classList.toggle('mobile-expanded');
+      btn.textContent = expanded ? 'Hide details ▴' : 'See details ▾';
+    });
+    ul.parentNode.insertBefore(btn, ul);
+  });
+}
+
 function initMobileWizard() {
   if (window.innerWidth >= 768) {
     if (wizardActive) {
@@ -3472,6 +3500,7 @@ function initMobileWizard() {
   // First time entering mobile — initialize
   wizardActive = true;
   initWizardDots();
+  injectMobileDetailsToggles();
   ['photography', 'videography', 'alacarte'].forEach(function(tabKey) {
     var panel = document.getElementById('tabContent-' + tabKey);
     var steps = panel.querySelectorAll('.wizard-step');
