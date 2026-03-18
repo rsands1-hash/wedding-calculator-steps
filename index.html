@@ -61,12 +61,12 @@ body { background: #e7e4e6; }
 .col-card.col-active::before {
   content: '';
   position: absolute;
-  top: -6px; left: -6px; right: -6px; bottom: -6px;
+  top: -4px; left: -4px; right: -4px; bottom: -4px;
   background: linear-gradient(90deg, #7c6aff, #a78bff, #d946ef, #e63983, #f472b6, #b84ddf, #c084fc, #7c8aff, #60b5f7, #f0c050, #9080ff, #f472b6, #e63983, #7c6aff);
   background-size: 300% 100%;
-  border-radius: 22px;
+  border-radius: 20px;
   z-index: -2;
-  filter: blur(6px);
+  filter: none;
   opacity: 1;
   animation: glowDrift 20s linear infinite;
 }
@@ -1236,9 +1236,22 @@ body { background: #e7e4e6; }
     font-size: 13px !important;
   }
 
-  /* Photo & video tab step 1 collection list font size */
-  #tabContent-photography .mobile-grid-2x2 .col-card ul li,
-  #tabContent-videography .mobile-grid-2x2 .col-card ul li {
+  /* Photo & video tab step 1 — single column list on mobile */
+  .p-collection-list {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    overflow-x: visible !important;
+    scroll-snap-type: none !important;
+    padding: 0 20px !important;
+    gap: 16px !important;
+  }
+  .p-collection-list > * {
+    min-width: unset !important;
+    max-width: 100% !important;
+    scroll-snap-align: unset !important;
+    flex-shrink: unset !important;
+  }
+  .p-collection-list .col-card ul li {
     font-size: 14px !important;
   }
 
@@ -1948,7 +1961,7 @@ body { background: #e7e4e6; }
 </div>
 <p class="text-center text-stone-500 text-base md:text-lg mb-10">I offer customizable packages to suit you and your fiance's every need</p>
 
-<div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5 wizard-carousel mobile-grid-2x2">
+<div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-5 wizard-carousel p-collection-list">
 
   <!-- Essential -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-p-collection="essential" onclick="p_selectCollection(this)">
@@ -1956,11 +1969,10 @@ body { background: #e7e4e6; }
     <div class="col-card-price text-2xl md:text-5xl font-bold text-stone-800 mb-3" style="letter-spacing: -0.02em;">$3,000</div>
     <div class="col-card-badge text-sm md:text-lg font-semibold text-stone-500 mb-4 pb-4 border-b border-stone-200 w-full text-center tracking-wide uppercase">50–100 Guests</div>
     <ul class="w-full space-y-5 md:space-y-6 text-[15px] md:text-xl mb-6">
-      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">8 Hours of Photo Coverage</li>
-      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">30 Min Engagement Session</li>
-      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">8×8 Album (30 Pages)</li>
-      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">Online Gallery (2)</li>
-      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">Printing Rights</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">8 Hours of Photography Coverage</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">30 Minute Engagement Session</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">8x8 Album w/30 Pages</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">Online Gallery (2) + Printing Rights</li>
     </ul>
     <button class="col-card-btn">Choose</button>
   </div>
@@ -1971,11 +1983,10 @@ body { background: #e7e4e6; }
     <div class="col-card-price text-2xl md:text-5xl font-bold text-stone-800 mb-3" style="letter-spacing: -0.02em;">$4,000</div>
     <div class="col-card-badge text-sm md:text-lg font-semibold text-stone-500 mb-4 pb-4 border-b border-stone-200 w-full text-center tracking-wide uppercase">100–150 Guests</div>
     <ul class="w-full space-y-5 md:space-y-6 text-[15px] md:text-xl mb-6">
-      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">10 Hours of Photo Coverage</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">10 Hours of Photography Coverage</li>
       <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">1 Hour Engagement Session</li>
-      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">10×10 Album (40 Pages)</li>
-      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">Online Gallery (2)</li>
-      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">Printing Rights</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">10x10 Album w/40 Pages</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">Online Gallery (2) + Printing Rights</li>
     </ul>
     <button class="col-card-btn">Choose</button>
   </div>
@@ -1986,12 +1997,11 @@ body { background: #e7e4e6; }
     <div class="col-card-price text-2xl md:text-5xl font-bold text-stone-800 mb-3" style="letter-spacing: -0.02em;">$5,500</div>
     <div class="col-card-badge text-sm md:text-lg font-semibold text-stone-500 mb-4 pb-4 border-b border-stone-200 w-full text-center tracking-wide uppercase">150–200 Guests</div>
     <ul class="w-full space-y-5 md:space-y-6 text-[15px] md:text-xl mb-6">
-      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">10 Hours of Photo Coverage</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">10 Hours of Photography Coverage</li>
       <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">1 Hour Engagement Session</li>
-      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">10×10 Album (50 Pages)</li>
-      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">2nd Photographer (10 Hrs)</li>
-      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">Online Gallery (2)</li>
-      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">Printing Rights</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">10x10 Album w/50 Pages</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">2nd Photographer (10 Hours)</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">Online Gallery (2) + Printing Rights</li>
     </ul>
     <button class="col-card-btn">Choose</button>
   </div>
@@ -2002,12 +2012,11 @@ body { background: #e7e4e6; }
     <div class="col-card-price text-2xl md:text-5xl font-bold text-stone-800 mb-3" style="letter-spacing: -0.02em;">$6,500</div>
     <div class="col-card-badge text-sm md:text-lg font-semibold text-stone-500 mb-4 pb-4 border-b border-stone-200 w-full text-center tracking-wide uppercase">200+ Guests</div>
     <ul class="w-full space-y-5 md:space-y-6 text-[15px] md:text-xl mb-6">
-      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">12 Hours of Photo Coverage</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">12 Hours of Photography Coverage</li>
       <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">1.5 Hour Engagement Session</li>
-      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">12×12 Album (60 Pages)</li>
-      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">2nd Photographer (12 Hrs)</li>
-      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">Online Gallery (2)</li>
-      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">Printing Rights</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">12x12 Album w/60 Pages</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">2nd Photographer (12 Hours)</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">Online Gallery (2) + Printing Rights</li>
     </ul>
     <button class="col-card-btn">Choose</button>
   </div>
@@ -2392,7 +2401,7 @@ body { background: #e7e4e6; }
 </div>
 <p class="text-center text-stone-500 text-base md:text-lg mb-10">Everything included in each videography package</p>
 
-<div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5 wizard-carousel mobile-grid-2x2">
+<div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-5 wizard-carousel p-collection-list">
 
   <!-- Bronze -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-v-collection="bronze" onclick="v_selectCollection(this)">
