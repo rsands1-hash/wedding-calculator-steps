@@ -1242,7 +1242,7 @@ body { background: #e7e4e6; }
     grid-template-columns: 1fr !important;
     overflow-x: visible !important;
     scroll-snap-type: none !important;
-    padding: 0 20px !important;
+    padding: 0 25px !important;
     gap: 16px !important;
   }
   .p-collection-list > * {
@@ -1251,8 +1251,27 @@ body { background: #e7e4e6; }
     scroll-snap-align: unset !important;
     flex-shrink: unset !important;
   }
+  .wizard-step .p-collection-list .col-card[class*="p-"],
+  .wizard-step .p-collection-list .col-card {
+    width: fit-content !important;
+    margin: 0 auto !important;
+    padding: 25px !important;
+  }
+  .p-collection-list .col-card-name {
+    font-size: 26px !important;
+    margin-bottom: 6px !important;
+  }
+  .p-collection-list .col-card-price {
+    font-size: 38px !important;
+    margin-bottom: 10px !important;
+  }
   .p-collection-list .col-card ul li {
-    font-size: 14px !important;
+    font-size: 15px !important;
+  }
+  .p-collection-list .col-card-btn {
+    width: auto !important;
+    padding: 8px 32px !important;
+    margin-top: 10px !important;
   }
 
   /* Custom tab — large icons that fill most of the card */
