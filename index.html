@@ -1126,6 +1126,20 @@ body { background: #e7e4e6; }
     flex-shrink: 0;
   }
 
+  /* 2x2 grid instead of carousel on mobile */
+  .mobile-grid-2x2 {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    overflow-x: visible !important;
+    scroll-snap-type: none !important;
+  }
+  .mobile-grid-2x2 > * {
+    min-width: unset !important;
+    max-width: unset !important;
+    scroll-snap-align: unset !important;
+    flex-shrink: unset !important;
+  }
+
   /* --- K. CARD INTERNALS --- */
 
   /* Card padding — high specificity to beat Tailwind p-[15px] and p-5 */
@@ -1142,6 +1156,7 @@ body { background: #e7e4e6; }
     margin-bottom: 2px !important;
   }
   .wizard-step .coverage-name br { display: none; }
+  #tabContent-alacarte .wizard-step .coverage-name br { display: inline !important; }
 
   /* Card price */
   .wizard-step .col-card-price,
@@ -1157,21 +1172,18 @@ body { background: #e7e4e6; }
     padding-bottom: 4px !important;
   }
 
-  /* Feature list — COLLAPSED by default on mobile */
+  /* Feature list — always visible on mobile */
   .wizard-step .col-card ul {
-    display: none !important;
-  }
-  .wizard-step .col-card ul.mobile-expanded {
     display: block !important;
     margin-bottom: 8px !important;
   }
-  .wizard-step .col-card ul.mobile-expanded li {
+  .wizard-step .col-card ul li {
     font-size: 12px !important;
     white-space: normal !important;
     margin-top: 2px !important;
-    text-align: left !important;
+    text-align: center !important;
   }
-  .wizard-step .col-card ul.mobile-expanded li:first-child {
+  .wizard-step .col-card ul li:first-child {
     margin-top: 0 !important;
   }
 
@@ -1187,19 +1199,9 @@ body { background: #e7e4e6; }
     margin-bottom: 4px !important;
   }
 
-  /* "See details" toggle button */
+  /* Hide any leftover "See details" toggle buttons */
   .mobile-details-toggle {
-    display: block;
-    background: none;
-    border: none;
-    color: #7c6aff;
-    font-size: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    padding: 4px 0;
-    margin-bottom: 6px;
-    text-align: center;
-    width: 100%;
+    display: none !important;
   }
 
   /* Card images — compact */
@@ -1214,6 +1216,46 @@ body { background: #e7e4e6; }
     font-size: 14px !important;
     padding: 9px 16px !important;
     width: 100%;
+  }
+
+  /* 2x2 collection grids — compact */
+  .mobile-grid-2x2 > .col-card {
+    padding: 10px !important;
+  }
+  .mobile-grid-2x2 .col-card-btn {
+    padding: 6px 10px !important;
+    font-size: 13px !important;
+  }
+
+  /* Left-aligned text ONLY for photo & video tab step 1 collections */
+  #tabContent-photography .mobile-grid-2x2 > .col-card,
+  #tabContent-videography .mobile-grid-2x2 > .col-card {
+    align-items: flex-start !important;
+  }
+  #tabContent-photography .mobile-grid-2x2 .col-card-name,
+  #tabContent-videography .mobile-grid-2x2 .col-card-name {
+    text-align: left !important;
+  }
+  #tabContent-photography .mobile-grid-2x2 .col-card-price,
+  #tabContent-videography .mobile-grid-2x2 .col-card-price {
+    text-align: left !important;
+  }
+  #tabContent-photography .mobile-grid-2x2 .col-card-badge,
+  #tabContent-videography .mobile-grid-2x2 .col-card-badge {
+    text-align: left !important;
+  }
+  #tabContent-photography .mobile-grid-2x2 .col-card ul li,
+  #tabContent-videography .mobile-grid-2x2 .col-card ul li {
+    text-align: left !important;
+    font-size: 14px !important;
+  }
+
+  /* Custom tab — large icons that fill most of the card */
+  #tabContent-alacarte .wizard-step .col-card > img {
+    width: 85% !important;
+    height: auto !important;
+    max-height: 140px !important;
+    margin-bottom: 8px !important;
   }
 
   /* Qty controls */
@@ -1475,7 +1517,7 @@ body { background: #e7e4e6; }
 </div>
 <p class="text-center text-stone-500 text-base md:text-lg mb-10">Create your perfect coverage starting at $300/hour with a 4 hour minimum</p>
 
-<div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-5 wizard-carousel">
+<div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5 wizard-carousel mobile-grid-2x2">
 
   <!-- Photography -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-coverage="photo">
@@ -1552,7 +1594,7 @@ body { background: #e7e4e6; }
 </div>
 <p class="text-center text-stone-500 text-base md:text-lg mb-10">Beautiful, handcrafted albums to treasure for a lifetime</p>
 
-<div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-5 wizard-carousel">
+<div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5 wizard-carousel mobile-grid-2x2">
 
   <!-- 8x8 Album -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-album="album_8x8">
@@ -1633,7 +1675,7 @@ body { background: #e7e4e6; }
 </div>
 <p class="text-center text-stone-500 text-base md:text-lg mb-10">Add even more coverage to make your wedding experience unforgettable</p>
 
-<div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-5 wizard-carousel">
+<div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5 wizard-carousel mobile-grid-2x2">
 
   <!-- 30 Minute Engagement Session -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-service="engagement_30min">
@@ -1914,7 +1956,7 @@ body { background: #e7e4e6; }
 </div>
 <p class="text-center text-stone-500 text-base md:text-lg mb-10">I offer customizable packages to suit you and your fiance's every need</p>
 
-<div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-5 wizard-carousel">
+<div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5 wizard-carousel mobile-grid-2x2">
 
   <!-- Essential -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-p-collection="essential" onclick="p_selectCollection(this)">
@@ -1989,7 +2031,7 @@ body { background: #e7e4e6; }
 </div>
 <p class="text-center text-stone-500 text-base md:text-lg mb-10">Need more time? No problem! Add on as much as you like : )</p>
 
-<div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-5 wizard-carousel">
+<div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5 wizard-carousel mobile-grid-2x2">
 
   <!-- Photography -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-p-coverage="photo">
@@ -2066,7 +2108,7 @@ body { background: #e7e4e6; }
 </div>
 <p class="text-center text-stone-500 text-base md:text-lg mb-10">Add even more coverage to make your wedding experience unforgettable</p>
 
-<div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-5 wizard-carousel">
+<div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5 wizard-carousel mobile-grid-2x2">
 
   <!-- 30 Minute Engagement Session -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-p-service="engagement_30min">
@@ -2358,7 +2400,7 @@ body { background: #e7e4e6; }
 </div>
 <p class="text-center text-stone-500 text-base md:text-lg mb-10">Everything included in each videography package</p>
 
-<div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-5 wizard-carousel">
+<div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5 wizard-carousel mobile-grid-2x2">
 
   <!-- Bronze -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-v-collection="bronze" onclick="v_selectCollection(this)">
@@ -3465,19 +3507,7 @@ function initWizardDots() {
 }
 
 function injectMobileDetailsToggles() {
-  // Add "See details ▾" toggle to collection cards that have feature lists
-  document.querySelectorAll('.wizard-step .col-card ul').forEach(function(ul) {
-    if (ul.previousElementSibling && ul.previousElementSibling.classList.contains('mobile-details-toggle')) return;
-    var btn = document.createElement('button');
-    btn.className = 'mobile-details-toggle';
-    btn.textContent = 'See details ▾';
-    btn.addEventListener('click', function(e) {
-      e.stopPropagation();
-      var expanded = ul.classList.toggle('mobile-expanded');
-      btn.textContent = expanded ? 'Hide details ▴' : 'See details ▾';
-    });
-    ul.parentNode.insertBefore(btn, ul);
-  });
+  // No-op: details are always visible now
 }
 
 function initMobileWizard() {
