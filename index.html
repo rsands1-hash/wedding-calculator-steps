@@ -3205,6 +3205,23 @@ const discountLabels = {
   veteran: 'Veteran'
 };
 
+// Centralized qty helpers — single source of truth for parsing, snapping, and formatting
+function snapQty(val) {
+  // Round to nearest 0.5 to prevent floating-point drift (e.g. 1.0000000000000002)
+  return Math.round(val * 2) / 2;
+}
+
+function readQty(el) {
+  // Parse numeric qty from a DOM element's textContent (handles "4.5 hrs", "3", etc.)
+  return snapQty(parseFloat(el.textContent) || 0);
+}
+
+function formatQty(qty, showHrs) {
+  // Format qty for display: "4.5 hrs" on desktop, "4.5" on mobile
+  if (showHrs) return qty + ' hrs';
+  return String(qty);
+}
+
 let removedItems = [];
 let currentCollection = null;
 let paymentMethod = 'venmo';
@@ -3240,16 +3257,24 @@ function selectCollection(card) {
   updatePaymentSchedule();
 }
 
-// Coverage +/- buttons
+// Coverage +/- buttons (supports halfHourMode, 4hr min for à la carte, snapQty)
 function adjustQty(btn, delta) {
+  if (halfHourMode) delta = delta * 0.5;
   const card = btn.closest('[data-coverage]');
   const display = card.querySelector('.qty-display');
   const resetBtn = card.querySelector('.te-reset');
-  let qty = parseInt(display.textContent) || 0;
-  qty = Math.max(0, qty + delta);
-  var isMobile = window.innerWidth <= 768;
-  display.textContent = isMobile ? qty : qty + ' hrs';
-
+  let qty = readQty(display);
+  // À la carte tab: enforce 4hr minimum (skip 0.5-3.5 range)
+  const isAlaCarte = card.closest('#tabContent-alacarte');
+  if (isAlaCarte) {
+    qty = qty + delta;
+    if (qty > 0 && qty < 4) qty = delta > 0 ? 4 : 0;
+    qty = Math.max(0, qty);
+  } else {
+    qty = Math.max(0, qty + delta);
+  }
+  qty = snapQty(qty);
+  display.textContent = formatQty(qty, window.innerWidth > 768);
   if (qty > 0) {
     card.classList.add('coverage-active');
     resetBtn.style.opacity = '1';
@@ -3259,18 +3284,21 @@ function adjustQty(btn, delta) {
     resetBtn.style.opacity = '0.35';
     resetBtn.style.pointerEvents = 'none';
   }
+  renderInvestment();
   updatePaymentSchedule();
+  if (window.wizardActive) wizardUpdateTotal();
 }
 
 function resetQty(btn) {
   const card = btn.closest('[data-coverage]');
   const display = card.querySelector('.qty-display');
-  var isMobile = window.innerWidth <= 768;
-  display.textContent = isMobile ? '0' : '0 hrs';
+  display.textContent = formatQty(0, window.innerWidth > 768);
   card.classList.remove('coverage-active');
   btn.style.opacity = '0.35';
   btn.style.pointerEvents = 'none';
+  renderInvestment();
   updatePaymentSchedule();
+  if (window.wizardActive) wizardUpdateTotal();
 }
 
 // Album +/- buttons
@@ -3309,6 +3337,7 @@ function resetAlbumQty(btn) {
 const hourlyServices = ['bridal_shower', 'rehearsal_dinner'];
 const maxOneServices = ['engagement_30min', 'engagement_session'];
 
+// Service +/- (supports halfHourMode for hourly services, snapQty)
 function adjustServiceQty(btn, delta) {
   const card = btn.closest('[data-service]');
   const serviceId = card.dataset.service;
@@ -3316,10 +3345,10 @@ function adjustServiceQty(btn, delta) {
   const resetBtn = card.querySelector('.te-reset');
   const isHourly = hourlyServices.includes(serviceId);
   const maxQty = maxOneServices.includes(serviceId) ? 1 : 999;
-  let qty = parseInt(display.textContent) || 0;
-  qty = Math.max(0, Math.min(maxQty, qty + delta));
-  display.textContent = (window.innerWidth <= 768) ? qty : (isHourly ? qty + ' hrs' : qty);
-
+  if (isHourly && halfHourMode) delta = delta * 0.5;
+  let qty = readQty(display);
+  qty = snapQty(Math.max(0, Math.min(maxQty, qty + delta)));
+  display.textContent = formatQty(qty, window.innerWidth > 768 && isHourly);
   if (qty > 0) {
     card.classList.add('coverage-active');
     resetBtn.style.opacity = '1';
@@ -3329,18 +3358,22 @@ function adjustServiceQty(btn, delta) {
     resetBtn.style.opacity = '0.35';
     resetBtn.style.pointerEvents = 'none';
   }
+  renderInvestment();
   updatePaymentSchedule();
+  if (window.wizardActive) wizardUpdateTotal();
 }
 
 function resetServiceQty(btn) {
   const card = btn.closest('[data-service]');
   const isHourly = hourlyServices.includes(card.dataset.service);
   const display = card.querySelector('.qty-display');
-  display.textContent = '0';
+  display.textContent = formatQty(0, window.innerWidth > 768 && isHourly);
   card.classList.remove('coverage-active');
   btn.style.opacity = '0.35';
   btn.style.pointerEvents = 'none';
+  renderInvestment();
   updatePaymentSchedule();
+  if (window.wizardActive) wizardUpdateTotal();
 }
 
 // Service Credits (max 2, matching calculator behavior)
@@ -3389,13 +3422,10 @@ function toggleUnlock(cb) {
 function selectPayMethodCard(card) {
   const grid = document.getElementById('payMethodGrid');
   const wasActive = card.classList.contains('col-active');
+  if (wasActive) return;
   grid.querySelectorAll('[data-pay-method]').forEach(c => c.classList.remove('col-active'));
-  if (wasActive) {
-    paymentMethod = '';
-  } else {
-    card.classList.add('col-active');
-    paymentMethod = card.dataset.payMethod;
-  }
+  card.classList.add('col-active');
+  paymentMethod = card.dataset.payMethod;
   renderInvestment();
   updatePaymentSchedule();
   if (window.wizardActive) wizardUpdateTotal();
@@ -3511,8 +3541,8 @@ function calculatePaymentSchedule(total, weddingDateObj, planType) {
   weddingCopy.setHours(0, 0, 0, 0);
   const daysUntil = Math.round((weddingCopy - today) / (1000 * 60 * 60 * 24));
   if (daysUntil < 1) return null;
-  const retainer = 1000;
-  const remaining = total - retainer;
+  const retainer = Math.min(1000, total);
+  const remaining = Math.max(0, total - retainer);
   // Calculate months using actual calendar difference
   const monthsUntil = (weddingCopy.getFullYear() - today.getFullYear()) * 12 + (weddingCopy.getMonth() - today.getMonth());
   if (planType === 'day_of') {
@@ -3553,7 +3583,7 @@ function getEstimatedTotal() {
   let total = 0;
   // Coverage hours
   document.querySelectorAll('[data-coverage]').forEach(card => {
-    const qty = parseInt(card.querySelector('.qty-display').textContent) || 0;
+    const qty = readQty(card.querySelector('.qty-display'));
     if (qty > 0) {
       const price = parseInt(card.querySelector('.coverage-price').textContent.replace(/[^0-9]/g, '')) || 0;
       total += price * qty;
@@ -3569,7 +3599,7 @@ function getEstimatedTotal() {
   });
   // Services
   document.querySelectorAll('[data-service]').forEach(card => {
-    const qty = parseInt(card.querySelector('.qty-display').textContent) || 0;
+    const qty = readQty(card.querySelector('.qty-display'));
     if (qty > 0) {
       const price = parseInt(card.querySelector('.coverage-price').textContent.replace(/[^0-9]/g, '')) || 0;
       total += price * qty;
@@ -3589,7 +3619,7 @@ function getEstimatedTotal() {
   // Payment method adjustments
   if (paymentMethod === 'cash') total -= 50;
   if (paymentMethod === 'credit') total *= 1.05;
-  return total;
+  return Math.max(0, total);
 }
 
 function updatePaymentSchedule() {
@@ -3597,6 +3627,7 @@ function updatePaymentSchedule() {
   const tooSoon = document.getElementById('paymentTooSoon');
   if (!weddingDate) { display.innerHTML = ''; renderInvestment(); return; }
   const total = getEstimatedTotal();
+  if (total <= 0) { display.innerHTML = ''; tooSoon.classList.add('hidden'); renderInvestment(); return; }
   const schedule = calculatePaymentSchedule(total, weddingDate, paymentPlan);
 
   if (!schedule) {
@@ -3610,6 +3641,7 @@ function updatePaymentSchedule() {
   const fmtDate = (d) => d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
   const fmtMoney = (n) => '$' + n.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
 
+  const retainerAmt = Math.min(1000, total);
   let html = `<div class="mt-4 rounded-2xl overflow-hidden" style="background:#f9f9f8;border:1px solid #d6d3d1">
     <div class="px-4 py-3" style="background:linear-gradient(135deg,#c0baff,#8a7ef2)">
       <p class="text-base md:text-lg font-bold text-white tracking-wide text-center" style="text-shadow:0 1px 2px rgba(0,0,0,0.15)">${schedule.type}</p>
@@ -3620,7 +3652,7 @@ function updatePaymentSchedule() {
           <p class="text-base md:text-lg font-semibold text-stone-800">Retainer</p>
           <p class="text-sm md:text-base text-stone-500">Due at signing</p>
         </div>
-        <p class="text-lg md:text-xl font-bold text-stone-800">$1,000.00</p>
+        <p class="text-lg md:text-xl font-bold text-stone-800">${fmtMoney(retainerAmt)}</p>
       </div>`;
 
   if (schedule.isMonthly) {
@@ -3677,7 +3709,7 @@ function renderInvestment() {
   // Check if anything is selected
   let hasItems = false;
   document.querySelectorAll('[data-coverage], [data-album], [data-service]').forEach(card => {
-    const qty = parseInt(card.querySelector('.qty-display').textContent) || 0;
+    const qty = readQty(card.querySelector('.qty-display'));
     if (qty > 0) hasItems = true;
   });
   if (!hasItems) {
@@ -3697,7 +3729,7 @@ function renderInvestment() {
 
   // Coverage hours (Step 1)
   document.querySelectorAll('[data-coverage]').forEach(card => {
-    const qty = parseInt(card.querySelector('.qty-display').textContent) || 0;
+    const qty = readQty(card.querySelector('.qty-display'));
     if (qty > 0) {
       const id = card.dataset.coverage;
       const name = coverageNames[id] || id;
@@ -3722,7 +3754,7 @@ function renderInvestment() {
 
   // Other services
   document.querySelectorAll('[data-service]').forEach(card => {
-    const qty = parseInt(card.querySelector('.qty-display').textContent) || 0;
+    const qty = readQty(card.querySelector('.qty-display'));
     if (qty > 0) {
       const id = card.dataset.service;
       const name = serviceNames[id] || id;
@@ -3799,10 +3831,12 @@ function renderInvestment() {
 
   // Payment schedule breakdown
   const fmtDate = (d) => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  const retainer = Math.min(1000, total);
+  const remainingBalance = Math.max(0, total - retainer);
   if (isCash) {
     html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Full Payment (due within 14 days)</p><p class="text-stone-800">${fmtMoney(total)}</p></div>`;
   } else {
-    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Retainer (due at signing)</p><p class="text-stone-800">${fmtMoney(1000)}</p></div>`;
+    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Retainer (due at signing)</p><p class="text-stone-800">${fmtMoney(retainer)}</p></div>`;
   }
   if (weddingDate && paymentPlan) {
     const schedule = calculatePaymentSchedule(total, weddingDate, paymentPlan);
@@ -3816,8 +3850,8 @@ function renderInvestment() {
         });
       }
     }
-  } else if (!isCash) {
-    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Remaining Balance</p><p class="text-stone-800">${fmtMoney(total - 1000)}</p></div>`;
+  } else if (!isCash && remainingBalance > 0) {
+    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Remaining Balance</p><p class="text-stone-800">${fmtMoney(remainingBalance)}</p></div>`;
   }
 
   html += '</div></div>';
@@ -3856,8 +3890,9 @@ function resetAll() {
     c.querySelector('.col-card-btn').textContent = 'Choose';
   });
   // Reset coverage
+  var isDesktop = window.innerWidth > 768;
   document.querySelectorAll('[data-coverage]').forEach(card => {
-    card.querySelector('.qty-display').textContent = '0';
+    card.querySelector('.qty-display').textContent = formatQty(0, isDesktop);
     card.classList.remove('coverage-active');
     const rb = card.querySelector('.te-reset');
     rb.style.opacity = '0.35'; rb.style.pointerEvents = 'none';
@@ -3872,7 +3907,7 @@ function resetAll() {
   // Reset services
   document.querySelectorAll('[data-service]').forEach(card => {
     const isHourly = hourlyServices.includes(card.dataset.service);
-    card.querySelector('.qty-display').textContent = '0';
+    card.querySelector('.qty-display').textContent = formatQty(0, isDesktop && isHourly);
     card.classList.remove('coverage-active');
     const rb = card.querySelector('.te-reset');
     rb.style.opacity = '0.35'; rb.style.pointerEvents = 'none';
@@ -4112,13 +4147,44 @@ function updateMobileTotal() {
   el.textContent = '$' + Math.round(total).toLocaleString();
 }
 
+// Reformat qty displays when crossing the desktop/mobile breakpoint
+var lastWasDesktop = window.innerWidth > 768;
+function reformatQtyDisplays() {
+  var isDesktop = window.innerWidth > 768;
+  if (isDesktop === lastWasDesktop) return;
+  lastWasDesktop = isDesktop;
+  // À la carte coverage
+  document.querySelectorAll('[data-coverage] .qty-display').forEach(function(el) {
+    el.textContent = formatQty(readQty(el), isDesktop);
+  });
+  // À la carte services (hourly only get " hrs")
+  document.querySelectorAll('[data-service] .qty-display').forEach(function(el) {
+    var card = el.closest('[data-service]');
+    var isHourly = hourlyServices.includes(card.dataset.service);
+    el.textContent = formatQty(readQty(el), isDesktop && isHourly);
+  });
+  // Photography coverage
+  document.querySelectorAll('[data-p-coverage] .qty-display').forEach(function(el) {
+    el.textContent = formatQty(readQty(el), isDesktop);
+  });
+  // Photography services
+  document.querySelectorAll('[data-p-service] .qty-display').forEach(function(el) {
+    var card = el.closest('[data-p-service]');
+    var isHourly = p_hourlyServices.includes(card.dataset.pService);
+    el.textContent = formatQty(readQty(el), isDesktop && isHourly);
+  });
+}
+
 // Init on load and handle resize
 window.addEventListener('DOMContentLoaded', initMobileWizard);
 window.addEventListener('load', initMobileWizard);
 var wizardResizeTimer;
 window.addEventListener('resize', function() {
   clearTimeout(wizardResizeTimer);
-  wizardResizeTimer = setTimeout(initMobileWizard, 150);
+  wizardResizeTimer = setTimeout(function() {
+    initMobileWizard();
+    reformatQtyDisplays();
+  }, 150);
 });
 
 // ===== Swipe Between Steps =====
@@ -4168,66 +4234,7 @@ function toggleHalfHourMode() {
   }
 }
 
-// Update adjustQty to respect halfHourMode and enforce 4hr minimum for à la carte
-(function() {
-  const origAdjustQty = adjustQty;
-  adjustQty = function(btn, delta) {
-    if (halfHourMode) delta = delta * 0.5;
-    const card = btn.closest('[data-coverage]');
-    const display = card.querySelector('.qty-display');
-    const resetBtn = card.querySelector('.te-reset');
-    let qty = parseFloat(display.textContent) || 0;
-    // À la carte tab: enforce 4hr minimum (skip 0.5-3.5 range)
-    const isAlaCarte = card.closest('#tabContent-alacarte');
-    if (isAlaCarte) {
-      qty = qty + delta;
-      if (qty > 0 && qty < 4) qty = delta > 0 ? 4 : 0;
-      qty = Math.max(0, qty);
-    } else {
-      qty = Math.max(0, qty + delta);
-    }
-    display.textContent = (window.innerWidth <= 768) ? qty : qty + ' hrs';
-    if (qty > 0) {
-      card.classList.add('coverage-active');
-      resetBtn.style.opacity = '1';
-      resetBtn.style.pointerEvents = 'auto';
-    } else {
-      card.classList.remove('coverage-active');
-      resetBtn.style.opacity = '0.35';
-      resetBtn.style.pointerEvents = 'none';
-    }
-    renderInvestment();
-    if (window.wizardActive) wizardUpdateTotal();
-  };
-})();
-
-// Update adjustServiceQty for hourly services to respect halfHourMode
-(function() {
-  const origAdjustServiceQty = adjustServiceQty;
-  adjustServiceQty = function(btn, delta) {
-    const card = btn.closest('[data-service]');
-    const serviceId = card.dataset.service;
-    const display = card.querySelector('.qty-display');
-    const resetBtn = card.querySelector('.te-reset');
-    const isHourly = hourlyServices.includes(serviceId);
-    const maxQty = maxOneServices.includes(serviceId) ? 1 : 999;
-    if (isHourly && halfHourMode) delta = delta * 0.5;
-    let qty = parseFloat(display.textContent) || 0;
-    qty = Math.max(0, Math.min(maxQty, qty + delta));
-    display.textContent = (window.innerWidth <= 768) ? qty : (isHourly ? qty + ' hrs' : qty);
-    if (qty > 0) {
-      card.classList.add('coverage-active');
-      resetBtn.style.opacity = '1';
-      resetBtn.style.pointerEvents = 'auto';
-    } else {
-      card.classList.remove('coverage-active');
-      resetBtn.style.opacity = '0.35';
-      resetBtn.style.pointerEvents = 'none';
-    }
-    renderInvestment();
-    if (window.wizardActive) wizardUpdateTotal();
-  };
-})();
+// (Half-hour mode support and 4hr minimum are now built into adjustQty and adjustServiceQty above)
 
 // ===== Photography Tab (p_ prefixed) =====
 // Mirrors the à la carte tab logic but scoped to #tabContent-photography elements
@@ -4274,7 +4281,7 @@ function p_adjustQty(btn, delta) {
   const card = btn.closest('[data-p-coverage]');
   const display = card.querySelector('.qty-display');
   const resetBtn = card.querySelector('.te-reset');
-  let qty = parseFloat(display.textContent) || 0;
+  let qty = readQty(display);
   const hasMinimum = card.dataset.pCoverage === 'second' || card.dataset.pCoverage === 'content' || card.dataset.pCoverage === 'video';
   if (hasMinimum) {
     qty = qty + delta;
@@ -4283,7 +4290,8 @@ function p_adjustQty(btn, delta) {
   } else {
     qty = Math.max(0, qty + delta);
   }
-  display.textContent = (window.innerWidth <= 768) ? qty : qty + ' hrs';
+  qty = snapQty(qty);
+  display.textContent = formatQty(qty, window.innerWidth > 768);
   if (qty > 0) { card.classList.add('coverage-active'); resetBtn.style.opacity = '1'; resetBtn.style.pointerEvents = 'auto'; }
   else { card.classList.remove('coverage-active'); resetBtn.style.opacity = '0.35'; resetBtn.style.pointerEvents = 'none'; }
   p_renderInvestment();
@@ -4293,7 +4301,7 @@ function p_adjustQty(btn, delta) {
 
 function p_resetQty(btn) {
   const card = btn.closest('[data-p-coverage]');
-  card.querySelector('.qty-display').textContent = '0';
+  card.querySelector('.qty-display').textContent = formatQty(0, window.innerWidth > 768);
   card.classList.remove('coverage-active');
   btn.style.opacity = '0.35'; btn.style.pointerEvents = 'none';
   p_renderInvestment();
@@ -4333,9 +4341,10 @@ function p_adjustServiceQty(btn, delta) {
   const isHourly = p_hourlyServices.includes(serviceId);
   const maxQty = p_maxOneServices.includes(serviceId) ? 1 : 999;
   if (isHourly && halfHourMode) delta = delta * 0.5;
-  let qty = parseFloat(display.textContent) || 0;
-  qty = Math.max(0, Math.min(maxQty, qty + delta));
-  display.textContent = (window.innerWidth <= 768) ? qty : (isHourly ? qty + ' hrs' : qty);
+  let qty = readQty(display);
+  qty = snapQty(Math.max(0, Math.min(maxQty, qty + delta)));
+  var isDesktopView = window.innerWidth > 768;
+  display.textContent = formatQty(qty, isDesktopView && isHourly);
   if (qty > 0) { card.classList.add('coverage-active'); resetBtn.style.opacity = '1'; resetBtn.style.pointerEvents = 'auto'; }
   else { card.classList.remove('coverage-active'); resetBtn.style.opacity = '0.35'; resetBtn.style.pointerEvents = 'none'; }
   p_renderInvestment();
@@ -4346,7 +4355,7 @@ function p_adjustServiceQty(btn, delta) {
 function p_resetServiceQty(btn) {
   const card = btn.closest('[data-p-service]');
   const isHourly = p_hourlyServices.includes(card.dataset.pService);
-  card.querySelector('.qty-display').textContent = '0';
+  card.querySelector('.qty-display').textContent = formatQty(0, window.innerWidth > 768 && isHourly);
   card.classList.remove('coverage-active');
   btn.style.opacity = '0.35'; btn.style.pointerEvents = 'none';
   p_renderInvestment();
@@ -4383,13 +4392,10 @@ function p_toggleUnlock(cb) {
 function p_selectPayMethodCard(card) {
   const grid = document.getElementById('p_payMethodGrid');
   const wasActive = card.classList.contains('col-active');
+  if (wasActive) return;
   grid.querySelectorAll('[data-p-pay-method]').forEach(c => c.classList.remove('col-active'));
-  if (wasActive) {
-    p_paymentMethod = '';
-  } else {
-    card.classList.add('col-active');
-    p_paymentMethod = card.dataset.pPayMethod;
-  }
+  card.classList.add('col-active');
+  p_paymentMethod = card.dataset.pPayMethod;
   p_renderInvestment();
   p_updatePaymentSchedule();
   if (window.wizardActive) wizardUpdateTotal();
@@ -4470,9 +4476,9 @@ function p_getEstimatedTotal() {
     total = collections[p_currentCollection].price;
     collections[p_currentCollection].items.forEach(item => { if (p_removedItems.includes(item.name)) total -= item.value; });
   }
-  document.querySelectorAll('[data-p-coverage]').forEach(card => { const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0; if (qty > 0) { const price = parseInt(card.querySelector('.coverage-price').textContent.replace(/[^0-9]/g, '')) || 0; total += price * qty; } });
+  document.querySelectorAll('[data-p-coverage]').forEach(card => { const qty = readQty(card.querySelector('.qty-display')); if (qty > 0) { const price = parseInt(card.querySelector('.coverage-price').textContent.replace(/[^0-9]/g, '')) || 0; total += price * qty; } });
   document.querySelectorAll('[data-p-album]').forEach(card => { const qty = parseInt(card.querySelector('.qty-display').textContent) || 0; if (qty > 0) { const price = parseInt(card.querySelector('.coverage-price').textContent.replace(/[^0-9]/g, '')) || 0; total += price * qty; } });
-  document.querySelectorAll('[data-p-service]').forEach(card => { const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0; if (qty > 0) { const price = parseInt(card.querySelector('.coverage-price').textContent.replace(/[^0-9]/g, '')) || 0; total += price * qty; } });
+  document.querySelectorAll('[data-p-service]').forEach(card => { const qty = readQty(card.querySelector('.qty-display')); if (qty > 0) { const price = parseInt(card.querySelector('.coverage-price').textContent.replace(/[^0-9]/g, '')) || 0; total += price * qty; } });
   const p_creditGrid = document.getElementById('p_serviceCreditsList');
   if (p_creditGrid) total -= p_creditGrid.querySelectorAll('[data-p-credit].col-active').length * 50;
   const consultCb = document.getElementById('p_consultationCb');
@@ -4481,7 +4487,7 @@ function p_getEstimatedTotal() {
   if (instaCb && instaCb.checked) total -= 25;
   if (p_paymentMethod === 'cash') total -= 50;
   if (p_paymentMethod === 'credit') total *= 1.05;
-  return total;
+  return Math.max(0, total);
 }
 
 function p_updatePaymentSchedule() {
@@ -4489,12 +4495,14 @@ function p_updatePaymentSchedule() {
   const tooSoon = document.getElementById('p_paymentTooSoon');
   if (!p_weddingDate) { display.innerHTML = ''; p_renderInvestment(); return; }
   const total = p_getEstimatedTotal();
+  if (total <= 0) { display.innerHTML = ''; tooSoon.classList.add('hidden'); p_renderInvestment(); return; }
   const schedule = calculatePaymentSchedule(total, p_weddingDate, p_paymentPlan);
   if (!schedule) { display.innerHTML = ''; tooSoon.classList.remove('hidden'); p_renderInvestment(); return; }
   tooSoon.classList.add('hidden');
   const fmtDate = (d) => d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
   const fmtMoney = (n) => '$' + n.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-  let html = `<div class="mt-4 rounded-2xl overflow-hidden" style="background:#f9f9f8;border:1px solid #d6d3d1"><div class="px-4 py-3" style="background:linear-gradient(135deg,#c0baff,#8a7ef2)"><p class="text-base md:text-lg font-bold text-white tracking-wide text-center" style="text-shadow:0 1px 2px rgba(0,0,0,0.15)">${schedule.type}</p></div><div class="p-4 space-y-0"><div class="flex justify-between items-center py-3 border-b border-stone-300"><div><p class="text-base md:text-lg font-semibold text-stone-800">Retainer</p><p class="text-sm md:text-base text-stone-500">Due at signing</p></div><p class="text-lg md:text-xl font-bold text-stone-800">$1,000.00</p></div>`;
+  const p_retainerAmt = Math.min(1000, total);
+  let html = `<div class="mt-4 rounded-2xl overflow-hidden" style="background:#f9f9f8;border:1px solid #d6d3d1"><div class="px-4 py-3" style="background:linear-gradient(135deg,#c0baff,#8a7ef2)"><p class="text-base md:text-lg font-bold text-white tracking-wide text-center" style="text-shadow:0 1px 2px rgba(0,0,0,0.15)">${schedule.type}</p></div><div class="p-4 space-y-0"><div class="flex justify-between items-center py-3 border-b border-stone-300"><div><p class="text-base md:text-lg font-semibold text-stone-800">Retainer</p><p class="text-sm md:text-base text-stone-500">Due at signing</p></div><p class="text-lg md:text-xl font-bold text-stone-800">${fmtMoney(p_retainerAmt)}</p></div>`;
   if (schedule.isMonthly) { const p = schedule.payments[0]; html += `<div class="flex justify-between items-center py-3"><div><p class="text-base md:text-lg font-semibold text-stone-800">${p.count} Monthly Payments</p><p class="text-sm md:text-base text-stone-500">${fmtMoney(p.amount)} per month</p></div><p class="text-lg md:text-xl font-bold text-stone-800">${fmtMoney(p.amount * p.count)}</p></div>`; }
   else { schedule.payments.forEach((p, idx) => { html += `<div class="flex justify-between items-center py-3${idx < schedule.payments.length - 1 ? ' border-b border-stone-300' : ''}"><div><p class="text-base md:text-lg font-semibold text-stone-800">${p.label}</p><p class="text-sm md:text-base text-stone-500">${fmtDate(p.date)}</p></div><p class="text-lg md:text-xl font-bold text-stone-800">${fmtMoney(p.amount)}</p></div>`; }); }
   html += '</div></div>';
@@ -4530,7 +4538,7 @@ function p_renderInvestment() {
   const col = collections[p_currentCollection];
   const fmtMoney = (n) => '$' + n.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
   const fmtWhole = (n) => '$' + n.toLocaleString();
-  const coverageHours = parseInt(col.items[0].name) || 0;
+  const coverageHours = parseFloat((col.items[0].name.match(/(\d+(?:\.\d+)?)/) || [])[1]) || 0;
   const removableTotal = col.items.filter(i => i.value > 0).reduce((s, i) => s + i.value, 0);
   const photoCoveragePrice = col.price - removableTotal;
   const payMethodLabels = { cash: 'Cash', zelle: 'Zelle', venmo: 'Venmo', paypal: 'PayPal', credit: 'Credit Card', check: 'Check' };
@@ -4552,8 +4560,8 @@ function p_renderInvestment() {
   const removedWithValue = col.items.filter(i => p_removedItems.includes(i.name) && i.value > 0);
   if (removedWithValue.length > 0) { removedWithValue.forEach(item => { html += `<div class="flex justify-between items-center text-sm md:text-base text-red-600"><p>Removed: ${item.name}</p><p>-$${item.value}</p></div>`; }); }
   document.querySelectorAll('[data-p-album]').forEach(card => { const qty = parseInt(card.querySelector('.qty-display').textContent) || 0; if (qty > 0) { const id = card.dataset.pAlbum; const name = albumNames[id] || id; const price = albumPrices[id] || 0; html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">${name} (\u00d7${qty})</p><p class="text-stone-800">${fmtWhole(price * qty)}</p></div>`; } });
-  document.querySelectorAll('[data-p-coverage]').forEach(card => { const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0; if (qty > 0) { const id = card.dataset.pCoverage; const name = coverageNames[id] || id; const price = coveragePrices[id] || 0; html += `<div class="flex justify-between items-start text-sm md:text-base"><div class="text-stone-600"><div class="inline sm:block">${name} <span class="text-sm sm:block">(${qty} ${qty === 1 ? 'hour' : 'hours'} @ $${price}/hr)</span></div></div><p class="text-stone-800">${fmtWhole(price * qty)}</p></div>`; } });
-  document.querySelectorAll('[data-p-service]').forEach(card => { const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0; if (qty > 0) { const id = card.dataset.pService; const name = serviceNames[id] || id; const price = servicePrices[id] || 0; const isHourly = p_hourlyServices.includes(id); if (isHourly) { html += `<div class="flex justify-between items-start text-sm md:text-base"><div class="text-stone-600"><div class="inline sm:block">${name} <span class="text-sm sm:block">(${qty} ${qty === 1 ? 'hour' : 'hours'} @ $${price}/hr)</span></div></div><p class="text-stone-800">${fmtWhole(price * qty)}</p></div>`; } else { html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">${name}</p><p class="text-stone-800">${fmtWhole(price * qty)}</p></div>`; } } });
+  document.querySelectorAll('[data-p-coverage]').forEach(card => { const qty = readQty(card.querySelector('.qty-display')); if (qty > 0) { const id = card.dataset.pCoverage; const name = coverageNames[id] || id; const price = coveragePrices[id] || 0; html += `<div class="flex justify-between items-start text-sm md:text-base"><div class="text-stone-600"><div class="inline sm:block">${name} <span class="text-sm sm:block">(${qty} ${qty === 1 ? 'hour' : 'hours'} @ $${price}/hr)</span></div></div><p class="text-stone-800">${fmtWhole(price * qty)}</p></div>`; } });
+  document.querySelectorAll('[data-p-service]').forEach(card => { const qty = readQty(card.querySelector('.qty-display')); if (qty > 0) { const id = card.dataset.pService; const name = serviceNames[id] || id; const price = servicePrices[id] || 0; const isHourly = p_hourlyServices.includes(id); if (isHourly) { html += `<div class="flex justify-between items-start text-sm md:text-base"><div class="text-stone-600"><div class="inline sm:block">${name} <span class="text-sm sm:block">(${qty} ${qty === 1 ? 'hour' : 'hours'} @ $${price}/hr)</span></div></div><p class="text-stone-800">${fmtWhole(price * qty)}</p></div>`; } else { html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">${name}</p><p class="text-stone-800">${fmtWhole(price * qty)}</p></div>`; } } });
   html += '</div></div>';
 
   // === Section 2: Service Credits ===
@@ -4585,10 +4593,12 @@ function p_renderInvestment() {
   // Payment schedule breakdown
   const p_fmtDate = (d) => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
   const p_schedTotal = p_getEstimatedTotal();
+  const p_retainer = Math.min(1000, p_schedTotal);
+  const p_remainingBalance = Math.max(0, p_schedTotal - p_retainer);
   if (p_isCash) {
     html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Full Payment (due within 14 days)</p><p class="text-stone-800">${fmtMoney(p_schedTotal)}</p></div>`;
   } else {
-    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Retainer (due at signing)</p><p class="text-stone-800">${fmtMoney(1000)}</p></div>`;
+    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Retainer (due at signing)</p><p class="text-stone-800">${fmtMoney(p_retainer)}</p></div>`;
   }
   if (p_weddingDate && p_paymentPlan) {
     const schedule = calculatePaymentSchedule(p_schedTotal, p_weddingDate, p_paymentPlan);
@@ -4596,8 +4606,8 @@ function p_renderInvestment() {
       if (schedule.isMonthly) { const p = schedule.payments[0]; html += `<div class="flex justify-between items-center text-sm md:text-base" style="${p_strikeStyle}"><p class="text-stone-600">${p.count} Monthly Payments</p><p class="text-stone-800">${fmtMoney(p.amount)}/mo</p></div>`; }
       else { schedule.payments.forEach(p => { html += `<div class="flex justify-between items-center text-sm md:text-base" style="${p_strikeStyle}"><p class="text-stone-600">${p.label} (${p_fmtDate(p.date)})</p><p class="text-stone-800">${fmtMoney(p.amount)}</p></div>`; }); }
     }
-  } else if (!p_isCash) {
-    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Remaining Balance</p><p class="text-stone-800">${fmtMoney(p_schedTotal - 1000)}</p></div>`;
+  } else if (!p_isCash && p_remainingBalance > 0) {
+    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Remaining Balance</p><p class="text-stone-800">${fmtMoney(p_remainingBalance)}</p></div>`;
   }
 
   html += '</div></div>';
@@ -4617,9 +4627,10 @@ function p_handleGetQuote() { document.getElementById('quoteModal').style.displa
 function p_resetAll() {
   p_currentCollection = null; p_removedItems = [];
   document.querySelectorAll('[data-p-collection]').forEach(c => { c.classList.remove('col-active'); c.querySelector('.col-card-btn').textContent = 'Choose'; });
-  document.querySelectorAll('[data-p-coverage]').forEach(card => { card.querySelector('.qty-display').textContent = '0'; card.classList.remove('coverage-active'); const rb = card.querySelector('.te-reset'); rb.style.opacity = '0.35'; rb.style.pointerEvents = 'none'; });
+  var p_isDesktop = window.innerWidth > 768;
+  document.querySelectorAll('[data-p-coverage]').forEach(card => { card.querySelector('.qty-display').textContent = formatQty(0, p_isDesktop); card.classList.remove('coverage-active'); const rb = card.querySelector('.te-reset'); rb.style.opacity = '0.35'; rb.style.pointerEvents = 'none'; });
   document.querySelectorAll('[data-p-album]').forEach(card => { card.querySelector('.qty-display').textContent = '0'; card.classList.remove('coverage-active'); const rb = card.querySelector('.te-reset'); rb.style.opacity = '0.35'; rb.style.pointerEvents = 'none'; });
-  document.querySelectorAll('[data-p-service]').forEach(card => { const isHourly = p_hourlyServices.includes(card.dataset.pService); card.querySelector('.qty-display').textContent = '0'; card.classList.remove('coverage-active'); const rb = card.querySelector('.te-reset'); rb.style.opacity = '0.35'; rb.style.pointerEvents = 'none'; });
+  document.querySelectorAll('[data-p-service]').forEach(card => { const isHourly = p_hourlyServices.includes(card.dataset.pService); card.querySelector('.qty-display').textContent = formatQty(0, p_isDesktop && isHourly); card.classList.remove('coverage-active'); const rb = card.querySelector('.te-reset'); rb.style.opacity = '0.35'; rb.style.pointerEvents = 'none'; });
   const p_creditGridReset = document.getElementById('p_serviceCreditsList');
   if (p_creditGridReset) { p_creditGridReset.querySelectorAll('[data-p-credit]').forEach(c => { c.classList.remove('col-active'); c.style.opacity = '1'; c.style.pointerEvents = 'auto'; }); }
   const consultCb = document.getElementById('p_consultationCb');
@@ -4690,13 +4701,10 @@ function v_selectCollection(card) {
 function v_selectPayMethodCard(card) {
   const grid = document.getElementById('v_payMethodGrid');
   const wasActive = card.classList.contains('col-active');
+  if (wasActive) return;
   grid.querySelectorAll('[data-v-pay-method]').forEach(c => c.classList.remove('col-active'));
-  if (wasActive) {
-    v_paymentMethod = '';
-  } else {
-    card.classList.add('col-active');
-    v_paymentMethod = card.dataset.vPayMethod;
-  }
+  card.classList.add('col-active');
+  v_paymentMethod = card.dataset.vPayMethod;
   v_renderInvestment();
   v_updatePaymentSchedule();
   if (window.wizardActive) wizardUpdateTotal();
@@ -4777,7 +4785,7 @@ function v_getEstimatedTotal() {
   }
   if (v_paymentMethod === 'cash') total -= 50;
   if (v_paymentMethod === 'credit') total *= 1.05;
-  return total;
+  return Math.max(0, total);
 }
 
 function v_updatePaymentSchedule() {
@@ -4785,12 +4793,14 @@ function v_updatePaymentSchedule() {
   const tooSoon = document.getElementById('v_paymentTooSoon');
   if (!v_weddingDate) { display.innerHTML = ''; v_renderInvestment(); return; }
   const total = v_getEstimatedTotal();
+  if (total <= 0) { display.innerHTML = ''; tooSoon.classList.add('hidden'); v_renderInvestment(); return; }
   const schedule = calculatePaymentSchedule(total, v_weddingDate, v_paymentPlan);
   if (!schedule) { display.innerHTML = ''; tooSoon.classList.remove('hidden'); v_renderInvestment(); return; }
   tooSoon.classList.add('hidden');
   const fmtDate = (d) => d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
   const fmtMoney = (n) => '$' + n.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-  let html = `<div class="mt-4 rounded-2xl overflow-hidden" style="background:#f9f9f8;border:1px solid #d6d3d1"><div class="px-4 py-3" style="background:linear-gradient(135deg,#c0baff,#8a7ef2)"><p class="text-base md:text-lg font-bold text-white tracking-wide text-center" style="text-shadow:0 1px 2px rgba(0,0,0,0.15)">${schedule.type}</p></div><div class="p-4 space-y-0"><div class="flex justify-between items-center py-3 border-b border-stone-300"><div><p class="text-base md:text-lg font-semibold text-stone-800">Retainer</p><p class="text-sm md:text-base text-stone-500">Due at signing</p></div><p class="text-lg md:text-xl font-bold text-stone-800">$1,000.00</p></div>`;
+  const v_retainerAmt = Math.min(1000, total);
+  let html = `<div class="mt-4 rounded-2xl overflow-hidden" style="background:#f9f9f8;border:1px solid #d6d3d1"><div class="px-4 py-3" style="background:linear-gradient(135deg,#c0baff,#8a7ef2)"><p class="text-base md:text-lg font-bold text-white tracking-wide text-center" style="text-shadow:0 1px 2px rgba(0,0,0,0.15)">${schedule.type}</p></div><div class="p-4 space-y-0"><div class="flex justify-between items-center py-3 border-b border-stone-300"><div><p class="text-base md:text-lg font-semibold text-stone-800">Retainer</p><p class="text-sm md:text-base text-stone-500">Due at signing</p></div><p class="text-lg md:text-xl font-bold text-stone-800">${fmtMoney(v_retainerAmt)}</p></div>`;
   if (schedule.isMonthly) { const p = schedule.payments[0]; html += `<div class="flex justify-between items-center py-3"><div><p class="text-base md:text-lg font-semibold text-stone-800">${p.count} Monthly Payments</p><p class="text-sm md:text-base text-stone-500">${fmtMoney(p.amount)} per month</p></div><p class="text-lg md:text-xl font-bold text-stone-800">${fmtMoney(p.amount * p.count)}</p></div>`; }
   else { schedule.payments.forEach((p, idx) => { html += `<div class="flex justify-between items-center py-3${idx < schedule.payments.length - 1 ? ' border-b border-stone-300' : ''}"><div><p class="text-base md:text-lg font-semibold text-stone-800">${p.label}</p><p class="text-sm md:text-base text-stone-500">${fmtDate(p.date)}</p></div><p class="text-lg md:text-xl font-bold text-stone-800">${fmtMoney(p.amount)}</p></div>`; }); }
   html += '</div></div>';
@@ -4831,10 +4841,12 @@ function v_renderInvestment() {
 
   const v_fmtDate = (d) => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
   const v_schedTotal = v_getEstimatedTotal();
+  const v_retainer = Math.min(1000, v_schedTotal);
+  const v_remainingBalance = Math.max(0, v_schedTotal - v_retainer);
   if (v_isCash) {
     html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Full Payment (due within 14 days)</p><p class="text-stone-800">${fmtMoney(v_schedTotal)}</p></div>`;
   } else {
-    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Retainer (due at signing)</p><p class="text-stone-800">${fmtMoney(1000)}</p></div>`;
+    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Retainer (due at signing)</p><p class="text-stone-800">${fmtMoney(v_retainer)}</p></div>`;
   }
   if (v_weddingDate && v_paymentPlan) {
     const schedule = calculatePaymentSchedule(v_schedTotal, v_weddingDate, v_paymentPlan);
@@ -4842,8 +4854,8 @@ function v_renderInvestment() {
       if (schedule.isMonthly) { const p = schedule.payments[0]; html += `<div class="flex justify-between items-center text-sm md:text-base" style="${v_strikeStyle}"><p class="text-stone-600">${p.count} Monthly Payments</p><p class="text-stone-800">${fmtMoney(p.amount)}/mo</p></div>`; }
       else { schedule.payments.forEach(p => { html += `<div class="flex justify-between items-center text-sm md:text-base" style="${v_strikeStyle}"><p class="text-stone-600">${p.label} (${v_fmtDate(p.date)})</p><p class="text-stone-800">${fmtMoney(p.amount)}</p></div>`; }); }
     }
-  } else if (!v_isCash) {
-    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Remaining Balance</p><p class="text-stone-800">${fmtMoney(v_schedTotal - 1000)}</p></div>`;
+  } else if (!v_isCash && v_remainingBalance > 0) {
+    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Remaining Balance</p><p class="text-stone-800">${fmtMoney(v_remainingBalance)}</p></div>`;
   }
 
   html += '</div></div>';
@@ -4938,7 +4950,7 @@ function generateBookingDetails() {
     details.push('À LA CARTE PACKAGE');
     details.push('');
     document.querySelectorAll('[data-coverage]').forEach(card => {
-      const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0;
+      const qty = readQty(card.querySelector('.qty-display'));
       if (qty > 0) {
         const id = card.dataset.coverage;
         const name = coverageNames[id] || id;
@@ -4963,7 +4975,7 @@ function generateBookingDetails() {
     if (albums.length > 0) { details.push('ALBUMS:'); albums.forEach(a => details.push(a)); details.push(''); }
     const services = [];
     document.querySelectorAll('[data-service]').forEach(card => {
-      const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0;
+      const qty = readQty(card.querySelector('.qty-display'));
       if (qty > 0) {
         const id = card.dataset.service;
         const isHourly = hourlyServices.includes(id);
@@ -4990,12 +5002,13 @@ function generateBookingDetails() {
     details.push('');
     if (weddingDate) {
       details.push(`Wedding Date: ${weddingDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`);
-      const schedule = calculatePaymentSchedule(getEstimatedTotal(), weddingDate, paymentPlan);
+      const aTotal = getEstimatedTotal();
+      const schedule = calculatePaymentSchedule(aTotal, weddingDate, paymentPlan);
       if (schedule) {
         details.push(`Payment Plan: ${schedule.type}`);
         details.push('');
         details.push('PAYMENT SCHEDULE:');
-        details.push('• Retainer (Due at signing): $1,000.00');
+        details.push(`• Retainer (Due at signing): $${Math.min(1000, aTotal).toFixed(2)}`);
         if (schedule.isMonthly) details.push(`• ${schedule.payments[0].count} monthly payments of $${schedule.payments[0].amount.toFixed(2)}`);
         else schedule.payments.forEach(p => details.push(`• ${p.label} (${fmtDate(p.date)}): $${p.amount.toFixed(2)}`));
       }
@@ -5016,7 +5029,7 @@ function generateBookingDetails() {
     }
     const pCoverageItems = [];
     document.querySelectorAll('[data-p-coverage]').forEach(card => {
-      const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0;
+      const qty = readQty(card.querySelector('.qty-display'));
       if (qty > 0) {
         const price = parseInt(card.querySelector('.coverage-price').textContent.replace(/[^0-9]/g, '')) || 0;
         const id = card.dataset.pCoverage;
@@ -5037,11 +5050,13 @@ function generateBookingDetails() {
     if (pAlbums.length > 0) { details.push('ALBUMS:'); pAlbums.forEach(a => details.push(a)); details.push(''); }
     const pServices = [];
     document.querySelectorAll('[data-p-service]').forEach(card => {
-      const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0;
+      const qty = readQty(card.querySelector('.qty-display'));
       if (qty > 0) {
         const price = parseInt(card.querySelector('.coverage-price').textContent.replace(/[^0-9]/g, '')) || 0;
         const id = card.dataset.pService;
-        pServices.push(`• ${serviceNames[id] || id} (${qty}): $${(price * qty).toLocaleString()}`);
+        const isHourly = p_hourlyServices.includes(id);
+        if (isHourly) pServices.push(`• ${serviceNames[id] || id} (${qty} ${qty === 1 ? 'hour' : 'hours'}): $${(price * qty).toLocaleString()}`);
+        else pServices.push(`• ${serviceNames[id] || id}: $${(price * qty).toLocaleString()}`);
       }
     });
     if (pServices.length > 0) { details.push('EXTRA SERVICES:'); pServices.forEach(s => details.push(s)); details.push(''); }
@@ -5063,12 +5078,13 @@ function generateBookingDetails() {
     details.push('');
     if (p_weddingDate) {
       details.push(`Wedding Date: ${p_weddingDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`);
-      const schedule = calculatePaymentSchedule(p_getEstimatedTotal(), p_weddingDate, p_paymentPlan);
+      const pTotal = p_getEstimatedTotal();
+      const schedule = calculatePaymentSchedule(pTotal, p_weddingDate, p_paymentPlan);
       if (schedule) {
         details.push(`Payment Plan: ${schedule.type}`);
         details.push('');
         details.push('PAYMENT SCHEDULE:');
-        details.push('• Retainer (Due at signing): $1,000.00');
+        details.push(`• Retainer (Due at signing): $${Math.min(1000, pTotal).toFixed(2)}`);
         if (schedule.isMonthly) details.push(`• ${schedule.payments[0].count} monthly payments of $${schedule.payments[0].amount.toFixed(2)}`);
         else schedule.payments.forEach(p => details.push(`• ${p.label} (${fmtDate(p.date)}): $${p.amount.toFixed(2)}`));
       }
@@ -5086,12 +5102,13 @@ function generateBookingDetails() {
     details.push('');
     if (v_weddingDate) {
       details.push(`Wedding Date: ${v_weddingDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`);
-      const schedule = calculatePaymentSchedule(v_getEstimatedTotal(), v_weddingDate, v_paymentPlan);
+      const vTotal = v_getEstimatedTotal();
+      const schedule = calculatePaymentSchedule(vTotal, v_weddingDate, v_paymentPlan);
       if (schedule) {
         details.push(`Payment Plan: ${schedule.type}`);
         details.push('');
         details.push('PAYMENT SCHEDULE:');
-        details.push('• Retainer (Due at signing): $1,000.00');
+        details.push(`• Retainer (Due at signing): $${Math.min(1000, vTotal).toFixed(2)}`);
         if (schedule.isMonthly) details.push(`• ${schedule.payments[0].count} monthly payments of $${schedule.payments[0].amount.toFixed(2)}`);
         else schedule.payments.forEach(p => details.push(`• ${p.label} (${fmtDate(p.date)}): $${p.amount.toFixed(2)}`));
       }
@@ -5123,7 +5140,7 @@ function generateBookingDetailsHTML() {
     packageType = 'À La Carte';
     body += sectionTitle('Package Details');
     document.querySelectorAll('[data-coverage]').forEach(card => {
-      const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0;
+      const qty = readQty(card.querySelector('.qty-display'));
       if (qty > 0) {
         const id = card.dataset.coverage;
         const name = coverageNames[id] || id;
@@ -5143,7 +5160,7 @@ function generateBookingDetailsHTML() {
     if (albums.length > 0) { body += sectionTitle('Albums'); albums.forEach(a => { body += bullet(a); }); }
     const services = [];
     document.querySelectorAll('[data-service]').forEach(card => {
-      const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0;
+      const qty = readQty(card.querySelector('.qty-display'));
       if (qty > 0) {
         const id = card.dataset.service;
         const isHourly = hourlyServices.includes(id);
@@ -5172,7 +5189,7 @@ function generateBookingDetailsHTML() {
       if (schedule) {
         body += info('Payment Plan', schedule.type);
         body += sectionTitle('Payment Schedule');
-        body += bullet(`Retainer (Due at signing): ${bold('$1,000.00')}`);
+        body += bullet(`Retainer (Due at signing): ${bold('$' + Math.min(1000, totalAmount).toFixed(2))}`);
         if (schedule.isMonthly) body += bullet(`${schedule.payments[0].count} monthly payments of ${bold('$' + schedule.payments[0].amount.toFixed(2))}`);
         else schedule.payments.forEach(p => { body += bullet(`${p.label} (${fmtDate(p.date)}): ${bold('$' + p.amount.toFixed(2))}`); });
       }
@@ -5193,7 +5210,7 @@ function generateBookingDetailsHTML() {
     }
     const pCoverage = [];
     document.querySelectorAll('[data-p-coverage]').forEach(card => {
-      const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0;
+      const qty = readQty(card.querySelector('.qty-display'));
       if (qty > 0) {
         const price = parseInt(card.querySelector('.coverage-price').textContent.replace(/[^0-9]/g, '')) || 0;
         const id = card.dataset.pCoverage;
@@ -5213,11 +5230,13 @@ function generateBookingDetailsHTML() {
     if (pAlbums.length > 0) { body += sectionTitle('Albums'); pAlbums.forEach(a => { body += bullet(a); }); }
     const pServices = [];
     document.querySelectorAll('[data-p-service]').forEach(card => {
-      const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0;
+      const qty = readQty(card.querySelector('.qty-display'));
       if (qty > 0) {
         const price = parseInt(card.querySelector('.coverage-price').textContent.replace(/[^0-9]/g, '')) || 0;
         const id = card.dataset.pService;
-        pServices.push(`${serviceNames[id] || id} (${qty}): ${bold('$' + (price * qty).toLocaleString())}`);
+        const isHourly = p_hourlyServices.includes(id);
+        if (isHourly) pServices.push(`${serviceNames[id] || id} (${qty} ${qty === 1 ? 'hour' : 'hours'}): ${bold('$' + (price * qty).toLocaleString())}`);
+        else pServices.push(`${serviceNames[id] || id}: ${bold('$' + (price * qty).toLocaleString())}`);
       }
     });
     if (pServices.length > 0) { body += sectionTitle('Extra Services'); pServices.forEach(s => { body += bullet(s); }); }
@@ -5241,7 +5260,7 @@ function generateBookingDetailsHTML() {
       if (schedule) {
         body += info('Payment Plan', schedule.type);
         body += sectionTitle('Payment Schedule');
-        body += bullet(`Retainer (Due at signing): ${bold('$1,000.00')}`);
+        body += bullet(`Retainer (Due at signing): ${bold('$' + Math.min(1000, totalAmount).toFixed(2))}`);
         if (schedule.isMonthly) body += bullet(`${schedule.payments[0].count} monthly payments of ${bold('$' + schedule.payments[0].amount.toFixed(2))}`);
         else schedule.payments.forEach(p => { body += bullet(`${p.label} (${fmtDate(p.date)}): ${bold('$' + p.amount.toFixed(2))}`); });
       }
@@ -5264,7 +5283,7 @@ function generateBookingDetailsHTML() {
       if (schedule) {
         body += info('Payment Plan', schedule.type);
         body += sectionTitle('Payment Schedule');
-        body += bullet(`Retainer (Due at signing): ${bold('$1,000.00')}`);
+        body += bullet(`Retainer (Due at signing): ${bold('$' + Math.min(1000, totalAmount).toFixed(2))}`);
         if (schedule.isMonthly) body += bullet(`${schedule.payments[0].count} monthly payments of ${bold('$' + schedule.payments[0].amount.toFixed(2))}`);
         else schedule.payments.forEach(p => { body += bullet(`${p.label} (${fmtDate(p.date)}): ${bold('$' + p.amount.toFixed(2))}`); });
       }
