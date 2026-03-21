@@ -1035,9 +1035,9 @@ body { background: #e7e4e6; }
   /* --- C. TAB HEADER — iOS SEGMENTED CONTROL --- */
   .max-w-6xl.mx-auto.mb-10 {
     margin: 0 !important;
-    padding: 8px 16px 0 !important;
+    padding: 8px 16px 8px !important;
     position: sticky;
-    top: 49px;
+    top: 0;
     z-index: 99;
     background: rgba(245,243,244,0.95);
     backdrop-filter: blur(12px);
@@ -1090,7 +1090,7 @@ body { background: #e7e4e6; }
   #tabContent-alacarte,
   #tabContent-photography,
   #tabContent-videography {
-    padding: 0 16px !important;
+    padding: 8px 16px 0 !important;
     box-sizing: border-box !important;
     max-width: 100% !important;
   }
@@ -2228,7 +2228,7 @@ h3.fc-clock-label,
 <body class="font-sans px-4 py-12 md:px-10 md:py-16">
 
 <!-- Mobile Sticky Header -->
-<div id="mobileHeader" style="display:none;">
+<div id="mobileHeader" style="display:none;position:fixed;bottom:0;left:0;right:0;">
   <span class="mh-label">Your Investment</span>
   <span class="mh-total" id="mobileTotal">$0</span>
 </div>
