@@ -699,6 +699,16 @@ body { background: #e7e4e6; }
     0 0.0625em 0 0 #9f1239, 0 0.125em 0 0 #881337, 0 0.125em 0 0 #6b0d2b,
     0 0.2em 0 0 #5c0a24, 0 0.225em 0 0 #4c0519, 0 0.225em 0.375em 0 #4c0519;
 }
+/* Button container: side by side on all screens */
+.flex.flex-col.items-center.gap-6.my-16 {
+  flex-direction: row;
+  gap: 16px;
+  align-items: stretch;
+}
+.flex.flex-col.items-center.gap-6.my-16 .quote-btn,
+.flex.flex-col.items-center.gap-6.my-16 .reset-btn {
+  flex: 1;
+}
 /* Sliding Tabs */
 .tab-header {
   --tab-pad: 6px;
@@ -1993,14 +2003,19 @@ body { background: #e7e4e6; }
   }
 
   /* --- Q. QUOTE & RESET BUTTONS --- */
-  .quote-btn {
-    width: 100% !important;
-    border-radius: 14px !important;
-    font-size: 16px !important;
-    padding: 16px !important;
+  .flex.flex-col.items-center.gap-6.my-16 {
+    flex-direction: row !important;
+    gap: 10px !important;
+    align-items: stretch !important;
+    margin: 24px 0 !important;
   }
+  .quote-btn,
   .reset-btn {
+    flex: 1 !important;
+    width: auto !important;
+    border-radius: 14px !important;
     font-size: 14px !important;
+    padding: 14px 8px !important;
   }
 
   /* --- R. GLOW TEXT — SIMPLER ON MOBILE --- */
@@ -4335,6 +4350,7 @@ function resetAll() {
   const planLabels = document.querySelectorAll('[data-payment="plan"] .anim-radio');
   planLabels.forEach(l => { const txt = l.querySelector('span:last-child'); txt.className = 'text-stone-700'; txt.style.fontSize = '17px'; });
   renderInvestment();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // ===== Main Sliding Tabs =====
@@ -5085,6 +5101,7 @@ function p_resetAll() {
   document.querySelectorAll('[data-p-payment="plan"] .anim-radio').forEach(l => { const txt = l.querySelector('span:last-child'); txt.className = 'text-stone-700'; txt.style.fontSize = '17px'; });
   p_renderCustomize();
   p_renderInvestment();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // ===== VIDEOGRAPHY TAB =====
@@ -5328,6 +5345,7 @@ function v_resetAll() {
   document.querySelectorAll('[name="v_payPlan"]').forEach(r => r.checked = false);
   document.querySelectorAll('[data-v-payment="plan"] .anim-radio').forEach(l => { const txt = l.querySelector('span:last-child'); txt.className = 'text-stone-700'; txt.style.fontSize = '17px'; });
   v_renderInvestment();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function resetEverything() {
