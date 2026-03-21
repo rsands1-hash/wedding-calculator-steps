@@ -1186,7 +1186,7 @@ body { background: #e7e4e6; }
     position: absolute !important;
     top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
     background: #fff !important;
-    border-radius: 12px !important;
+    border-radius: 14px !important;
     z-index: -1 !important;
   }
   /* Coverage-active items get animated gradient border (same as col-active) */
@@ -1216,7 +1216,7 @@ body { background: #e7e4e6; }
     position: absolute !important;
     top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
     background: #fff !important;
-    border-radius: 12px !important;
+    border-radius: 14px !important;
     z-index: -1 !important;
   }
 
@@ -1833,6 +1833,10 @@ body { background: #e7e4e6; }
     text-align: left !important;
     color: #1c1917;
   }
+  /* Countdown clock — tighter spacing on mobile */
+  .fc-clock-wrapper {
+    margin-top: 16px !important;
+  }
   /* Month grid — no borders between months */
   .month-btn {
     border: none !important;
@@ -1902,7 +1906,7 @@ body { background: #e7e4e6; }
     border-radius: 14px !important;
     border: 1px solid rgba(0,0,0,0.05) !important;
     box-shadow: 0 1px 3px rgba(0,0,0,0.04) !important;
-    margin-top: 16px;
+    margin-top: 16px !important;
     flex-direction: column !important;
     display: flex !important;
     border-bottom: 1px solid rgba(0,0,0,0.05) !important;
@@ -2169,6 +2173,7 @@ h3.fc-clock-label,
   background: #222;
   padding: 0.25em 0.25em;
   border-radius: 0.15em 0.15em 0 0;
+  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   transform-style: preserve-3d;
   width: 100%;
@@ -3731,9 +3736,8 @@ function syncDateToOtherTabs(date, source) {
   if (source !== 'alacarte') {
     weddingDate = new Date(date);
     window._fcWeddingDate = weddingDate;
-    setYear(yr);
     viewMonth = mo;
-    renderMonths(); renderDays();
+    setYear(yr);
     if (typeof fcRefreshClock === 'function') fcRefreshClock();
     document.getElementById('selectedDateDisplay').classList.remove('hidden');
     document.getElementById('selectedDateText').textContent = dateStr;
@@ -3743,9 +3747,8 @@ function syncDateToOtherTabs(date, source) {
   if (source !== 'photography') {
     p_weddingDate = new Date(date);
     window._fcPWeddingDate = p_weddingDate;
-    p_setYear(yr);
     p_viewMonth = mo;
-    p_renderMonths(); p_renderDays();
+    p_setYear(yr);
     if (typeof p_fcRefreshClock === 'function') p_fcRefreshClock();
     document.getElementById('p_selectedDateDisplay').classList.remove('hidden');
     document.getElementById('p_selectedDateText').textContent = dateStr;
@@ -3755,9 +3758,8 @@ function syncDateToOtherTabs(date, source) {
   if (source !== 'videography') {
     v_weddingDate = new Date(date);
     window._fcVWeddingDate = v_weddingDate;
-    v_setYear(yr);
     v_viewMonth = mo;
-    v_renderMonths(); v_renderDays();
+    v_setYear(yr);
     if (typeof v_fcRefreshClock === 'function') v_fcRefreshClock();
     document.getElementById('v_selectedDateDisplay').classList.remove('hidden');
     document.getElementById('v_selectedDateText').textContent = dateStr;
@@ -4066,7 +4068,7 @@ function renderInvestment() {
       const name = coverageNames[id] || id;
       const price = coveragePrices[id] || 0;
       html += `<div class="flex justify-between items-start text-sm md:text-base">
-        <div class="text-stone-600"><div class="inline sm:block">${name} <span class="text-sm sm:block">(${qty} ${qty === 1 ? 'hour' : 'hours'} @ $${price}/hr)</span></div></div>
+        <div class="text-stone-600"><div>${name} <span class="text-sm block">(${qty} ${qty === 1 ? 'hour' : 'hours'} @ $${price}/hr)</span></div></div>
         <p class="text-stone-800">${fmtWhole(price * qty)}</p>
       </div>`;
     }
@@ -4093,7 +4095,7 @@ function renderInvestment() {
       const isHourly = hourlyServices.includes(id);
       if (isHourly) {
         html += `<div class="flex justify-between items-start text-sm md:text-base">
-          <div class="text-stone-600"><div class="inline sm:block">${name} <span class="text-sm sm:block">(${qty} ${qty === 1 ? 'hour' : 'hours'} @ $${price}/hr)</span></div></div>
+          <div class="text-stone-600"><div>${name} <span class="text-sm block">(${qty} ${qty === 1 ? 'hour' : 'hours'} @ $${price}/hr)</span></div></div>
           <p class="text-stone-800">${fmtWhole(price * qty)}</p>
         </div>`;
       } else {
@@ -4323,6 +4325,8 @@ function setMainTab(tab) {
   // Reset wizard to step 0 on tab switch
   if (window.wizardActive) wizardGoToStep(0);
   updateMobileTotal();
+  // Scroll to top so tab content isn't hidden behind sticky header
+  window.scrollTo({ top: 0, behavior: 'instant' });
 }
 
 // ===== Mobile Wizard =====
@@ -4925,7 +4929,7 @@ function p_renderInvestment() {
   html += '<div class="pb-4 border-b border-stone-300">';
   html += `<p class="text-sm md:text-base text-stone-700 uppercase tracking-wider font-bold mb-2">${col.name}</p>`;
   html += '<div class="space-y-2">';
-  html += `<div class="flex justify-between items-start text-sm md:text-base"><div class="text-stone-600"><div class="inline sm:block">Photography Coverage w/Ryan Sands <span class="text-sm sm:block">(${coverageHours} hours @ $300/hr)</span></div></div><p class="text-stone-800 whitespace-nowrap">${fmtWhole(photoCoveragePrice)}</p></div>`;
+  html += `<div class="flex justify-between items-start text-sm md:text-base"><div class="text-stone-600"><div>Photography Coverage w/Ryan Sands <span class="text-sm block">(${coverageHours} hours @ $300/hr)</span></div></div><p class="text-stone-800 whitespace-nowrap">${fmtWhole(photoCoveragePrice)}</p></div>`;
   col.items.filter(i => i.id === 'engagement' && !p_removedItems.includes(i.name)).forEach(item => { html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">${item.name}</p><p class="text-stone-800">${fmtWhole(item.value)}</p></div>`; });
   col.items.filter(i => i.name.includes('Album') && !p_removedItems.includes(i.name)).forEach(item => { html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">${item.name}</p><p class="text-stone-800">${fmtWhole(item.value)}</p></div>`; });
   col.items.filter(i => i.id === 'second_photographer' && !p_removedItems.includes(i.name)).forEach(item => { html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">${item.name}</p><p class="text-stone-800">${fmtWhole(item.value)}</p></div>`; });
@@ -4935,8 +4939,8 @@ function p_renderInvestment() {
   const removedWithValue = col.items.filter(i => p_removedItems.includes(i.name) && i.value > 0);
   if (removedWithValue.length > 0) { removedWithValue.forEach(item => { html += `<div class="flex justify-between items-center text-sm md:text-base text-red-600"><p>Removed: ${item.name}</p><p>-$${item.value}</p></div>`; }); }
   document.querySelectorAll('[data-p-album]').forEach(card => { const qty = parseInt(card.querySelector('.qty-display').textContent) || 0; if (qty > 0) { const id = card.dataset.pAlbum; const name = albumNames[id] || id; const price = albumPrices[id] || 0; html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">${name} (\u00d7${qty})</p><p class="text-stone-800">${fmtWhole(price * qty)}</p></div>`; } });
-  document.querySelectorAll('[data-p-coverage]').forEach(card => { const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0; if (qty > 0) { const id = card.dataset.pCoverage; const name = coverageNames[id] || id; const price = coveragePrices[id] || 0; html += `<div class="flex justify-between items-start text-sm md:text-base"><div class="text-stone-600"><div class="inline sm:block">${name} <span class="text-sm sm:block">(${qty} ${qty === 1 ? 'hour' : 'hours'} @ $${price}/hr)</span></div></div><p class="text-stone-800">${fmtWhole(price * qty)}</p></div>`; } });
-  document.querySelectorAll('[data-p-service]').forEach(card => { const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0; if (qty > 0) { const id = card.dataset.pService; const name = serviceNames[id] || id; const price = servicePrices[id] || 0; const isHourly = p_hourlyServices.includes(id); if (isHourly) { html += `<div class="flex justify-between items-start text-sm md:text-base"><div class="text-stone-600"><div class="inline sm:block">${name} <span class="text-sm sm:block">(${qty} ${qty === 1 ? 'hour' : 'hours'} @ $${price}/hr)</span></div></div><p class="text-stone-800">${fmtWhole(price * qty)}</p></div>`; } else { html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">${name}</p><p class="text-stone-800">${fmtWhole(price * qty)}</p></div>`; } } });
+  document.querySelectorAll('[data-p-coverage]').forEach(card => { const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0; if (qty > 0) { const id = card.dataset.pCoverage; const name = coverageNames[id] || id; const price = coveragePrices[id] || 0; html += `<div class="flex justify-between items-start text-sm md:text-base"><div class="text-stone-600"><div>${name} <span class="text-sm block">(${qty} ${qty === 1 ? 'hour' : 'hours'} @ $${price}/hr)</span></div></div><p class="text-stone-800">${fmtWhole(price * qty)}</p></div>`; } });
+  document.querySelectorAll('[data-p-service]').forEach(card => { const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0; if (qty > 0) { const id = card.dataset.pService; const name = serviceNames[id] || id; const price = servicePrices[id] || 0; const isHourly = p_hourlyServices.includes(id); if (isHourly) { html += `<div class="flex justify-between items-start text-sm md:text-base"><div class="text-stone-600"><div>${name} <span class="text-sm block">(${qty} ${qty === 1 ? 'hour' : 'hours'} @ $${price}/hr)</span></div></div><p class="text-stone-800">${fmtWhole(price * qty)}</p></div>`; } else { html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">${name}</p><p class="text-stone-800">${fmtWhole(price * qty)}</p></div>`; } } });
   html += '</div></div>';
 
   // === Section 2: Service Credits ===
@@ -5986,23 +5990,23 @@ v_initCalendar();
     var lastSec = -1;
     function tick() {
       if (gen !== self.generation) return;
-      self.rafId = requestAnimationFrame(tick);
-      var now = new Date();
-      var sec = now.getSeconds();
-      if (sec === lastSec) return;
-      lastSec = sec;
       var date = self.getDateFn();
-      if (!date) return;
+      if (!date) { self.rafId = requestAnimationFrame(tick); return; }
       var t = fcGetTimeRemaining(date);
       if (t.Total <= 0) {
         for (var key in self.trackers) { self.trackers[key].update(0); }
-        cancelAnimationFrame(self.rafId);
         self.rafId = null;
         return;
       }
-      for (var key in self.trackers) {
-        if (t[key] !== undefined) self.trackers[key].update(t[key]);
+      var now = new Date();
+      var sec = now.getSeconds();
+      if (sec !== lastSec) {
+        lastSec = sec;
+        for (var key in self.trackers) {
+          if (t[key] !== undefined) self.trackers[key].update(t[key]);
+        }
       }
+      self.rafId = requestAnimationFrame(tick);
     }
     self.rafId = requestAnimationFrame(tick);
   };
