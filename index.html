@@ -542,7 +542,7 @@ body { background: #e7e4e6; }
   position: relative;
   background: #fff;
   width: 100%;
-  max-width: 20rem;
+  max-width: min(20rem, 100%);
   margin: 0 auto;
   padding: 4px;
 }
@@ -986,6 +986,7 @@ body { background: #e7e4e6; }
     padding: 0 !important;
     padding-bottom: 80px !important;
     background: #f5f3f4 !important;
+    overflow-x: hidden !important;
   }
 
   /* --- B. STICKY MOBILE HEADER --- */
@@ -1064,6 +1065,8 @@ body { background: #e7e4e6; }
   /* --- D. ALL SECTIONS VISIBLE (NO WIZARD) --- */
   .wizard-step {
     display: block !important;
+    overflow: hidden !important;
+    max-width: 100% !important;
   }
   #wizardBottomBar {
     display: none !important;
@@ -1077,6 +1080,8 @@ body { background: #e7e4e6; }
   #tabContent-photography,
   #tabContent-videography {
     padding: 0 16px !important;
+    box-sizing: border-box !important;
+    max-width: 100% !important;
   }
 
   /* --- F. SECTION HEADINGS --- */
@@ -1130,9 +1135,9 @@ body { background: #e7e4e6; }
   }
 
   /* Each option = compact horizontal row (exclude special containers) */
-  .col-card:not([data-payment]):not([data-p-payment]):not([data-v-payment]):not([id$="investmentBox"]):not([id$="customizeBox"]):not([data-credits]):not([data-p-credits]):not([data-collection]):not([data-p-collection]):not([data-v-collection]),
-  .wizard-step .col-card:not([data-payment]):not([data-p-payment]):not([data-v-payment]):not([id$="investmentBox"]):not([id$="customizeBox"]):not([data-credits]):not([data-p-credits]):not([data-collection]):not([data-p-collection]):not([data-v-collection]),
-  .wizard-step .col-card[class*="p-"]:not([data-payment]):not([data-p-payment]):not([data-v-payment]):not([id$="investmentBox"]):not([id$="customizeBox"]):not([data-credits]):not([data-p-credits]):not([data-collection]):not([data-p-collection]):not([data-v-collection]) {
+  .col-card:not([data-payment]):not([data-p-payment]):not([data-v-payment]):not([id$="investmentBox"]):not([id$="customizeBox"]):not([data-credits]):not([data-p-credits]):not([data-credit]):not([data-p-credit]):not([data-pay-method]):not([data-p-pay-method]):not([data-v-pay-method]):not([data-collection]):not([data-p-collection]):not([data-v-collection]),
+  .wizard-step .col-card:not([data-payment]):not([data-p-payment]):not([data-v-payment]):not([id$="investmentBox"]):not([id$="customizeBox"]):not([data-credits]):not([data-p-credits]):not([data-credit]):not([data-p-credit]):not([data-pay-method]):not([data-p-pay-method]):not([data-v-pay-method]):not([data-collection]):not([data-p-collection]):not([data-v-collection]),
+  .wizard-step .col-card[class*="p-"]:not([data-payment]):not([data-p-payment]):not([data-v-payment]):not([id$="investmentBox"]):not([id$="customizeBox"]):not([data-credits]):not([data-p-credits]):not([data-credit]):not([data-p-credit]):not([data-pay-method]):not([data-p-pay-method]):not([data-v-pay-method]):not([data-collection]):not([data-p-collection]):not([data-v-collection]) {
     border-radius: 14px !important;
     border: 1px solid rgba(0,0,0,0.08) !important;
     box-shadow: 0 1px 3px rgba(0,0,0,0.04) !important;
@@ -1204,11 +1209,11 @@ body { background: #e7e4e6; }
     z-index: -1 !important;
   }
 
-  /* Card images — small icon in row */
-  .col-card > img,
-  .wizard-step .col-card > img,
-  #tabContent-alacarte .wizard-step .col-card > img,
-  #tabContent-photography [data-step-index="1"] .col-card > img {
+  /* Card images — small icon in row (exclude service credits & payment methods) */
+  .col-card:not([data-credit]):not([data-p-credit]):not([data-pay-method]):not([data-p-pay-method]):not([data-v-pay-method]) > img,
+  .wizard-step .col-card:not([data-credit]):not([data-p-credit]):not([data-pay-method]):not([data-p-pay-method]):not([data-v-pay-method]) > img,
+  #tabContent-alacarte .wizard-step .col-card:not([data-credit]):not([data-p-credit]):not([data-pay-method]):not([data-p-pay-method]):not([data-v-pay-method]) > img,
+  #tabContent-photography [data-step-index="1"] .col-card:not([data-credit]):not([data-p-credit]):not([data-pay-method]):not([data-p-pay-method]):not([data-v-pay-method]) > img {
     width: 40px !important;
     height: 40px !important;
     max-height: 40px !important;
@@ -1254,6 +1259,12 @@ body { background: #e7e4e6; }
     padding-bottom: 0 !important;
   }
 
+  /* Photography Steps 2 & 3: hide card icons on mobile, let name use that space */
+  #tabContent-photography [data-step-index="1"] .col-card > img,
+  #tabContent-photography [data-step-index="2"] .col-card > img {
+    display: none !important;
+  }
+
   /* Hide description text on coverage/album/service/credit/collection cards only */
   [data-coverage] > p,
   [data-p-coverage] > p,
@@ -1266,16 +1277,15 @@ body { background: #e7e4e6; }
   [data-v-collection] > p {
     display: none !important;
   }
-  /* Re-show all text inside investment, customize, and payment containers */
-  [id$="investmentContent"] p,
-  [id$="investmentContent"] div,
-  [id$="customizeContent"] p,
-  [id$="customizeContent"] div,
+  /* Re-show all text inside investment, customize, and payment containers.
+     Only target <p> and <span> — NOT <div>, which would break inner flex layouts. */
+  [id$="investmentContent"] > p,
+  [id$="customizeContent"] > p,
   [id$="customizeContent"] span,
   [data-payment] p,
   [data-p-payment] p,
   [data-v-payment] p {
-    display: revert !important;
+    display: block !important;
   }
   /* Hide badges on coverage/album/service cards, show on collections */
   .col-card-badge {
@@ -1333,7 +1343,7 @@ body { background: #e7e4e6; }
   .p-collection-list .col-card ul li,
   [data-p-collection] ul li,
   [data-v-collection] ul li {
-    font-size: 14px !important;
+    font-size: 16px !important;
     color: #78716c !important;
     text-align: left !important;
     margin: 0 !important;
@@ -1576,9 +1586,6 @@ body { background: #e7e4e6; }
     flex-basis: 100% !important;
     order: 10;
   }
-  .p-collection-list .col-card ul {
-    display: none !important;
-  }
   .p-collection-list .col-card-btn {
     display: none !important;
   }
@@ -1593,7 +1600,7 @@ body { background: #e7e4e6; }
     grid-template-columns: repeat(2, 1fr) !important;
     overflow-x: visible !important;
     scroll-snap-type: none !important;
-    gap: 10px !important;
+    gap: clamp(6px, 2.5vw, 12px) !important;
     padding: 0 !important;
     max-width: 100% !important;
     background: transparent !important;
@@ -1603,10 +1610,10 @@ body { background: #e7e4e6; }
   }
   #serviceCreditsList > *,
   #p_serviceCreditsList > * {
-    min-width: unset !important;
+    min-width: 0 !important;
     max-width: unset !important;
     scroll-snap-align: unset !important;
-    padding: 12px 8px 10px !important;
+    padding: clamp(8px, 2.5vw, 14px) clamp(4px, 1.5vw, 10px) !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
@@ -1615,8 +1622,9 @@ body { background: #e7e4e6; }
     border-radius: 14px !important;
     border: 1px solid rgba(0,0,0,0.06) !important;
     box-shadow: 0 1px 2px rgba(0,0,0,0.03) !important;
-    gap: 4px !important;
-    aspect-ratio: 1 / 1 !important;
+    gap: clamp(2px, 1vw, 6px) !important;
+    aspect-ratio: auto !important;
+    overflow: hidden !important;
   }
   #serviceCreditsList::after,
   #p_serviceCreditsList::after {
@@ -1628,24 +1636,27 @@ body { background: #e7e4e6; }
   #tabContent-photography #p_serviceCreditsList img {
     width: 60% !important;
     height: auto !important;
-    max-height: 60% !important;
+    aspect-ratio: 1 / 1 !important;
     object-fit: contain !important;
-    margin-bottom: 4px !important;
+    flex-shrink: 0 !important;
+    margin-bottom: clamp(2px, 1vw, 6px) !important;
   }
   #serviceCreditsList p,
   #p_serviceCreditsList p {
-    font-size: 16px !important;
+    font-size: clamp(12px, 3.5vw, 16px) !important;
     line-height: 1.3 !important;
     margin: 0 !important;
     color: #57534e;
     font-weight: 600;
+    text-align: center !important;
+    word-break: break-word !important;
   }
   #serviceCreditsList p:last-child,
   #p_serviceCreditsList p:last-child {
-    font-size: 13px !important;
+    font-size: clamp(10px, 2.8vw, 13px) !important;
     font-weight: 700;
     color: #16a34a;
-    margin-top: 2px !important;
+    margin-top: clamp(1px, 0.5vw, 3px) !important;
   }
 
   /* --- K. UNLOCK MORE CREDITS --- */
@@ -1705,9 +1716,10 @@ body { background: #e7e4e6; }
   #v_payMethodGrid {
     display: grid !important;
     grid-template-columns: repeat(3, 1fr) !important;
+    grid-template-rows: repeat(2, 16vw auto auto) !important;
     overflow-x: visible !important;
     scroll-snap-type: none !important;
-    gap: 8px !important;
+    gap: clamp(6px, 2vw, 10px) !important;
     padding: 0 !important;
     max-width: 100% !important;
     background: transparent !important;
@@ -1718,17 +1730,22 @@ body { background: #e7e4e6; }
   #payMethodGrid > *,
   #p_payMethodGrid > *,
   #v_payMethodGrid > * {
-    min-width: unset !important;
+    min-width: 0 !important;
     max-width: unset !important;
     scroll-snap-align: unset !important;
-    padding: 14px 8px !important;
+    padding: clamp(8px, 2.5vw, 14px) clamp(4px, 1.5vw, 10px) !important;
     background: #fff !important;
     border-radius: 12px !important;
     border: 1px solid rgba(0,0,0,0.06) !important;
     box-shadow: 0 1px 2px rgba(0,0,0,0.03) !important;
-    flex-direction: column !important;
+    display: grid !important;
+    grid-template-rows: subgrid !important;
+    grid-row: span 3 !important;
+    justify-items: center !important;
     align-items: center !important;
     text-align: center !important;
+    gap: clamp(2px, 1vw, 6px) !important;
+    overflow: hidden !important;
   }
   #payMethodGrid::after,
   #p_payMethodGrid::after,
@@ -1738,22 +1755,33 @@ body { background: #e7e4e6; }
   #payMethodGrid img,
   #p_payMethodGrid img,
   #v_payMethodGrid img {
-    width: 44px !important;
-    height: 44px !important;
+    max-width: 16vw !important;
+    max-height: 16vw !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
+    margin: 0 !important;
     margin-top: 0 !important;
-    margin-bottom: 6px !important;
+    margin-bottom: 0 !important;
+    padding: 0 !important;
+    filter: none !important;
+    align-self: center !important;
+    justify-self: center !important;
   }
   #payMethodGrid p,
   #p_payMethodGrid p,
   #v_payMethodGrid p {
-    font-size: 13px !important;
+    font-size: clamp(11px, 3.2vw, 14px) !important;
+    line-height: 1.3 !important;
     text-align: center !important;
+    margin: 0 !important;
+    word-break: break-word !important;
   }
   #payMethodGrid p.text-\[10px\],
   #p_payMethodGrid p.text-\[10px\],
   #v_payMethodGrid p.text-\[10px\] {
-    font-size: 10px !important;
-    margin-top: 2px !important;
+    font-size: clamp(8px, 2.2vw, 10px) !important;
+    margin-top: clamp(1px, 0.5vw, 3px) !important;
   }
 
   /* --- M. CALENDAR & PAYMENT PLAN --- */
@@ -1821,6 +1849,10 @@ body { background: #e7e4e6; }
     width: 100% !important;
     gap: 0 !important;
   }
+  /* Month grid — fill mobile width */
+  .month-grid-container {
+    max-width: 100% !important;
+  }
   /* Space between year tabs and month grid */
   .tab-header-sm {
     margin-bottom: 16px !important;
@@ -1860,6 +1892,10 @@ body { background: #e7e4e6; }
     flex-direction: column !important;
     display: flex !important;
     border-bottom: 1px solid rgba(0,0,0,0.05) !important;
+    overflow: hidden !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
   }
   [id$="investmentBox"] h3,
   [id$="customizeBox"] h3 {
@@ -1882,7 +1918,7 @@ body { background: #e7e4e6; }
   }
 
   /* --- P. TOUCH FEEDBACK --- */
-  .col-card:active {
+  .col-card:not(.coverage-active):not(.col-active):active {
     transform: scale(0.98);
     transition: transform 0.1s ease;
   }
@@ -1961,10 +1997,7 @@ body { background: #e7e4e6; }
   .col-card .text-stone-400.mb-1 {
     display: none !important;
   }
-  /* Prevent body horizontal overflow */
-  body {
-    overflow-x: hidden !important;
-  }
+  /* (body overflow-x moved to section A) */
   #tabContent-alacarte,
   #tabContent-photography,
   #tabContent-videography {
@@ -1978,10 +2011,29 @@ body { background: #e7e4e6; }
   }
 
   /* --- Y. PAYMENT METHOD LABELS --- */
-  #payMethodGrid p,
-  #p_payMethodGrid p,
-  #v_payMethodGrid p {
+  #payMethodGrid p:not(.hidden),
+  #p_payMethodGrid p:not(.hidden),
+  #v_payMethodGrid p:not(.hidden) {
     display: block !important;
+  }
+
+  /* --- Z. GLOBAL OVERFLOW SAFETY --- */
+  [id$="investmentContent"] .flex,
+  [id$="paymentScheduleDisplay"] .flex,
+  [id$="customizeContent"] .flex {
+    min-width: 0 !important;
+    gap: 8px !important;
+  }
+  [id$="investmentContent"] .flex > *,
+  [id$="paymentScheduleDisplay"] .flex > * {
+    min-width: 0 !important;
+    overflow-wrap: break-word !important;
+    word-break: break-word !important;
+  }
+  [id$="investmentContent"] .flex > p:last-child,
+  [id$="paymentScheduleDisplay"] .flex > p:last-child {
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
   }
 }
 
@@ -2353,7 +2405,7 @@ body { background: #e7e4e6; }
             <button class="tab-label-sm" onclick="setYear(2028)">2028</button>
           </div>
           <!-- Month grid -->
-          <div class="grid grid-cols-3 mb-4 mx-auto" style="max-width:20rem; border-radius:12px; overflow:hidden; border:1px solid #ccc" id="monthGrid"></div>
+          <div class="grid grid-cols-3 mb-4 mx-auto" class="month-grid-container" style="max-width:min(20rem, 100%); border-radius:12px; overflow:hidden; border:1px solid #ccc" id="monthGrid"></div>
           <!-- Day headers -->
           <div class="grid grid-cols-7 gap-1 mb-2" id="dayHeaders"></div>
           <!-- Day cells -->
@@ -2398,16 +2450,16 @@ body { background: #e7e4e6; }
 <div class="wizard-step" data-step-index="5" data-step-name="Payment">
 <!-- Step 6: Payment Method -->
 <div class="flex items-center justify-center gap-3 mb-2 mt-16">
-  <img src="https://static.showit.co/file/kN5dwSDD1VZ2PRPu6NhYKQ/293041/credit-card.png" alt="credit card" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
+  <img src="https://static.showit.co/file/j5VdQEs6a9xCQ0YKPw0eMw/293041/credit-cards.png" alt="credit card" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
   <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 6: Payment Method</h2>
 </div>
 <p class="text-center text-stone-500 text-base md:text-lg mb-10">Choose how you'd like to pay</p>
 
 <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 wizard-carousel" id="payMethodGrid">
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-pay-method="cash" onclick="selectPayMethodCard(this)">
-    <img src="https://static.showit.co/file/ueHGE8iMCHrL5egxLgOVLQ/293041/cash.png" alt="Cash" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3 mt-[30px]">
+    <img src="https://static.showit.co/file/ArKNkeAVdei8aMUGj1cUPg/293041/cash.png" alt="Cash" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3 md:mt-[30px]">
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Cash</p>
-    <p class="text-[10px] md:text-xs text-green-600 text-center mt-[10px]">(Save $50)</p>
+    <p class="text-[10px] md:text-xs text-green-600 text-center mt-[10px] hidden md:block">(Save $50)</p>
   </div>
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-pay-method="zelle" onclick="selectPayMethodCard(this)">
     <img src="https://static.showit.co/file/uzLi83Rl8oKf4yKm4oijHw/293041/zelle.png" alt="Zelle" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3">
@@ -2422,9 +2474,9 @@ body { background: #e7e4e6; }
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">PayPal</p>
   </div>
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-pay-method="credit" onclick="selectPayMethodCard(this)">
-    <img src="https://static.showit.co/file/kN5dwSDD1VZ2PRPu6NhYKQ/293041/credit-card.png" alt="Credit Card" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3 mt-[27px]">
+    <img src="https://static.showit.co/file/j5VdQEs6a9xCQ0YKPw0eMw/293041/credit-cards.png" alt="Credit Card" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3 md:mt-[27px]">
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Credit Card</p>
-    <p class="text-[10px] md:text-xs text-stone-400 text-center mt-[10px]">(+5% fee)</p>
+    <p class="text-[10px] md:text-xs text-stone-400 text-center mt-[10px] hidden md:block">(+5% fee)</p>
   </div>
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-pay-method="check" onclick="selectPayMethodCard(this)">
     <img src="https://static.showit.co/file/AiK4rUuHqz94F-e1ZsMX4w/293041/check.png" alt="Check" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3">
@@ -2436,7 +2488,7 @@ body { background: #e7e4e6; }
 <div class="wizard-step" data-step-index="6" data-step-name="Summary">
 <!-- Step 7: Your Investment -->
 <div class="flex items-center justify-center gap-3 mb-2 mt-16">
-  <img src="https://static.showit.co/file/ueHGE8iMCHrL5egxLgOVLQ/293041/cash.png" alt="cash" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
+  <img src="https://static.showit.co/file/ArKNkeAVdei8aMUGj1cUPg/293041/cash.png" alt="cash" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
   <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 7: Your Investment</h2>
 </div>
 <p class="text-center text-stone-500 text-base md:text-lg mb-10">Review your selections and see your total investment</p>
@@ -2446,7 +2498,7 @@ body { background: #e7e4e6; }
   <!-- Your Investment -->
   <div class="col-card p-[15px] md:p-[24px]" id="investmentBox">
     <div class="flex items-center gap-3 mb-4">
-      <img src="https://static.showit.co/file/ueHGE8iMCHrL5egxLgOVLQ/293041/cash.png" alt="cash" style="width:3.25rem;height:3.25rem;object-fit:contain">
+      <img src="https://static.showit.co/file/ArKNkeAVdei8aMUGj1cUPg/293041/cash.png" alt="cash" style="width:3.25rem;height:3.25rem;object-fit:contain">
       <h3 class="text-xl md:text-2xl font-bold text-stone-800" style="margin:0">Your Investment</h3>
     </div>
     <div id="investmentContent">
@@ -2820,7 +2872,7 @@ body { background: #e7e4e6; }
             <button class="tab-label-sm" onclick="p_setYear(2028)">2028</button>
           </div>
           <!-- Month grid -->
-          <div class="grid grid-cols-3 mb-4 mx-auto" style="max-width:20rem; border-radius:12px; overflow:hidden; border:1px solid #ccc" id="p_monthGrid"></div>
+          <div class="grid grid-cols-3 mb-4 mx-auto" class="month-grid-container" style="max-width:min(20rem, 100%); border-radius:12px; overflow:hidden; border:1px solid #ccc" id="p_monthGrid"></div>
           <!-- Day headers -->
           <div class="grid grid-cols-7 gap-1 mb-2" id="p_dayHeaders"></div>
           <!-- Day cells -->
@@ -2865,22 +2917,22 @@ body { background: #e7e4e6; }
 <div class="wizard-step" data-step-index="5" data-step-name="Payment">
 <!-- Step 6: Payment Method -->
 <div class="flex items-center justify-center gap-3 mb-2 mt-16">
-  <img src="https://static.showit.co/file/kN5dwSDD1VZ2PRPu6NhYKQ/293041/credit-card.png" alt="credit card" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
+  <img src="https://static.showit.co/file/j5VdQEs6a9xCQ0YKPw0eMw/293041/credit-cards.png" alt="credit card" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
   <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 6: Payment Method</h2>
 </div>
 <p class="text-center text-stone-500 text-base md:text-lg mb-10">Choose how you'd like to pay</p>
 
 <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 wizard-carousel" id="p_payMethodGrid">
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-p-pay-method="cash" onclick="p_selectPayMethodCard(this)">
-    <img src="https://static.showit.co/file/ueHGE8iMCHrL5egxLgOVLQ/293041/cash.png" alt="Cash" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3 mt-[30px]">
+    <img src="https://static.showit.co/file/ArKNkeAVdei8aMUGj1cUPg/293041/cash.png" alt="Cash" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3 md:mt-[30px]">
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Cash</p>
-    <p class="text-[10px] md:text-xs text-green-600 text-center mt-[10px]">(Save $50)</p>
+    <p class="text-[10px] md:text-xs text-green-600 text-center mt-[10px] hidden md:block">(Save $50)</p>
   </div>
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-p-pay-method="zelle" onclick="p_selectPayMethodCard(this)">
     <img src="https://static.showit.co/file/uzLi83Rl8oKf4yKm4oijHw/293041/zelle.png" alt="Zelle" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3">
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Zelle</p>
   </div>
-  <div class="col-card flex flex-col items-center justify-center p-3 md:p-4 cursor-pointer transition-all hover:shadow-md" data-p-pay-method="venmo" onclick="p_selectPayMethodCard(this)">
+  <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-p-pay-method="venmo" onclick="p_selectPayMethodCard(this)">
     <img src="https://static.showit.co/file/Y6q4eECGJW8cqmoRhfoutg/293041/venmo.png" alt="Venmo" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3">
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Venmo</p>
   </div>
@@ -2889,9 +2941,9 @@ body { background: #e7e4e6; }
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">PayPal</p>
   </div>
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-p-pay-method="credit" onclick="p_selectPayMethodCard(this)">
-    <img src="https://static.showit.co/file/kN5dwSDD1VZ2PRPu6NhYKQ/293041/credit-card.png" alt="Credit Card" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3 mt-[27px]">
+    <img src="https://static.showit.co/file/j5VdQEs6a9xCQ0YKPw0eMw/293041/credit-cards.png" alt="Credit Card" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3 md:mt-[27px]">
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Credit Card</p>
-    <p class="text-[10px] md:text-xs text-stone-400 text-center mt-[10px]">(+5% fee)</p>
+    <p class="text-[10px] md:text-xs text-stone-400 text-center mt-[10px] hidden md:block">(+5% fee)</p>
   </div>
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-p-pay-method="check" onclick="p_selectPayMethodCard(this)">
     <img src="https://static.showit.co/file/AiK4rUuHqz94F-e1ZsMX4w/293041/check.png" alt="Check" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3">
@@ -2903,7 +2955,7 @@ body { background: #e7e4e6; }
 <div class="wizard-step" data-step-index="6" data-step-name="Summary">
 <!-- Step 7: Your Investment -->
 <div class="flex items-center justify-center gap-3 mb-2 mt-16">
-  <img src="https://static.showit.co/file/ueHGE8iMCHrL5egxLgOVLQ/293041/cash.png" alt="cash" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
+  <img src="https://static.showit.co/file/ArKNkeAVdei8aMUGj1cUPg/293041/cash.png" alt="cash" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
   <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 7: Your Investment</h2>
 </div>
 <p class="text-center text-stone-500 text-base md:text-lg mb-10">Review your selections and see your total investment</p>
@@ -2924,7 +2976,7 @@ body { background: #e7e4e6; }
   <!-- Your Investment -->
   <div class="col-card p-[15px] md:p-[24px]" id="p_investmentBox">
     <div class="flex items-center gap-3 mb-4">
-      <img src="https://static.showit.co/file/ueHGE8iMCHrL5egxLgOVLQ/293041/cash.png" alt="cash" style="width:3.25rem;height:3.25rem;object-fit:contain">
+      <img src="https://static.showit.co/file/ArKNkeAVdei8aMUGj1cUPg/293041/cash.png" alt="cash" style="width:3.25rem;height:3.25rem;object-fit:contain">
       <h3 class="text-xl md:text-2xl font-bold text-stone-800" style="margin:0">Your Investment</h3>
     </div>
     <div id="p_investmentContent">
@@ -3056,7 +3108,7 @@ body { background: #e7e4e6; }
             <button class="tab-label-sm" onclick="v_setYear(2028)">2028</button>
           </div>
           <!-- Month grid -->
-          <div class="grid grid-cols-3 mb-4 mx-auto" style="max-width:20rem; border-radius:12px; overflow:hidden; border:1px solid #ccc" id="v_monthGrid"></div>
+          <div class="grid grid-cols-3 mb-4 mx-auto" class="month-grid-container" style="max-width:min(20rem, 100%); border-radius:12px; overflow:hidden; border:1px solid #ccc" id="v_monthGrid"></div>
           <!-- Day headers -->
           <div class="grid grid-cols-7 gap-1 mb-2" id="v_dayHeaders"></div>
           <!-- Day cells -->
@@ -3101,22 +3153,22 @@ body { background: #e7e4e6; }
 <div class="wizard-step" data-step-index="2" data-step-name="Payment">
 <!-- Step 3: Payment Method -->
 <div class="flex items-center justify-center gap-3 mb-2 mt-16">
-  <img src="https://static.showit.co/file/kN5dwSDD1VZ2PRPu6NhYKQ/293041/credit-card.png" alt="credit card" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
+  <img src="https://static.showit.co/file/j5VdQEs6a9xCQ0YKPw0eMw/293041/credit-cards.png" alt="credit card" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
   <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 3: Payment Method</h2>
 </div>
 <p class="text-center text-stone-500 text-base md:text-lg mb-10">Choose how you'd like to pay</p>
 
 <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 wizard-carousel" id="v_payMethodGrid">
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-v-pay-method="cash" onclick="v_selectPayMethodCard(this)">
-    <img src="https://static.showit.co/file/ueHGE8iMCHrL5egxLgOVLQ/293041/cash.png" alt="Cash" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3 mt-[30px]">
+    <img src="https://static.showit.co/file/ArKNkeAVdei8aMUGj1cUPg/293041/cash.png" alt="Cash" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3 md:mt-[30px]">
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Cash</p>
-    <p class="text-[10px] md:text-xs text-green-600 text-center mt-[10px]">(Save $50)</p>
+    <p class="text-[10px] md:text-xs text-green-600 text-center mt-[10px] hidden md:block">(Save $50)</p>
   </div>
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-v-pay-method="zelle" onclick="v_selectPayMethodCard(this)">
     <img src="https://static.showit.co/file/uzLi83Rl8oKf4yKm4oijHw/293041/zelle.png" alt="Zelle" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3">
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Zelle</p>
   </div>
-  <div class="col-card flex flex-col items-center justify-center p-3 md:p-4 cursor-pointer transition-all hover:shadow-md" data-v-pay-method="venmo" onclick="v_selectPayMethodCard(this)">
+  <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-v-pay-method="venmo" onclick="v_selectPayMethodCard(this)">
     <img src="https://static.showit.co/file/Y6q4eECGJW8cqmoRhfoutg/293041/venmo.png" alt="Venmo" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3">
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Venmo</p>
   </div>
@@ -3125,9 +3177,9 @@ body { background: #e7e4e6; }
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">PayPal</p>
   </div>
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-v-pay-method="credit" onclick="v_selectPayMethodCard(this)">
-    <img src="https://static.showit.co/file/kN5dwSDD1VZ2PRPu6NhYKQ/293041/credit-card.png" alt="Credit Card" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3 mt-[27px]">
+    <img src="https://static.showit.co/file/j5VdQEs6a9xCQ0YKPw0eMw/293041/credit-cards.png" alt="Credit Card" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3 md:mt-[27px]">
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Credit Card</p>
-    <p class="text-[10px] md:text-xs text-stone-400 text-center mt-[10px]">(+5% fee)</p>
+    <p class="text-[10px] md:text-xs text-stone-400 text-center mt-[10px] hidden md:block">(+5% fee)</p>
   </div>
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-v-pay-method="check" onclick="v_selectPayMethodCard(this)">
     <img src="https://static.showit.co/file/AiK4rUuHqz94F-e1ZsMX4w/293041/check.png" alt="Check" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3">
@@ -3139,7 +3191,7 @@ body { background: #e7e4e6; }
 <div class="wizard-step" data-step-index="3" data-step-name="Summary">
 <!-- Step 4: Your Investment -->
 <div class="flex items-center justify-center gap-3 mb-2 mt-16">
-  <img src="https://static.showit.co/file/ueHGE8iMCHrL5egxLgOVLQ/293041/cash.png" alt="cash" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
+  <img src="https://static.showit.co/file/ArKNkeAVdei8aMUGj1cUPg/293041/cash.png" alt="cash" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
   <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 4: Your Investment</h2>
 </div>
 <p class="text-center text-stone-500 text-base md:text-lg mb-10">Review your selections and see your total investment</p>
@@ -3147,7 +3199,7 @@ body { background: #e7e4e6; }
 <div class="max-w-6xl mx-auto">
   <div class="col-card p-[15px] md:p-[24px]" id="v_investmentBox">
     <div class="flex items-center gap-3 mb-4">
-      <img src="https://static.showit.co/file/ueHGE8iMCHrL5egxLgOVLQ/293041/cash.png" alt="cash" style="width:3.25rem;height:3.25rem;object-fit:contain">
+      <img src="https://static.showit.co/file/ArKNkeAVdei8aMUGj1cUPg/293041/cash.png" alt="cash" style="width:3.25rem;height:3.25rem;object-fit:contain">
       <h3 class="text-xl md:text-2xl font-bold text-stone-800" style="margin:0">Your Investment</h3>
     </div>
     <div id="v_investmentContent">
@@ -3205,23 +3257,6 @@ const discountLabels = {
   veteran: 'Veteran'
 };
 
-// Centralized qty helpers — single source of truth for parsing, snapping, and formatting
-function snapQty(val) {
-  // Round to nearest 0.5 to prevent floating-point drift (e.g. 1.0000000000000002)
-  return Math.round(val * 2) / 2;
-}
-
-function readQty(el) {
-  // Parse numeric qty from a DOM element's textContent (handles "4.5 hrs", "3", etc.)
-  return snapQty(parseFloat(el.textContent) || 0);
-}
-
-function formatQty(qty, showHrs) {
-  // Format qty for display: "4.5 hrs" on desktop, "4.5" on mobile
-  if (showHrs) return qty + ' hrs';
-  return String(qty);
-}
-
 let removedItems = [];
 let currentCollection = null;
 let paymentMethod = 'venmo';
@@ -3257,24 +3292,16 @@ function selectCollection(card) {
   updatePaymentSchedule();
 }
 
-// Coverage +/- buttons (supports halfHourMode, 4hr min for à la carte, snapQty)
+// Coverage +/- buttons
 function adjustQty(btn, delta) {
-  if (halfHourMode) delta = delta * 0.5;
   const card = btn.closest('[data-coverage]');
   const display = card.querySelector('.qty-display');
   const resetBtn = card.querySelector('.te-reset');
-  let qty = readQty(display);
-  // À la carte tab: enforce 4hr minimum (skip 0.5-3.5 range)
-  const isAlaCarte = card.closest('#tabContent-alacarte');
-  if (isAlaCarte) {
-    qty = qty + delta;
-    if (qty > 0 && qty < 4) qty = delta > 0 ? 4 : 0;
-    qty = Math.max(0, qty);
-  } else {
-    qty = Math.max(0, qty + delta);
-  }
-  qty = snapQty(qty);
-  display.textContent = formatQty(qty, window.innerWidth > 768);
+  let qty = parseInt(display.textContent) || 0;
+  qty = Math.max(0, qty + delta);
+  var isMobile = window.innerWidth <= 768;
+  display.textContent = isMobile ? qty : qty + ' hrs';
+
   if (qty > 0) {
     card.classList.add('coverage-active');
     resetBtn.style.opacity = '1';
@@ -3284,21 +3311,18 @@ function adjustQty(btn, delta) {
     resetBtn.style.opacity = '0.35';
     resetBtn.style.pointerEvents = 'none';
   }
-  renderInvestment();
   updatePaymentSchedule();
-  if (window.wizardActive) wizardUpdateTotal();
 }
 
 function resetQty(btn) {
   const card = btn.closest('[data-coverage]');
   const display = card.querySelector('.qty-display');
-  display.textContent = formatQty(0, window.innerWidth > 768);
+  var isMobile = window.innerWidth <= 768;
+  display.textContent = isMobile ? '0' : '0 hrs';
   card.classList.remove('coverage-active');
   btn.style.opacity = '0.35';
   btn.style.pointerEvents = 'none';
-  renderInvestment();
   updatePaymentSchedule();
-  if (window.wizardActive) wizardUpdateTotal();
 }
 
 // Album +/- buttons
@@ -3337,7 +3361,6 @@ function resetAlbumQty(btn) {
 const hourlyServices = ['bridal_shower', 'rehearsal_dinner'];
 const maxOneServices = ['engagement_30min', 'engagement_session'];
 
-// Service +/- (supports halfHourMode for hourly services, snapQty)
 function adjustServiceQty(btn, delta) {
   const card = btn.closest('[data-service]');
   const serviceId = card.dataset.service;
@@ -3345,10 +3368,10 @@ function adjustServiceQty(btn, delta) {
   const resetBtn = card.querySelector('.te-reset');
   const isHourly = hourlyServices.includes(serviceId);
   const maxQty = maxOneServices.includes(serviceId) ? 1 : 999;
-  if (isHourly && halfHourMode) delta = delta * 0.5;
-  let qty = readQty(display);
-  qty = snapQty(Math.max(0, Math.min(maxQty, qty + delta)));
-  display.textContent = formatQty(qty, window.innerWidth > 768 && isHourly);
+  let qty = parseInt(display.textContent) || 0;
+  qty = Math.max(0, Math.min(maxQty, qty + delta));
+  display.textContent = (window.innerWidth <= 768) ? qty : (isHourly ? qty + ' hrs' : qty);
+
   if (qty > 0) {
     card.classList.add('coverage-active');
     resetBtn.style.opacity = '1';
@@ -3358,22 +3381,18 @@ function adjustServiceQty(btn, delta) {
     resetBtn.style.opacity = '0.35';
     resetBtn.style.pointerEvents = 'none';
   }
-  renderInvestment();
   updatePaymentSchedule();
-  if (window.wizardActive) wizardUpdateTotal();
 }
 
 function resetServiceQty(btn) {
   const card = btn.closest('[data-service]');
   const isHourly = hourlyServices.includes(card.dataset.service);
   const display = card.querySelector('.qty-display');
-  display.textContent = formatQty(0, window.innerWidth > 768 && isHourly);
+  display.textContent = (window.innerWidth <= 768) ? '0' : (isHourly ? '0 hrs' : '0');
   card.classList.remove('coverage-active');
   btn.style.opacity = '0.35';
   btn.style.pointerEvents = 'none';
-  renderInvestment();
   updatePaymentSchedule();
-  if (window.wizardActive) wizardUpdateTotal();
 }
 
 // Service Credits (max 2, matching calculator behavior)
@@ -3422,10 +3441,13 @@ function toggleUnlock(cb) {
 function selectPayMethodCard(card) {
   const grid = document.getElementById('payMethodGrid');
   const wasActive = card.classList.contains('col-active');
-  if (wasActive) return;
   grid.querySelectorAll('[data-pay-method]').forEach(c => c.classList.remove('col-active'));
-  card.classList.add('col-active');
-  paymentMethod = card.dataset.payMethod;
+  if (wasActive) {
+    paymentMethod = '';
+  } else {
+    card.classList.add('col-active');
+    paymentMethod = card.dataset.payMethod;
+  }
   renderInvestment();
   updatePaymentSchedule();
   if (window.wizardActive) wizardUpdateTotal();
@@ -3489,7 +3511,7 @@ function renderDays() {
     const isToday = todayDate.getFullYear() === viewYear && todayDate.getMonth() === viewMonth && todayDate.getDate() === d;
     if (isSelected) {
       html += `<div class="flex items-center justify-center" style="aspect-ratio:1">
-        <button onclick="selectDay(${d})" class="w-full h-full flex items-center justify-center p-0.5" class="cal-heart-btn">
+        <button onclick="selectDay(${d})" class="cal-heart-btn w-full h-full flex items-center justify-center p-0.5">
           <svg viewBox="0 0 50 47" class="w-full h-full" style="filter:drop-shadow(0 2px 4px rgba(219,39,119,0.3))">
             <path d="M25 47 C25 47 0 30 0 14 C0 6 6 0 13 0 C18 0 22 3 25 7 C28 3 32 0 37 0 C44 0 50 6 50 14 C50 30 25 47 25 47Z" fill="#ec4899"/>
             <text x="25" y="29" text-anchor="middle" fill="white" font-weight="700" font-size="16" font-family="system-ui,sans-serif">${d}</text>
@@ -3533,16 +3555,17 @@ function selectPayPlan(radio) {
   if (window.wizardActive) wizardUpdateTotal();
 }
 
-function calculatePaymentSchedule(total, weddingDateObj, planType) {
+function calculatePaymentSchedule(total, weddingDateObj, planType, retainerCount) {
   if (!weddingDateObj) return null;
+  retainerCount = retainerCount || 1;
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const weddingCopy = new Date(weddingDateObj);
   weddingCopy.setHours(0, 0, 0, 0);
   const daysUntil = Math.round((weddingCopy - today) / (1000 * 60 * 60 * 24));
   if (daysUntil < 1) return null;
-  const retainer = Math.min(1000, total);
-  const remaining = Math.max(0, total - retainer);
+  const retainer = 1000 * retainerCount;
+  const remaining = total - retainer;
   // Calculate months using actual calendar difference
   const monthsUntil = (weddingCopy.getFullYear() - today.getFullYear()) * 12 + (weddingCopy.getMonth() - today.getMonth());
   if (planType === 'day_of') {
@@ -3583,7 +3606,7 @@ function getEstimatedTotal() {
   let total = 0;
   // Coverage hours
   document.querySelectorAll('[data-coverage]').forEach(card => {
-    const qty = readQty(card.querySelector('.qty-display'));
+    const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0;
     if (qty > 0) {
       const price = parseInt(card.querySelector('.coverage-price').textContent.replace(/[^0-9]/g, '')) || 0;
       total += price * qty;
@@ -3599,7 +3622,7 @@ function getEstimatedTotal() {
   });
   // Services
   document.querySelectorAll('[data-service]').forEach(card => {
-    const qty = readQty(card.querySelector('.qty-display'));
+    const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0;
     if (qty > 0) {
       const price = parseInt(card.querySelector('.coverage-price').textContent.replace(/[^0-9]/g, '')) || 0;
       total += price * qty;
@@ -3619,7 +3642,23 @@ function getEstimatedTotal() {
   // Payment method adjustments
   if (paymentMethod === 'cash') total -= 50;
   if (paymentMethod === 'credit') total *= 1.05;
-  return Math.max(0, total);
+  return total;
+}
+
+// Helper: count retainers for À La Carte tab (2 if both photo + video selected)
+function getRetainerCount() {
+  const photoCard = document.querySelector('[data-coverage="photo"]');
+  const videoCard = document.querySelector('[data-coverage="video"]');
+  const hasPhoto = photoCard && (parseFloat(photoCard.querySelector('.qty-display').textContent) || 0) > 0;
+  const hasVideo = videoCard && (parseFloat(videoCard.querySelector('.qty-display').textContent) || 0) > 0;
+  return (hasPhoto && hasVideo) ? 2 : 1;
+}
+
+// Helper: count retainers for Photography tab (2 if videography coverage added)
+function p_getRetainerCount() {
+  const videoCard = document.querySelector('[data-p-coverage="video"]');
+  const hasVideo = videoCard && (parseFloat(videoCard.querySelector('.qty-display').textContent) || 0) > 0;
+  return hasVideo ? 2 : 1;
 }
 
 function updatePaymentSchedule() {
@@ -3627,8 +3666,8 @@ function updatePaymentSchedule() {
   const tooSoon = document.getElementById('paymentTooSoon');
   if (!weddingDate) { display.innerHTML = ''; renderInvestment(); return; }
   const total = getEstimatedTotal();
-  if (total <= 0) { display.innerHTML = ''; tooSoon.classList.add('hidden'); renderInvestment(); return; }
-  const schedule = calculatePaymentSchedule(total, weddingDate, paymentPlan);
+  const rc = getRetainerCount();
+  const schedule = calculatePaymentSchedule(total, weddingDate, paymentPlan, rc);
 
   if (!schedule) {
     display.innerHTML = '';
@@ -3641,19 +3680,35 @@ function updatePaymentSchedule() {
   const fmtDate = (d) => d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
   const fmtMoney = (n) => '$' + n.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
 
-  const retainerAmt = Math.min(1000, total);
   let html = `<div class="mt-4 rounded-2xl overflow-hidden" style="background:#f9f9f8;border:1px solid #d6d3d1">
     <div class="px-4 py-3" style="background:linear-gradient(135deg,#c0baff,#8a7ef2)">
       <p class="text-base md:text-lg font-bold text-white tracking-wide text-center" style="text-shadow:0 1px 2px rgba(0,0,0,0.15)">${schedule.type}</p>
     </div>
-    <div class="p-4 space-y-0">
+    <div class="p-4 space-y-0">`;
+  if (rc === 2) {
+    html += `<div class="flex justify-between items-center py-3 border-b border-stone-300">
+        <div>
+          <p class="text-base md:text-lg font-semibold text-stone-800">Photography Retainer</p>
+          <p class="text-sm md:text-base text-stone-500">Due at signing</p>
+        </div>
+        <p class="text-lg md:text-xl font-bold text-stone-800">$1,000.00</p>
+      </div>
       <div class="flex justify-between items-center py-3 border-b border-stone-300">
+        <div>
+          <p class="text-base md:text-lg font-semibold text-stone-800">Videography Retainer</p>
+          <p class="text-sm md:text-base text-stone-500">Due at signing</p>
+        </div>
+        <p class="text-lg md:text-xl font-bold text-stone-800">$1,000.00</p>
+      </div>`;
+  } else {
+    html += `<div class="flex justify-between items-center py-3 border-b border-stone-300">
         <div>
           <p class="text-base md:text-lg font-semibold text-stone-800">Retainer</p>
           <p class="text-sm md:text-base text-stone-500">Due at signing</p>
         </div>
-        <p class="text-lg md:text-xl font-bold text-stone-800">${fmtMoney(retainerAmt)}</p>
+        <p class="text-lg md:text-xl font-bold text-stone-800">$1,000.00</p>
       </div>`;
+  }
 
   if (schedule.isMonthly) {
     const p = schedule.payments[0];
@@ -3709,7 +3764,7 @@ function renderInvestment() {
   // Check if anything is selected
   let hasItems = false;
   document.querySelectorAll('[data-coverage], [data-album], [data-service]').forEach(card => {
-    const qty = readQty(card.querySelector('.qty-display'));
+    const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0;
     if (qty > 0) hasItems = true;
   });
   if (!hasItems) {
@@ -3729,7 +3784,7 @@ function renderInvestment() {
 
   // Coverage hours (Step 1)
   document.querySelectorAll('[data-coverage]').forEach(card => {
-    const qty = readQty(card.querySelector('.qty-display'));
+    const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0;
     if (qty > 0) {
       const id = card.dataset.coverage;
       const name = coverageNames[id] || id;
@@ -3754,7 +3809,7 @@ function renderInvestment() {
 
   // Other services
   document.querySelectorAll('[data-service]').forEach(card => {
-    const qty = readQty(card.querySelector('.qty-display'));
+    const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0;
     if (qty > 0) {
       const id = card.dataset.service;
       const name = serviceNames[id] || id;
@@ -3831,15 +3886,17 @@ function renderInvestment() {
 
   // Payment schedule breakdown
   const fmtDate = (d) => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-  const retainer = Math.min(1000, total);
-  const remainingBalance = Math.max(0, total - retainer);
+  const rc = getRetainerCount();
   if (isCash) {
     html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Full Payment (due within 14 days)</p><p class="text-stone-800">${fmtMoney(total)}</p></div>`;
+  } else if (rc === 2) {
+    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Photography Retainer (due at signing)</p><p class="text-stone-800">${fmtMoney(1000)}</p></div>`;
+    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Videography Retainer (due at signing)</p><p class="text-stone-800">${fmtMoney(1000)}</p></div>`;
   } else {
-    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Retainer (due at signing)</p><p class="text-stone-800">${fmtMoney(retainer)}</p></div>`;
+    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Retainer (due at signing)</p><p class="text-stone-800">${fmtMoney(1000)}</p></div>`;
   }
   if (weddingDate && paymentPlan) {
-    const schedule = calculatePaymentSchedule(total, weddingDate, paymentPlan);
+    const schedule = calculatePaymentSchedule(total, weddingDate, paymentPlan, rc);
     if (schedule) {
       if (schedule.isMonthly) {
         const p = schedule.payments[0];
@@ -3850,8 +3907,8 @@ function renderInvestment() {
         });
       }
     }
-  } else if (!isCash && remainingBalance > 0) {
-    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Remaining Balance</p><p class="text-stone-800">${fmtMoney(remainingBalance)}</p></div>`;
+  } else if (!isCash) {
+    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Remaining Balance</p><p class="text-stone-800">${fmtMoney(total - 1000 * rc)}</p></div>`;
   }
 
   html += '</div></div>';
@@ -3890,9 +3947,9 @@ function resetAll() {
     c.querySelector('.col-card-btn').textContent = 'Choose';
   });
   // Reset coverage
-  var isDesktop = window.innerWidth > 768;
+  var isMobileReset = window.innerWidth <= 768;
   document.querySelectorAll('[data-coverage]').forEach(card => {
-    card.querySelector('.qty-display').textContent = formatQty(0, isDesktop);
+    card.querySelector('.qty-display').textContent = isMobileReset ? '0' : '0 hrs';
     card.classList.remove('coverage-active');
     const rb = card.querySelector('.te-reset');
     rb.style.opacity = '0.35'; rb.style.pointerEvents = 'none';
@@ -3907,7 +3964,7 @@ function resetAll() {
   // Reset services
   document.querySelectorAll('[data-service]').forEach(card => {
     const isHourly = hourlyServices.includes(card.dataset.service);
-    card.querySelector('.qty-display').textContent = formatQty(0, isDesktop && isHourly);
+    card.querySelector('.qty-display').textContent = isMobileReset ? '0' : (isHourly ? '0 hrs' : '0');
     card.classList.remove('coverage-active');
     const rb = card.querySelector('.te-reset');
     rb.style.opacity = '0.35'; rb.style.pointerEvents = 'none';
@@ -4147,44 +4204,13 @@ function updateMobileTotal() {
   el.textContent = '$' + Math.round(total).toLocaleString();
 }
 
-// Reformat qty displays when crossing the desktop/mobile breakpoint
-var lastWasDesktop = window.innerWidth > 768;
-function reformatQtyDisplays() {
-  var isDesktop = window.innerWidth > 768;
-  if (isDesktop === lastWasDesktop) return;
-  lastWasDesktop = isDesktop;
-  // À la carte coverage
-  document.querySelectorAll('[data-coverage] .qty-display').forEach(function(el) {
-    el.textContent = formatQty(readQty(el), isDesktop);
-  });
-  // À la carte services (hourly only get " hrs")
-  document.querySelectorAll('[data-service] .qty-display').forEach(function(el) {
-    var card = el.closest('[data-service]');
-    var isHourly = hourlyServices.includes(card.dataset.service);
-    el.textContent = formatQty(readQty(el), isDesktop && isHourly);
-  });
-  // Photography coverage
-  document.querySelectorAll('[data-p-coverage] .qty-display').forEach(function(el) {
-    el.textContent = formatQty(readQty(el), isDesktop);
-  });
-  // Photography services
-  document.querySelectorAll('[data-p-service] .qty-display').forEach(function(el) {
-    var card = el.closest('[data-p-service]');
-    var isHourly = p_hourlyServices.includes(card.dataset.pService);
-    el.textContent = formatQty(readQty(el), isDesktop && isHourly);
-  });
-}
-
 // Init on load and handle resize
 window.addEventListener('DOMContentLoaded', initMobileWizard);
 window.addEventListener('load', initMobileWizard);
 var wizardResizeTimer;
 window.addEventListener('resize', function() {
   clearTimeout(wizardResizeTimer);
-  wizardResizeTimer = setTimeout(function() {
-    initMobileWizard();
-    reformatQtyDisplays();
-  }, 150);
+  wizardResizeTimer = setTimeout(initMobileWizard, 150);
 });
 
 // ===== Swipe Between Steps =====
@@ -4234,7 +4260,66 @@ function toggleHalfHourMode() {
   }
 }
 
-// (Half-hour mode support and 4hr minimum are now built into adjustQty and adjustServiceQty above)
+// Update adjustQty to respect halfHourMode and enforce 4hr minimum for à la carte
+(function() {
+  const origAdjustQty = adjustQty;
+  adjustQty = function(btn, delta) {
+    if (halfHourMode) delta = delta * 0.5;
+    const card = btn.closest('[data-coverage]');
+    const display = card.querySelector('.qty-display');
+    const resetBtn = card.querySelector('.te-reset');
+    let qty = parseFloat(display.textContent) || 0;
+    // À la carte tab: enforce 4hr minimum (skip 0.5-3.5 range)
+    const isAlaCarte = card.closest('#tabContent-alacarte');
+    if (isAlaCarte) {
+      qty = qty + delta;
+      if (qty > 0 && qty < 4) qty = delta > 0 ? 4 : 0;
+      qty = Math.max(0, qty);
+    } else {
+      qty = Math.max(0, qty + delta);
+    }
+    display.textContent = (window.innerWidth <= 768) ? qty : qty + ' hrs';
+    if (qty > 0) {
+      card.classList.add('coverage-active');
+      resetBtn.style.opacity = '1';
+      resetBtn.style.pointerEvents = 'auto';
+    } else {
+      card.classList.remove('coverage-active');
+      resetBtn.style.opacity = '0.35';
+      resetBtn.style.pointerEvents = 'none';
+    }
+    renderInvestment();
+    if (window.wizardActive) wizardUpdateTotal();
+  };
+})();
+
+// Update adjustServiceQty for hourly services to respect halfHourMode
+(function() {
+  const origAdjustServiceQty = adjustServiceQty;
+  adjustServiceQty = function(btn, delta) {
+    const card = btn.closest('[data-service]');
+    const serviceId = card.dataset.service;
+    const display = card.querySelector('.qty-display');
+    const resetBtn = card.querySelector('.te-reset');
+    const isHourly = hourlyServices.includes(serviceId);
+    const maxQty = maxOneServices.includes(serviceId) ? 1 : 999;
+    if (isHourly && halfHourMode) delta = delta * 0.5;
+    let qty = parseFloat(display.textContent) || 0;
+    qty = Math.max(0, Math.min(maxQty, qty + delta));
+    display.textContent = (window.innerWidth <= 768) ? qty : (isHourly ? qty + ' hrs' : qty);
+    if (qty > 0) {
+      card.classList.add('coverage-active');
+      resetBtn.style.opacity = '1';
+      resetBtn.style.pointerEvents = 'auto';
+    } else {
+      card.classList.remove('coverage-active');
+      resetBtn.style.opacity = '0.35';
+      resetBtn.style.pointerEvents = 'none';
+    }
+    renderInvestment();
+    if (window.wizardActive) wizardUpdateTotal();
+  };
+})();
 
 // ===== Photography Tab (p_ prefixed) =====
 // Mirrors the à la carte tab logic but scoped to #tabContent-photography elements
@@ -4281,7 +4366,7 @@ function p_adjustQty(btn, delta) {
   const card = btn.closest('[data-p-coverage]');
   const display = card.querySelector('.qty-display');
   const resetBtn = card.querySelector('.te-reset');
-  let qty = readQty(display);
+  let qty = parseFloat(display.textContent) || 0;
   const hasMinimum = card.dataset.pCoverage === 'second' || card.dataset.pCoverage === 'content' || card.dataset.pCoverage === 'video';
   if (hasMinimum) {
     qty = qty + delta;
@@ -4290,8 +4375,7 @@ function p_adjustQty(btn, delta) {
   } else {
     qty = Math.max(0, qty + delta);
   }
-  qty = snapQty(qty);
-  display.textContent = formatQty(qty, window.innerWidth > 768);
+  display.textContent = (window.innerWidth <= 768) ? qty : qty + ' hrs';
   if (qty > 0) { card.classList.add('coverage-active'); resetBtn.style.opacity = '1'; resetBtn.style.pointerEvents = 'auto'; }
   else { card.classList.remove('coverage-active'); resetBtn.style.opacity = '0.35'; resetBtn.style.pointerEvents = 'none'; }
   p_renderInvestment();
@@ -4301,7 +4385,7 @@ function p_adjustQty(btn, delta) {
 
 function p_resetQty(btn) {
   const card = btn.closest('[data-p-coverage]');
-  card.querySelector('.qty-display').textContent = formatQty(0, window.innerWidth > 768);
+  card.querySelector('.qty-display').textContent = (window.innerWidth <= 768) ? '0' : '0 hrs';
   card.classList.remove('coverage-active');
   btn.style.opacity = '0.35'; btn.style.pointerEvents = 'none';
   p_renderInvestment();
@@ -4341,10 +4425,9 @@ function p_adjustServiceQty(btn, delta) {
   const isHourly = p_hourlyServices.includes(serviceId);
   const maxQty = p_maxOneServices.includes(serviceId) ? 1 : 999;
   if (isHourly && halfHourMode) delta = delta * 0.5;
-  let qty = readQty(display);
-  qty = snapQty(Math.max(0, Math.min(maxQty, qty + delta)));
-  var isDesktopView = window.innerWidth > 768;
-  display.textContent = formatQty(qty, isDesktopView && isHourly);
+  let qty = parseFloat(display.textContent) || 0;
+  qty = Math.max(0, Math.min(maxQty, qty + delta));
+  display.textContent = (window.innerWidth <= 768) ? qty : (isHourly ? qty + ' hrs' : qty);
   if (qty > 0) { card.classList.add('coverage-active'); resetBtn.style.opacity = '1'; resetBtn.style.pointerEvents = 'auto'; }
   else { card.classList.remove('coverage-active'); resetBtn.style.opacity = '0.35'; resetBtn.style.pointerEvents = 'none'; }
   p_renderInvestment();
@@ -4355,7 +4438,7 @@ function p_adjustServiceQty(btn, delta) {
 function p_resetServiceQty(btn) {
   const card = btn.closest('[data-p-service]');
   const isHourly = p_hourlyServices.includes(card.dataset.pService);
-  card.querySelector('.qty-display').textContent = formatQty(0, window.innerWidth > 768 && isHourly);
+  card.querySelector('.qty-display').textContent = (window.innerWidth <= 768) ? '0' : (isHourly ? '0 hrs' : '0');
   card.classList.remove('coverage-active');
   btn.style.opacity = '0.35'; btn.style.pointerEvents = 'none';
   p_renderInvestment();
@@ -4392,10 +4475,13 @@ function p_toggleUnlock(cb) {
 function p_selectPayMethodCard(card) {
   const grid = document.getElementById('p_payMethodGrid');
   const wasActive = card.classList.contains('col-active');
-  if (wasActive) return;
   grid.querySelectorAll('[data-p-pay-method]').forEach(c => c.classList.remove('col-active'));
-  card.classList.add('col-active');
-  p_paymentMethod = card.dataset.pPayMethod;
+  if (wasActive) {
+    p_paymentMethod = '';
+  } else {
+    card.classList.add('col-active');
+    p_paymentMethod = card.dataset.pPayMethod;
+  }
   p_renderInvestment();
   p_updatePaymentSchedule();
   if (window.wizardActive) wizardUpdateTotal();
@@ -4442,7 +4528,7 @@ function p_renderDays() {
     const isSelected = p_weddingDate && p_weddingDate.getFullYear() === p_viewYear && p_weddingDate.getMonth() === p_viewMonth && p_weddingDate.getDate() === d;
     const isToday = todayDate.getFullYear() === p_viewYear && todayDate.getMonth() === p_viewMonth && todayDate.getDate() === d;
     if (isSelected) {
-      html += `<div class="flex items-center justify-center" style="aspect-ratio:1"><button onclick="p_selectDay(${d})" class="w-full h-full flex items-center justify-center p-0.5" class="cal-heart-btn"><svg viewBox="0 0 50 47" class="w-full h-full" style="filter:drop-shadow(0 2px 4px rgba(219,39,119,0.3))"><path d="M25 47 C25 47 0 30 0 14 C0 6 6 0 13 0 C18 0 22 3 25 7 C28 3 32 0 37 0 C44 0 50 6 50 14 C50 30 25 47 25 47Z" fill="#ec4899"/><text x="25" y="29" text-anchor="middle" fill="white" font-weight="700" font-size="16" font-family="system-ui,sans-serif">${d}</text></svg></button></div>`;
+      html += `<div class="flex items-center justify-center" style="aspect-ratio:1"><button onclick="p_selectDay(${d})" class="cal-heart-btn w-full h-full flex items-center justify-center p-0.5"><svg viewBox="0 0 50 47" class="w-full h-full" style="filter:drop-shadow(0 2px 4px rgba(219,39,119,0.3))"><path d="M25 47 C25 47 0 30 0 14 C0 6 6 0 13 0 C18 0 22 3 25 7 C28 3 32 0 37 0 C44 0 50 6 50 14 C50 30 25 47 25 47Z" fill="#ec4899"/><text x="25" y="29" text-anchor="middle" fill="white" font-weight="700" font-size="16" font-family="system-ui,sans-serif">${d}</text></svg></button></div>`;
     } else {
       html += `<div class="flex items-center justify-center" style="aspect-ratio:1"><button onclick="p_selectDay(${d})" class="cal-day${isToday ? ' cal-today' : ''}">${d}</button></div>`;
     }
@@ -4476,9 +4562,9 @@ function p_getEstimatedTotal() {
     total = collections[p_currentCollection].price;
     collections[p_currentCollection].items.forEach(item => { if (p_removedItems.includes(item.name)) total -= item.value; });
   }
-  document.querySelectorAll('[data-p-coverage]').forEach(card => { const qty = readQty(card.querySelector('.qty-display')); if (qty > 0) { const price = parseInt(card.querySelector('.coverage-price').textContent.replace(/[^0-9]/g, '')) || 0; total += price * qty; } });
+  document.querySelectorAll('[data-p-coverage]').forEach(card => { const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0; if (qty > 0) { const price = parseInt(card.querySelector('.coverage-price').textContent.replace(/[^0-9]/g, '')) || 0; total += price * qty; } });
   document.querySelectorAll('[data-p-album]').forEach(card => { const qty = parseInt(card.querySelector('.qty-display').textContent) || 0; if (qty > 0) { const price = parseInt(card.querySelector('.coverage-price').textContent.replace(/[^0-9]/g, '')) || 0; total += price * qty; } });
-  document.querySelectorAll('[data-p-service]').forEach(card => { const qty = readQty(card.querySelector('.qty-display')); if (qty > 0) { const price = parseInt(card.querySelector('.coverage-price').textContent.replace(/[^0-9]/g, '')) || 0; total += price * qty; } });
+  document.querySelectorAll('[data-p-service]').forEach(card => { const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0; if (qty > 0) { const price = parseInt(card.querySelector('.coverage-price').textContent.replace(/[^0-9]/g, '')) || 0; total += price * qty; } });
   const p_creditGrid = document.getElementById('p_serviceCreditsList');
   if (p_creditGrid) total -= p_creditGrid.querySelectorAll('[data-p-credit].col-active').length * 50;
   const consultCb = document.getElementById('p_consultationCb');
@@ -4487,7 +4573,7 @@ function p_getEstimatedTotal() {
   if (instaCb && instaCb.checked) total -= 25;
   if (p_paymentMethod === 'cash') total -= 50;
   if (p_paymentMethod === 'credit') total *= 1.05;
-  return Math.max(0, total);
+  return total;
 }
 
 function p_updatePaymentSchedule() {
@@ -4495,14 +4581,19 @@ function p_updatePaymentSchedule() {
   const tooSoon = document.getElementById('p_paymentTooSoon');
   if (!p_weddingDate) { display.innerHTML = ''; p_renderInvestment(); return; }
   const total = p_getEstimatedTotal();
-  if (total <= 0) { display.innerHTML = ''; tooSoon.classList.add('hidden'); p_renderInvestment(); return; }
-  const schedule = calculatePaymentSchedule(total, p_weddingDate, p_paymentPlan);
+  const prc = p_getRetainerCount();
+  const schedule = calculatePaymentSchedule(total, p_weddingDate, p_paymentPlan, prc);
   if (!schedule) { display.innerHTML = ''; tooSoon.classList.remove('hidden'); p_renderInvestment(); return; }
   tooSoon.classList.add('hidden');
   const fmtDate = (d) => d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
   const fmtMoney = (n) => '$' + n.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-  const p_retainerAmt = Math.min(1000, total);
-  let html = `<div class="mt-4 rounded-2xl overflow-hidden" style="background:#f9f9f8;border:1px solid #d6d3d1"><div class="px-4 py-3" style="background:linear-gradient(135deg,#c0baff,#8a7ef2)"><p class="text-base md:text-lg font-bold text-white tracking-wide text-center" style="text-shadow:0 1px 2px rgba(0,0,0,0.15)">${schedule.type}</p></div><div class="p-4 space-y-0"><div class="flex justify-between items-center py-3 border-b border-stone-300"><div><p class="text-base md:text-lg font-semibold text-stone-800">Retainer</p><p class="text-sm md:text-base text-stone-500">Due at signing</p></div><p class="text-lg md:text-xl font-bold text-stone-800">${fmtMoney(p_retainerAmt)}</p></div>`;
+  let html = `<div class="mt-4 rounded-2xl overflow-hidden" style="background:#f9f9f8;border:1px solid #d6d3d1"><div class="px-4 py-3" style="background:linear-gradient(135deg,#c0baff,#8a7ef2)"><p class="text-base md:text-lg font-bold text-white tracking-wide text-center" style="text-shadow:0 1px 2px rgba(0,0,0,0.15)">${schedule.type}</p></div><div class="p-4 space-y-0">`;
+  if (prc === 2) {
+    html += `<div class="flex justify-between items-center py-3 border-b border-stone-300"><div><p class="text-base md:text-lg font-semibold text-stone-800">Photography Retainer</p><p class="text-sm md:text-base text-stone-500">Due at signing</p></div><p class="text-lg md:text-xl font-bold text-stone-800">$1,000.00</p></div>`;
+    html += `<div class="flex justify-between items-center py-3 border-b border-stone-300"><div><p class="text-base md:text-lg font-semibold text-stone-800">Videography Retainer</p><p class="text-sm md:text-base text-stone-500">Due at signing</p></div><p class="text-lg md:text-xl font-bold text-stone-800">$1,000.00</p></div>`;
+  } else {
+    html += `<div class="flex justify-between items-center py-3 border-b border-stone-300"><div><p class="text-base md:text-lg font-semibold text-stone-800">Retainer</p><p class="text-sm md:text-base text-stone-500">Due at signing</p></div><p class="text-lg md:text-xl font-bold text-stone-800">$1,000.00</p></div>`;
+  }
   if (schedule.isMonthly) { const p = schedule.payments[0]; html += `<div class="flex justify-between items-center py-3"><div><p class="text-base md:text-lg font-semibold text-stone-800">${p.count} Monthly Payments</p><p class="text-sm md:text-base text-stone-500">${fmtMoney(p.amount)} per month</p></div><p class="text-lg md:text-xl font-bold text-stone-800">${fmtMoney(p.amount * p.count)}</p></div>`; }
   else { schedule.payments.forEach((p, idx) => { html += `<div class="flex justify-between items-center py-3${idx < schedule.payments.length - 1 ? ' border-b border-stone-300' : ''}"><div><p class="text-base md:text-lg font-semibold text-stone-800">${p.label}</p><p class="text-sm md:text-base text-stone-500">${fmtDate(p.date)}</p></div><p class="text-lg md:text-xl font-bold text-stone-800">${fmtMoney(p.amount)}</p></div>`; }); }
   html += '</div></div>';
@@ -4538,7 +4629,7 @@ function p_renderInvestment() {
   const col = collections[p_currentCollection];
   const fmtMoney = (n) => '$' + n.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
   const fmtWhole = (n) => '$' + n.toLocaleString();
-  const coverageHours = parseFloat((col.items[0].name.match(/(\d+(?:\.\d+)?)/) || [])[1]) || 0;
+  const coverageHours = parseInt(col.items[0].name) || 0;
   const removableTotal = col.items.filter(i => i.value > 0).reduce((s, i) => s + i.value, 0);
   const photoCoveragePrice = col.price - removableTotal;
   const payMethodLabels = { cash: 'Cash', zelle: 'Zelle', venmo: 'Venmo', paypal: 'PayPal', credit: 'Credit Card', check: 'Check' };
@@ -4560,8 +4651,8 @@ function p_renderInvestment() {
   const removedWithValue = col.items.filter(i => p_removedItems.includes(i.name) && i.value > 0);
   if (removedWithValue.length > 0) { removedWithValue.forEach(item => { html += `<div class="flex justify-between items-center text-sm md:text-base text-red-600"><p>Removed: ${item.name}</p><p>-$${item.value}</p></div>`; }); }
   document.querySelectorAll('[data-p-album]').forEach(card => { const qty = parseInt(card.querySelector('.qty-display').textContent) || 0; if (qty > 0) { const id = card.dataset.pAlbum; const name = albumNames[id] || id; const price = albumPrices[id] || 0; html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">${name} (\u00d7${qty})</p><p class="text-stone-800">${fmtWhole(price * qty)}</p></div>`; } });
-  document.querySelectorAll('[data-p-coverage]').forEach(card => { const qty = readQty(card.querySelector('.qty-display')); if (qty > 0) { const id = card.dataset.pCoverage; const name = coverageNames[id] || id; const price = coveragePrices[id] || 0; html += `<div class="flex justify-between items-start text-sm md:text-base"><div class="text-stone-600"><div class="inline sm:block">${name} <span class="text-sm sm:block">(${qty} ${qty === 1 ? 'hour' : 'hours'} @ $${price}/hr)</span></div></div><p class="text-stone-800">${fmtWhole(price * qty)}</p></div>`; } });
-  document.querySelectorAll('[data-p-service]').forEach(card => { const qty = readQty(card.querySelector('.qty-display')); if (qty > 0) { const id = card.dataset.pService; const name = serviceNames[id] || id; const price = servicePrices[id] || 0; const isHourly = p_hourlyServices.includes(id); if (isHourly) { html += `<div class="flex justify-between items-start text-sm md:text-base"><div class="text-stone-600"><div class="inline sm:block">${name} <span class="text-sm sm:block">(${qty} ${qty === 1 ? 'hour' : 'hours'} @ $${price}/hr)</span></div></div><p class="text-stone-800">${fmtWhole(price * qty)}</p></div>`; } else { html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">${name}</p><p class="text-stone-800">${fmtWhole(price * qty)}</p></div>`; } } });
+  document.querySelectorAll('[data-p-coverage]').forEach(card => { const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0; if (qty > 0) { const id = card.dataset.pCoverage; const name = coverageNames[id] || id; const price = coveragePrices[id] || 0; html += `<div class="flex justify-between items-start text-sm md:text-base"><div class="text-stone-600"><div class="inline sm:block">${name} <span class="text-sm sm:block">(${qty} ${qty === 1 ? 'hour' : 'hours'} @ $${price}/hr)</span></div></div><p class="text-stone-800">${fmtWhole(price * qty)}</p></div>`; } });
+  document.querySelectorAll('[data-p-service]').forEach(card => { const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0; if (qty > 0) { const id = card.dataset.pService; const name = serviceNames[id] || id; const price = servicePrices[id] || 0; const isHourly = p_hourlyServices.includes(id); if (isHourly) { html += `<div class="flex justify-between items-start text-sm md:text-base"><div class="text-stone-600"><div class="inline sm:block">${name} <span class="text-sm sm:block">(${qty} ${qty === 1 ? 'hour' : 'hours'} @ $${price}/hr)</span></div></div><p class="text-stone-800">${fmtWhole(price * qty)}</p></div>`; } else { html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">${name}</p><p class="text-stone-800">${fmtWhole(price * qty)}</p></div>`; } } });
   html += '</div></div>';
 
   // === Section 2: Service Credits ===
@@ -4593,21 +4684,23 @@ function p_renderInvestment() {
   // Payment schedule breakdown
   const p_fmtDate = (d) => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
   const p_schedTotal = p_getEstimatedTotal();
-  const p_retainer = Math.min(1000, p_schedTotal);
-  const p_remainingBalance = Math.max(0, p_schedTotal - p_retainer);
+  const prc = p_getRetainerCount();
   if (p_isCash) {
     html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Full Payment (due within 14 days)</p><p class="text-stone-800">${fmtMoney(p_schedTotal)}</p></div>`;
+  } else if (prc === 2) {
+    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Photography Retainer (due at signing)</p><p class="text-stone-800">${fmtMoney(1000)}</p></div>`;
+    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Videography Retainer (due at signing)</p><p class="text-stone-800">${fmtMoney(1000)}</p></div>`;
   } else {
-    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Retainer (due at signing)</p><p class="text-stone-800">${fmtMoney(p_retainer)}</p></div>`;
+    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Retainer (due at signing)</p><p class="text-stone-800">${fmtMoney(1000)}</p></div>`;
   }
   if (p_weddingDate && p_paymentPlan) {
-    const schedule = calculatePaymentSchedule(p_schedTotal, p_weddingDate, p_paymentPlan);
+    const schedule = calculatePaymentSchedule(p_schedTotal, p_weddingDate, p_paymentPlan, prc);
     if (schedule) {
       if (schedule.isMonthly) { const p = schedule.payments[0]; html += `<div class="flex justify-between items-center text-sm md:text-base" style="${p_strikeStyle}"><p class="text-stone-600">${p.count} Monthly Payments</p><p class="text-stone-800">${fmtMoney(p.amount)}/mo</p></div>`; }
       else { schedule.payments.forEach(p => { html += `<div class="flex justify-between items-center text-sm md:text-base" style="${p_strikeStyle}"><p class="text-stone-600">${p.label} (${p_fmtDate(p.date)})</p><p class="text-stone-800">${fmtMoney(p.amount)}</p></div>`; }); }
     }
-  } else if (!p_isCash && p_remainingBalance > 0) {
-    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Remaining Balance</p><p class="text-stone-800">${fmtMoney(p_remainingBalance)}</p></div>`;
+  } else if (!p_isCash) {
+    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Remaining Balance</p><p class="text-stone-800">${fmtMoney(p_schedTotal - 1000 * prc)}</p></div>`;
   }
 
   html += '</div></div>';
@@ -4627,10 +4720,10 @@ function p_handleGetQuote() { document.getElementById('quoteModal').style.displa
 function p_resetAll() {
   p_currentCollection = null; p_removedItems = [];
   document.querySelectorAll('[data-p-collection]').forEach(c => { c.classList.remove('col-active'); c.querySelector('.col-card-btn').textContent = 'Choose'; });
-  var p_isDesktop = window.innerWidth > 768;
-  document.querySelectorAll('[data-p-coverage]').forEach(card => { card.querySelector('.qty-display').textContent = formatQty(0, p_isDesktop); card.classList.remove('coverage-active'); const rb = card.querySelector('.te-reset'); rb.style.opacity = '0.35'; rb.style.pointerEvents = 'none'; });
+  var p_isMobileReset = window.innerWidth <= 768;
+  document.querySelectorAll('[data-p-coverage]').forEach(card => { card.querySelector('.qty-display').textContent = p_isMobileReset ? '0' : '0 hrs'; card.classList.remove('coverage-active'); const rb = card.querySelector('.te-reset'); rb.style.opacity = '0.35'; rb.style.pointerEvents = 'none'; });
   document.querySelectorAll('[data-p-album]').forEach(card => { card.querySelector('.qty-display').textContent = '0'; card.classList.remove('coverage-active'); const rb = card.querySelector('.te-reset'); rb.style.opacity = '0.35'; rb.style.pointerEvents = 'none'; });
-  document.querySelectorAll('[data-p-service]').forEach(card => { const isHourly = p_hourlyServices.includes(card.dataset.pService); card.querySelector('.qty-display').textContent = formatQty(0, p_isDesktop && isHourly); card.classList.remove('coverage-active'); const rb = card.querySelector('.te-reset'); rb.style.opacity = '0.35'; rb.style.pointerEvents = 'none'; });
+  document.querySelectorAll('[data-p-service]').forEach(card => { const isHourly = p_hourlyServices.includes(card.dataset.pService); card.querySelector('.qty-display').textContent = p_isMobileReset ? '0' : (isHourly ? '0 hrs' : '0'); card.classList.remove('coverage-active'); const rb = card.querySelector('.te-reset'); rb.style.opacity = '0.35'; rb.style.pointerEvents = 'none'; });
   const p_creditGridReset = document.getElementById('p_serviceCreditsList');
   if (p_creditGridReset) { p_creditGridReset.querySelectorAll('[data-p-credit]').forEach(c => { c.classList.remove('col-active'); c.style.opacity = '1'; c.style.pointerEvents = 'auto'; }); }
   const consultCb = document.getElementById('p_consultationCb');
@@ -4701,10 +4794,13 @@ function v_selectCollection(card) {
 function v_selectPayMethodCard(card) {
   const grid = document.getElementById('v_payMethodGrid');
   const wasActive = card.classList.contains('col-active');
-  if (wasActive) return;
   grid.querySelectorAll('[data-v-pay-method]').forEach(c => c.classList.remove('col-active'));
-  card.classList.add('col-active');
-  v_paymentMethod = card.dataset.vPayMethod;
+  if (wasActive) {
+    v_paymentMethod = '';
+  } else {
+    card.classList.add('col-active');
+    v_paymentMethod = card.dataset.vPayMethod;
+  }
   v_renderInvestment();
   v_updatePaymentSchedule();
   if (window.wizardActive) wizardUpdateTotal();
@@ -4750,7 +4846,7 @@ function v_renderDays() {
     const isSelected = v_weddingDate && v_weddingDate.getFullYear() === v_viewYear && v_weddingDate.getMonth() === v_viewMonth && v_weddingDate.getDate() === d;
     const isToday = todayDate.getFullYear() === v_viewYear && todayDate.getMonth() === v_viewMonth && todayDate.getDate() === d;
     if (isSelected) {
-      html += `<div class="flex items-center justify-center" style="aspect-ratio:1"><button onclick="v_selectDay(${d})" class="w-full h-full flex items-center justify-center p-0.5" class="cal-heart-btn"><svg viewBox="0 0 50 47" class="w-full h-full" style="filter:drop-shadow(0 2px 4px rgba(219,39,119,0.3))"><path d="M25 47 C25 47 0 30 0 14 C0 6 6 0 13 0 C18 0 22 3 25 7 C28 3 32 0 37 0 C44 0 50 6 50 14 C50 30 25 47 25 47Z" fill="#ec4899"/><text x="25" y="29" text-anchor="middle" fill="white" font-weight="700" font-size="16" font-family="system-ui,sans-serif">${d}</text></svg></button></div>`;
+      html += `<div class="flex items-center justify-center" style="aspect-ratio:1"><button onclick="v_selectDay(${d})" class="cal-heart-btn w-full h-full flex items-center justify-center p-0.5"><svg viewBox="0 0 50 47" class="w-full h-full" style="filter:drop-shadow(0 2px 4px rgba(219,39,119,0.3))"><path d="M25 47 C25 47 0 30 0 14 C0 6 6 0 13 0 C18 0 22 3 25 7 C28 3 32 0 37 0 C44 0 50 6 50 14 C50 30 25 47 25 47Z" fill="#ec4899"/><text x="25" y="29" text-anchor="middle" fill="white" font-weight="700" font-size="16" font-family="system-ui,sans-serif">${d}</text></svg></button></div>`;
     } else {
       html += `<div class="flex items-center justify-center" style="aspect-ratio:1"><button onclick="v_selectDay(${d})" class="cal-day${isToday ? ' cal-today' : ''}">${d}</button></div>`;
     }
@@ -4785,7 +4881,7 @@ function v_getEstimatedTotal() {
   }
   if (v_paymentMethod === 'cash') total -= 50;
   if (v_paymentMethod === 'credit') total *= 1.05;
-  return Math.max(0, total);
+  return total;
 }
 
 function v_updatePaymentSchedule() {
@@ -4793,14 +4889,12 @@ function v_updatePaymentSchedule() {
   const tooSoon = document.getElementById('v_paymentTooSoon');
   if (!v_weddingDate) { display.innerHTML = ''; v_renderInvestment(); return; }
   const total = v_getEstimatedTotal();
-  if (total <= 0) { display.innerHTML = ''; tooSoon.classList.add('hidden'); v_renderInvestment(); return; }
   const schedule = calculatePaymentSchedule(total, v_weddingDate, v_paymentPlan);
   if (!schedule) { display.innerHTML = ''; tooSoon.classList.remove('hidden'); v_renderInvestment(); return; }
   tooSoon.classList.add('hidden');
   const fmtDate = (d) => d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
   const fmtMoney = (n) => '$' + n.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-  const v_retainerAmt = Math.min(1000, total);
-  let html = `<div class="mt-4 rounded-2xl overflow-hidden" style="background:#f9f9f8;border:1px solid #d6d3d1"><div class="px-4 py-3" style="background:linear-gradient(135deg,#c0baff,#8a7ef2)"><p class="text-base md:text-lg font-bold text-white tracking-wide text-center" style="text-shadow:0 1px 2px rgba(0,0,0,0.15)">${schedule.type}</p></div><div class="p-4 space-y-0"><div class="flex justify-between items-center py-3 border-b border-stone-300"><div><p class="text-base md:text-lg font-semibold text-stone-800">Retainer</p><p class="text-sm md:text-base text-stone-500">Due at signing</p></div><p class="text-lg md:text-xl font-bold text-stone-800">${fmtMoney(v_retainerAmt)}</p></div>`;
+  let html = `<div class="mt-4 rounded-2xl overflow-hidden" style="background:#f9f9f8;border:1px solid #d6d3d1"><div class="px-4 py-3" style="background:linear-gradient(135deg,#c0baff,#8a7ef2)"><p class="text-base md:text-lg font-bold text-white tracking-wide text-center" style="text-shadow:0 1px 2px rgba(0,0,0,0.15)">${schedule.type}</p></div><div class="p-4 space-y-0"><div class="flex justify-between items-center py-3 border-b border-stone-300"><div><p class="text-base md:text-lg font-semibold text-stone-800">Retainer</p><p class="text-sm md:text-base text-stone-500">Due at signing</p></div><p class="text-lg md:text-xl font-bold text-stone-800">$1,000.00</p></div>`;
   if (schedule.isMonthly) { const p = schedule.payments[0]; html += `<div class="flex justify-between items-center py-3"><div><p class="text-base md:text-lg font-semibold text-stone-800">${p.count} Monthly Payments</p><p class="text-sm md:text-base text-stone-500">${fmtMoney(p.amount)} per month</p></div><p class="text-lg md:text-xl font-bold text-stone-800">${fmtMoney(p.amount * p.count)}</p></div>`; }
   else { schedule.payments.forEach((p, idx) => { html += `<div class="flex justify-between items-center py-3${idx < schedule.payments.length - 1 ? ' border-b border-stone-300' : ''}"><div><p class="text-base md:text-lg font-semibold text-stone-800">${p.label}</p><p class="text-sm md:text-base text-stone-500">${fmtDate(p.date)}</p></div><p class="text-lg md:text-xl font-bold text-stone-800">${fmtMoney(p.amount)}</p></div>`; }); }
   html += '</div></div>';
@@ -4841,12 +4935,10 @@ function v_renderInvestment() {
 
   const v_fmtDate = (d) => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
   const v_schedTotal = v_getEstimatedTotal();
-  const v_retainer = Math.min(1000, v_schedTotal);
-  const v_remainingBalance = Math.max(0, v_schedTotal - v_retainer);
   if (v_isCash) {
     html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Full Payment (due within 14 days)</p><p class="text-stone-800">${fmtMoney(v_schedTotal)}</p></div>`;
   } else {
-    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Retainer (due at signing)</p><p class="text-stone-800">${fmtMoney(v_retainer)}</p></div>`;
+    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Retainer (due at signing)</p><p class="text-stone-800">${fmtMoney(1000)}</p></div>`;
   }
   if (v_weddingDate && v_paymentPlan) {
     const schedule = calculatePaymentSchedule(v_schedTotal, v_weddingDate, v_paymentPlan);
@@ -4854,8 +4946,8 @@ function v_renderInvestment() {
       if (schedule.isMonthly) { const p = schedule.payments[0]; html += `<div class="flex justify-between items-center text-sm md:text-base" style="${v_strikeStyle}"><p class="text-stone-600">${p.count} Monthly Payments</p><p class="text-stone-800">${fmtMoney(p.amount)}/mo</p></div>`; }
       else { schedule.payments.forEach(p => { html += `<div class="flex justify-between items-center text-sm md:text-base" style="${v_strikeStyle}"><p class="text-stone-600">${p.label} (${v_fmtDate(p.date)})</p><p class="text-stone-800">${fmtMoney(p.amount)}</p></div>`; }); }
     }
-  } else if (!v_isCash && v_remainingBalance > 0) {
-    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Remaining Balance</p><p class="text-stone-800">${fmtMoney(v_remainingBalance)}</p></div>`;
+  } else if (!v_isCash) {
+    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Remaining Balance</p><p class="text-stone-800">${fmtMoney(v_schedTotal - 1000)}</p></div>`;
   }
 
   html += '</div></div>';
@@ -4950,7 +5042,7 @@ function generateBookingDetails() {
     details.push('À LA CARTE PACKAGE');
     details.push('');
     document.querySelectorAll('[data-coverage]').forEach(card => {
-      const qty = readQty(card.querySelector('.qty-display'));
+      const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0;
       if (qty > 0) {
         const id = card.dataset.coverage;
         const name = coverageNames[id] || id;
@@ -4975,7 +5067,7 @@ function generateBookingDetails() {
     if (albums.length > 0) { details.push('ALBUMS:'); albums.forEach(a => details.push(a)); details.push(''); }
     const services = [];
     document.querySelectorAll('[data-service]').forEach(card => {
-      const qty = readQty(card.querySelector('.qty-display'));
+      const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0;
       if (qty > 0) {
         const id = card.dataset.service;
         const isHourly = hourlyServices.includes(id);
@@ -5002,13 +5094,18 @@ function generateBookingDetails() {
     details.push('');
     if (weddingDate) {
       details.push(`Wedding Date: ${weddingDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`);
-      const aTotal = getEstimatedTotal();
-      const schedule = calculatePaymentSchedule(aTotal, weddingDate, paymentPlan);
+      const alcRC = getRetainerCount();
+      const schedule = calculatePaymentSchedule(getEstimatedTotal(), weddingDate, paymentPlan, alcRC);
       if (schedule) {
         details.push(`Payment Plan: ${schedule.type}`);
         details.push('');
         details.push('PAYMENT SCHEDULE:');
-        details.push(`• Retainer (Due at signing): $${Math.min(1000, aTotal).toFixed(2)}`);
+        if (alcRC === 2) {
+          details.push('• Photography Retainer (Due at signing): $1,000.00');
+          details.push('• Videography Retainer (Due at signing): $1,000.00');
+        } else {
+          details.push('• Retainer (Due at signing): $1,000.00');
+        }
         if (schedule.isMonthly) details.push(`• ${schedule.payments[0].count} monthly payments of $${schedule.payments[0].amount.toFixed(2)}`);
         else schedule.payments.forEach(p => details.push(`• ${p.label} (${fmtDate(p.date)}): $${p.amount.toFixed(2)}`));
       }
@@ -5029,7 +5126,7 @@ function generateBookingDetails() {
     }
     const pCoverageItems = [];
     document.querySelectorAll('[data-p-coverage]').forEach(card => {
-      const qty = readQty(card.querySelector('.qty-display'));
+      const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0;
       if (qty > 0) {
         const price = parseInt(card.querySelector('.coverage-price').textContent.replace(/[^0-9]/g, '')) || 0;
         const id = card.dataset.pCoverage;
@@ -5050,13 +5147,11 @@ function generateBookingDetails() {
     if (pAlbums.length > 0) { details.push('ALBUMS:'); pAlbums.forEach(a => details.push(a)); details.push(''); }
     const pServices = [];
     document.querySelectorAll('[data-p-service]').forEach(card => {
-      const qty = readQty(card.querySelector('.qty-display'));
+      const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0;
       if (qty > 0) {
         const price = parseInt(card.querySelector('.coverage-price').textContent.replace(/[^0-9]/g, '')) || 0;
         const id = card.dataset.pService;
-        const isHourly = p_hourlyServices.includes(id);
-        if (isHourly) pServices.push(`• ${serviceNames[id] || id} (${qty} ${qty === 1 ? 'hour' : 'hours'}): $${(price * qty).toLocaleString()}`);
-        else pServices.push(`• ${serviceNames[id] || id}: $${(price * qty).toLocaleString()}`);
+        pServices.push(`• ${serviceNames[id] || id} (${qty}): $${(price * qty).toLocaleString()}`);
       }
     });
     if (pServices.length > 0) { details.push('EXTRA SERVICES:'); pServices.forEach(s => details.push(s)); details.push(''); }
@@ -5078,13 +5173,18 @@ function generateBookingDetails() {
     details.push('');
     if (p_weddingDate) {
       details.push(`Wedding Date: ${p_weddingDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`);
-      const pTotal = p_getEstimatedTotal();
-      const schedule = calculatePaymentSchedule(pTotal, p_weddingDate, p_paymentPlan);
+      const phRC = p_getRetainerCount();
+      const schedule = calculatePaymentSchedule(p_getEstimatedTotal(), p_weddingDate, p_paymentPlan, phRC);
       if (schedule) {
         details.push(`Payment Plan: ${schedule.type}`);
         details.push('');
         details.push('PAYMENT SCHEDULE:');
-        details.push(`• Retainer (Due at signing): $${Math.min(1000, pTotal).toFixed(2)}`);
+        if (phRC === 2) {
+          details.push('• Photography Retainer (Due at signing): $1,000.00');
+          details.push('• Videography Retainer (Due at signing): $1,000.00');
+        } else {
+          details.push('• Retainer (Due at signing): $1,000.00');
+        }
         if (schedule.isMonthly) details.push(`• ${schedule.payments[0].count} monthly payments of $${schedule.payments[0].amount.toFixed(2)}`);
         else schedule.payments.forEach(p => details.push(`• ${p.label} (${fmtDate(p.date)}): $${p.amount.toFixed(2)}`));
       }
@@ -5102,13 +5202,12 @@ function generateBookingDetails() {
     details.push('');
     if (v_weddingDate) {
       details.push(`Wedding Date: ${v_weddingDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`);
-      const vTotal = v_getEstimatedTotal();
-      const schedule = calculatePaymentSchedule(vTotal, v_weddingDate, v_paymentPlan);
+      const schedule = calculatePaymentSchedule(v_getEstimatedTotal(), v_weddingDate, v_paymentPlan);
       if (schedule) {
         details.push(`Payment Plan: ${schedule.type}`);
         details.push('');
         details.push('PAYMENT SCHEDULE:');
-        details.push(`• Retainer (Due at signing): $${Math.min(1000, vTotal).toFixed(2)}`);
+        details.push('• Retainer (Due at signing): $1,000.00');
         if (schedule.isMonthly) details.push(`• ${schedule.payments[0].count} monthly payments of $${schedule.payments[0].amount.toFixed(2)}`);
         else schedule.payments.forEach(p => details.push(`• ${p.label} (${fmtDate(p.date)}): $${p.amount.toFixed(2)}`));
       }
@@ -5140,7 +5239,7 @@ function generateBookingDetailsHTML() {
     packageType = 'À La Carte';
     body += sectionTitle('Package Details');
     document.querySelectorAll('[data-coverage]').forEach(card => {
-      const qty = readQty(card.querySelector('.qty-display'));
+      const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0;
       if (qty > 0) {
         const id = card.dataset.coverage;
         const name = coverageNames[id] || id;
@@ -5160,7 +5259,7 @@ function generateBookingDetailsHTML() {
     if (albums.length > 0) { body += sectionTitle('Albums'); albums.forEach(a => { body += bullet(a); }); }
     const services = [];
     document.querySelectorAll('[data-service]').forEach(card => {
-      const qty = readQty(card.querySelector('.qty-display'));
+      const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0;
       if (qty > 0) {
         const id = card.dataset.service;
         const isHourly = hourlyServices.includes(id);
@@ -5185,11 +5284,17 @@ function generateBookingDetailsHTML() {
     if (paymentMethod === 'credit') body += bullet(`Credit Card Fee (5%): ${red('+$' + ((totalAmount / 1.05) * 0.05).toFixed(2))}`);
     if (weddingDate) {
       body += info('Wedding Date', weddingDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }));
-      const schedule = calculatePaymentSchedule(totalAmount, weddingDate, paymentPlan);
+      const alcHtmlRC = getRetainerCount();
+      const schedule = calculatePaymentSchedule(totalAmount, weddingDate, paymentPlan, alcHtmlRC);
       if (schedule) {
         body += info('Payment Plan', schedule.type);
         body += sectionTitle('Payment Schedule');
-        body += bullet(`Retainer (Due at signing): ${bold('$' + Math.min(1000, totalAmount).toFixed(2))}`);
+        if (alcHtmlRC === 2) {
+          body += bullet(`Photography Retainer (Due at signing): ${bold('$1,000.00')}`);
+          body += bullet(`Videography Retainer (Due at signing): ${bold('$1,000.00')}`);
+        } else {
+          body += bullet(`Retainer (Due at signing): ${bold('$1,000.00')}`);
+        }
         if (schedule.isMonthly) body += bullet(`${schedule.payments[0].count} monthly payments of ${bold('$' + schedule.payments[0].amount.toFixed(2))}`);
         else schedule.payments.forEach(p => { body += bullet(`${p.label} (${fmtDate(p.date)}): ${bold('$' + p.amount.toFixed(2))}`); });
       }
@@ -5210,7 +5315,7 @@ function generateBookingDetailsHTML() {
     }
     const pCoverage = [];
     document.querySelectorAll('[data-p-coverage]').forEach(card => {
-      const qty = readQty(card.querySelector('.qty-display'));
+      const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0;
       if (qty > 0) {
         const price = parseInt(card.querySelector('.coverage-price').textContent.replace(/[^0-9]/g, '')) || 0;
         const id = card.dataset.pCoverage;
@@ -5230,13 +5335,11 @@ function generateBookingDetailsHTML() {
     if (pAlbums.length > 0) { body += sectionTitle('Albums'); pAlbums.forEach(a => { body += bullet(a); }); }
     const pServices = [];
     document.querySelectorAll('[data-p-service]').forEach(card => {
-      const qty = readQty(card.querySelector('.qty-display'));
+      const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0;
       if (qty > 0) {
         const price = parseInt(card.querySelector('.coverage-price').textContent.replace(/[^0-9]/g, '')) || 0;
         const id = card.dataset.pService;
-        const isHourly = p_hourlyServices.includes(id);
-        if (isHourly) pServices.push(`${serviceNames[id] || id} (${qty} ${qty === 1 ? 'hour' : 'hours'}): ${bold('$' + (price * qty).toLocaleString())}`);
-        else pServices.push(`${serviceNames[id] || id}: ${bold('$' + (price * qty).toLocaleString())}`);
+        pServices.push(`${serviceNames[id] || id} (${qty}): ${bold('$' + (price * qty).toLocaleString())}`);
       }
     });
     if (pServices.length > 0) { body += sectionTitle('Extra Services'); pServices.forEach(s => { body += bullet(s); }); }
@@ -5256,11 +5359,17 @@ function generateBookingDetailsHTML() {
     if (p_paymentMethod === 'credit') body += bullet(`Credit Card Fee (5%): ${red('+$' + ((totalAmount / 1.05) * 0.05).toFixed(2))}`);
     if (p_weddingDate) {
       body += info('Wedding Date', p_weddingDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }));
-      const schedule = calculatePaymentSchedule(totalAmount, p_weddingDate, p_paymentPlan);
+      const phHtmlRC = p_getRetainerCount();
+      const schedule = calculatePaymentSchedule(totalAmount, p_weddingDate, p_paymentPlan, phHtmlRC);
       if (schedule) {
         body += info('Payment Plan', schedule.type);
         body += sectionTitle('Payment Schedule');
-        body += bullet(`Retainer (Due at signing): ${bold('$' + Math.min(1000, totalAmount).toFixed(2))}`);
+        if (phHtmlRC === 2) {
+          body += bullet(`Photography Retainer (Due at signing): ${bold('$1,000.00')}`);
+          body += bullet(`Videography Retainer (Due at signing): ${bold('$1,000.00')}`);
+        } else {
+          body += bullet(`Retainer (Due at signing): ${bold('$1,000.00')}`);
+        }
         if (schedule.isMonthly) body += bullet(`${schedule.payments[0].count} monthly payments of ${bold('$' + schedule.payments[0].amount.toFixed(2))}`);
         else schedule.payments.forEach(p => { body += bullet(`${p.label} (${fmtDate(p.date)}): ${bold('$' + p.amount.toFixed(2))}`); });
       }
@@ -5283,7 +5392,7 @@ function generateBookingDetailsHTML() {
       if (schedule) {
         body += info('Payment Plan', schedule.type);
         body += sectionTitle('Payment Schedule');
-        body += bullet(`Retainer (Due at signing): ${bold('$' + Math.min(1000, totalAmount).toFixed(2))}`);
+        body += bullet(`Retainer (Due at signing): ${bold('$1,000.00')}`);
         if (schedule.isMonthly) body += bullet(`${schedule.payments[0].count} monthly payments of ${bold('$' + schedule.payments[0].amount.toFixed(2))}`);
         else schedule.payments.forEach(p => { body += bullet(`${p.label} (${fmtDate(p.date)}): ${bold('$' + p.amount.toFixed(2))}`); });
       }
@@ -5465,10 +5574,12 @@ v_initCalendar();
 <!-- Mobile SVG swap for +/- buttons -->
 <script>
 (function() {
-  if (window.innerWidth > 768) return;
-  const minusSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke-width="1.5"></path><path d="M8 12H16" stroke-width="1.5"></path></svg>';
-  const plusSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke-width="1.5"></path><path d="M8 12H16" stroke-width="1.5"></path><path d="M12 16V8" stroke-width="1.5"></path></svg>';
+  var minusSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke-width="1.5"></path><path d="M8 12H16" stroke-width="1.5"></path></svg>';
+  var plusSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke-width="1.5"></path><path d="M8 12H16" stroke-width="1.5"></path><path d="M12 16V8" stroke-width="1.5"></path></svg>';
+  var wasMobile = false;
   function swapBtns() {
+    var isMobile = window.innerWidth <= 768;
+    if (!isMobile) return;
     document.querySelectorAll('.te-btn').forEach(function(btn) {
       if (btn.dataset.svgSwapped) return;
       var oldSvg = btn.querySelector('svg');
@@ -5477,9 +5588,17 @@ v_initCalendar();
       btn.innerHTML = isMinus ? minusSvg : plusSvg;
       btn.dataset.svgSwapped = '1';
     });
+    wasMobile = true;
   }
   swapBtns();
-  new MutationObserver(swapBtns).observe(document.body, {childList:true, subtree:true});
+  var swapTimer;
+  window.addEventListener('resize', function() {
+    clearTimeout(swapTimer);
+    swapTimer = setTimeout(swapBtns, 150);
+  });
+  new MutationObserver(function() {
+    if (window.innerWidth <= 768) swapBtns();
+  }).observe(document.body, {childList:true, subtree:true});
   window.addEventListener('load', swapBtns);
 })();
 </script>
