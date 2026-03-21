@@ -1833,6 +1833,54 @@ body { background: #e7e4e6; }
     text-align: left !important;
     color: #1c1917;
   }
+  /* Photography Steps 2 & 3: name/divider/price stacked on left, +/- buttons on right */
+  #tabContent-photography [data-step-index="1"] .col-card,
+  #tabContent-photography [data-step-index="2"] .col-card {
+    display: grid !important;
+    grid-template-columns: 1fr auto !important;
+    grid-template-rows: auto auto !important;
+    align-content: center !important;
+    align-items: center !important;
+    column-gap: 12px !important;
+    row-gap: 0 !important;
+    min-height: 80px !important;
+  }
+  #tabContent-photography [data-step-index="1"] .coverage-name,
+  #tabContent-photography [data-step-index="2"] .coverage-name {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    text-align: left !important;
+    font-size: 15px !important;
+    padding: 0 0 5px 0 !important;
+    margin: 0 8px 0 0 !important;
+    border: none !important;
+    border-bottom: 1px solid rgba(0,0,0,0.1) !important;
+    line-height: 1.3 !important;
+    white-space: nowrap !important;
+  }
+  #tabContent-photography [data-step-index="1"] .coverage-price,
+  #tabContent-photography [data-step-index="2"] .coverage-price {
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+    text-align: left !important;
+    font-size: 16px !important;
+    padding: 5px 0 0 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    line-height: 1.3 !important;
+  }
+  #tabContent-photography [data-step-index="1"] .flex.flex-col.items-center.mt-auto,
+  #tabContent-photography [data-step-index="2"] .flex.flex-col.items-center.mt-auto {
+    grid-column: 2 !important;
+    grid-row: 1 / -1 !important;
+    margin: 0 !important;
+    flex-direction: row !important;
+  }
+
+  /* Hide Customize Your Package on Photography tab mobile */
+  #p_customizeBox {
+    display: none !important;
+  }
   /* Countdown clock — tighter spacing on mobile */
   .fc-clock-wrapper {
     margin-top: 16px !important;
@@ -1896,9 +1944,8 @@ body { background: #e7e4e6; }
 
   /* --- N. INVESTMENT / SUMMARY --- */
   [id$="investmentBox"],
-  [id$="customizeBox"],
+  [id$="customizeBox"]:not(#p_customizeBox),
   #p_investmentBox,
-  #p_customizeBox,
   #investmentBox,
   #customizeBox {
     padding: 16px !important;
@@ -2550,11 +2597,11 @@ h3.fc-clock-label,
 
 <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
   <div class="col-card flex flex-col p-[15px] md:p-[24px]" data-credits="consultation">
-    <label class="anim-cb"><input type="checkbox" id="consultationCb" onchange="toggleUnlock(this)"><span class="checkmark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Book a Consultation</span> ($100 Credit)</span></label>
+    <label class="anim-cb"><input type="checkbox" id="consultationCb" onchange="toggleUnlock(this)"><span class="checkmark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Book a Consultation</span><br>($100 Credit)</span></label>
     <p class="text-xs md:text-base text-stone-500 ml-11 italic" style="margin-top:-1px">Let's chat! Schedule a quick phone or video call and earn $100 toward your package.</p>
   </div>
   <div class="col-card flex flex-col p-[15px] md:p-[24px]" data-credits="instagram">
-    <label class="anim-cb"><input type="checkbox" id="instagramCb" onchange="toggleUnlock(this)"><span class="checkmark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Follow on Instagram</span> ($25 Credit)</span></label>
+    <label class="anim-cb"><input type="checkbox" id="instagramCb" onchange="toggleUnlock(this)"><span class="checkmark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Follow on Instagram</span><br>($25 Credit)</span></label>
     <p class="text-xs md:text-base text-stone-500 ml-11 italic" style="margin-top:-1px">Follow me on IG @ryansandsphotography and earn yourself a cool $25 credit.</p>
   </div>
 </div>
@@ -2635,14 +2682,14 @@ h3.fc-clock-label,
 <div class="wizard-step" data-step-index="5" data-step-name="Payment">
 <!-- Step 6: Payment Method -->
 <div class="flex items-center justify-center gap-3 mb-2 mt-16">
-  <img src="https://static.showit.co/file/j5VdQEs6a9xCQ0YKPw0eMw/293041/credit-cards.png" alt="credit card" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
+  <img src="https://static.showit.co/file/kN5dwSDD1VZ2PRPu6NhYKQ/293041/credit-card.png" alt="credit card" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
   <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 6: Payment Method</h2>
 </div>
 <p class="text-center text-stone-500 text-base md:text-lg mb-10">Choose how you'd like to pay</p>
 
 <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 wizard-carousel" id="payMethodGrid">
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-pay-method="cash" onclick="selectPayMethodCard(this)">
-    <img src="https://static.showit.co/file/ArKNkeAVdei8aMUGj1cUPg/293041/cash.png" alt="Cash" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3 md:mt-[30px]">
+    <img src="https://static.showit.co/file/ueHGE8iMCHrL5egxLgOVLQ/293041/cash.png" alt="Cash" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3 md:mt-[30px]">
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Cash</p>
     <p class="text-[10px] md:text-xs text-green-600 text-center mt-[10px] hidden md:block">(Save $50)</p>
   </div>
@@ -2659,7 +2706,7 @@ h3.fc-clock-label,
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">PayPal</p>
   </div>
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-pay-method="credit" onclick="selectPayMethodCard(this)">
-    <img src="https://static.showit.co/file/j5VdQEs6a9xCQ0YKPw0eMw/293041/credit-cards.png" alt="Credit Card" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3 md:mt-[27px]">
+    <img src="https://static.showit.co/file/kN5dwSDD1VZ2PRPu6NhYKQ/293041/credit-card.png" alt="Credit Card" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3 md:mt-[27px]">
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Credit Card</p>
     <p class="text-[10px] md:text-xs text-stone-400 text-center mt-[10px] hidden md:block">(+5% fee)</p>
   </div>
@@ -2673,7 +2720,7 @@ h3.fc-clock-label,
 <div class="wizard-step" data-step-index="6" data-step-name="Summary">
 <!-- Step 7: Your Investment -->
 <div class="flex items-center justify-center gap-3 mb-2 mt-16">
-  <img src="https://static.showit.co/file/ArKNkeAVdei8aMUGj1cUPg/293041/cash.png" alt="cash" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
+  <img src="https://static.showit.co/file/ueHGE8iMCHrL5egxLgOVLQ/293041/cash.png" alt="cash" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
   <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 7: Your Investment</h2>
 </div>
 <p class="text-center text-stone-500 text-base md:text-lg mb-10">Review your selections and see your total investment</p>
@@ -2683,7 +2730,7 @@ h3.fc-clock-label,
   <!-- Your Investment -->
   <div class="col-card p-[15px] md:p-[24px]" id="investmentBox">
     <div class="flex items-center gap-3 mb-4">
-      <img src="https://static.showit.co/file/ArKNkeAVdei8aMUGj1cUPg/293041/cash.png" alt="cash" style="width:3.25rem;height:3.25rem;object-fit:contain">
+      <img src="https://static.showit.co/file/ueHGE8iMCHrL5egxLgOVLQ/293041/cash.png" alt="cash" style="width:3.25rem;height:3.25rem;object-fit:contain">
       <h3 class="text-xl md:text-2xl font-bold text-stone-800" style="margin:0">Your Investment</h3>
     </div>
     <div id="investmentContent">
@@ -3023,11 +3070,11 @@ h3.fc-clock-label,
 
 <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
   <div class="col-card flex flex-col p-[15px] md:p-[24px]" data-p-credits="consultation">
-    <label class="anim-cb"><input type="checkbox" id="p_consultationCb" onchange="p_toggleUnlock(this)"><span class="checkmark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Book a Consultation</span> ($100 Credit)</span></label>
+    <label class="anim-cb"><input type="checkbox" id="p_consultationCb" onchange="p_toggleUnlock(this)"><span class="checkmark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Book a Consultation</span><br>($100 Credit)</span></label>
     <p class="text-xs md:text-base text-stone-500 ml-11 italic" style="margin-top:-1px">Let's chat! Schedule a quick phone or video call and earn $100 toward your package.</p>
   </div>
   <div class="col-card flex flex-col p-[15px] md:p-[24px]" data-p-credits="instagram">
-    <label class="anim-cb"><input type="checkbox" id="p_instagramCb" onchange="p_toggleUnlock(this)"><span class="checkmark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Follow on Instagram</span> ($25 Credit)</span></label>
+    <label class="anim-cb"><input type="checkbox" id="p_instagramCb" onchange="p_toggleUnlock(this)"><span class="checkmark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Follow on Instagram</span><br>($25 Credit)</span></label>
     <p class="text-xs md:text-base text-stone-500 ml-11 italic" style="margin-top:-1px">Follow me on IG @ryansandsphotography and earn yourself a cool $25 credit.</p>
   </div>
 </div>
@@ -3108,14 +3155,14 @@ h3.fc-clock-label,
 <div class="wizard-step" data-step-index="5" data-step-name="Payment">
 <!-- Step 6: Payment Method -->
 <div class="flex items-center justify-center gap-3 mb-2 mt-16">
-  <img src="https://static.showit.co/file/j5VdQEs6a9xCQ0YKPw0eMw/293041/credit-cards.png" alt="credit card" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
+  <img src="https://static.showit.co/file/kN5dwSDD1VZ2PRPu6NhYKQ/293041/credit-card.png" alt="credit card" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
   <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 6: Payment Method</h2>
 </div>
 <p class="text-center text-stone-500 text-base md:text-lg mb-10">Choose how you'd like to pay</p>
 
 <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 wizard-carousel" id="p_payMethodGrid">
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-p-pay-method="cash" onclick="p_selectPayMethodCard(this)">
-    <img src="https://static.showit.co/file/ArKNkeAVdei8aMUGj1cUPg/293041/cash.png" alt="Cash" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3 md:mt-[30px]">
+    <img src="https://static.showit.co/file/ueHGE8iMCHrL5egxLgOVLQ/293041/cash.png" alt="Cash" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3 md:mt-[30px]">
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Cash</p>
     <p class="text-[10px] md:text-xs text-green-600 text-center mt-[10px] hidden md:block">(Save $50)</p>
   </div>
@@ -3132,7 +3179,7 @@ h3.fc-clock-label,
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">PayPal</p>
   </div>
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-p-pay-method="credit" onclick="p_selectPayMethodCard(this)">
-    <img src="https://static.showit.co/file/j5VdQEs6a9xCQ0YKPw0eMw/293041/credit-cards.png" alt="Credit Card" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3 md:mt-[27px]">
+    <img src="https://static.showit.co/file/kN5dwSDD1VZ2PRPu6NhYKQ/293041/credit-card.png" alt="Credit Card" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3 md:mt-[27px]">
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Credit Card</p>
     <p class="text-[10px] md:text-xs text-stone-400 text-center mt-[10px] hidden md:block">(+5% fee)</p>
   </div>
@@ -3146,7 +3193,7 @@ h3.fc-clock-label,
 <div class="wizard-step" data-step-index="6" data-step-name="Summary">
 <!-- Step 7: Your Investment -->
 <div class="flex items-center justify-center gap-3 mb-2 mt-16">
-  <img src="https://static.showit.co/file/ArKNkeAVdei8aMUGj1cUPg/293041/cash.png" alt="cash" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
+  <img src="https://static.showit.co/file/ueHGE8iMCHrL5egxLgOVLQ/293041/cash.png" alt="cash" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
   <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 7: Your Investment</h2>
 </div>
 <p class="text-center text-stone-500 text-base md:text-lg mb-10">Review your selections and see your total investment</p>
@@ -3167,7 +3214,7 @@ h3.fc-clock-label,
   <!-- Your Investment -->
   <div class="col-card p-[15px] md:p-[24px]" id="p_investmentBox">
     <div class="flex items-center gap-3 mb-4">
-      <img src="https://static.showit.co/file/ArKNkeAVdei8aMUGj1cUPg/293041/cash.png" alt="cash" style="width:3.25rem;height:3.25rem;object-fit:contain">
+      <img src="https://static.showit.co/file/ueHGE8iMCHrL5egxLgOVLQ/293041/cash.png" alt="cash" style="width:3.25rem;height:3.25rem;object-fit:contain">
       <h3 class="text-xl md:text-2xl font-bold text-stone-800" style="margin:0">Your Investment</h3>
     </div>
     <div id="p_investmentContent">
@@ -3350,14 +3397,14 @@ h3.fc-clock-label,
 <div class="wizard-step" data-step-index="2" data-step-name="Payment">
 <!-- Step 3: Payment Method -->
 <div class="flex items-center justify-center gap-3 mb-2 mt-16">
-  <img src="https://static.showit.co/file/j5VdQEs6a9xCQ0YKPw0eMw/293041/credit-cards.png" alt="credit card" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
+  <img src="https://static.showit.co/file/kN5dwSDD1VZ2PRPu6NhYKQ/293041/credit-card.png" alt="credit card" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
   <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 3: Payment Method</h2>
 </div>
 <p class="text-center text-stone-500 text-base md:text-lg mb-10">Choose how you'd like to pay</p>
 
 <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 wizard-carousel" id="v_payMethodGrid">
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-v-pay-method="cash" onclick="v_selectPayMethodCard(this)">
-    <img src="https://static.showit.co/file/ArKNkeAVdei8aMUGj1cUPg/293041/cash.png" alt="Cash" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3 md:mt-[30px]">
+    <img src="https://static.showit.co/file/ueHGE8iMCHrL5egxLgOVLQ/293041/cash.png" alt="Cash" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3 md:mt-[30px]">
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Cash</p>
     <p class="text-[10px] md:text-xs text-green-600 text-center mt-[10px] hidden md:block">(Save $50)</p>
   </div>
@@ -3374,7 +3421,7 @@ h3.fc-clock-label,
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">PayPal</p>
   </div>
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-v-pay-method="credit" onclick="v_selectPayMethodCard(this)">
-    <img src="https://static.showit.co/file/j5VdQEs6a9xCQ0YKPw0eMw/293041/credit-cards.png" alt="Credit Card" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3 md:mt-[27px]">
+    <img src="https://static.showit.co/file/kN5dwSDD1VZ2PRPu6NhYKQ/293041/credit-card.png" alt="Credit Card" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3 md:mt-[27px]">
     <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Credit Card</p>
     <p class="text-[10px] md:text-xs text-stone-400 text-center mt-[10px] hidden md:block">(+5% fee)</p>
   </div>
@@ -3388,7 +3435,7 @@ h3.fc-clock-label,
 <div class="wizard-step" data-step-index="3" data-step-name="Summary">
 <!-- Step 4: Your Investment -->
 <div class="flex items-center justify-center gap-3 mb-2 mt-16">
-  <img src="https://static.showit.co/file/ArKNkeAVdei8aMUGj1cUPg/293041/cash.png" alt="cash" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
+  <img src="https://static.showit.co/file/ueHGE8iMCHrL5egxLgOVLQ/293041/cash.png" alt="cash" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
   <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 4: Your Investment</h2>
 </div>
 <p class="text-center text-stone-500 text-base md:text-lg mb-10">Review your selections and see your total investment</p>
@@ -3396,7 +3443,7 @@ h3.fc-clock-label,
 <div class="max-w-6xl mx-auto">
   <div class="col-card p-[15px] md:p-[24px]" id="v_investmentBox">
     <div class="flex items-center gap-3 mb-4">
-      <img src="https://static.showit.co/file/ArKNkeAVdei8aMUGj1cUPg/293041/cash.png" alt="cash" style="width:3.25rem;height:3.25rem;object-fit:contain">
+      <img src="https://static.showit.co/file/ueHGE8iMCHrL5egxLgOVLQ/293041/cash.png" alt="cash" style="width:3.25rem;height:3.25rem;object-fit:contain">
       <h3 class="text-xl md:text-2xl font-bold text-stone-800" style="margin:0">Your Investment</h3>
     </div>
     <div id="v_investmentContent">
