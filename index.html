@@ -328,12 +328,12 @@ body { background: #e7e4e6; }
 .coverage-active::before {
   content: '';
   position: absolute;
-  top: -6px; left: -6px; right: -6px; bottom: -6px;
+  top: -4px; left: -4px; right: -4px; bottom: -4px;
   background: linear-gradient(90deg, #7c6aff, #a78bff, #d946ef, #e63983, #f472b6, #b84ddf, #c084fc, #7c8aff, #60b5f7, #f0c050, #9080ff, #f472b6, #e63983, #7c6aff);
   background-size: 300% 100%;
-  border-radius: 22px;
+  border-radius: 20px;
   z-index: -2;
-  filter: blur(6px);
+  filter: none;
   opacity: 1;
   animation: glowDrift 20s linear infinite;
 }
@@ -342,20 +342,24 @@ body { background: #e7e4e6; }
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
   background: #fff;
-  border-radius: 12px;
+  border-radius: 16px;
   z-index: -1;
 }
 .coverage-active .coverage-name {
-  background: linear-gradient(135deg, #c0baff, #6038d8);
+  background: linear-gradient(90deg, #c0baff, #ddd6fe, #f0abfc, #f2a5b8, #fcd5e0, #e0c3fc, #e9d5ff, #c7d2fe, #bae6fd, #f5e6c0, #d0c8fe, #fbc4e0, #f2a5b8, #c0baff);
+  background-size: 300% 300%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  animation: glowDrift 20s linear infinite;
 }
 .coverage-active .coverage-price {
-  background: linear-gradient(135deg, #c0baff, #6038d8);
+  background: linear-gradient(90deg, #c0baff, #ddd6fe, #f0abfc, #f2a5b8, #fcd5e0, #e0c3fc, #e9d5ff, #c7d2fe, #bae6fd, #f5e6c0, #d0c8fe, #fbc4e0, #f2a5b8, #c0baff);
+  background-size: 300% 300%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  animation: glowDrift 20s linear infinite;
 }
 
 /* Keycap Button */
@@ -1141,7 +1145,7 @@ body { background: #e7e4e6; }
     border-radius: 14px !important;
     border: 1px solid rgba(0,0,0,0.08) !important;
     box-shadow: 0 1px 3px rgba(0,0,0,0.04) !important;
-    padding: 14px 16px !important;
+    padding: 16px !important;
     display: flex !important;
     flex-direction: row !important;
     align-items: center !important;
@@ -1513,10 +1517,12 @@ body { background: #e7e4e6; }
   }
   .coverage-active .coverage-price,
   .coverage-active .col-card-price {
-    background: none !important;
-    -webkit-background-clip: unset !important;
-    background-clip: unset !important;
-    -webkit-text-fill-color: #1c1917 !important;
+    background: linear-gradient(90deg, #c0baff, #ddd6fe, #f0abfc, #f2a5b8, #fcd5e0, #e0c3fc, #e9d5ff, #c7d2fe, #bae6fd, #f5e6c0, #d0c8fe, #fbc4e0, #f2a5b8, #c0baff) !important;
+    background-size: 300% 300% !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    animation: glowDrift 20s linear infinite !important;
   }
 
   /* Hide reset button */
@@ -1539,7 +1545,7 @@ body { background: #e7e4e6; }
     overflow-x: visible !important;
     scroll-snap-type: none !important;
     padding: 0 !important;
-    gap: 10px !important;
+    gap: 8px !important;
     background: transparent !important;
     border-radius: 0 !important;
     box-shadow: none !important;
@@ -1719,7 +1725,7 @@ body { background: #e7e4e6; }
     grid-template-rows: repeat(2, 16vw auto auto) !important;
     overflow-x: visible !important;
     scroll-snap-type: none !important;
-    gap: clamp(6px, 2vw, 10px) !important;
+    gap: clamp(6px, 2.5vw, 12px) !important;
     padding: 0 !important;
     max-width: 100% !important;
     background: transparent !important;
