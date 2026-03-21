@@ -78,8 +78,6 @@ body { background: #e7e4e6; }
   border-radius: 16px;
   z-index: -1;
 }
-.col-card.col-active[data-credit] img,
-.col-card.col-active[data-p-credit] img,
 .col-card.col-active[data-pay-method] img,
 .col-card.col-active[data-p-pay-method] img,
 .col-card.col-active[data-v-pay-method] img {
@@ -166,6 +164,19 @@ body { background: #e7e4e6; }
 .col-card.col-active .col-card-badge {
   border-bottom: 1px solid transparent;
   border-image: linear-gradient(90deg, #c0baff, #ddd6fe, #f0abfc, #f2a5b8, #fcd5e0, #e0c3fc, #e9d5ff, #c7d2fe, #bae6fd, #f5e6c0, #d0c8fe, #fbc4e0, #f2a5b8, #c0baff) 1;
+}
+/* Glow text for credit cards and payment methods (use <p> not .col-card-name) */
+.col-card.col-active[data-credit] > p,
+.col-card.col-active[data-p-credit] > p,
+.col-card.col-active[data-pay-method] > p,
+.col-card.col-active[data-p-pay-method] > p,
+.col-card.col-active[data-v-pay-method] > p {
+  background: linear-gradient(90deg, #c0baff, #ddd6fe, #f0abfc, #f2a5b8, #fcd5e0, #e0c3fc, #e9d5ff, #c7d2fe, #bae6fd, #f5e6c0, #d0c8fe, #fbc4e0, #f2a5b8, #c0baff);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: glowDrift 20s linear infinite;
 }
 .check-icon {
   color: #93c5fd;
@@ -581,20 +592,18 @@ body { background: #e7e4e6; }
 }
 /* Month grid buttons */
 .month-btn {
-  background: #fff;
+  background: transparent;
   color: #777;
   border: none;
-  border-right: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
+  border-radius: 26px;
 }
-.month-btn:nth-child(3n) { border-right: none; }
-.month-btn:nth-child(n+10) { border-bottom: none; }
 .month-btn.month-btn-active {
   background: #c0baff;
   color: #fff;
+  border-radius: 26px;
 }
 /* Calendar day cells */
 .cal-day {
@@ -1069,7 +1078,7 @@ body { background: #e7e4e6; }
   /* --- D. ALL SECTIONS VISIBLE (NO WIZARD) --- */
   .wizard-step {
     display: block !important;
-    overflow: hidden !important;
+    overflow: visible !important;
     max-width: 100% !important;
   }
   #wizardBottomBar {
@@ -1121,7 +1130,7 @@ body { background: #e7e4e6; }
     display: grid !important;
     grid-template-columns: 1fr !important;
     gap: 0 !important;
-    padding: 0 !important;
+    padding: 4px !important;
     overflow: visible !important;
     scroll-snap-type: none !important;
     background: transparent !important;
@@ -1358,10 +1367,11 @@ body { background: #e7e4e6; }
   .p-collection-list .col-card ul li::before,
   [data-p-collection] ul li::before,
   [data-v-collection] ul li::before {
-    content: '✓  ';
+    content: '✓';
     color: #7c6aff;
     font-weight: 700;
     font-size: 11px;
+    margin-right: 6px;
   }
   /* Combine Online Gallery + Printing Rights on one line */
   .p-collection-list .col-card ul.hidden li:nth-last-child(2),
@@ -1542,9 +1552,9 @@ body { background: #e7e4e6; }
   .p-collection-list {
     display: grid !important;
     grid-template-columns: 1fr !important;
-    overflow-x: visible !important;
+    overflow: visible !important;
     scroll-snap-type: none !important;
-    padding: 0 !important;
+    padding: 4px !important;
     gap: 8px !important;
     background: transparent !important;
     border-radius: 0 !important;
@@ -1604,10 +1614,10 @@ body { background: #e7e4e6; }
   #p_serviceCreditsList {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
-    overflow-x: visible !important;
+    overflow: visible !important;
     scroll-snap-type: none !important;
     gap: clamp(6px, 2.5vw, 12px) !important;
-    padding: 0 !important;
+    padding: 4px !important;
     max-width: 100% !important;
     background: transparent !important;
     border: none !important;
@@ -1630,7 +1640,7 @@ body { background: #e7e4e6; }
     box-shadow: 0 1px 2px rgba(0,0,0,0.03) !important;
     gap: clamp(2px, 1vw, 6px) !important;
     aspect-ratio: auto !important;
-    overflow: hidden !important;
+    overflow: visible !important;
   }
   #serviceCreditsList::after,
   #p_serviceCreditsList::after {
@@ -1649,7 +1659,7 @@ body { background: #e7e4e6; }
   }
   #serviceCreditsList p,
   #p_serviceCreditsList p {
-    font-size: clamp(12px, 3.5vw, 16px) !important;
+    font-size: clamp(13px, 4vw, 18px) !important;
     line-height: 1.3 !important;
     margin: 0 !important;
     color: #57534e;
@@ -1659,7 +1669,7 @@ body { background: #e7e4e6; }
   }
   #serviceCreditsList p:last-child,
   #p_serviceCreditsList p:last-child {
-    font-size: clamp(10px, 2.8vw, 13px) !important;
+    font-size: clamp(11px, 3.2vw, 15px) !important;
     font-weight: 700;
     color: #16a34a;
     margin-top: clamp(1px, 0.5vw, 3px) !important;
@@ -1726,7 +1736,7 @@ body { background: #e7e4e6; }
     overflow-x: visible !important;
     scroll-snap-type: none !important;
     gap: clamp(6px, 2.5vw, 12px) !important;
-    padding: 0 !important;
+    padding: 4px !important;
     max-width: 100% !important;
     background: transparent !important;
     border: none !important;
@@ -1751,7 +1761,7 @@ body { background: #e7e4e6; }
     align-items: center !important;
     text-align: center !important;
     gap: clamp(2px, 1vw, 6px) !important;
-    overflow: hidden !important;
+    overflow: visible !important;
   }
   #payMethodGrid::after,
   #p_payMethodGrid::after,
@@ -1840,13 +1850,9 @@ body { background: #e7e4e6; }
     grid-template-columns: repeat(7, 1fr) !important;
     width: 100% !important;
   }
-  /* Prevent heart SVG from causing bounce — each cell is fixed size */
+  /* Allow heart to show fully on selected date */
   #dayGrid > div, #p_dayGrid > div, #v_dayGrid > div {
-    overflow: hidden !important;
-  }
-  /* Kill the scale(1.25) on the selected heart button */
-  #dayGrid button[style*="scale"], #p_dayGrid button[style*="scale"], #v_dayGrid button[style*="scale"] {
-    transform: none !important;
+    overflow: visible !important;
   }
   /* Month grid — stable sizing */
   #monthGrid, #p_monthGrid, #v_monthGrid {
@@ -1898,7 +1904,7 @@ body { background: #e7e4e6; }
     flex-direction: column !important;
     display: flex !important;
     border-bottom: 1px solid rgba(0,0,0,0.05) !important;
-    overflow: hidden !important;
+    overflow: visible !important;
     min-width: 0 !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
@@ -2023,7 +2029,30 @@ body { background: #e7e4e6; }
     display: block !important;
   }
 
-  /* --- Z. GLOBAL OVERFLOW SAFETY --- */
+  /* --- Z-GLOW. UNIFIED GLOW TEXT ON ALL SELECTED ITEMS --- */
+  .col-card.col-active[data-credit] > p,
+  .col-card.col-active[data-p-credit] > p,
+  .col-card.col-active[data-pay-method] > p,
+  .col-card.col-active[data-p-pay-method] > p,
+  .col-card.col-active[data-v-pay-method] > p {
+    background: linear-gradient(90deg, #c0baff, #ddd6fe, #f0abfc, #f2a5b8, #fcd5e0, #e0c3fc, #e9d5ff, #c7d2fe, #bae6fd, #f5e6c0, #d0c8fe, #fbc4e0, #f2a5b8, #c0baff) !important;
+    background-size: 300% 300% !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    animation: glowDrift 20s linear infinite !important;
+  }
+  .col-card.col-active .col-card-name,
+  .col-card.col-active .col-card-price {
+    background: linear-gradient(90deg, #c0baff, #ddd6fe, #f0abfc, #f2a5b8, #fcd5e0, #e0c3fc, #e9d5ff, #c7d2fe, #bae6fd, #f5e6c0, #d0c8fe, #fbc4e0, #f2a5b8, #c0baff) !important;
+    background-size: 300% 300% !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    animation: glowDrift 20s linear infinite !important;
+  }
+
+  /* --- Z-OVERFLOW. GLOBAL OVERFLOW SAFETY --- */
   [id$="investmentContent"] .flex,
   [id$="paymentScheduleDisplay"] .flex,
   [id$="customizeContent"] .flex {
@@ -2049,6 +2078,135 @@ body { background: #e7e4e6; }
   #wizardBottomBar { display: none !important; }
   .wizard-progress { display: none !important; }
   .wizard-carousel { display: grid !important; }
+}
+
+/* ============================================
+   FLIP-CLOCK WEDDING COUNTDOWN
+   ============================================ */
+@keyframes fcFlipTop {
+  0%   { transform: rotateX(0deg); z-index: 2; }
+  0%, 99% { opacity: 0.99; }
+  100% { transform: rotateX(-90deg); opacity: 0; }
+}
+@keyframes fcFlipBottom {
+  0%, 50% { z-index: -1; transform: rotateX(90deg); opacity: 0; }
+  51%     { opacity: 0.99; }
+  100%    { opacity: 0.99; transform: rotateX(0deg); z-index: 5; }
+}
+.fc-clock-wrapper {
+  text-align: center;
+  margin-top: 24px;
+  grid-column: 1 / -1;
+}
+.fc-clock-label {
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: #292524;
+  margin-bottom: 16px;
+  letter-spacing: 0.03em;
+}
+@media (min-width: 768px) {
+  .fc-clock-label {
+    font-size: 1.5rem;
+  }
+}
+.fc-clock {
+  text-align: center;
+  perspective: 400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 16px;
+  max-width: 800px;
+}
+.fc-clock *, .fc-clock *::before, .fc-clock *::after { box-sizing: border-box; }
+.fc-piece {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1 1 0;
+  min-width: 0;
+  transition: flex 0.3s ease;
+}
+.fc-piece.fc-wide {
+  flex: 1.35 1 0;
+}
+.fc-slot {
+  font-size: clamp(11px, 2.5vw, 16px);
+  display: block;
+  margin-top: 6px;
+  color: #78716c;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.fc-card {
+  display: block;
+  position: relative;
+  padding-bottom: 0.72em;
+  font-size: clamp(32px, 9vw, 90px);
+  line-height: 0.95;
+  width: 100%;
+}
+.fc-card__top,
+.fc-card__bottom,
+.fc-card__back::before,
+.fc-card__back::after {
+  display: block;
+  height: 0.72em;
+  color: #ccc;
+  background: #222;
+  padding: 0.25em 0.25em;
+  border-radius: 0.15em 0.15em 0 0;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  width: 100%;
+  text-align: center;
+  transform: translateZ(0);
+}
+.fc-card__bottom {
+  color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  border-top: solid 1px #000;
+  background: #393939;
+  border-radius: 0 0 0.15em 0.15em;
+  pointer-events: none;
+  overflow: hidden;
+}
+.fc-card__bottom::after {
+  display: block;
+  margin-top: -0.72em;
+}
+.fc-card__back::before,
+.fc-card__bottom::after {
+  content: attr(data-value);
+}
+.fc-card__back {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+}
+.fc-card__back::before {
+  position: relative;
+  z-index: -1;
+  overflow: hidden;
+}
+.fc-flip .fc-card__back::before {
+  animation: fcFlipTop 0.3s cubic-bezier(.37,.01,.94,.35);
+  animation-fill-mode: both;
+  transform-origin: center bottom;
+}
+.fc-flip .fc-card__back .fc-card__bottom {
+  transform-origin: center top;
+  animation-fill-mode: both;
+  animation: fcFlipBottom 0.6s cubic-bezier(.15,.45,.28,1);
 }
 </style>
 </head>
@@ -2411,7 +2569,7 @@ body { background: #e7e4e6; }
             <button class="tab-label-sm" onclick="setYear(2028)">2028</button>
           </div>
           <!-- Month grid -->
-          <div class="grid grid-cols-3 mb-4 mx-auto" class="month-grid-container" style="max-width:min(20rem, 100%); border-radius:12px; overflow:hidden; border:1px solid #ccc" id="monthGrid"></div>
+          <div class="grid grid-cols-3 mb-4 mx-auto" class="month-grid-container" style="max-width:min(20rem, 100%); border-radius:12px; overflow:visible; border:none" id="monthGrid"></div>
           <!-- Day headers -->
           <div class="grid grid-cols-7 gap-1 mb-2" id="dayHeaders"></div>
           <!-- Day cells -->
@@ -2428,7 +2586,7 @@ body { background: #e7e4e6; }
         <h3 class="text-lg md:text-2xl font-extrabold text-stone-800 mb-4 text-center">Choose Your Payment Schedule</h3>
 
         <!-- Payment schedule radios (hidden until date selected) -->
-        <div id="payPlanOptions" class="hidden">
+        <div id="payPlanOptions">
           <p class="text-stone-700 font-medium mb-3">Payment Schedule:</p>
           <div class="space-y-3 mb-4">
             <label class="anim-radio"><input type="radio" name="payPlan" value="monthly" onchange="selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Monthly Payments</span></span></label>
@@ -2440,12 +2598,18 @@ body { background: #e7e4e6; }
           <!-- Payment schedule breakdown -->
           <div id="paymentScheduleDisplay"></div>
           <div id="paymentTooSoon" class="hidden">
-            <p class="text-sm text-stone-500 italic mt-2">Your wedding date is too soon for this payment plan option.</p>
+            <p class="text-sm font-semibold mt-2" style="color:#dc2626">⚠️ Your wedding date is too soon for this payment plan. Please select a date further out or choose a different plan.</p>
           </div>
         </div>
 
         <!-- Prompt before date selected -->
-        <p id="pickDatePrompt" class="text-sm md:text-base text-stone-500 italic text-center mt-8">Pick a date to see payment plan options</p>
+        <p id="pickDatePrompt" class="text-sm md:text-base text-stone-500 italic text-center mt-8"></p>
+      </div>
+
+      <!-- Flip-Clock Countdown -->
+      <div id="flipClock" class="fc-clock-wrapper">
+        <h3 class="fc-clock-label">Countdown to Your Wedding Day</h3>
+        <div class="fc-clock"></div>
       </div>
 
     </div>
@@ -2878,7 +3042,7 @@ body { background: #e7e4e6; }
             <button class="tab-label-sm" onclick="p_setYear(2028)">2028</button>
           </div>
           <!-- Month grid -->
-          <div class="grid grid-cols-3 mb-4 mx-auto" class="month-grid-container" style="max-width:min(20rem, 100%); border-radius:12px; overflow:hidden; border:1px solid #ccc" id="p_monthGrid"></div>
+          <div class="grid grid-cols-3 mb-4 mx-auto" class="month-grid-container" style="max-width:min(20rem, 100%); border-radius:12px; overflow:visible; border:none" id="p_monthGrid"></div>
           <!-- Day headers -->
           <div class="grid grid-cols-7 gap-1 mb-2" id="p_dayHeaders"></div>
           <!-- Day cells -->
@@ -2895,7 +3059,7 @@ body { background: #e7e4e6; }
         <h3 class="text-lg md:text-2xl font-extrabold text-stone-800 mb-4 text-center">Choose Your Payment Schedule</h3>
 
         <!-- Payment schedule radios (hidden until date selected) -->
-        <div id="p_payPlanOptions" class="hidden">
+        <div id="p_payPlanOptions">
           <p class="text-stone-700 font-medium mb-3">Payment Schedule:</p>
           <div class="space-y-3 mb-4">
             <label class="anim-radio"><input type="radio" name="p_payPlan" value="monthly" onchange="p_selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Monthly Payments</span></span></label>
@@ -2907,12 +3071,18 @@ body { background: #e7e4e6; }
           <!-- Payment schedule breakdown -->
           <div id="p_paymentScheduleDisplay"></div>
           <div id="p_paymentTooSoon" class="hidden">
-            <p class="text-sm text-stone-500 italic mt-2">Your wedding date is too soon for this payment plan option.</p>
+            <p class="text-sm font-semibold mt-2" style="color:#dc2626">⚠️ Your wedding date is too soon for this payment plan. Please select a date further out or choose a different plan.</p>
           </div>
         </div>
 
         <!-- Prompt before date selected -->
-        <p id="p_pickDatePrompt" class="text-sm md:text-base text-stone-500 italic text-center mt-8">Pick a date to see payment plan options</p>
+        <p id="p_pickDatePrompt" class="text-sm md:text-base text-stone-500 italic text-center mt-8"></p>
+      </div>
+
+      <!-- Flip-Clock Countdown -->
+      <div id="p_flipClock" class="fc-clock-wrapper">
+        <h3 class="fc-clock-label">Countdown to Your Wedding Day</h3>
+        <div class="fc-clock"></div>
       </div>
 
     </div>
@@ -3114,7 +3284,7 @@ body { background: #e7e4e6; }
             <button class="tab-label-sm" onclick="v_setYear(2028)">2028</button>
           </div>
           <!-- Month grid -->
-          <div class="grid grid-cols-3 mb-4 mx-auto" class="month-grid-container" style="max-width:min(20rem, 100%); border-radius:12px; overflow:hidden; border:1px solid #ccc" id="v_monthGrid"></div>
+          <div class="grid grid-cols-3 mb-4 mx-auto" class="month-grid-container" style="max-width:min(20rem, 100%); border-radius:12px; overflow:visible; border:none" id="v_monthGrid"></div>
           <!-- Day headers -->
           <div class="grid grid-cols-7 gap-1 mb-2" id="v_dayHeaders"></div>
           <!-- Day cells -->
@@ -3131,7 +3301,7 @@ body { background: #e7e4e6; }
         <h3 class="text-lg md:text-2xl font-extrabold text-stone-800 mb-4 text-center">Choose Your Payment Schedule</h3>
 
         <!-- Payment schedule radios (hidden until date selected) -->
-        <div id="v_payPlanOptions" class="hidden">
+        <div id="v_payPlanOptions">
           <p class="text-stone-700 font-medium mb-3">Payment Schedule:</p>
           <div class="space-y-3 mb-4">
             <label class="anim-radio"><input type="radio" name="v_payPlan" value="monthly" onchange="v_selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Monthly Payments</span></span></label>
@@ -3143,12 +3313,18 @@ body { background: #e7e4e6; }
           <!-- Payment schedule breakdown -->
           <div id="v_paymentScheduleDisplay"></div>
           <div id="v_paymentTooSoon" class="hidden">
-            <p class="text-sm text-stone-500 italic mt-2">Your wedding date is too soon for this payment plan option.</p>
+            <p class="text-sm font-semibold mt-2" style="color:#dc2626">⚠️ Your wedding date is too soon for this payment plan. Please select a date further out or choose a different plan.</p>
           </div>
         </div>
 
         <!-- Prompt before date selected -->
-        <p id="v_pickDatePrompt" class="text-sm md:text-base text-stone-500 italic text-center mt-8">Pick a date to see payment plan options</p>
+        <p id="v_pickDatePrompt" class="text-sm md:text-base text-stone-500 italic text-center mt-8"></p>
+      </div>
+
+      <!-- Flip-Clock Countdown -->
+      <div id="v_flipClock" class="fc-clock-wrapper">
+        <h3 class="fc-clock-label">Countdown to Your Wedding Day</h3>
+        <div class="fc-clock"></div>
       </div>
 
     </div>
@@ -3533,18 +3709,100 @@ function renderDays() {
   grid.innerHTML = html;
 }
 
+/* ============================================
+   CROSS-TAB SYNC: Date & Payment Plan
+   ============================================ */
+function syncDateToOtherTabs(date, source) {
+  const yr = date.getFullYear();
+  const mo = date.getMonth();
+  const dy = date.getDate();
+  const dateStr = `Your Wedding: ${monthNames[mo]} ${dy}, ${yr}`;
+
+  if (source !== 'alacarte') {
+    weddingDate = new Date(date);
+    window._fcWeddingDate = weddingDate;
+    setYear(yr);
+    viewMonth = mo;
+    renderMonths(); renderDays();
+    if (typeof fcRefreshClock === 'function') fcRefreshClock();
+    document.getElementById('selectedDateDisplay').classList.remove('hidden');
+    document.getElementById('selectedDateText').textContent = dateStr;
+    document.getElementById('pickDatePrompt').classList.add('hidden');
+    updatePaymentSchedule();
+  }
+  if (source !== 'photography') {
+    p_weddingDate = new Date(date);
+    window._fcPWeddingDate = p_weddingDate;
+    p_setYear(yr);
+    p_viewMonth = mo;
+    p_renderMonths(); p_renderDays();
+    if (typeof p_fcRefreshClock === 'function') p_fcRefreshClock();
+    document.getElementById('p_selectedDateDisplay').classList.remove('hidden');
+    document.getElementById('p_selectedDateText').textContent = dateStr;
+    document.getElementById('p_pickDatePrompt').classList.add('hidden');
+    p_updatePaymentSchedule();
+  }
+  if (source !== 'videography') {
+    v_weddingDate = new Date(date);
+    window._fcVWeddingDate = v_weddingDate;
+    v_setYear(yr);
+    v_viewMonth = mo;
+    v_renderMonths(); v_renderDays();
+    if (typeof v_fcRefreshClock === 'function') v_fcRefreshClock();
+    document.getElementById('v_selectedDateDisplay').classList.remove('hidden');
+    document.getElementById('v_selectedDateText').textContent = dateStr;
+    document.getElementById('v_pickDatePrompt').classList.add('hidden');
+    v_updatePaymentSchedule();
+  }
+}
+
+function syncPayPlanToOtherTabs(planValue, source) {
+  function applyPlan(radioName, dataAttr, planVar, updateFn) {
+    const radios = document.querySelectorAll(`input[name="${radioName}"]`);
+    radios.forEach(r => { r.checked = (r.value === planValue); });
+    // Update radio label styling
+    const card = document.querySelector(`[${dataAttr}="plan"]`);
+    if (card) {
+      card.querySelectorAll('.anim-radio').forEach(l => {
+        const inp = l.querySelector('input');
+        const txt = l.querySelector('span:last-child');
+        txt.className = inp.checked ? 'text-green-700' : 'text-stone-700';
+        txt.style.fontSize = '17px';
+      });
+    }
+    updateFn();
+  }
+
+  if (source !== 'alacarte') {
+    paymentPlan = planValue;
+    applyPlan('payPlan', 'data-payment', paymentPlan, updatePaymentSchedule);
+  }
+  if (source !== 'photography') {
+    p_paymentPlan = planValue;
+    applyPlan('p_payPlan', 'data-p-payment', p_paymentPlan, p_updatePaymentSchedule);
+  }
+  if (source !== 'videography') {
+    v_paymentPlan = planValue;
+    applyPlan('v_payPlan', 'data-v-payment', v_paymentPlan, v_updatePaymentSchedule);
+  }
+}
+
 function selectDay(d) {
   const m = String(viewMonth + 1).padStart(2, '0');
   const ds = String(d).padStart(2, '0');
   weddingDate = new Date(`${viewYear}-${m}-${ds}T00:00:00`);
+  window._fcWeddingDate = weddingDate;
   renderDays();
+  if (typeof fcRefreshClock === 'function') fcRefreshClock();
   // Show selected date
   document.getElementById('selectedDateDisplay').classList.remove('hidden');
   document.getElementById('selectedDateText').textContent = `Your Wedding: ${monthNames[weddingDate.getMonth()]} ${weddingDate.getDate()}, ${weddingDate.getFullYear()}`;
   // Show payment plan options
-  document.getElementById('payPlanOptions').classList.remove('hidden');
+  /* payPlanOptions always visible */
   document.getElementById('pickDatePrompt').classList.add('hidden');
   updatePaymentSchedule();
+  // Sync to other tabs
+  syncDateToOtherTabs(weddingDate, 'alacarte');
 }
 
 function selectPayPlan(radio) {
@@ -3559,6 +3817,8 @@ function selectPayPlan(radio) {
   });
   updatePaymentSchedule();
   if (window.wizardActive) wizardUpdateTotal();
+  // Sync to other tabs
+  syncPayPlanToOtherTabs(paymentPlan, 'alacarte');
 }
 
 function calculatePaymentSchedule(total, weddingDateObj, planType, retainerCount) {
@@ -3999,13 +4259,15 @@ function resetAll() {
   }
   // Reset calendar
   weddingDate = null;
+  window._fcWeddingDate = null;
+  if (typeof fcResetClock === 'function') fcResetClock();
   paymentPlan = '15_days';
   const now = new Date();
   viewYear = now.getFullYear();
   viewMonth = now.getMonth();
   setYear(viewYear);
   document.getElementById('selectedDateDisplay').classList.add('hidden');
-  document.getElementById('payPlanOptions').classList.add('hidden');
+  /* payPlanOptions always visible */
   document.getElementById('pickDatePrompt').classList.remove('hidden');
   document.getElementById('paymentScheduleDisplay').innerHTML = '';
   document.getElementById('paymentTooSoon').classList.add('hidden');
@@ -4546,12 +4808,16 @@ function p_selectDay(d) {
   const m = String(p_viewMonth + 1).padStart(2, '0');
   const ds = String(d).padStart(2, '0');
   p_weddingDate = new Date(`${p_viewYear}-${m}-${ds}T00:00:00`);
+  window._fcPWeddingDate = p_weddingDate;
   p_renderDays();
+  if (typeof p_fcRefreshClock === 'function') p_fcRefreshClock();
   document.getElementById('p_selectedDateDisplay').classList.remove('hidden');
   document.getElementById('p_selectedDateText').textContent = `Your Wedding: ${monthNames[p_weddingDate.getMonth()]} ${p_weddingDate.getDate()}, ${p_weddingDate.getFullYear()}`;
-  document.getElementById('p_payPlanOptions').classList.remove('hidden');
+  /* p_payPlanOptions always visible */
   document.getElementById('p_pickDatePrompt').classList.add('hidden');
   p_updatePaymentSchedule();
+  // Sync to other tabs
+  syncDateToOtherTabs(p_weddingDate, 'photography');
 }
 
 function p_selectPayPlan(radio) {
@@ -4560,6 +4826,8 @@ function p_selectPayPlan(radio) {
   card.querySelectorAll('.anim-radio').forEach(l => { const inp = l.querySelector('input'); const txt = l.querySelector('span:last-child'); txt.className = inp.checked ? 'text-green-700' : 'text-stone-700'; txt.style.fontSize = '17px'; });
   p_updatePaymentSchedule();
   if (window.wizardActive) wizardUpdateTotal();
+  // Sync to other tabs
+  syncPayPlanToOtherTabs(p_paymentPlan, 'photography');
 }
 
 function p_getEstimatedTotal() {
@@ -4740,12 +5008,14 @@ function p_resetAll() {
   const p_payMethodGrid = document.getElementById('p_payMethodGrid');
   if (p_payMethodGrid) { p_payMethodGrid.querySelectorAll('[data-p-pay-method]').forEach(c => { c.classList.toggle('col-active', c.dataset.pPayMethod === 'venmo'); }); }
   p_weddingDate = null; p_paymentPlan = '15_days';
+  window._fcPWeddingDate = null;
+  if (typeof p_fcResetClock === 'function') p_fcResetClock();
   const p_now = new Date();
   p_viewYear = p_now.getFullYear();
   p_viewMonth = p_now.getMonth();
   p_setYear(p_viewYear);
   document.getElementById('p_selectedDateDisplay').classList.add('hidden');
-  document.getElementById('p_payPlanOptions').classList.add('hidden');
+  /* p_payPlanOptions always visible */
   document.getElementById('p_pickDatePrompt').classList.remove('hidden');
   document.getElementById('p_paymentScheduleDisplay').innerHTML = '';
   document.getElementById('p_paymentTooSoon').classList.add('hidden');
@@ -4864,12 +5134,16 @@ function v_selectDay(d) {
   const m = String(v_viewMonth + 1).padStart(2, '0');
   const ds = String(d).padStart(2, '0');
   v_weddingDate = new Date(`${v_viewYear}-${m}-${ds}T00:00:00`);
+  window._fcVWeddingDate = v_weddingDate;
   v_renderDays();
+  if (typeof v_fcRefreshClock === 'function') v_fcRefreshClock();
   document.getElementById('v_selectedDateDisplay').classList.remove('hidden');
   document.getElementById('v_selectedDateText').textContent = `Your Wedding: ${monthNames[v_weddingDate.getMonth()]} ${v_weddingDate.getDate()}, ${v_weddingDate.getFullYear()}`;
-  document.getElementById('v_payPlanOptions').classList.remove('hidden');
+  /* v_payPlanOptions always visible */
   document.getElementById('v_pickDatePrompt').classList.add('hidden');
   v_updatePaymentSchedule();
+  // Sync to other tabs
+  syncDateToOtherTabs(v_weddingDate, 'videography');
 }
 
 function v_selectPayPlan(radio) {
@@ -4878,6 +5152,8 @@ function v_selectPayPlan(radio) {
   card.querySelectorAll('.anim-radio').forEach(l => { const inp = l.querySelector('input'); const txt = l.querySelector('span:last-child'); txt.className = inp.checked ? 'text-green-700' : 'text-stone-700'; txt.style.fontSize = '17px'; });
   v_updatePaymentSchedule();
   if (window.wizardActive) wizardUpdateTotal();
+  // Sync to other tabs
+  syncPayPlanToOtherTabs(v_paymentPlan, 'videography');
 }
 
 function v_getEstimatedTotal() {
@@ -4976,12 +5252,14 @@ function v_resetAll() {
   const v_payMethodGridReset = document.getElementById('v_payMethodGrid');
   if (v_payMethodGridReset) { v_payMethodGridReset.querySelectorAll('[data-v-pay-method]').forEach(c => { c.classList.toggle('col-active', c.dataset.vPayMethod === 'venmo'); }); }
   v_weddingDate = null; v_paymentPlan = '15_days';
+  window._fcVWeddingDate = null;
+  if (typeof v_fcResetClock === 'function') v_fcResetClock();
   const v_now = new Date();
   v_viewYear = v_now.getFullYear();
   v_viewMonth = v_now.getMonth();
   v_setYear(v_viewYear);
   document.getElementById('v_selectedDateDisplay').classList.add('hidden');
-  document.getElementById('v_payPlanOptions').classList.add('hidden');
+  /* v_payPlanOptions always visible */
   document.getElementById('v_pickDatePrompt').classList.remove('hidden');
   document.getElementById('v_paymentScheduleDisplay').innerHTML = '';
   document.getElementById('v_paymentTooSoon').classList.add('hidden');
@@ -5606,6 +5884,149 @@ v_initCalendar();
     if (window.innerWidth <= 768) swapBtns();
   }).observe(document.body, {childList:true, subtree:true});
   window.addEventListener('load', swapBtns);
+})();
+
+/* ============================================
+   FLIP-CLOCK WEDDING COUNTDOWN — JS
+   ============================================ */
+(function() {
+  function FCCountdownTracker(label, value) {
+    var el = document.createElement('span');
+    el.className = 'fc-piece';
+    el.innerHTML =
+      '<b class="fc-card">' +
+        '<b class="fc-card__top"></b>' +
+        '<b class="fc-card__bottom"></b>' +
+        '<b class="fc-card__back"><b class="fc-card__bottom"></b></b>' +
+      '</b>' +
+      '<span class="fc-slot">' + label + '</span>';
+    this.el = el;
+    var top = el.querySelector('.fc-card__top'),
+        bottom = el.querySelector('.fc-card__bottom'),
+        back = el.querySelector('.fc-card__back'),
+        backBottom = el.querySelector('.fc-card__back .fc-card__bottom');
+    this.currentValue = '';
+    this.update = function(val) {
+      val = String(val);
+      if (val !== '--' && val.length < 2) val = '0' + val;
+      // Auto-widen for 3+ digit values
+      if (val.length >= 3) { el.classList.add('fc-wide'); }
+      else { el.classList.remove('fc-wide'); }
+      if (val !== this.currentValue) {
+        if (this.currentValue !== '') {
+          back.setAttribute('data-value', this.currentValue);
+          bottom.setAttribute('data-value', this.currentValue);
+        }
+        this.currentValue = val;
+        top.innerText = this.currentValue;
+        backBottom.setAttribute('data-value', this.currentValue);
+        this.el.classList.remove('fc-flip');
+        void this.el.offsetWidth;
+        this.el.classList.add('fc-flip');
+      }
+    };
+    this.update(value);
+  }
+
+  function fcGetTimeRemaining(endtime) {
+    var t = Date.parse(endtime) - Date.parse(new Date());
+    return {
+      Total: t,
+      Days: Math.max(0, Math.floor(t / (1000 * 60 * 60 * 24))),
+      Hours: Math.max(0, Math.floor((t / (1000 * 60 * 60)) % 24)),
+      Minutes: Math.max(0, Math.floor((t / 1000 / 60) % 60)),
+      Seconds: Math.max(0, Math.floor((t / 1000) % 60))
+    };
+  }
+
+  function FCClock(containerId, getDateFn) {
+    this.containerId = containerId;
+    this.getDateFn = getDateFn;
+    this.trackers = {};
+    this.rafId = null;
+    this.generation = 0;
+    this.build();
+  }
+
+  FCClock.prototype.stop = function() {
+    this.generation++;
+    if (this.rafId) { cancelAnimationFrame(this.rafId); this.rafId = null; }
+  };
+
+  FCClock.prototype.build = function() {
+    var container = document.querySelector('#' + this.containerId + ' .fc-clock');
+    if (!container) return;
+    container.innerHTML = '';
+    this.trackers = {};
+    var labels = ['Days', 'Hours', 'Minutes', 'Seconds'];
+    var date = this.getDateFn();
+    var t = date ? fcGetTimeRemaining(date) : { Total: 0, Days: 0, Hours: 0, Minutes: 0, Seconds: 0 };
+    for (var i = 0; i < labels.length; i++) {
+      var key = labels[i];
+      var val = date ? t[key] : '--';
+      this.trackers[key] = new FCCountdownTracker(key, val);
+      container.appendChild(this.trackers[key].el);
+    }
+    this.startTicking();
+  };
+
+  FCClock.prototype.startTicking = function() {
+    var self = this;
+    var gen = this.generation;
+    var lastSec = -1;
+    function tick() {
+      if (gen !== self.generation) return;
+      self.rafId = requestAnimationFrame(tick);
+      var now = new Date();
+      var sec = now.getSeconds();
+      if (sec === lastSec) return;
+      lastSec = sec;
+      var date = self.getDateFn();
+      if (!date) return;
+      var t = fcGetTimeRemaining(date);
+      if (t.Total <= 0) {
+        for (var key in self.trackers) { self.trackers[key].update(0); }
+        cancelAnimationFrame(self.rafId);
+        self.rafId = null;
+        return;
+      }
+      for (var key in self.trackers) {
+        if (t[key] !== undefined) self.trackers[key].update(t[key]);
+      }
+    }
+    self.rafId = requestAnimationFrame(tick);
+  };
+
+  FCClock.prototype.refresh = function() {
+    this.stop();
+    this.build();
+  };
+
+  FCClock.prototype.reset = function() {
+    this.stop();
+    var container = document.querySelector('#' + this.containerId + ' .fc-clock');
+    if (!container) return;
+    container.innerHTML = '';
+    this.trackers = {};
+    var labels = ['Days', 'Hours', 'Minutes', 'Seconds'];
+    for (var i = 0; i < labels.length; i++) {
+      this.trackers[labels[i]] = new FCCountdownTracker(labels[i], '--');
+      container.appendChild(this.trackers[labels[i]].el);
+    }
+  };
+
+  // Create 3 clock instances
+  var fcClock = new FCClock('flipClock', function() { return window._fcWeddingDate || null; });
+  var p_fcClock = new FCClock('p_flipClock', function() { return window._fcPWeddingDate || null; });
+  var v_fcClock = new FCClock('v_flipClock', function() { return window._fcVWeddingDate || null; });
+
+  // Expose refresh/reset functions globally for hookup
+  window.fcRefreshClock = function() { fcClock.refresh(); };
+  window.p_fcRefreshClock = function() { p_fcClock.refresh(); };
+  window.v_fcRefreshClock = function() { v_fcClock.refresh(); };
+  window.fcResetClock = function() { fcClock.reset(); };
+  window.p_fcResetClock = function() { p_fcClock.reset(); };
+  window.v_fcResetClock = function() { v_fcClock.reset(); };
 })();
 </script>
 
