@@ -1291,11 +1291,53 @@ body { background: #e7e4e6; }
   #tabContent-alacarte [data-step-index="2"] .col-card > img {
     display: none !important;
   }
-  /* Ala-Carte Steps 1-3: left-justify names on mobile */
+  /* Ala-Carte Steps 1-3: grid layout matching Photography Step 2 */
+  #tabContent-alacarte [data-step-index="0"] .col-card,
+  #tabContent-alacarte [data-step-index="1"] .col-card,
+  #tabContent-alacarte [data-step-index="2"] .col-card {
+    display: grid !important;
+    grid-template-columns: 1fr auto !important;
+    grid-template-rows: auto auto !important;
+    align-content: center !important;
+    align-items: center !important;
+    column-gap: 12px !important;
+    row-gap: 0 !important;
+    min-height: 80px !important;
+  }
   #tabContent-alacarte [data-step-index="0"] .col-card .coverage-name,
   #tabContent-alacarte [data-step-index="1"] .col-card .coverage-name,
   #tabContent-alacarte [data-step-index="2"] .col-card .coverage-name {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
     text-align: left !important;
+    font-size: 15px !important;
+    padding: 0 0 5px 0 !important;
+    margin: 0 8px 0 0 !important;
+    border: none !important;
+    border-bottom: 1px solid rgba(0,0,0,0.35) !important;
+    line-height: 1.3 !important;
+    white-space: nowrap !important;
+    width: fit-content !important;
+  }
+  #tabContent-alacarte [data-step-index="0"] .col-card .coverage-price,
+  #tabContent-alacarte [data-step-index="1"] .col-card .coverage-price,
+  #tabContent-alacarte [data-step-index="2"] .col-card .coverage-price {
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+    text-align: left !important;
+    font-size: 16px !important;
+    padding: 5px 0 0 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    line-height: 1.3 !important;
+  }
+  #tabContent-alacarte [data-step-index="0"] .flex.flex-col.items-center.mt-auto,
+  #tabContent-alacarte [data-step-index="1"] .flex.flex-col.items-center.mt-auto,
+  #tabContent-alacarte [data-step-index="2"] .flex.flex-col.items-center.mt-auto {
+    grid-column: 2 !important;
+    grid-row: 1 / -1 !important;
+    margin: 0 !important;
+    flex-direction: row !important;
   }
 
   /* Hide description text on coverage/album/service/credit/collection cards only */
@@ -1935,6 +1977,9 @@ body { background: #e7e4e6; }
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
+    overscroll-behavior: none !important;
+    -webkit-overflow-scrolling: auto !important;
+    touch-action: manipulation !important;
   }
   /* Day grid — fixed layout to prevent resize on selection */
   #dayGrid, #p_dayGrid, #v_dayGrid {
@@ -2654,7 +2699,7 @@ h3.fc-clock-label,
 <!-- Choose a Payment Plan -->
 <div class="flex items-center justify-center gap-3 mb-2 mt-16">
   <img src="https://static.showit.co/file/aPLMXJ_TUyQH5ii36mai5Q/293041/calendar.png" alt="calendar" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
-  <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 5: Choose a Payment Plan</h2>
+  <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl"><span class="hidden md:inline">Step 5: Choose a Payment Plan</span><span class="md:hidden">Step 5: Payment Plans</span></h2>
 </div>
 <p class="text-center text-stone-600 text-lg md:text-xl mb-10">Select your wedding date and choose a payment schedule</p>
 
@@ -2792,7 +2837,7 @@ h3.fc-clock-label,
 <div class="wizard-step" data-step-index="0" data-step-name="Collection">
 <div class="flex items-center justify-center gap-3 mb-2">
   <img src="https://static.showit.co/file/bnOCMC9XnbvrlasKA2Pm0Q/293041/collection.png" alt="collection" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
-  <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 1: Choose a Collection</h2>
+  <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl"><span class="hidden md:inline">Step 1: Choose a Collection</span><span class="md:hidden">Step 1: Wedding Collections</span></h2>
 </div>
 <p class="text-center text-stone-600 text-lg md:text-xl mb-10">I offer customizable packages to suit you and your fiance's every need</p>
 
@@ -2901,7 +2946,7 @@ h3.fc-clock-label,
 <!-- Additional Coverage Time -->
 <div class="flex items-center justify-center gap-3 mb-2 mt-16">
   <img src="https://static.showit.co/file/Q86uOG_Zc1KRe2oQdXaRXA/293041/clock.png" alt="clock" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
-  <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 2: Additional Coverage Time</h2>
+  <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl"><span class="hidden md:inline">Step 2: Additional Coverage Time</span><span class="md:hidden">Step 2: Additional Coverage</span></h2>
 </div>
 <p class="text-center text-stone-600 text-lg md:text-xl mb-10">Need more time? No problem! Add on as much as you like : )</p>
 
@@ -3127,7 +3172,7 @@ h3.fc-clock-label,
 <!-- Choose a Payment Plan -->
 <div class="flex items-center justify-center gap-3 mb-2 mt-16">
   <img src="https://static.showit.co/file/aPLMXJ_TUyQH5ii36mai5Q/293041/calendar.png" alt="calendar" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
-  <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 5: Choose a Payment Plan</h2>
+  <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl"><span class="hidden md:inline">Step 5: Choose a Payment Plan</span><span class="md:hidden">Step 5: Payment Plans</span></h2>
 </div>
 <p class="text-center text-stone-600 text-lg md:text-xl mb-10">Select your wedding date and choose a payment schedule</p>
 
@@ -3276,7 +3321,7 @@ h3.fc-clock-label,
 <div class="wizard-step" data-step-index="0" data-step-name="Package">
 <div class="flex items-center justify-center gap-3 mb-2">
   <img src="https://static.showit.co/file/27pLrmW1fIwbhBNqYK0JEA/293041/videography-coverage.png" alt="video camera" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
-  <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 1: Choose A Video Package</h2>
+  <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 1: Video Packages</h2>
 </div>
 <p class="text-center text-stone-600 text-lg md:text-xl mb-10">Everything included in each videography package</p>
 
@@ -3369,7 +3414,7 @@ h3.fc-clock-label,
 <!-- Step 2: Choose a Payment Plan -->
 <div class="flex items-center justify-center gap-3 mb-2 mt-16">
   <img src="https://static.showit.co/file/aPLMXJ_TUyQH5ii36mai5Q/293041/calendar.png" alt="calendar" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
-  <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 2: Choose a Payment Plan</h2>
+  <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl"><span class="hidden md:inline">Step 2: Choose a Payment Plan</span><span class="md:hidden">Step 2: Payment Plans</span></h2>
 </div>
 <p class="text-center text-stone-600 text-lg md:text-xl mb-10">Select your wedding date and choose a payment schedule</p>
 
@@ -3821,7 +3866,7 @@ function syncDateToOtherTabs(date, source) {
   const yr = date.getFullYear();
   const mo = date.getMonth();
   const dy = date.getDate();
-  const dateStr = `Your Wedding: ${monthNames[mo]} ${dy}, ${yr}`;
+  const dateStr = `Your Wedding Date:<br>${monthNames[mo]} ${dy}, ${yr}`;
 
   if (source !== 'alacarte') {
     weddingDate = new Date(date);
@@ -3830,7 +3875,7 @@ function syncDateToOtherTabs(date, source) {
     setYear(yr);
     if (typeof fcRefreshClock === 'function') fcRefreshClock();
     document.getElementById('selectedDateDisplay').classList.remove('hidden');
-    document.getElementById('selectedDateText').textContent = dateStr;
+    document.getElementById('selectedDateText').innerHTML = dateStr;
     document.getElementById('pickDatePrompt').classList.add('hidden');
     updatePaymentSchedule();
   }
@@ -3841,7 +3886,7 @@ function syncDateToOtherTabs(date, source) {
     p_setYear(yr);
     if (typeof p_fcRefreshClock === 'function') p_fcRefreshClock();
     document.getElementById('p_selectedDateDisplay').classList.remove('hidden');
-    document.getElementById('p_selectedDateText').textContent = dateStr;
+    document.getElementById('p_selectedDateText').innerHTML = dateStr;
     document.getElementById('p_pickDatePrompt').classList.add('hidden');
     p_updatePaymentSchedule();
   }
@@ -3852,7 +3897,7 @@ function syncDateToOtherTabs(date, source) {
     v_setYear(yr);
     if (typeof v_fcRefreshClock === 'function') v_fcRefreshClock();
     document.getElementById('v_selectedDateDisplay').classList.remove('hidden');
-    document.getElementById('v_selectedDateText').textContent = dateStr;
+    document.getElementById('v_selectedDateText').innerHTML = dateStr;
     document.getElementById('v_pickDatePrompt').classList.add('hidden');
     v_updatePaymentSchedule();
   }
@@ -3898,7 +3943,7 @@ function selectDay(d) {
   if (typeof fcRefreshClock === 'function') fcRefreshClock();
   // Show selected date
   document.getElementById('selectedDateDisplay').classList.remove('hidden');
-  document.getElementById('selectedDateText').textContent = `Your Wedding: ${monthNames[weddingDate.getMonth()]} ${weddingDate.getDate()}, ${weddingDate.getFullYear()}`;
+  document.getElementById('selectedDateText').innerHTML = `Your Wedding Date:<br>${monthNames[weddingDate.getMonth()]} ${weddingDate.getDate()}, ${weddingDate.getFullYear()}`;
   // Show payment plan options
   /* payPlanOptions always visible */
   document.getElementById('pickDatePrompt').classList.add('hidden');
@@ -4924,7 +4969,7 @@ function p_selectDay(d) {
   p_renderDays();
   if (typeof p_fcRefreshClock === 'function') p_fcRefreshClock();
   document.getElementById('p_selectedDateDisplay').classList.remove('hidden');
-  document.getElementById('p_selectedDateText').textContent = `Your Wedding: ${monthNames[p_weddingDate.getMonth()]} ${p_weddingDate.getDate()}, ${p_weddingDate.getFullYear()}`;
+  document.getElementById('p_selectedDateText').innerHTML = `Your Wedding Date:<br>${monthNames[p_weddingDate.getMonth()]} ${p_weddingDate.getDate()}, ${p_weddingDate.getFullYear()}`;
   /* p_payPlanOptions always visible */
   document.getElementById('p_pickDatePrompt').classList.add('hidden');
   p_updatePaymentSchedule();
@@ -5259,7 +5304,7 @@ function v_selectDay(d) {
   v_renderDays();
   if (typeof v_fcRefreshClock === 'function') v_fcRefreshClock();
   document.getElementById('v_selectedDateDisplay').classList.remove('hidden');
-  document.getElementById('v_selectedDateText').textContent = `Your Wedding: ${monthNames[v_weddingDate.getMonth()]} ${v_weddingDate.getDate()}, ${v_weddingDate.getFullYear()}`;
+  document.getElementById('v_selectedDateText').innerHTML = `Your Wedding Date:<br>${monthNames[v_weddingDate.getMonth()]} ${v_weddingDate.getDate()}, ${v_weddingDate.getFullYear()}`;
   /* v_payPlanOptions always visible */
   document.getElementById('v_pickDatePrompt').classList.add('hidden');
   v_updatePaymentSchedule();
