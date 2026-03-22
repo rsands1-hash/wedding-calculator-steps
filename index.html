@@ -1298,14 +1298,17 @@ body { background: #e7e4e6; }
     justify-self: start !important;
     text-align: left !important;
     font-size: 15px !important;
-    padding: 0 0 5px 0 !important;
+    padding: 0 !important;
     margin: 0 !important;
     border: none !important;
-    border-bottom: 1px solid rgba(0,0,0,0.35) !important;
     line-height: 1.3 !important;
     white-space: normal !important;
-    width: fit-content !important;
-    max-width: fit-content !important;
+  }
+  #tabContent-alacarte [data-step-index="2"] .coverage-name .name-underline,
+  #tabContent-photography [data-step-index="2"] .coverage-name .name-underline {
+    display: inline-block !important;
+    border-bottom: 1px solid rgba(0,0,0,0.35) !important;
+    padding-bottom: 5px !important;
   }
   #tabContent-alacarte [data-step-index="2"] .coverage-name .fc-line2,
   #tabContent-photography [data-step-index="2"] .coverage-name .fc-line2 {
@@ -1923,14 +1926,11 @@ body { background: #e7e4e6; }
     justify-self: start !important;
     text-align: left !important;
     font-size: 15px !important;
-    padding: 0 0 5px 0 !important;
+    padding: 0 !important;
     margin: 0 !important;
     border: none !important;
-    border-bottom: 1px solid rgba(0,0,0,0.35) !important;
     line-height: 1.3 !important;
     white-space: normal !important;
-    width: fit-content !important;
-    max-width: fit-content !important;
   }
   #tabContent-photography [data-step-index="1"] .coverage-price,
   #tabContent-photography [data-step-index="2"] .coverage-price {
@@ -2560,7 +2560,7 @@ h3.fc-clock-label,
   <!-- 30 Minute Engagement Session -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-service="engagement_30min">
     <img src="https://static.showit.co/file/eTv486_m5iEjoOQD8HEQzw/293041/engagement-session.png" alt="30 Min Engagement" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
-    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center"><span class="fc-line1">30 Minute</span> <span class="fc-line2">Engagement Session</span></div>
+    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center"><span class="name-underline"><span class="fc-line1">30 Minute</span> <span class="fc-line2">Engagement Session</span></span></div>
     <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$300</div>
     <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">A quick and fun portrait session to celebrate your engagement together.</p>
     <div class="flex flex-col items-center mt-auto">
@@ -2576,7 +2576,7 @@ h3.fc-clock-label,
   <!-- 1 Hour Engagement Session -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-service="engagement_session">
     <img src="https://static.showit.co/file/ze8z3dNzN-JHGQ9Mn5TG-w/293041/engagement-session-1hr.png" alt="1 Hour Engagement" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
-    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center"><span class="fc-line1">One Hour</span> <span class="fc-line2">Engagement Session</span></div>
+    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center"><span class="name-underline"><span class="fc-line1">One Hour</span> <span class="fc-line2">Engagement Session</span></span></div>
     <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$600</div>
     <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">A full portrait session with time for outfit changes and multiple locations.</p>
     <div class="flex flex-col items-center mt-auto">
@@ -2592,7 +2592,7 @@ h3.fc-clock-label,
   <!-- Bridal Shower Coverage -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-service="bridal_shower">
     <img src="https://static.showit.co/file/ZZxaw2O1AuvEtOS51atIgA/293041/bridal-shower.png" alt="Bridal Shower" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
-    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">Bridal Shower Coverage</div>
+    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center"><span class="name-underline">Bridal Shower Coverage</span></div>
     <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$300/hr</div>
     <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">Capture all the fun, laughter, and love shared at your bridal shower celebration.</p>
     <div class="flex flex-col items-center mt-auto">
@@ -2608,7 +2608,7 @@ h3.fc-clock-label,
   <!-- Rehearsal Dinner Coverage -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-service="rehearsal_dinner">
     <img src="https://static.showit.co/file/5aAsyau8JQLDrdxu8Gp-yw/293041/rehearsal-dinner.png" alt="Rehearsal Dinner" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
-    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">Rehearsal Dinner Coverage</div>
+    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center"><span class="name-underline">Rehearsal Dinner Coverage</span></div>
     <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$300/hr</div>
     <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">Document the toasts, laughter, and memories the night before your wedding.</p>
     <div class="flex flex-col items-center mt-auto">
@@ -3033,7 +3033,7 @@ h3.fc-clock-label,
   <!-- 30 Minute Engagement Session (mobile only) -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px] md:!hidden" data-p-service="engagement_30min">
     <img src="https://static.showit.co/file/eTv486_m5iEjoOQD8HEQzw/293041/engagement-session.png" alt="30 Min Engagement" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
-    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center"><span class="fc-line1">30 Minute</span> <span class="fc-line2">Engagement Session</span></div>
+    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center"><span class="name-underline"><span class="fc-line1">30 Minute</span> <span class="fc-line2">Engagement Session</span></span></div>
     <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$300</div>
     <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">A quick and fun portrait session to celebrate your engagement together.</p>
     <div class="flex flex-col items-center mt-auto">
@@ -3049,7 +3049,7 @@ h3.fc-clock-label,
   <!-- One Hour Engagement Session (mobile only) -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px] md:!hidden" data-p-service="engagement_session">
     <img src="https://static.showit.co/file/ze8z3dNzN-JHGQ9Mn5TG-w/293041/engagement-session-1hr.png" alt="1 Hour Engagement" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
-    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center"><span class="fc-line1">One Hour</span> <span class="fc-line2">Engagement Session</span></div>
+    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center"><span class="name-underline"><span class="fc-line1">One Hour</span> <span class="fc-line2">Engagement Session</span></span></div>
     <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$600</div>
     <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">A full portrait session with time for outfit changes and multiple locations.</p>
     <div class="flex flex-col items-center mt-auto">
@@ -3065,7 +3065,7 @@ h3.fc-clock-label,
   <!-- Bridal Shower Coverage -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-p-service="bridal_shower">
     <img src="https://static.showit.co/file/ZZxaw2O1AuvEtOS51atIgA/293041/bridal-shower.png" alt="Bridal Shower" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
-    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">Bridal Shower Coverage</div>
+    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center"><span class="name-underline">Bridal Shower Coverage</span></div>
     <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$300/hr</div>
     <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">Capture all the fun, laughter, and love shared at your bridal shower celebration.</p>
     <div class="flex flex-col items-center mt-auto">
@@ -3081,7 +3081,7 @@ h3.fc-clock-label,
   <!-- Rehearsal Dinner Coverage -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-p-service="rehearsal_dinner">
     <img src="https://static.showit.co/file/5aAsyau8JQLDrdxu8Gp-yw/293041/rehearsal-dinner.png" alt="Rehearsal Dinner" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
-    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">Rehearsal Dinner Coverage</div>
+    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center"><span class="name-underline">Rehearsal Dinner Coverage</span></div>
     <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$300/hr</div>
     <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">Document the toasts, laughter, and memories the night before your wedding.</p>
     <div class="flex flex-col items-center mt-auto">
