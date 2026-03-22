@@ -2140,6 +2140,16 @@ body { background: #e7e4e6; }
     overflow: visible !important;
     text-overflow: unset !important;
   }
+  /* Steps with grid layout: name must NOT stretch — divider line stays with text */
+  #tabContent-photography [data-step-index="1"] .col-card .coverage-name,
+  #tabContent-photography [data-step-index="2"] .col-card .coverage-name,
+  #tabContent-alacarte [data-step-index="0"] .col-card .coverage-name,
+  #tabContent-alacarte [data-step-index="1"] .col-card .coverage-name,
+  #tabContent-alacarte [data-step-index="2"] .col-card .coverage-name {
+    width: fit-content !important;
+    flex: none !important;
+    justify-self: start !important;
+  }
   /* Sub-labels like "(30 Pages)" — hide on mobile row view */
   .col-card .text-stone-400.mb-1 {
     display: none !important;
