@@ -33,7 +33,7 @@ body { background: #e7e4e6; }
   100% { background-position: 200% 50%; }
 }
 .glow-text {
-  background: linear-gradient(90deg, #c0baff, #ddd6fe, #f0abfc, #f2a5b8, #fcd5e0, #e0c3fc, #e9d5ff, #c7d2fe, #bae6fd, #f5e6c0, #d0c8fe, #fbc4e0, #f2a5b8, #c0baff);
+  background: linear-gradient(90deg, #c0baff, #ddd6fe, #f0abfc, #f2a5b8, #fcd5e0, #e0c3fc, #e9d5ff, #c7d2fe, #bae6fd, #d0c8fe, #d0c8fe, #fbc4e0, #f2a5b8, #c0baff);
   background-size: 300% 300%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -62,7 +62,7 @@ body { background: #e7e4e6; }
   content: '';
   position: absolute;
   top: -4px; left: -4px; right: -4px; bottom: -4px;
-  background: linear-gradient(90deg, #7c6aff, #a78bff, #d946ef, #e63983, #f472b6, #b84ddf, #c084fc, #7c8aff, #60b5f7, #f0c050, #9080ff, #f472b6, #e63983, #7c6aff);
+  background: linear-gradient(90deg, #7c6aff, #a78bff, #d946ef, #e63983, #f472b6, #b84ddf, #c084fc, #7c8aff, #60b5f7, #9080ff, #9080ff, #f472b6, #e63983, #7c6aff);
   background-size: 300% 100%;
   border-radius: 20px;
   z-index: -2;
@@ -81,7 +81,7 @@ body { background: #e7e4e6; }
 .col-card.col-active[data-pay-method] img,
 .col-card.col-active[data-p-pay-method] img,
 .col-card.col-active[data-v-pay-method] img {
-  filter: drop-shadow(0 0 3px rgba(124,106,255,1)) drop-shadow(0 0 5px rgba(217,70,239,1));
+  filter: none;
   transition: filter 0.3s ease;
 }
 [data-credit] > p:first-of-type,
@@ -146,7 +146,7 @@ body { background: #e7e4e6; }
   }
 }
 .col-card.col-active .col-card-name {
-  background: linear-gradient(90deg, #c0baff, #ddd6fe, #f0abfc, #f2a5b8, #fcd5e0, #e0c3fc, #e9d5ff, #c7d2fe, #bae6fd, #f5e6c0, #d0c8fe, #fbc4e0, #f2a5b8, #c0baff);
+  background: linear-gradient(90deg, #c0baff, #ddd6fe, #f0abfc, #f2a5b8, #fcd5e0, #e0c3fc, #e9d5ff, #c7d2fe, #bae6fd, #d0c8fe, #d0c8fe, #fbc4e0, #f2a5b8, #c0baff);
   background-size: 300% 300%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -154,7 +154,7 @@ body { background: #e7e4e6; }
   animation: glowDrift 20s linear infinite;
 }
 .col-card.col-active .col-card-price {
-  background: linear-gradient(90deg, #c0baff, #ddd6fe, #f0abfc, #f2a5b8, #fcd5e0, #e0c3fc, #e9d5ff, #c7d2fe, #bae6fd, #f5e6c0, #d0c8fe, #fbc4e0, #f2a5b8, #c0baff);
+  background: linear-gradient(90deg, #c0baff, #ddd6fe, #f0abfc, #f2a5b8, #fcd5e0, #e0c3fc, #e9d5ff, #c7d2fe, #bae6fd, #d0c8fe, #d0c8fe, #fbc4e0, #f2a5b8, #c0baff);
   background-size: 300% 300%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -163,13 +163,13 @@ body { background: #e7e4e6; }
 }
 .col-card.col-active .col-card-badge {
   border-bottom: 1px solid transparent;
-  border-image: linear-gradient(90deg, #c0baff, #ddd6fe, #f0abfc, #f2a5b8, #fcd5e0, #e0c3fc, #e9d5ff, #c7d2fe, #bae6fd, #f5e6c0, #d0c8fe, #fbc4e0, #f2a5b8, #c0baff) 1;
+  border-image: linear-gradient(90deg, #c0baff, #ddd6fe, #f0abfc, #f2a5b8, #fcd5e0, #e0c3fc, #e9d5ff, #c7d2fe, #bae6fd, #d0c8fe, #d0c8fe, #fbc4e0, #f2a5b8, #c0baff) 1;
 }
 /* Glow text for payment methods (use <p> not .col-card-name) */
 .col-card.col-active[data-pay-method] > p,
 .col-card.col-active[data-p-pay-method] > p,
 .col-card.col-active[data-v-pay-method] > p {
-  background: linear-gradient(90deg, #c0baff, #ddd6fe, #f0abfc, #f2a5b8, #fcd5e0, #e0c3fc, #e9d5ff, #c7d2fe, #bae6fd, #f5e6c0, #d0c8fe, #fbc4e0, #f2a5b8, #c0baff);
+  background: linear-gradient(90deg, #c0baff, #ddd6fe, #f0abfc, #f2a5b8, #fcd5e0, #e0c3fc, #e9d5ff, #c7d2fe, #bae6fd, #d0c8fe, #d0c8fe, #fbc4e0, #f2a5b8, #c0baff);
   background-size: 300% 300%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -338,7 +338,7 @@ body { background: #e7e4e6; }
   content: '';
   position: absolute;
   top: -4px; left: -4px; right: -4px; bottom: -4px;
-  background: linear-gradient(90deg, #7c6aff, #a78bff, #d946ef, #e63983, #f472b6, #b84ddf, #c084fc, #7c8aff, #60b5f7, #f0c050, #9080ff, #f472b6, #e63983, #7c6aff);
+  background: linear-gradient(90deg, #7c6aff, #a78bff, #d946ef, #e63983, #f472b6, #b84ddf, #c084fc, #7c8aff, #60b5f7, #9080ff, #9080ff, #f472b6, #e63983, #7c6aff);
   background-size: 300% 100%;
   border-radius: 20px;
   z-index: -2;
@@ -355,7 +355,7 @@ body { background: #e7e4e6; }
   z-index: -1;
 }
 .coverage-active .coverage-name {
-  background: linear-gradient(90deg, #c0baff, #ddd6fe, #f0abfc, #f2a5b8, #fcd5e0, #e0c3fc, #e9d5ff, #c7d2fe, #bae6fd, #f5e6c0, #d0c8fe, #fbc4e0, #f2a5b8, #c0baff);
+  background: linear-gradient(90deg, #c0baff, #ddd6fe, #f0abfc, #f2a5b8, #fcd5e0, #e0c3fc, #e9d5ff, #c7d2fe, #bae6fd, #d0c8fe, #d0c8fe, #fbc4e0, #f2a5b8, #c0baff);
   background-size: 300% 300%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -363,7 +363,7 @@ body { background: #e7e4e6; }
   animation: glowDrift 20s linear infinite;
 }
 .coverage-active .coverage-price {
-  background: linear-gradient(90deg, #c0baff, #ddd6fe, #f0abfc, #f2a5b8, #fcd5e0, #e0c3fc, #e9d5ff, #c7d2fe, #bae6fd, #f5e6c0, #d0c8fe, #fbc4e0, #f2a5b8, #c0baff);
+  background: linear-gradient(90deg, #c0baff, #ddd6fe, #f0abfc, #f2a5b8, #fcd5e0, #e0c3fc, #e9d5ff, #c7d2fe, #bae6fd, #d0c8fe, #d0c8fe, #fbc4e0, #f2a5b8, #c0baff);
   background-size: 300% 300%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -1184,7 +1184,7 @@ body { background: #e7e4e6; }
     display: block !important;
     position: absolute !important;
     top: -3px !important; left: -3px !important; right: -3px !important; bottom: -3px !important;
-    background: linear-gradient(90deg, #7c6aff, #a78bff, #d946ef, #e63983, #f472b6, #b84ddf, #c084fc, #7c8aff, #60b5f7, #f0c050, #9080ff, #f472b6, #e63983, #7c6aff) !important;
+    background: linear-gradient(90deg, #7c6aff, #a78bff, #d946ef, #e63983, #f472b6, #b84ddf, #c084fc, #7c8aff, #60b5f7, #9080ff, #9080ff, #f472b6, #e63983, #7c6aff) !important;
     background-size: 300% 100% !important;
     border-radius: 16px !important;
     z-index: -2 !important;
@@ -1212,7 +1212,7 @@ body { background: #e7e4e6; }
     display: block !important;
     position: absolute !important;
     top: -3px !important; left: -3px !important; right: -3px !important; bottom: -3px !important;
-    background: linear-gradient(90deg, #7c6aff, #a78bff, #d946ef, #e63983, #f472b6, #b84ddf, #c084fc, #7c8aff, #60b5f7, #f0c050, #9080ff, #f472b6, #e63983, #7c6aff) !important;
+    background: linear-gradient(90deg, #7c6aff, #a78bff, #d946ef, #e63983, #f472b6, #b84ddf, #c084fc, #7c8aff, #60b5f7, #9080ff, #9080ff, #f472b6, #e63983, #7c6aff) !important;
     background-size: 300% 100% !important;
     border-radius: 16px !important;
     z-index: -2 !important;
@@ -1255,8 +1255,8 @@ body { background: #e7e4e6; }
     flex: 1;
     min-width: 0;
   }
-  .coverage-name br { content: ' '; display: inline !important; }
-  .coverage-name br::after { content: ' '; }
+  .coverage-name br:not(.md\:hidden) { content: ' '; display: inline !important; }
+  .coverage-name br:not(.md\:hidden)::after { content: ' '; }
 
   .coverage-price,
   .col-card-price,
@@ -1305,8 +1305,7 @@ body { background: #e7e4e6; }
     min-height: 80px !important;
   }
   #tabContent-alacarte [data-step-index="0"] .col-card .coverage-name,
-  #tabContent-alacarte [data-step-index="1"] .col-card .coverage-name,
-  #tabContent-alacarte [data-step-index="2"] .col-card .coverage-name {
+  #tabContent-alacarte [data-step-index="1"] .col-card .coverage-name {
     grid-column: 1 !important;
     grid-row: 1 !important;
     text-align: left !important;
@@ -1318,6 +1317,22 @@ body { background: #e7e4e6; }
     line-height: 1.3 !important;
     white-space: nowrap !important;
     width: fit-content !important;
+  }
+  #tabContent-alacarte [data-step-index="2"] .col-card .coverage-name {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    text-align: left !important;
+    font-size: 15px !important;
+    padding: 0 0 5px 0 !important;
+    margin: 0 8px 0 0 !important;
+    border: none !important;
+    border-bottom: 1px solid rgba(0,0,0,0.35) !important;
+    line-height: 1.3 !important;
+    white-space: normal !important;
+    width: fit-content !important;
+  }
+  #tabContent-alacarte [data-step-index="2"] .coverage-name .fc-line2 {
+    display: block !important;
   }
   #tabContent-alacarte [data-step-index="0"] .col-card .coverage-price,
   #tabContent-alacarte [data-step-index="1"] .col-card .coverage-price,
@@ -1580,7 +1595,7 @@ body { background: #e7e4e6; }
   }
   .coverage-active .coverage-name,
   .coverage-active .col-card-name {
-    background: linear-gradient(90deg, #c0baff, #ddd6fe, #f0abfc, #f2a5b8, #fcd5e0, #e0c3fc, #e9d5ff, #c7d2fe, #bae6fd, #f5e6c0, #d0c8fe, #fbc4e0, #f2a5b8, #c0baff) !important;
+    background: linear-gradient(90deg, #c0baff, #ddd6fe, #f0abfc, #f2a5b8, #fcd5e0, #e0c3fc, #e9d5ff, #c7d2fe, #bae6fd, #d0c8fe, #d0c8fe, #fbc4e0, #f2a5b8, #c0baff) !important;
     background-size: 300% 300% !important;
     -webkit-background-clip: text !important;
     background-clip: text !important;
@@ -1589,7 +1604,7 @@ body { background: #e7e4e6; }
   }
   .coverage-active .coverage-price,
   .coverage-active .col-card-price {
-    background: linear-gradient(90deg, #c0baff, #ddd6fe, #f0abfc, #f2a5b8, #fcd5e0, #e0c3fc, #e9d5ff, #c7d2fe, #bae6fd, #f5e6c0, #d0c8fe, #fbc4e0, #f2a5b8, #c0baff) !important;
+    background: linear-gradient(90deg, #c0baff, #ddd6fe, #f0abfc, #f2a5b8, #fcd5e0, #e0c3fc, #e9d5ff, #c7d2fe, #bae6fd, #d0c8fe, #d0c8fe, #fbc4e0, #f2a5b8, #c0baff) !important;
     background-size: 300% 300% !important;
     -webkit-background-clip: text !important;
     background-clip: text !important;
@@ -2174,7 +2189,7 @@ body { background: #e7e4e6; }
   .col-card.col-active[data-pay-method] > p,
   .col-card.col-active[data-p-pay-method] > p,
   .col-card.col-active[data-v-pay-method] > p {
-    background: linear-gradient(90deg, #c0baff, #ddd6fe, #f0abfc, #f2a5b8, #fcd5e0, #e0c3fc, #e9d5ff, #c7d2fe, #bae6fd, #f5e6c0, #d0c8fe, #fbc4e0, #f2a5b8, #c0baff) !important;
+    background: linear-gradient(90deg, #c0baff, #ddd6fe, #f0abfc, #f2a5b8, #fcd5e0, #e0c3fc, #e9d5ff, #c7d2fe, #bae6fd, #d0c8fe, #d0c8fe, #fbc4e0, #f2a5b8, #c0baff) !important;
     background-size: 300% 300% !important;
     -webkit-background-clip: text !important;
     background-clip: text !important;
@@ -2183,7 +2198,7 @@ body { background: #e7e4e6; }
   }
   .col-card.col-active .col-card-name,
   .col-card.col-active .col-card-price {
-    background: linear-gradient(90deg, #c0baff, #ddd6fe, #f0abfc, #f2a5b8, #fcd5e0, #e0c3fc, #e9d5ff, #c7d2fe, #bae6fd, #f5e6c0, #d0c8fe, #fbc4e0, #f2a5b8, #c0baff) !important;
+    background: linear-gradient(90deg, #c0baff, #ddd6fe, #f0abfc, #f2a5b8, #fcd5e0, #e0c3fc, #e9d5ff, #c7d2fe, #bae6fd, #d0c8fe, #d0c8fe, #fbc4e0, #f2a5b8, #c0baff) !important;
     background-size: 300% 300% !important;
     -webkit-background-clip: text !important;
     background-clip: text !important;
@@ -2276,10 +2291,6 @@ h3.fc-clock-label,
   align-items: center;
   flex: 1 1 0;
   min-width: 0;
-  transition: flex 0.3s ease;
-}
-.fc-piece.fc-wide {
-  flex: 1.5 1 0;
 }
 .fc-slot {
   font-size: clamp(11px, 2.5vw, 16px);
@@ -2294,7 +2305,7 @@ h3.fc-clock-label,
   display: block;
   position: relative;
   padding-bottom: 0.72em;
-  font-size: clamp(32px, 9vw, 90px);
+  font-size: clamp(28px, 7vw, 90px);
   line-height: 0.95;
   width: 100%;
 }
@@ -2314,6 +2325,7 @@ h3.fc-clock-label,
   width: 100%;
   text-align: center;
   transform: translateZ(0);
+  overflow: hidden;
 }
 .fc-card__bottom {
   color: #fff;
@@ -2355,8 +2367,8 @@ h3.fc-clock-label,
 }
 .fc-flip .fc-card__back .fc-card__bottom {
   transform-origin: center top;
-  animation-fill-mode: both;
   animation: fcFlipBottom 0.6s cubic-bezier(.15,.45,.28,1);
+  animation-fill-mode: both;
 }
 </style>
 </head>
@@ -2373,9 +2385,9 @@ h3.fc-clock-label,
     <div class="flex-1 lg:flex-initial lg:w-[65%]">
       <div class="tab-header">
         <div class="tab-slider" id="mainTabSlider" style="left: var(--tab-pad, 6px); right: calc(66.666% - var(--tab-pad, 6px) / 3);"></div>
-        <button onclick="setMainTab('photography')" class="tab-label tab-active" id="tabPhotography"><span class="hidden md:inline">Photography</span><span class="md:hidden">Photo</span></button>
-        <button onclick="setMainTab('videography')" class="tab-label" id="tabVideography"><span class="hidden md:inline">Videography</span><span class="md:hidden">Video</span></button>
-        <button onclick="setMainTab('alacarte')" class="tab-label" id="tabAlacarte"><span class="hidden md:inline">À La Carte</span><span class="md:hidden">Ala-Carte</span></button>
+        <button onclick="setMainTab('photography')" class="tab-label tab-active" id="tabPhotography">Photo</button>
+        <button onclick="setMainTab('videography')" class="tab-label" id="tabVideography">Video</button>
+        <button onclick="setMainTab('alacarte')" class="tab-label" id="tabAlacarte"><span class="hidden md:inline">à la carte</span><span class="md:hidden">à la carte</span></button>
       </div>
     </div>
     <div class="hidden md:flex items-center justify-evenly lg:w-[35%]">
@@ -2559,7 +2571,7 @@ h3.fc-clock-label,
   <!-- 30 Minute Engagement Session -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-service="engagement_30min">
     <img src="https://static.showit.co/file/eTv486_m5iEjoOQD8HEQzw/293041/engagement-session.png" alt="30 Min Engagement" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
-    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">30 Minute Engagement Session</div>
+    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center"><span class="fc-line1">30 Minute</span> <span class="fc-line2">Engagement Session</span></div>
     <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$300</div>
     <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">A quick and fun portrait session to celebrate your engagement together.</p>
     <div class="flex flex-col items-center mt-auto">
@@ -2575,7 +2587,7 @@ h3.fc-clock-label,
   <!-- 1 Hour Engagement Session -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-service="engagement_session">
     <img src="https://static.showit.co/file/ze8z3dNzN-JHGQ9Mn5TG-w/293041/engagement-session-1hr.png" alt="1 Hour Engagement" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
-    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">1 Hour Engagement Session</div>
+    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center"><span class="fc-line1">One Hour</span> <span class="fc-line2">Engagement Session</span></div>
     <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$600</div>
     <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">A full portrait session with time for outfit changes and multiple locations.</p>
     <div class="flex flex-col items-center mt-auto">
@@ -2591,7 +2603,7 @@ h3.fc-clock-label,
   <!-- Bridal Shower Coverage -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-service="bridal_shower">
     <img src="https://static.showit.co/file/ZZxaw2O1AuvEtOS51atIgA/293041/bridal-shower.png" alt="Bridal Shower" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
-    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">Bridal Shower Photo Coverage</div>
+    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">Bridal Shower Coverage</div>
     <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$300/hr</div>
     <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">Capture all the fun, laughter, and love shared at your bridal shower celebration.</p>
     <div class="flex flex-col items-center mt-auto">
@@ -2607,7 +2619,7 @@ h3.fc-clock-label,
   <!-- Rehearsal Dinner Coverage -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-service="rehearsal_dinner">
     <img src="https://static.showit.co/file/5aAsyau8JQLDrdxu8Gp-yw/293041/rehearsal-dinner.png" alt="Rehearsal Dinner" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
-    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">Rehearsal Dinner Photo Coverage</div>
+    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">Rehearsal Dinner Coverage</div>
     <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$300/hr</div>
     <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">Document the toasts, laughter, and memories the night before your wedding.</p>
     <div class="flex flex-col items-center mt-auto">
@@ -2758,7 +2770,7 @@ h3.fc-clock-label,
 
       <!-- Flip-Clock Countdown -->
       <div id="flipClock" class="fc-clock-wrapper">
-        <h3 class="fc-clock-label">Countdown to Your Wedding Day 💒</h3>
+        <h3 class="fc-clock-label">Countdown to<br class="md:hidden"> Your Wedding Day 💒</h3>
         <div class="fc-clock"></div>
       </div>
 
@@ -3032,7 +3044,7 @@ h3.fc-clock-label,
   <!-- 30 Minute Engagement Session (mobile only) -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px] md:!hidden" data-p-service="engagement_30min">
     <img src="https://static.showit.co/file/eTv486_m5iEjoOQD8HEQzw/293041/engagement-session.png" alt="30 Min Engagement" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
-    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">30 Minute Engagement Session</div>
+    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center"><span class="fc-line1">30 Minute</span> <span class="fc-line2">Engagement Session</span></div>
     <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$300</div>
     <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">A quick and fun portrait session to celebrate your engagement together.</p>
     <div class="flex flex-col items-center mt-auto">
@@ -3045,10 +3057,10 @@ h3.fc-clock-label,
     </div>
   </div>
 
-  <!-- 1 Hour Engagement Session (mobile only) -->
+  <!-- One Hour Engagement Session (mobile only) -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px] md:!hidden" data-p-service="engagement_session">
     <img src="https://static.showit.co/file/ze8z3dNzN-JHGQ9Mn5TG-w/293041/engagement-session-1hr.png" alt="1 Hour Engagement" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
-    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">1 Hour Engagement Session</div>
+    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center"><span class="fc-line1">One Hour</span> <span class="fc-line2">Engagement Session</span></div>
     <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$600</div>
     <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">A full portrait session with time for outfit changes and multiple locations.</p>
     <div class="flex flex-col items-center mt-auto">
@@ -3064,7 +3076,7 @@ h3.fc-clock-label,
   <!-- Bridal Shower Coverage -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-p-service="bridal_shower">
     <img src="https://static.showit.co/file/ZZxaw2O1AuvEtOS51atIgA/293041/bridal-shower.png" alt="Bridal Shower" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
-    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">Bridal Shower Photo Coverage</div>
+    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">Bridal Shower Coverage</div>
     <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$300/hr</div>
     <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">Capture all the fun, laughter, and love shared at your bridal shower celebration.</p>
     <div class="flex flex-col items-center mt-auto">
@@ -3080,7 +3092,7 @@ h3.fc-clock-label,
   <!-- Rehearsal Dinner Coverage -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-p-service="rehearsal_dinner">
     <img src="https://static.showit.co/file/5aAsyau8JQLDrdxu8Gp-yw/293041/rehearsal-dinner.png" alt="Rehearsal Dinner" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
-    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">Rehearsal Dinner Photo Coverage</div>
+    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">Rehearsal Dinner Coverage</div>
     <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$300/hr</div>
     <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">Document the toasts, laughter, and memories the night before your wedding.</p>
     <div class="flex flex-col items-center mt-auto">
@@ -3231,7 +3243,7 @@ h3.fc-clock-label,
 
       <!-- Flip-Clock Countdown -->
       <div id="p_flipClock" class="fc-clock-wrapper">
-        <h3 class="fc-clock-label">Countdown to Your Wedding Day 💒</h3>
+        <h3 class="fc-clock-label">Countdown to<br class="md:hidden"> Your Wedding Day 💒</h3>
         <div class="fc-clock"></div>
       </div>
 
@@ -3473,7 +3485,7 @@ h3.fc-clock-label,
 
       <!-- Flip-Clock Countdown -->
       <div id="v_flipClock" class="fc-clock-wrapper">
-        <h3 class="fc-clock-label">Countdown to Your Wedding Day 💒</h3>
+        <h3 class="fc-clock-label">Countdown to<br class="md:hidden"> Your Wedding Day 💒</h3>
         <div class="fc-clock"></div>
       </div>
 
@@ -3528,7 +3540,7 @@ h3.fc-clock-label,
 </div>
 <p class="text-center text-stone-600 text-lg md:text-xl mb-10">Review your selections and see your total investment</p>
 
-<div class="max-w-6xl mx-auto">
+<div class="max-w-6xl mx-auto" style="max-width:36rem">
   <div class="col-card p-[15px] md:p-[24px]" id="v_investmentBox">
     <div class="flex items-center gap-3 mb-4">
       <img src="https://static.showit.co/file/ueHGE8iMCHrL5egxLgOVLQ/293041/cash.png" alt="cash" style="width:3.25rem;height:3.25rem;object-fit:contain">
@@ -3758,11 +3770,14 @@ function toggleCreditCard(card) {
 // Unlock More Credits
 function toggleUnlock(cb) {
   const label = cb.closest('.anim-cb');
+  const card = cb.closest('.col-card');
   const txt = label.querySelector('span:last-child');
   if (cb.checked) {
     txt.className = 'text-green-700';
+    if (card) card.classList.add('col-active');
   } else {
     txt.className = 'text-stone-700';
+    if (card) card.classList.remove('col-active');
   }
   txt.style.fontSize = '17px';
   updatePaymentSchedule();
@@ -4172,7 +4187,7 @@ const coverageNames = { photo: 'Additional Photography Coverage', video: 'Additi
 const coveragePrices = { photo: 300, video: 300, second: 150, content: 150 };
 const albumNames = { album_8x8: '8x8 Album', album_10x10: '10x10 Album', album_12x12: '12x12 Album', parent_album: 'Parent Album' };
 const albumPrices = { album_8x8: 300, album_10x10: 400, album_12x12: 500, parent_album: 500 };
-const serviceNames = { engagement_30min: '30 Minute Engagement Session', engagement_session: '1 Hour Engagement Session', bridal_shower: 'Bridal Shower Photo Coverage', rehearsal_dinner: 'Rehearsal Dinner Photo Coverage' };
+const serviceNames = { engagement_30min: '30 Minute Engagement Session', engagement_session: 'One Hour Engagement Session', bridal_shower: 'Bridal Shower Coverage', rehearsal_dinner: 'Rehearsal Dinner Coverage' };
 const servicePrices = { engagement_30min: 300, engagement_session: 600, bridal_shower: 300, rehearsal_dinner: 300 };
 
 function renderInvestment() {
@@ -4400,9 +4415,9 @@ function resetAll() {
   }
   // Reset unlock credits
   const consultCb = document.getElementById('consultationCb');
-  if (consultCb) { consultCb.checked = false; const txt = consultCb.closest('.anim-cb').querySelector('span:last-child'); txt.className = 'text-stone-700'; }
+  if (consultCb) { consultCb.checked = false; const txt = consultCb.closest('.anim-cb').querySelector('span:last-child'); txt.className = 'text-stone-700'; const card = consultCb.closest('.col-card'); if (card) card.classList.remove('col-active'); }
   const instaCb = document.getElementById('instagramCb');
-  if (instaCb) { instaCb.checked = false; const txt = instaCb.closest('.anim-cb').querySelector('span:last-child'); txt.className = 'text-stone-700'; }
+  if (instaCb) { instaCb.checked = false; const txt = instaCb.closest('.anim-cb').querySelector('span:last-child'); txt.className = 'text-stone-700'; const card = instaCb.closest('.col-card'); if (card) card.classList.remove('col-active'); }
   // Reset payment method back to Venmo
   paymentMethod = 'venmo';
   const payMethodGrid = document.getElementById('payMethodGrid');
@@ -4889,8 +4904,10 @@ function p_toggleCreditCard(card) {
 
 function p_toggleUnlock(cb) {
   const label = cb.closest('.anim-cb');
+  const card = cb.closest('.col-card');
   const txt = label.querySelector('span:last-child');
   txt.className = cb.checked ? 'text-green-700' : 'text-stone-700';
+  if (card) { if (cb.checked) card.classList.add('col-active'); else card.classList.remove('col-active'); }
   txt.style.fontSize = '17px';
   p_renderInvestment();
   p_updatePaymentSchedule();
@@ -5166,9 +5183,9 @@ function p_resetAll() {
   const p_creditGridReset = document.getElementById('p_serviceCreditsList');
   if (p_creditGridReset) { p_creditGridReset.querySelectorAll('[data-p-credit]').forEach(c => { c.classList.remove('col-active'); c.style.opacity = '1'; c.style.pointerEvents = 'auto'; }); }
   const consultCb = document.getElementById('p_consultationCb');
-  if (consultCb) { consultCb.checked = false; const txt = consultCb.closest('.anim-cb').querySelector('span:last-child'); txt.className = 'text-stone-700'; }
+  if (consultCb) { consultCb.checked = false; const txt = consultCb.closest('.anim-cb').querySelector('span:last-child'); txt.className = 'text-stone-700'; const card = consultCb.closest('.col-card'); if (card) card.classList.remove('col-active'); }
   const instaCb = document.getElementById('p_instagramCb');
-  if (instaCb) { instaCb.checked = false; const txt = instaCb.closest('.anim-cb').querySelector('span:last-child'); txt.className = 'text-stone-700'; }
+  if (instaCb) { instaCb.checked = false; const txt = instaCb.closest('.anim-cb').querySelector('span:last-child'); txt.className = 'text-stone-700'; const card = instaCb.closest('.col-card'); if (card) card.classList.remove('col-active'); }
   p_paymentMethod = 'venmo';
   const p_payMethodGrid = document.getElementById('p_payMethodGrid');
   if (p_payMethodGrid) { p_payMethodGrid.querySelectorAll('[data-p-pay-method]').forEach(c => { c.classList.toggle('col-active', c.dataset.pPayMethod === 'venmo'); }); }
@@ -6084,9 +6101,9 @@ v_initCalendar();
     this.update = function(val) {
       val = String(val);
       if (val !== '--' && val.length < 2) val = '0' + val;
-      // Auto-widen for 3+ digit values
-      if (val.length >= 3) { el.classList.add('fc-wide'); }
-      else { el.classList.remove('fc-wide'); }
+      // Widen piece for 3+ digit values so they fit at full font size
+      if (val.length >= 3) { el.style.flex = '1.4 1 0'; }
+      else { el.style.flex = ''; }
       if (val !== this.currentValue) {
         if (this.currentValue !== '') {
           back.setAttribute('data-value', this.currentValue);
@@ -6129,6 +6146,7 @@ v_initCalendar();
   };
 
   FCClock.prototype.build = function() {
+    this.stop();
     var container = document.querySelector('#' + this.containerId + ' .fc-clock');
     if (!container) return;
     container.innerHTML = '';
@@ -6142,7 +6160,7 @@ v_initCalendar();
       this.trackers[key] = new FCCountdownTracker(key, val);
       container.appendChild(this.trackers[key].el);
     }
-    this.startTicking();
+    if (date) this.startTicking();
   };
 
   FCClock.prototype.startTicking = function() {
@@ -6152,7 +6170,7 @@ v_initCalendar();
     function tick() {
       if (gen !== self.generation) return;
       var date = self.getDateFn();
-      if (!date) { self.rafId = requestAnimationFrame(tick); return; }
+      if (!date) { self.rafId = null; return; }
       var t = fcGetTimeRemaining(date);
       if (t.Total <= 0) {
         for (var key in self.trackers) { self.trackers[key].update(0); }
