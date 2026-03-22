@@ -2148,6 +2148,11 @@ body { background: #e7e4e6; }
     flex: none !important;
     justify-self: start !important;
   }
+  /* Force line break on fc-line2 for Step 3 multi-line items */
+  #tabContent-alacarte [data-step-index="2"] .coverage-name .fc-line2,
+  #tabContent-photography [data-step-index="2"] .coverage-name .fc-line2 {
+    display: block !important;
+  }
   /* Sub-labels like "(30 Pages)" — hide on mobile row view */
   .col-card .text-stone-400.mb-1 {
     display: none !important;
