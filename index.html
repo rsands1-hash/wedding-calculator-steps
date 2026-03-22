@@ -1125,8 +1125,8 @@ body { background: #e7e4e6; }
     color: #1c1917;
   }
   .wizard-step > p {
-    font-size: 13px !important;
-    color: #a8a29e !important;
+    font-size: 16px !important;
+    color: #44403c !important;
     margin-bottom: 12px !important;
     text-align: left !important;
     padding: 0 4px;
@@ -1284,6 +1284,18 @@ body { background: #e7e4e6; }
   #tabContent-photography [data-step-index="1"] .col-card > img,
   #tabContent-photography [data-step-index="2"] .col-card > img {
     display: none !important;
+  }
+  /* Ala-Carte Steps 1-3: hide card icons on mobile */
+  #tabContent-alacarte [data-step-index="0"] .col-card > img,
+  #tabContent-alacarte [data-step-index="1"] .col-card > img,
+  #tabContent-alacarte [data-step-index="2"] .col-card > img {
+    display: none !important;
+  }
+  /* Ala-Carte Steps 1-3: left-justify names on mobile */
+  #tabContent-alacarte [data-step-index="0"] .col-card .coverage-name,
+  #tabContent-alacarte [data-step-index="1"] .col-card .coverage-name,
+  #tabContent-alacarte [data-step-index="2"] .col-card .coverage-name {
+    text-align: left !important;
   }
 
   /* Hide description text on coverage/album/service/credit/collection cards only */
@@ -1696,14 +1708,15 @@ body { background: #e7e4e6; }
   }
   .wizard-step > div > div.text-xs,
   .wizard-step div.text-xs {
-    font-size: 13px !important;
+    font-size: 16px !important;
   }
   .wizard-step > div:nth-child(n+3) img {
     width: 20px !important;
     height: 20px !important;
   }
   .wizard-step > div:nth-child(n+3) + p {
-    font-size: 12px !important;
+    font-size: 16px !important;
+    color: #44403c !important;
     margin-bottom: 8px !important;
     padding: 0 4px;
   }
@@ -1725,13 +1738,14 @@ body { background: #e7e4e6; }
   }
   .wizard-step .anim-cb > span[style],
   .wizard-step .col-card label.anim-cb span {
-    font-size: 14px !important;
+    font-size: 16px !important;
   }
   .wizard-step .col-card label.anim-cb + p {
     display: block !important;
-    font-size: 12px !important;
-    color: #78716c !important;
+    font-size: 16px !important;
+    color: #44403c !important;
     text-align: left !important;
+    margin-top: 5px !important;
   }
   .wizard-step .col-card p.ml-11 {
     margin-left: 32px !important;
@@ -1855,7 +1869,19 @@ body { background: #e7e4e6; }
     row-gap: 0 !important;
     min-height: 80px !important;
   }
-  #tabContent-photography [data-step-index="1"] .coverage-name,
+  #tabContent-photography [data-step-index="1"] .coverage-name {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    text-align: left !important;
+    font-size: 15px !important;
+    padding: 0 0 5px 0 !important;
+    margin: 0 8px 0 0 !important;
+    border: none !important;
+    border-bottom: 1px solid rgba(0,0,0,0.35) !important;
+    line-height: 1.3 !important;
+    white-space: nowrap !important;
+    width: fit-content !important;
+  }
   #tabContent-photography [data-step-index="2"] .coverage-name {
     grid-column: 1 !important;
     grid-row: 1 !important;
@@ -1864,10 +1890,11 @@ body { background: #e7e4e6; }
     padding: 0 0 5px 0 !important;
     margin: 0 8px 0 0 !important;
     border: none !important;
-    border-bottom: 1px solid rgba(0,0,0,0.1) !important;
+    border-bottom: 1px solid rgba(0,0,0,0.35) !important;
     line-height: 1.3 !important;
     white-space: normal !important;
     width: fit-content !important;
+    max-width: 100% !important;
   }
   #tabContent-photography [data-step-index="1"] .coverage-price,
   #tabContent-photography [data-step-index="2"] .coverage-price {
@@ -2303,7 +2330,7 @@ h3.fc-clock-label,
         <div class="tab-slider" id="mainTabSlider" style="left: var(--tab-pad, 6px); right: calc(66.666% - var(--tab-pad, 6px) / 3);"></div>
         <button onclick="setMainTab('photography')" class="tab-label tab-active" id="tabPhotography"><span class="hidden md:inline">Photography</span><span class="md:hidden">Photo</span></button>
         <button onclick="setMainTab('videography')" class="tab-label" id="tabVideography"><span class="hidden md:inline">Videography</span><span class="md:hidden">Video</span></button>
-        <button onclick="setMainTab('alacarte')" class="tab-label" id="tabAlacarte"><span class="hidden md:inline">À La Carte</span><span class="md:hidden">Custom</span></button>
+        <button onclick="setMainTab('alacarte')" class="tab-label" id="tabAlacarte"><span class="hidden md:inline">À La Carte</span><span class="md:hidden">Ala-Carte</span></button>
       </div>
     </div>
     <div class="hidden md:flex items-center justify-evenly lg:w-[35%]">
@@ -2322,7 +2349,7 @@ h3.fc-clock-label,
   <img src="https://static.showit.co/file/LB0PBwkUcYlFGgQdar6cSQ/293041/tools.png" alt="tools" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
   <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 1: Build Your Custom Package</h2>
 </div>
-<p class="text-center text-stone-500 text-base md:text-lg mb-10">Create your perfect coverage starting at $300/hour with a 4 hour minimum</p>
+<p class="text-center text-stone-600 text-lg md:text-xl mb-10">Create your perfect coverage starting at $300/hour with a 4 hour minimum</p>
 
 <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5 wizard-carousel mobile-grid-2x2">
 
@@ -2399,7 +2426,7 @@ h3.fc-clock-label,
   <img src="https://static.showit.co/file/gWhA3U1p57GTjTp7KYkqKg/293041/album.png" alt="album" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
   <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 2: Wedding Albums</h2>
 </div>
-<p class="text-center text-stone-500 text-base md:text-lg mb-10">Beautiful, handcrafted albums to treasure for a lifetime</p>
+<p class="text-center text-stone-600 text-lg md:text-xl mb-10">Beautiful, handcrafted albums to treasure for a lifetime</p>
 
 <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5 wizard-carousel mobile-grid-2x2">
 
@@ -2480,14 +2507,14 @@ h3.fc-clock-label,
   <img src="https://static.showit.co/file/eFfc8a1XACHVPrdxtk9HeA/293041/other.png" alt="other services" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
   <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 3: Other Services</h2>
 </div>
-<p class="text-center text-stone-500 text-base md:text-lg mb-10">Add even more coverage to make your wedding experience unforgettable</p>
+<p class="text-center text-stone-600 text-lg md:text-xl mb-10">Add even more coverage to make your wedding experience unforgettable</p>
 
 <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5 wizard-carousel mobile-grid-2x2">
 
   <!-- 30 Minute Engagement Session -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-service="engagement_30min">
     <img src="https://static.showit.co/file/eTv486_m5iEjoOQD8HEQzw/293041/engagement-session.png" alt="30 Min Engagement" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
-    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">30 Minute<br>Engagement Session</div>
+    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">30 Minute Engagement Session</div>
     <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$300</div>
     <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">A quick and fun portrait session to celebrate your engagement together.</p>
     <div class="flex flex-col items-center mt-auto">
@@ -2503,7 +2530,7 @@ h3.fc-clock-label,
   <!-- 1 Hour Engagement Session -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-service="engagement_session">
     <img src="https://static.showit.co/file/ze8z3dNzN-JHGQ9Mn5TG-w/293041/engagement-session-1hr.png" alt="1 Hour Engagement" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
-    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">1 Hour<br>Engagement Session</div>
+    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">1 Hour Engagement Session</div>
     <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$600</div>
     <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">A full portrait session with time for outfit changes and multiple locations.</p>
     <div class="flex flex-col items-center mt-auto">
@@ -2519,7 +2546,7 @@ h3.fc-clock-label,
   <!-- Bridal Shower Coverage -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-service="bridal_shower">
     <img src="https://static.showit.co/file/ZZxaw2O1AuvEtOS51atIgA/293041/bridal-shower.png" alt="Bridal Shower" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
-    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">Bridal Shower<br>Photo Coverage</div>
+    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">Bridal Shower Photo Coverage</div>
     <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$300/hr</div>
     <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">Capture all the fun, laughter, and love shared at your bridal shower celebration.</p>
     <div class="flex flex-col items-center mt-auto">
@@ -2535,7 +2562,7 @@ h3.fc-clock-label,
   <!-- Rehearsal Dinner Coverage -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-service="rehearsal_dinner">
     <img src="https://static.showit.co/file/5aAsyau8JQLDrdxu8Gp-yw/293041/rehearsal-dinner.png" alt="Rehearsal Dinner" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
-    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">Rehearsal Dinner<br>Photo Coverage</div>
+    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">Rehearsal Dinner Photo Coverage</div>
     <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$300/hr</div>
     <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">Document the toasts, laughter, and memories the night before your wedding.</p>
     <div class="flex flex-col items-center mt-auto">
@@ -2607,18 +2634,18 @@ h3.fc-clock-label,
 <!-- Unlock More Credits Mini Header -->
 <div class="flex items-center justify-center gap-3 mb-2 mt-8">
   <img src="https://static.showit.co/file/oSrIOpGKGgGvXVnMdQL-AQ/293041/key.png" alt="key" class="w-10 h-10 md:w-12 md:h-12 object-contain">
-  <div class="text-xs md:text-xl font-extrabold text-stone-800">Unlock More Credits</div>
+  <div class="text-base md:text-xl font-extrabold text-stone-700">Unlock More Credits</div>
 </div>
-<p class="text-center text-xs md:text-base text-stone-500 leading-relaxed mb-6 italic">Want to save even more? We've got a couple easy ways for you to unlock extra credits toward your package!</p>
+<p class="text-center text-base md:text-lg leading-relaxed mb-6 italic" style="color:#44403c;font-size:16px;">Want to save even more? We've got a couple easy ways for you to unlock extra credits toward your package!</p>
 
 <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
   <div class="col-card flex flex-col p-[15px] md:p-[24px]" data-credits="consultation">
     <label class="anim-cb"><input type="checkbox" id="consultationCb" onchange="toggleUnlock(this)"><span class="checkmark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Book a Consultation</span><br>($100 Credit)</span></label>
-    <p class="text-xs md:text-base text-stone-500 ml-11 italic" style="margin-top:-1px">Let's chat! Schedule a quick phone or video call and earn $100 toward your package.</p>
+    <p class="text-base md:text-lg text-stone-700 ml-11 italic" style="margin-top:-1px">Let's chat! Schedule a quick phone or video call and earn $100 toward your package.</p>
   </div>
   <div class="col-card flex flex-col p-[15px] md:p-[24px]" data-credits="instagram">
     <label class="anim-cb"><input type="checkbox" id="instagramCb" onchange="toggleUnlock(this)"><span class="checkmark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Follow on Instagram</span><br>($25 Credit)</span></label>
-    <p class="text-xs md:text-base text-stone-500 ml-11 italic" style="margin-top:-1px">Follow me on IG @ryansandsphotography and earn yourself a cool $25 credit.</p>
+    <p class="text-base md:text-lg text-stone-700 ml-11 italic" style="margin-top:-1px">Follow me on IG @ryansandsphotography and earn yourself a cool $25 credit.</p>
   </div>
 </div>
 </div>
@@ -2629,7 +2656,7 @@ h3.fc-clock-label,
   <img src="https://static.showit.co/file/aPLMXJ_TUyQH5ii36mai5Q/293041/calendar.png" alt="calendar" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
   <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 5: Choose a Payment Plan</h2>
 </div>
-<p class="text-center text-stone-500 text-base md:text-lg mb-10">Select your wedding date and choose a payment schedule</p>
+<p class="text-center text-stone-600 text-lg md:text-xl mb-10">Select your wedding date and choose a payment schedule</p>
 
 <div class="max-w-4xl mx-auto">
   <div class="col-card p-[15px] md:p-[24px]" data-payment="plan">
@@ -2661,17 +2688,17 @@ h3.fc-clock-label,
 
       <!-- RIGHT: Choose Your Payment Schedule -->
       <div>
-        <h3 class="text-lg md:text-2xl font-extrabold text-stone-800 mb-4 text-center">Choose Your Payment Schedule</h3>
+        <h3 class="text-lg md:text-2xl font-extrabold text-stone-800 mb-4 text-center mt-4 md:mt-0">Choose Your Payment Schedule</h3>
 
         <!-- Payment schedule radios (hidden until date selected) -->
         <div id="payPlanOptions">
           <p class="text-stone-700 font-medium mb-3">Payment Schedule:</p>
           <div class="space-y-3 mb-4">
-            <label class="anim-radio"><input type="radio" name="payPlan" value="monthly" onchange="selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Monthly Payments</span></span></label>
-            <label class="anim-radio"><input type="radio" name="payPlan" value="3_months" onchange="selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Every 3 Months</span></span></label>
-            <label class="anim-radio"><input type="radio" name="payPlan" value="6_months" onchange="selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Every 6 Months</span></span></label>
-            <label class="anim-radio"><input type="radio" name="payPlan" value="15_days" onchange="selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">15 Days Before Wedding</span></span></label>
-            <label class="anim-radio"><input type="radio" name="payPlan" value="day_of" onchange="selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Day of Your Wedding</span></span></label>
+            <label class="anim-radio"><input type="radio" name="payPlan" value="monthly" onclick="selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Monthly Payments</span></span></label>
+            <label class="anim-radio"><input type="radio" name="payPlan" value="3_months" onclick="selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Every 3 Months</span></span></label>
+            <label class="anim-radio"><input type="radio" name="payPlan" value="6_months" onclick="selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Every 6 Months</span></span></label>
+            <label class="anim-radio"><input type="radio" name="payPlan" value="15_days" onclick="selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">15 Days Before Wedding</span></span></label>
+            <label class="anim-radio"><input type="radio" name="payPlan" value="day_of" onclick="selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Day of Your Wedding</span></span></label>
           </div>
           <!-- Payment schedule breakdown -->
           <div id="paymentScheduleDisplay"></div>
@@ -2686,7 +2713,7 @@ h3.fc-clock-label,
 
       <!-- Flip-Clock Countdown -->
       <div id="flipClock" class="fc-clock-wrapper">
-        <h3 class="fc-clock-label">Countdown to Your Wedding Day</h3>
+        <h3 class="fc-clock-label">Countdown to Your Wedding Day 💒</h3>
         <div class="fc-clock"></div>
       </div>
 
@@ -2701,7 +2728,7 @@ h3.fc-clock-label,
   <img src="https://static.showit.co/file/kN5dwSDD1VZ2PRPu6NhYKQ/293041/credit-card.png" alt="credit card" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
   <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 6: Payment Method</h2>
 </div>
-<p class="text-center text-stone-500 text-base md:text-lg mb-10">Choose how you'd like to pay</p>
+<p class="text-center text-stone-600 text-lg md:text-xl mb-10">Choose how you'd like to pay</p>
 
 <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 wizard-carousel" id="payMethodGrid">
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-pay-method="cash" onclick="selectPayMethodCard(this)">
@@ -2739,7 +2766,7 @@ h3.fc-clock-label,
   <img src="https://static.showit.co/file/ueHGE8iMCHrL5egxLgOVLQ/293041/cash.png" alt="cash" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
   <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 7: Your Investment</h2>
 </div>
-<p class="text-center text-stone-500 text-base md:text-lg mb-10">Review your selections and see your total investment</p>
+<p class="text-center text-stone-600 text-lg md:text-xl mb-10">Review your selections and see your total investment</p>
 
 <div class="max-w-3xl mx-auto">
 
@@ -2767,7 +2794,7 @@ h3.fc-clock-label,
   <img src="https://static.showit.co/file/bnOCMC9XnbvrlasKA2Pm0Q/293041/collection.png" alt="collection" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
   <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 1: Choose a Collection</h2>
 </div>
-<p class="text-center text-stone-500 text-base md:text-lg mb-10">I offer customizable packages to suit you and your fiance's every need</p>
+<p class="text-center text-stone-600 text-lg md:text-xl mb-10">I offer customizable packages to suit you and your fiance's every need</p>
 
 <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-5 wizard-carousel p-collection-list">
 
@@ -2876,7 +2903,7 @@ h3.fc-clock-label,
   <img src="https://static.showit.co/file/Q86uOG_Zc1KRe2oQdXaRXA/293041/clock.png" alt="clock" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
   <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 2: Additional Coverage Time</h2>
 </div>
-<p class="text-center text-stone-500 text-base md:text-lg mb-10">Need more time? No problem! Add on as much as you like : )</p>
+<p class="text-center text-stone-600 text-lg md:text-xl mb-10">Need more time? No problem! Add on as much as you like : )</p>
 
 <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5 wizard-carousel mobile-grid-2x2">
 
@@ -2953,14 +2980,14 @@ h3.fc-clock-label,
   <img src="https://static.showit.co/file/eFfc8a1XACHVPrdxtk9HeA/293041/other.png" alt="other services" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
   <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 3: Other Services</h2>
 </div>
-<p class="text-center text-stone-500 text-base md:text-lg mb-10">Add even more coverage to make your wedding experience unforgettable</p>
+<p class="text-center text-stone-600 text-lg md:text-xl mb-10">Add even more coverage to make your wedding experience unforgettable</p>
 
 <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-2 md:max-w-2xl gap-3 md:gap-5 wizard-carousel mobile-grid-2x2">
 
   <!-- 30 Minute Engagement Session (mobile only) -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px] md:!hidden" data-p-service="engagement_30min">
     <img src="https://static.showit.co/file/eTv486_m5iEjoOQD8HEQzw/293041/engagement-session.png" alt="30 Min Engagement" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
-    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">30 Minute<br>Engagement Session</div>
+    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">30 Minute Engagement Session</div>
     <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$300</div>
     <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">A quick and fun portrait session to celebrate your engagement together.</p>
     <div class="flex flex-col items-center mt-auto">
@@ -2976,7 +3003,7 @@ h3.fc-clock-label,
   <!-- 1 Hour Engagement Session (mobile only) -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px] md:!hidden" data-p-service="engagement_session">
     <img src="https://static.showit.co/file/ze8z3dNzN-JHGQ9Mn5TG-w/293041/engagement-session-1hr.png" alt="1 Hour Engagement" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
-    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">1 Hour<br>Engagement Session</div>
+    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">1 Hour Engagement Session</div>
     <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$600</div>
     <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">A full portrait session with time for outfit changes and multiple locations.</p>
     <div class="flex flex-col items-center mt-auto">
@@ -2992,7 +3019,7 @@ h3.fc-clock-label,
   <!-- Bridal Shower Coverage -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-p-service="bridal_shower">
     <img src="https://static.showit.co/file/ZZxaw2O1AuvEtOS51atIgA/293041/bridal-shower.png" alt="Bridal Shower" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
-    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">Bridal Shower<br>Photo Coverage</div>
+    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">Bridal Shower Photo Coverage</div>
     <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$300/hr</div>
     <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">Capture all the fun, laughter, and love shared at your bridal shower celebration.</p>
     <div class="flex flex-col items-center mt-auto">
@@ -3008,7 +3035,7 @@ h3.fc-clock-label,
   <!-- Rehearsal Dinner Coverage -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-p-service="rehearsal_dinner">
     <img src="https://static.showit.co/file/5aAsyau8JQLDrdxu8Gp-yw/293041/rehearsal-dinner.png" alt="Rehearsal Dinner" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
-    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">Rehearsal Dinner<br>Photo Coverage</div>
+    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">Rehearsal Dinner Photo Coverage</div>
     <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$300/hr</div>
     <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">Document the toasts, laughter, and memories the night before your wedding.</p>
     <div class="flex flex-col items-center mt-auto">
@@ -3080,18 +3107,18 @@ h3.fc-clock-label,
 <!-- Unlock More Credits Mini Header -->
 <div class="flex items-center justify-center gap-3 mb-2 mt-8">
   <img src="https://static.showit.co/file/oSrIOpGKGgGvXVnMdQL-AQ/293041/key.png" alt="key" class="w-10 h-10 md:w-12 md:h-12 object-contain">
-  <div class="text-xs md:text-xl font-extrabold text-stone-800">Unlock More Credits</div>
+  <div class="text-base md:text-xl font-extrabold text-stone-700">Unlock More Credits</div>
 </div>
-<p class="text-center text-xs md:text-base text-stone-500 leading-relaxed mb-6 italic">Want to save even more? We've got a couple easy ways for you to unlock extra credits toward your package!</p>
+<p class="text-center text-base md:text-lg leading-relaxed mb-6 italic" style="color:#44403c;font-size:16px;">Want to save even more? We've got a couple easy ways for you to unlock extra credits toward your package!</p>
 
 <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
   <div class="col-card flex flex-col p-[15px] md:p-[24px]" data-p-credits="consultation">
     <label class="anim-cb"><input type="checkbox" id="p_consultationCb" onchange="p_toggleUnlock(this)"><span class="checkmark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Book a Consultation</span><br>($100 Credit)</span></label>
-    <p class="text-xs md:text-base text-stone-500 ml-11 italic" style="margin-top:-1px">Let's chat! Schedule a quick phone or video call and earn $100 toward your package.</p>
+    <p class="text-base md:text-lg text-stone-700 ml-11 italic" style="margin-top:-1px">Let's chat! Schedule a quick phone or video call and earn $100 toward your package.</p>
   </div>
   <div class="col-card flex flex-col p-[15px] md:p-[24px]" data-p-credits="instagram">
     <label class="anim-cb"><input type="checkbox" id="p_instagramCb" onchange="p_toggleUnlock(this)"><span class="checkmark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Follow on Instagram</span><br>($25 Credit)</span></label>
-    <p class="text-xs md:text-base text-stone-500 ml-11 italic" style="margin-top:-1px">Follow me on IG @ryansandsphotography and earn yourself a cool $25 credit.</p>
+    <p class="text-base md:text-lg text-stone-700 ml-11 italic" style="margin-top:-1px">Follow me on IG @ryansandsphotography and earn yourself a cool $25 credit.</p>
   </div>
 </div>
 </div>
@@ -3102,7 +3129,7 @@ h3.fc-clock-label,
   <img src="https://static.showit.co/file/aPLMXJ_TUyQH5ii36mai5Q/293041/calendar.png" alt="calendar" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
   <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 5: Choose a Payment Plan</h2>
 </div>
-<p class="text-center text-stone-500 text-base md:text-lg mb-10">Select your wedding date and choose a payment schedule</p>
+<p class="text-center text-stone-600 text-lg md:text-xl mb-10">Select your wedding date and choose a payment schedule</p>
 
 <div class="max-w-4xl mx-auto">
   <div class="col-card p-[15px] md:p-[24px]" data-p-payment="plan">
@@ -3134,17 +3161,17 @@ h3.fc-clock-label,
 
       <!-- RIGHT: Choose Your Payment Schedule -->
       <div>
-        <h3 class="text-lg md:text-2xl font-extrabold text-stone-800 mb-4 text-center">Choose Your Payment Schedule</h3>
+        <h3 class="text-lg md:text-2xl font-extrabold text-stone-800 mb-4 text-center mt-4 md:mt-0">Choose Your Payment Schedule</h3>
 
         <!-- Payment schedule radios (hidden until date selected) -->
         <div id="p_payPlanOptions">
           <p class="text-stone-700 font-medium mb-3">Payment Schedule:</p>
           <div class="space-y-3 mb-4">
-            <label class="anim-radio"><input type="radio" name="p_payPlan" value="monthly" onchange="p_selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Monthly Payments</span></span></label>
-            <label class="anim-radio"><input type="radio" name="p_payPlan" value="3_months" onchange="p_selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Every 3 Months</span></span></label>
-            <label class="anim-radio"><input type="radio" name="p_payPlan" value="6_months" onchange="p_selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Every 6 Months</span></span></label>
-            <label class="anim-radio"><input type="radio" name="p_payPlan" value="15_days" onchange="p_selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">15 Days Before Wedding</span></span></label>
-            <label class="anim-radio"><input type="radio" name="p_payPlan" value="day_of" onchange="p_selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Day of Your Wedding</span></span></label>
+            <label class="anim-radio"><input type="radio" name="p_payPlan" value="monthly" onclick="p_selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Monthly Payments</span></span></label>
+            <label class="anim-radio"><input type="radio" name="p_payPlan" value="3_months" onclick="p_selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Every 3 Months</span></span></label>
+            <label class="anim-radio"><input type="radio" name="p_payPlan" value="6_months" onclick="p_selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Every 6 Months</span></span></label>
+            <label class="anim-radio"><input type="radio" name="p_payPlan" value="15_days" onclick="p_selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">15 Days Before Wedding</span></span></label>
+            <label class="anim-radio"><input type="radio" name="p_payPlan" value="day_of" onclick="p_selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Day of Your Wedding</span></span></label>
           </div>
           <!-- Payment schedule breakdown -->
           <div id="p_paymentScheduleDisplay"></div>
@@ -3159,7 +3186,7 @@ h3.fc-clock-label,
 
       <!-- Flip-Clock Countdown -->
       <div id="p_flipClock" class="fc-clock-wrapper">
-        <h3 class="fc-clock-label">Countdown to Your Wedding Day</h3>
+        <h3 class="fc-clock-label">Countdown to Your Wedding Day 💒</h3>
         <div class="fc-clock"></div>
       </div>
 
@@ -3174,7 +3201,7 @@ h3.fc-clock-label,
   <img src="https://static.showit.co/file/kN5dwSDD1VZ2PRPu6NhYKQ/293041/credit-card.png" alt="credit card" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
   <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 6: Payment Method</h2>
 </div>
-<p class="text-center text-stone-500 text-base md:text-lg mb-10">Choose how you'd like to pay</p>
+<p class="text-center text-stone-600 text-lg md:text-xl mb-10">Choose how you'd like to pay</p>
 
 <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 wizard-carousel" id="p_payMethodGrid">
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-p-pay-method="cash" onclick="p_selectPayMethodCard(this)">
@@ -3212,7 +3239,7 @@ h3.fc-clock-label,
   <img src="https://static.showit.co/file/ueHGE8iMCHrL5egxLgOVLQ/293041/cash.png" alt="cash" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
   <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 7: Your Investment</h2>
 </div>
-<p class="text-center text-stone-500 text-base md:text-lg mb-10">Review your selections and see your total investment</p>
+<p class="text-center text-stone-600 text-lg md:text-xl mb-10">Review your selections and see your total investment</p>
 
 <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-5">
 
@@ -3248,10 +3275,10 @@ h3.fc-clock-label,
 <div class="wizard-progress md:hidden" id="wizardProgress-videography"></div>
 <div class="wizard-step" data-step-index="0" data-step-name="Package">
 <div class="flex items-center justify-center gap-3 mb-2">
-  <img src="https://static.showit.co/file/bnOCMC9XnbvrlasKA2Pm0Q/293041/collection.png" alt="collection" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
-  <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 1: Choose A Videography Package</h2>
+  <img src="https://static.showit.co/file/27pLrmW1fIwbhBNqYK0JEA/293041/videography-coverage.png" alt="video camera" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
+  <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 1: Choose A Video Package</h2>
 </div>
-<p class="text-center text-stone-500 text-base md:text-lg mb-10">Everything included in each videography package</p>
+<p class="text-center text-stone-600 text-lg md:text-xl mb-10">Everything included in each videography package</p>
 
 <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-5 wizard-carousel p-collection-list">
 
@@ -3344,7 +3371,7 @@ h3.fc-clock-label,
   <img src="https://static.showit.co/file/aPLMXJ_TUyQH5ii36mai5Q/293041/calendar.png" alt="calendar" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
   <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 2: Choose a Payment Plan</h2>
 </div>
-<p class="text-center text-stone-500 text-base md:text-lg mb-10">Select your wedding date and choose a payment schedule</p>
+<p class="text-center text-stone-600 text-lg md:text-xl mb-10">Select your wedding date and choose a payment schedule</p>
 
 <div class="max-w-4xl mx-auto">
   <div class="col-card p-[15px] md:p-[24px]" data-v-payment="plan">
@@ -3376,17 +3403,17 @@ h3.fc-clock-label,
 
       <!-- RIGHT: Choose Your Payment Schedule -->
       <div>
-        <h3 class="text-lg md:text-2xl font-extrabold text-stone-800 mb-4 text-center">Choose Your Payment Schedule</h3>
+        <h3 class="text-lg md:text-2xl font-extrabold text-stone-800 mb-4 text-center mt-4 md:mt-0">Choose Your Payment Schedule</h3>
 
         <!-- Payment schedule radios (hidden until date selected) -->
         <div id="v_payPlanOptions">
           <p class="text-stone-700 font-medium mb-3">Payment Schedule:</p>
           <div class="space-y-3 mb-4">
-            <label class="anim-radio"><input type="radio" name="v_payPlan" value="monthly" onchange="v_selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Monthly Payments</span></span></label>
-            <label class="anim-radio"><input type="radio" name="v_payPlan" value="3_months" onchange="v_selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Every 3 Months</span></span></label>
-            <label class="anim-radio"><input type="radio" name="v_payPlan" value="6_months" onchange="v_selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Every 6 Months</span></span></label>
-            <label class="anim-radio"><input type="radio" name="v_payPlan" value="15_days" onchange="v_selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">15 Days Before Wedding</span></span></label>
-            <label class="anim-radio"><input type="radio" name="v_payPlan" value="day_of" onchange="v_selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Day of Your Wedding</span></span></label>
+            <label class="anim-radio"><input type="radio" name="v_payPlan" value="monthly" onclick="v_selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Monthly Payments</span></span></label>
+            <label class="anim-radio"><input type="radio" name="v_payPlan" value="3_months" onclick="v_selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Every 3 Months</span></span></label>
+            <label class="anim-radio"><input type="radio" name="v_payPlan" value="6_months" onclick="v_selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Every 6 Months</span></span></label>
+            <label class="anim-radio"><input type="radio" name="v_payPlan" value="15_days" onclick="v_selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">15 Days Before Wedding</span></span></label>
+            <label class="anim-radio"><input type="radio" name="v_payPlan" value="day_of" onclick="v_selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Day of Your Wedding</span></span></label>
           </div>
           <!-- Payment schedule breakdown -->
           <div id="v_paymentScheduleDisplay"></div>
@@ -3401,7 +3428,7 @@ h3.fc-clock-label,
 
       <!-- Flip-Clock Countdown -->
       <div id="v_flipClock" class="fc-clock-wrapper">
-        <h3 class="fc-clock-label">Countdown to Your Wedding Day</h3>
+        <h3 class="fc-clock-label">Countdown to Your Wedding Day 💒</h3>
         <div class="fc-clock"></div>
       </div>
 
@@ -3416,7 +3443,7 @@ h3.fc-clock-label,
   <img src="https://static.showit.co/file/kN5dwSDD1VZ2PRPu6NhYKQ/293041/credit-card.png" alt="credit card" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
   <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 3: Payment Method</h2>
 </div>
-<p class="text-center text-stone-500 text-base md:text-lg mb-10">Choose how you'd like to pay</p>
+<p class="text-center text-stone-600 text-lg md:text-xl mb-10">Choose how you'd like to pay</p>
 
 <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 wizard-carousel" id="v_payMethodGrid">
   <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-v-pay-method="cash" onclick="v_selectPayMethodCard(this)">
@@ -3454,7 +3481,7 @@ h3.fc-clock-label,
   <img src="https://static.showit.co/file/ueHGE8iMCHrL5egxLgOVLQ/293041/cash.png" alt="cash" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
   <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 4: Your Investment</h2>
 </div>
-<p class="text-center text-stone-500 text-base md:text-lg mb-10">Review your selections and see your total investment</p>
+<p class="text-center text-stone-600 text-lg md:text-xl mb-10">Review your selections and see your total investment</p>
 
 <div class="max-w-6xl mx-auto">
   <div class="col-card p-[15px] md:p-[24px]" id="v_investmentBox">
@@ -3881,10 +3908,18 @@ function selectDay(d) {
 }
 
 function selectPayPlan(radio) {
-  paymentPlan = radio.value;
+  if (radio._wasChecked) {
+    radio.checked = false;
+    radio._wasChecked = false;
+    paymentPlan = null;
+  } else {
+    const card = radio.closest('[data-payment="plan"]');
+    card.querySelectorAll('.anim-radio input').forEach(r => { r._wasChecked = false; });
+    radio._wasChecked = true;
+    paymentPlan = radio.value;
+  }
   const card = radio.closest('[data-payment="plan"]');
-  const allLabels = card.querySelectorAll('.anim-radio');
-  allLabels.forEach(l => {
+  card.querySelectorAll('.anim-radio').forEach(l => {
     const inp = l.querySelector('input');
     const txt = l.querySelector('span:last-child');
     txt.className = inp.checked ? 'text-green-700' : 'text-stone-700';
@@ -3892,7 +3927,6 @@ function selectPayPlan(radio) {
   });
   updatePaymentSchedule();
   if (window.wizardActive) wizardUpdateTotal();
-  // Sync to other tabs
   syncPayPlanToOtherTabs(paymentPlan, 'alacarte');
 }
 
@@ -4899,12 +4933,20 @@ function p_selectDay(d) {
 }
 
 function p_selectPayPlan(radio) {
-  p_paymentPlan = radio.value;
+  if (radio._wasChecked) {
+    radio.checked = false;
+    radio._wasChecked = false;
+    p_paymentPlan = null;
+  } else {
+    const card = radio.closest('[data-p-payment="plan"]');
+    card.querySelectorAll('.anim-radio input').forEach(r => { r._wasChecked = false; });
+    radio._wasChecked = true;
+    p_paymentPlan = radio.value;
+  }
   const card = radio.closest('[data-p-payment="plan"]');
   card.querySelectorAll('.anim-radio').forEach(l => { const inp = l.querySelector('input'); const txt = l.querySelector('span:last-child'); txt.className = inp.checked ? 'text-green-700' : 'text-stone-700'; txt.style.fontSize = '17px'; });
   p_updatePaymentSchedule();
   if (window.wizardActive) wizardUpdateTotal();
-  // Sync to other tabs
   syncPayPlanToOtherTabs(p_paymentPlan, 'photography');
 }
 
@@ -5226,12 +5268,20 @@ function v_selectDay(d) {
 }
 
 function v_selectPayPlan(radio) {
-  v_paymentPlan = radio.value;
+  if (radio._wasChecked) {
+    radio.checked = false;
+    radio._wasChecked = false;
+    v_paymentPlan = null;
+  } else {
+    const card = radio.closest('[data-v-payment="plan"]');
+    card.querySelectorAll('.anim-radio input').forEach(r => { r._wasChecked = false; });
+    radio._wasChecked = true;
+    v_paymentPlan = radio.value;
+  }
   const card = radio.closest('[data-v-payment="plan"]');
   card.querySelectorAll('.anim-radio').forEach(l => { const inp = l.querySelector('input'); const txt = l.querySelector('span:last-child'); txt.className = inp.checked ? 'text-green-700' : 'text-stone-700'; txt.style.fontSize = '17px'; });
   v_updatePaymentSchedule();
   if (window.wizardActive) wizardUpdateTotal();
-  // Sync to other tabs
   syncPayPlanToOtherTabs(v_paymentPlan, 'videography');
 }
 
