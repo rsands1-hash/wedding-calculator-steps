@@ -2715,12 +2715,12 @@ h3.fc-clock-label,
           <!-- Year tabs -->
           <div class="tab-header-sm mb-6">
             <div class="tab-slider-sm" id="yearSlider" style="left:4px; right:66.666%"></div>
-            <button class="tab-label-sm tab-active" onclick="setYear(2026)">2026</button>
-            <button class="tab-label-sm" onclick="setYear(2027)">2027</button>
-            <button class="tab-label-sm" onclick="setYear(2028)">2028</button>
+            <button class="tab-label-sm tab-active" id="yearBtn0"></button>
+            <button class="tab-label-sm" id="yearBtn1"></button>
+            <button class="tab-label-sm" id="yearBtn2"></button>
           </div>
           <!-- Month grid -->
-          <div class="grid grid-cols-3 mb-4 mx-auto" class="month-grid-container" style="max-width:min(20rem, 100%); border-radius:12px; overflow:visible; border:none" id="monthGrid"></div>
+          <div class="grid grid-cols-3 mb-4 mx-auto month-grid-container" style="max-width:min(20rem, 100%); border-radius:12px; overflow:visible; border:none" id="monthGrid"></div>
           <!-- Day headers -->
           <div class="grid grid-cols-7 gap-1 mb-2" id="dayHeaders"></div>
           <!-- Day cells -->
@@ -3188,12 +3188,12 @@ h3.fc-clock-label,
           <!-- Year tabs -->
           <div class="tab-header-sm mb-6">
             <div class="tab-slider-sm" id="p_yearSlider" style="left:4px; right:66.666%"></div>
-            <button class="tab-label-sm tab-active" onclick="p_setYear(2026)">2026</button>
-            <button class="tab-label-sm" onclick="p_setYear(2027)">2027</button>
-            <button class="tab-label-sm" onclick="p_setYear(2028)">2028</button>
+            <button class="tab-label-sm tab-active" id="p_yearBtn0"></button>
+            <button class="tab-label-sm" id="p_yearBtn1"></button>
+            <button class="tab-label-sm" id="p_yearBtn2"></button>
           </div>
           <!-- Month grid -->
-          <div class="grid grid-cols-3 mb-4 mx-auto" class="month-grid-container" style="max-width:min(20rem, 100%); border-radius:12px; overflow:visible; border:none" id="p_monthGrid"></div>
+          <div class="grid grid-cols-3 mb-4 mx-auto month-grid-container" style="max-width:min(20rem, 100%); border-radius:12px; overflow:visible; border:none" id="p_monthGrid"></div>
           <!-- Day headers -->
           <div class="grid grid-cols-7 gap-1 mb-2" id="p_dayHeaders"></div>
           <!-- Day cells -->
@@ -3430,12 +3430,12 @@ h3.fc-clock-label,
           <!-- Year tabs -->
           <div class="tab-header-sm mb-6">
             <div class="tab-slider-sm" id="v_yearSlider" style="left:4px; right:66.666%"></div>
-            <button class="tab-label-sm tab-active" onclick="v_setYear(2026)">2026</button>
-            <button class="tab-label-sm" onclick="v_setYear(2027)">2027</button>
-            <button class="tab-label-sm" onclick="v_setYear(2028)">2028</button>
+            <button class="tab-label-sm tab-active" id="v_yearBtn0"></button>
+            <button class="tab-label-sm" id="v_yearBtn1"></button>
+            <button class="tab-label-sm" id="v_yearBtn2"></button>
           </div>
           <!-- Month grid -->
-          <div class="grid grid-cols-3 mb-4 mx-auto" class="month-grid-container" style="max-width:min(20rem, 100%); border-radius:12px; overflow:visible; border:none" id="v_monthGrid"></div>
+          <div class="grid grid-cols-3 mb-4 mx-auto month-grid-container" style="max-width:min(20rem, 100%); border-radius:12px; overflow:visible; border:none" id="v_monthGrid"></div>
           <!-- Day headers -->
           <div class="grid grid-cols-7 gap-1 mb-2" id="v_dayHeaders"></div>
           <!-- Day cells -->
@@ -3768,7 +3768,7 @@ function toggleUnlock(cb) {
     txt.className = 'text-stone-700';
     if (card) card.classList.remove('col-active');
   }
-  txt.style.fontSize = '17px';
+  txt.style.fontSize = '';
   updatePaymentSchedule();
   if (window.wizardActive) wizardUpdateTotal();
 }
@@ -3798,7 +3798,7 @@ const todayDate = new Date();
 let viewYear = todayDate.getFullYear();
 let viewMonth = todayDate.getMonth();
 let weddingDate = null;
-let paymentPlan = '15_days';
+let paymentPlan = null;
 
 function initCalendar() {
   // Day headers
@@ -3811,14 +3811,17 @@ function initCalendar() {
   renderDays();
 }
 
+const _baseYear = new Date().getFullYear();
 function setYear(y) {
   viewYear = y;
   const slider = document.getElementById('yearSlider');
   const btns = slider.parentElement.querySelectorAll('.tab-label-sm');
   btns.forEach(b => b.classList.remove('tab-active'));
-  if (y === 2026) { slider.style.left = '4px'; slider.style.right = '66.666%'; btns[0].classList.add('tab-active'); }
-  else if (y === 2027) { slider.style.left = '33.333%'; slider.style.right = '33.333%'; btns[1].classList.add('tab-active'); }
-  else { slider.style.left = '66.666%'; slider.style.right = '4px'; btns[2].classList.add('tab-active'); }
+  const idx = Math.max(0, Math.min(2, y - _baseYear));
+  if (idx === 0) { slider.style.left = '4px'; slider.style.right = '66.666%'; }
+  else if (idx === 1) { slider.style.left = '33.333%'; slider.style.right = '33.333%'; }
+  else { slider.style.left = '66.666%'; slider.style.right = '4px'; }
+  btns[idx].classList.add('tab-active');
   renderMonths();
   renderDays();
 }
@@ -3918,7 +3921,7 @@ function syncPayPlanToOtherTabs(planValue, source) {
         const inp = l.querySelector('input');
         const txt = l.querySelector('span:last-child');
         txt.className = inp.checked ? 'text-green-700' : 'text-stone-700';
-        txt.style.fontSize = '17px';
+        txt.style.fontSize = '';
       });
     }
     updateFn();
@@ -3972,7 +3975,7 @@ function selectPayPlan(radio) {
     const inp = l.querySelector('input');
     const txt = l.querySelector('span:last-child');
     txt.className = inp.checked ? 'text-green-700' : 'text-stone-700';
-    txt.style.fontSize = '17px';
+    txt.style.fontSize = '';
   });
   updatePaymentSchedule();
   if (window.wizardActive) wizardUpdateTotal();
@@ -3989,7 +3992,7 @@ function calculatePaymentSchedule(total, weddingDateObj, planType, retainerCount
   const daysUntil = Math.round((weddingCopy - today) / (1000 * 60 * 60 * 24));
   if (daysUntil < 1) return null;
   const retainer = 1000 * retainerCount;
-  const remaining = total - retainer;
+  const remaining = Math.max(0, total - retainer);
   // Calculate months using actual calendar difference
   const monthsUntil = (weddingCopy.getFullYear() - today.getFullYear()) * 12 + (weddingCopy.getMonth() - today.getMonth());
   if (planType === 'day_of') {
@@ -4088,7 +4091,7 @@ function p_getRetainerCount() {
 function updatePaymentSchedule() {
   const display = document.getElementById('paymentScheduleDisplay');
   const tooSoon = document.getElementById('paymentTooSoon');
-  if (!weddingDate) { display.innerHTML = ''; renderInvestment(); return; }
+  if (!weddingDate || !paymentPlan) { display.innerHTML = ''; tooSoon.classList.add('hidden'); renderInvestment(); return; }
   const total = getEstimatedTotal();
   const rc = getRetainerCount();
   const schedule = calculatePaymentSchedule(total, weddingDate, paymentPlan, rc);
@@ -4419,7 +4422,7 @@ function resetAll() {
   weddingDate = null;
   window._fcWeddingDate = null;
   if (typeof fcResetClock === 'function') fcResetClock();
-  paymentPlan = '15_days';
+  paymentPlan = null;
   const now = new Date();
   viewYear = now.getFullYear();
   viewMonth = now.getMonth();
@@ -4429,9 +4432,9 @@ function resetAll() {
   document.getElementById('pickDatePrompt').classList.remove('hidden');
   document.getElementById('paymentScheduleDisplay').innerHTML = '';
   document.getElementById('paymentTooSoon').classList.add('hidden');
-  document.querySelectorAll('[name="payPlan"]').forEach(r => { r.checked = false; });
+  document.querySelectorAll('[name="payPlan"]').forEach(r => { r.checked = false; r._wasChecked = false; });
   const planLabels = document.querySelectorAll('[data-payment="plan"] .anim-radio');
-  planLabels.forEach(l => { const txt = l.querySelector('span:last-child'); txt.className = 'text-stone-700'; txt.style.fontSize = '17px'; });
+  planLabels.forEach(l => { const txt = l.querySelector('span:last-child'); txt.className = 'text-stone-700'; txt.style.fontSize = ''; });
   renderInvestment();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -4633,6 +4636,22 @@ function updateMobileTotal() {
   el.textContent = '$' + Math.round(total).toLocaleString();
 }
 
+// Init dynamic year buttons
+(function() {
+  const y0 = _baseYear, y1 = _baseYear + 1, y2 = _baseYear + 2;
+  const configs = [
+    {ids: ['yearBtn0','yearBtn1','yearBtn2'], fn: setYear},
+    {ids: ['p_yearBtn0','p_yearBtn1','p_yearBtn2'], fn: p_setYear},
+    {ids: ['v_yearBtn0','v_yearBtn1','v_yearBtn2'], fn: v_setYear}
+  ];
+  configs.forEach(cfg => {
+    [y0, y1, y2].forEach((yr, i) => {
+      const btn = document.getElementById(cfg.ids[i]);
+      if (btn) { btn.textContent = yr; btn.onclick = () => cfg.fn(yr); }
+    });
+  });
+})();
+
 // Init on load and handle resize
 window.addEventListener('DOMContentLoaded', initMobileWizard);
 window.addEventListener('load', initMobileWizard);
@@ -4717,7 +4736,7 @@ function toggleHalfHourMode() {
       resetBtn.style.opacity = '0.35';
       resetBtn.style.pointerEvents = 'none';
     }
-    renderInvestment();
+    updatePaymentSchedule();
     if (window.wizardActive) wizardUpdateTotal();
   };
 })();
@@ -4745,7 +4764,7 @@ function toggleHalfHourMode() {
       resetBtn.style.opacity = '0.35';
       resetBtn.style.pointerEvents = 'none';
     }
-    renderInvestment();
+    updatePaymentSchedule();
     if (window.wizardActive) wizardUpdateTotal();
   };
 })();
@@ -4759,7 +4778,7 @@ let p_paymentMethod = 'venmo';
 let p_viewYear = todayDate.getFullYear();
 let p_viewMonth = todayDate.getMonth();
 let p_weddingDate = null;
-let p_paymentPlan = '15_days';
+let p_paymentPlan = null;
 
 const p_selectedMsgs = {
   essential: '\u2713  Let\u2019s Do This!',
@@ -4897,8 +4916,7 @@ function p_toggleUnlock(cb) {
   const txt = label.querySelector('span:last-child');
   txt.className = cb.checked ? 'text-green-700' : 'text-stone-700';
   if (card) { if (cb.checked) card.classList.add('col-active'); else card.classList.remove('col-active'); }
-  txt.style.fontSize = '17px';
-  p_renderInvestment();
+  txt.style.fontSize = '';
   p_updatePaymentSchedule();
   if (window.wizardActive) wizardUpdateTotal();
 }
@@ -4933,9 +4951,11 @@ function p_setYear(y) {
   const slider = document.getElementById('p_yearSlider');
   const btns = slider.parentElement.querySelectorAll('.tab-label-sm');
   btns.forEach(b => b.classList.remove('tab-active'));
-  if (y === 2026) { slider.style.left = '4px'; slider.style.right = '66.666%'; btns[0].classList.add('tab-active'); }
-  else if (y === 2027) { slider.style.left = '33.333%'; slider.style.right = '33.333%'; btns[1].classList.add('tab-active'); }
-  else { slider.style.left = '66.666%'; slider.style.right = '4px'; btns[2].classList.add('tab-active'); }
+  const idx = Math.max(0, Math.min(2, y - _baseYear));
+  if (idx === 0) { slider.style.left = '4px'; slider.style.right = '66.666%'; }
+  else if (idx === 1) { slider.style.left = '33.333%'; slider.style.right = '33.333%'; }
+  else { slider.style.left = '66.666%'; slider.style.right = '4px'; }
+  btns[idx].classList.add('tab-active');
   p_renderMonths();
   p_renderDays();
 }
@@ -4995,7 +5015,7 @@ function p_selectPayPlan(radio) {
     p_paymentPlan = radio.value;
   }
   const card = radio.closest('[data-p-payment="plan"]');
-  card.querySelectorAll('.anim-radio').forEach(l => { const inp = l.querySelector('input'); const txt = l.querySelector('span:last-child'); txt.className = inp.checked ? 'text-green-700' : 'text-stone-700'; txt.style.fontSize = '17px'; });
+  card.querySelectorAll('.anim-radio').forEach(l => { const inp = l.querySelector('input'); const txt = l.querySelector('span:last-child'); txt.className = inp.checked ? 'text-green-700' : 'text-stone-700'; txt.style.fontSize = ''; });
   p_updatePaymentSchedule();
   if (window.wizardActive) wizardUpdateTotal();
   syncPayPlanToOtherTabs(p_paymentPlan, 'photography');
@@ -5024,7 +5044,7 @@ function p_getEstimatedTotal() {
 function p_updatePaymentSchedule() {
   const display = document.getElementById('p_paymentScheduleDisplay');
   const tooSoon = document.getElementById('p_paymentTooSoon');
-  if (!p_weddingDate) { display.innerHTML = ''; p_renderInvestment(); return; }
+  if (!p_weddingDate || !p_paymentPlan) { display.innerHTML = ''; tooSoon.classList.add('hidden'); p_renderInvestment(); return; }
   const total = p_getEstimatedTotal();
   const prc = p_getRetainerCount();
   const schedule = calculatePaymentSchedule(total, p_weddingDate, p_paymentPlan, prc);
@@ -5074,7 +5094,7 @@ function p_renderInvestment() {
   const col = collections[p_currentCollection];
   const fmtMoney = (n) => '$' + n.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
   const fmtWhole = (n) => '$' + n.toLocaleString();
-  const coverageHours = parseInt(col.items[0].name) || 0;
+  const coverageHours = parseInt((col.items[0].name.match(/\d+/) || ['0'])[0]) || 0;
   const removableTotal = col.items.filter(i => i.value > 0).reduce((s, i) => s + i.value, 0);
   const photoCoveragePrice = col.price - removableTotal;
   const payMethodLabels = { cash: 'Cash', zelle: 'Zelle', venmo: 'Venmo', paypal: 'PayPal', credit: 'Credit Card', check: 'Check' };
@@ -5178,7 +5198,7 @@ function p_resetAll() {
   p_paymentMethod = 'venmo';
   const p_payMethodGrid = document.getElementById('p_payMethodGrid');
   if (p_payMethodGrid) { p_payMethodGrid.querySelectorAll('[data-p-pay-method]').forEach(c => { c.classList.toggle('col-active', c.dataset.pPayMethod === 'venmo'); }); }
-  p_weddingDate = null; p_paymentPlan = '15_days';
+  p_weddingDate = null; p_paymentPlan = null;
   window._fcPWeddingDate = null;
   if (typeof p_fcResetClock === 'function') p_fcResetClock();
   const p_now = new Date();
@@ -5190,8 +5210,8 @@ function p_resetAll() {
   document.getElementById('p_pickDatePrompt').classList.remove('hidden');
   document.getElementById('p_paymentScheduleDisplay').innerHTML = '';
   document.getElementById('p_paymentTooSoon').classList.add('hidden');
-  document.querySelectorAll('[name="p_payPlan"]').forEach(r => r.checked = false);
-  document.querySelectorAll('[data-p-payment="plan"] .anim-radio').forEach(l => { const txt = l.querySelector('span:last-child'); txt.className = 'text-stone-700'; txt.style.fontSize = '17px'; });
+  document.querySelectorAll('[name="p_payPlan"]').forEach(r => { r.checked = false; r._wasChecked = false; });
+  document.querySelectorAll('[data-p-payment="plan"] .anim-radio').forEach(l => { const txt = l.querySelector('span:last-child'); txt.className = 'text-stone-700'; txt.style.fontSize = ''; });
   p_renderCustomize();
   p_renderInvestment();
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -5211,7 +5231,7 @@ let v_paymentMethod = 'venmo';
 let v_viewYear = todayDate.getFullYear();
 let v_viewMonth = todayDate.getMonth();
 let v_weddingDate = null;
-let v_paymentPlan = '15_days';
+let v_paymentPlan = null;
 
 const v_selectedMsgs = {
   bronze: '\u2713  Let\u2019s Do This!',
@@ -5268,9 +5288,11 @@ function v_setYear(y) {
   const slider = document.getElementById('v_yearSlider');
   const btns = slider.parentElement.querySelectorAll('.tab-label-sm');
   btns.forEach(b => b.classList.remove('tab-active'));
-  if (y === 2026) { slider.style.left = '4px'; slider.style.right = '66.666%'; btns[0].classList.add('tab-active'); }
-  else if (y === 2027) { slider.style.left = '33.333%'; slider.style.right = '33.333%'; btns[1].classList.add('tab-active'); }
-  else { slider.style.left = '66.666%'; slider.style.right = '4px'; btns[2].classList.add('tab-active'); }
+  const idx = Math.max(0, Math.min(2, y - _baseYear));
+  if (idx === 0) { slider.style.left = '4px'; slider.style.right = '66.666%'; }
+  else if (idx === 1) { slider.style.left = '33.333%'; slider.style.right = '33.333%'; }
+  else { slider.style.left = '66.666%'; slider.style.right = '4px'; }
+  btns[idx].classList.add('tab-active');
   v_renderMonths();
   v_renderDays();
 }
@@ -5330,7 +5352,7 @@ function v_selectPayPlan(radio) {
     v_paymentPlan = radio.value;
   }
   const card = radio.closest('[data-v-payment="plan"]');
-  card.querySelectorAll('.anim-radio').forEach(l => { const inp = l.querySelector('input'); const txt = l.querySelector('span:last-child'); txt.className = inp.checked ? 'text-green-700' : 'text-stone-700'; txt.style.fontSize = '17px'; });
+  card.querySelectorAll('.anim-radio').forEach(l => { const inp = l.querySelector('input'); const txt = l.querySelector('span:last-child'); txt.className = inp.checked ? 'text-green-700' : 'text-stone-700'; txt.style.fontSize = ''; });
   v_updatePaymentSchedule();
   if (window.wizardActive) wizardUpdateTotal();
   syncPayPlanToOtherTabs(v_paymentPlan, 'videography');
@@ -5349,7 +5371,7 @@ function v_getEstimatedTotal() {
 function v_updatePaymentSchedule() {
   const display = document.getElementById('v_paymentScheduleDisplay');
   const tooSoon = document.getElementById('v_paymentTooSoon');
-  if (!v_weddingDate) { display.innerHTML = ''; v_renderInvestment(); return; }
+  if (!v_weddingDate || !v_paymentPlan) { display.innerHTML = ''; tooSoon.classList.add('hidden'); v_renderInvestment(); return; }
   const total = v_getEstimatedTotal();
   const schedule = calculatePaymentSchedule(total, v_weddingDate, v_paymentPlan);
   if (!schedule) { display.innerHTML = ''; tooSoon.classList.remove('hidden'); v_renderInvestment(); return; }
@@ -5431,7 +5453,7 @@ function v_resetAll() {
   v_paymentMethod = 'venmo';
   const v_payMethodGridReset = document.getElementById('v_payMethodGrid');
   if (v_payMethodGridReset) { v_payMethodGridReset.querySelectorAll('[data-v-pay-method]').forEach(c => { c.classList.toggle('col-active', c.dataset.vPayMethod === 'venmo'); }); }
-  v_weddingDate = null; v_paymentPlan = '15_days';
+  v_weddingDate = null; v_paymentPlan = null;
   window._fcVWeddingDate = null;
   if (typeof v_fcResetClock === 'function') v_fcResetClock();
   const v_now = new Date();
@@ -5443,8 +5465,8 @@ function v_resetAll() {
   document.getElementById('v_pickDatePrompt').classList.remove('hidden');
   document.getElementById('v_paymentScheduleDisplay').innerHTML = '';
   document.getElementById('v_paymentTooSoon').classList.add('hidden');
-  document.querySelectorAll('[name="v_payPlan"]').forEach(r => r.checked = false);
-  document.querySelectorAll('[data-v-payment="plan"] .anim-radio').forEach(l => { const txt = l.querySelector('span:last-child'); txt.className = 'text-stone-700'; txt.style.fontSize = '17px'; });
+  document.querySelectorAll('[name="v_payPlan"]').forEach(r => { r.checked = false; r._wasChecked = false; });
+  document.querySelectorAll('[data-v-payment="plan"] .anim-radio').forEach(l => { const txt = l.querySelector('span:last-child'); txt.className = 'text-stone-700'; txt.style.fontSize = ''; });
   v_renderInvestment();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -6096,8 +6118,8 @@ v_initCalendar();
       if (val !== this.currentValue) {
         if (this.currentValue !== '') {
           back.setAttribute('data-value', this.currentValue);
-          bottom.setAttribute('data-value', this.currentValue);
         }
+        bottom.setAttribute('data-value', val);
         this.currentValue = val;
         top.innerText = this.currentValue;
         backBottom.setAttribute('data-value', this.currentValue);
@@ -6132,6 +6154,7 @@ v_initCalendar();
   FCClock.prototype.stop = function() {
     this.generation++;
     if (this.rafId) { cancelAnimationFrame(this.rafId); this.rafId = null; }
+    if (this.intervalId) { clearInterval(this.intervalId); this.intervalId = null; }
   };
 
   FCClock.prototype.build = function() {
@@ -6155,28 +6178,22 @@ v_initCalendar();
   FCClock.prototype.startTicking = function() {
     var self = this;
     var gen = this.generation;
-    var lastSec = -1;
     function tick() {
       if (gen !== self.generation) return;
       var date = self.getDateFn();
-      if (!date) { self.rafId = null; return; }
+      if (!date) { self.intervalId = null; return; }
       var t = fcGetTimeRemaining(date);
       if (t.Total <= 0) {
         for (var key in self.trackers) { self.trackers[key].update(0); }
-        self.rafId = null;
+        if (self.intervalId) { clearInterval(self.intervalId); self.intervalId = null; }
         return;
       }
-      var now = new Date();
-      var sec = now.getSeconds();
-      if (sec !== lastSec) {
-        lastSec = sec;
-        for (var key in self.trackers) {
-          if (t[key] !== undefined) self.trackers[key].update(t[key]);
-        }
+      for (var key in self.trackers) {
+        if (t[key] !== undefined) self.trackers[key].update(t[key]);
       }
-      self.rafId = requestAnimationFrame(tick);
     }
-    self.rafId = requestAnimationFrame(tick);
+    tick();
+    self.intervalId = setInterval(tick, 1000);
   };
 
   FCClock.prototype.refresh = function() {
