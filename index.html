@@ -2735,29 +2735,12 @@ h3.fc-clock-label,
         </div>
       </div>
 
-      <!-- RIGHT: Choose Your Payment Schedule -->
+      <!-- RIGHT: Choose Your Payment Schedule (plan comparison cards) -->
       <div>
         <h3 class="text-lg md:text-2xl font-extrabold text-stone-800 mb-4 text-center mt-4 md:mt-0">Choose Your Payment Schedule</h3>
-
-        <!-- Payment schedule radios (hidden until date selected) -->
-        <div id="payPlanOptions">
-          <p class="text-stone-700 font-medium mb-3">Payment Schedule:</p>
-          <div class="space-y-3 mb-4">
-            <label class="anim-radio"><input type="radio" name="payPlan" value="monthly" onclick="selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Monthly Payments</span></span></label>
-            <label class="anim-radio"><input type="radio" name="payPlan" value="3_months" onclick="selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Every 3 Months</span></span></label>
-            <label class="anim-radio"><input type="radio" name="payPlan" value="6_months" onclick="selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Every 6 Months</span></span></label>
-            <label class="anim-radio"><input type="radio" name="payPlan" value="15_days" onclick="selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">15 Days Before Wedding</span></span></label>
-            <label class="anim-radio"><input type="radio" name="payPlan" value="day_of" onclick="selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Day of Your Wedding</span></span></label>
-          </div>
-          <!-- Payment schedule breakdown -->
-          <div id="paymentScheduleDisplay"></div>
-          <div id="paymentTooSoon" class="hidden">
-            <p class="text-sm font-semibold mt-2" style="color:#dc2626">⚠️ Your wedding date is too soon for this payment plan. Please select a date further out or choose a different plan.</p>
-          </div>
+        <div class="border border-stone-200 rounded-xl p-4 md:p-6 bg-stone-50" id="payPlanCompare">
+          <p class="text-sm md:text-base text-stone-500 italic text-center py-6">Pick your wedding date to compare payment plans ✨</p>
         </div>
-
-        <!-- Prompt before date selected -->
-        <p id="pickDatePrompt" class="text-sm md:text-base text-stone-500 italic text-center mt-8"></p>
       </div>
 
       <!-- Flip-Clock Countdown -->
@@ -3208,29 +3191,12 @@ h3.fc-clock-label,
         </div>
       </div>
 
-      <!-- RIGHT: Choose Your Payment Schedule -->
+      <!-- RIGHT: Choose Your Payment Schedule (plan comparison cards) -->
       <div>
         <h3 class="text-lg md:text-2xl font-extrabold text-stone-800 mb-4 text-center mt-4 md:mt-0">Choose Your Payment Schedule</h3>
-
-        <!-- Payment schedule radios (hidden until date selected) -->
-        <div id="p_payPlanOptions">
-          <p class="text-stone-700 font-medium mb-3">Payment Schedule:</p>
-          <div class="space-y-3 mb-4">
-            <label class="anim-radio"><input type="radio" name="p_payPlan" value="monthly" onclick="p_selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Monthly Payments</span></span></label>
-            <label class="anim-radio"><input type="radio" name="p_payPlan" value="3_months" onclick="p_selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Every 3 Months</span></span></label>
-            <label class="anim-radio"><input type="radio" name="p_payPlan" value="6_months" onclick="p_selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Every 6 Months</span></span></label>
-            <label class="anim-radio"><input type="radio" name="p_payPlan" value="15_days" onclick="p_selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">15 Days Before Wedding</span></span></label>
-            <label class="anim-radio"><input type="radio" name="p_payPlan" value="day_of" onclick="p_selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Day of Your Wedding</span></span></label>
-          </div>
-          <!-- Payment schedule breakdown -->
-          <div id="p_paymentScheduleDisplay"></div>
-          <div id="p_paymentTooSoon" class="hidden">
-            <p class="text-sm font-semibold mt-2" style="color:#dc2626">⚠️ Your wedding date is too soon for this payment plan. Please select a date further out or choose a different plan.</p>
-          </div>
+        <div class="border border-stone-200 rounded-xl p-4 md:p-6 bg-stone-50" id="p_payPlanCompare">
+          <p class="text-sm md:text-base text-stone-500 italic text-center py-6">Pick your wedding date to compare payment plans ✨</p>
         </div>
-
-        <!-- Prompt before date selected -->
-        <p id="p_pickDatePrompt" class="text-sm md:text-base text-stone-500 italic text-center mt-8"></p>
       </div>
 
       <!-- Flip-Clock Countdown -->
@@ -3450,29 +3416,12 @@ h3.fc-clock-label,
         </div>
       </div>
 
-      <!-- RIGHT: Choose Your Payment Schedule -->
+      <!-- RIGHT: Choose Your Payment Schedule (plan comparison cards) -->
       <div>
         <h3 class="text-lg md:text-2xl font-extrabold text-stone-800 mb-4 text-center mt-4 md:mt-0">Choose Your Payment Schedule</h3>
-
-        <!-- Payment schedule radios (hidden until date selected) -->
-        <div id="v_payPlanOptions">
-          <p class="text-stone-700 font-medium mb-3">Payment Schedule:</p>
-          <div class="space-y-3 mb-4">
-            <label class="anim-radio"><input type="radio" name="v_payPlan" value="monthly" onclick="v_selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Monthly Payments</span></span></label>
-            <label class="anim-radio"><input type="radio" name="v_payPlan" value="3_months" onclick="v_selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Every 3 Months</span></span></label>
-            <label class="anim-radio"><input type="radio" name="v_payPlan" value="6_months" onclick="v_selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Every 6 Months</span></span></label>
-            <label class="anim-radio"><input type="radio" name="v_payPlan" value="15_days" onclick="v_selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">15 Days Before Wedding</span></span></label>
-            <label class="anim-radio"><input type="radio" name="v_payPlan" value="day_of" onclick="v_selectPayPlan(this)"><span class="radiomark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Day of Your Wedding</span></span></label>
-          </div>
-          <!-- Payment schedule breakdown -->
-          <div id="v_paymentScheduleDisplay"></div>
-          <div id="v_paymentTooSoon" class="hidden">
-            <p class="text-sm font-semibold mt-2" style="color:#dc2626">⚠️ Your wedding date is too soon for this payment plan. Please select a date further out or choose a different plan.</p>
-          </div>
+        <div class="border border-stone-200 rounded-xl p-4 md:p-6 bg-stone-50" id="v_payPlanCompare">
+          <p class="text-sm md:text-base text-stone-500 italic text-center py-6">Pick your wedding date to compare payment plans ✨</p>
         </div>
-
-        <!-- Prompt before date selected -->
-        <p id="v_pickDatePrompt" class="text-sm md:text-base text-stone-500 italic text-center mt-8"></p>
       </div>
 
       <!-- Flip-Clock Countdown -->
@@ -3886,7 +3835,6 @@ function syncDateToOtherTabs(date, source) {
     if (typeof fcRefreshClock === 'function') fcRefreshClock();
     document.getElementById('selectedDateDisplay').classList.remove('hidden');
     document.getElementById('selectedDateText').innerHTML = dateStr;
-    document.getElementById('pickDatePrompt').classList.add('hidden');
     updatePaymentSchedule();
   }
   if (source !== 'photography') {
@@ -3897,7 +3845,6 @@ function syncDateToOtherTabs(date, source) {
     if (typeof p_fcRefreshClock === 'function') p_fcRefreshClock();
     document.getElementById('p_selectedDateDisplay').classList.remove('hidden');
     document.getElementById('p_selectedDateText').innerHTML = dateStr;
-    document.getElementById('p_pickDatePrompt').classList.add('hidden');
     p_updatePaymentSchedule();
   }
   if (source !== 'videography') {
@@ -3908,39 +3855,22 @@ function syncDateToOtherTabs(date, source) {
     if (typeof v_fcRefreshClock === 'function') v_fcRefreshClock();
     document.getElementById('v_selectedDateDisplay').classList.remove('hidden');
     document.getElementById('v_selectedDateText').innerHTML = dateStr;
-    document.getElementById('v_pickDatePrompt').classList.add('hidden');
     v_updatePaymentSchedule();
   }
 }
 
 function syncPayPlanToOtherTabs(planValue, source) {
-  function applyPlan(radioName, dataAttr, planVar, updateFn) {
-    const radios = document.querySelectorAll(`input[name="${radioName}"]`);
-    radios.forEach(r => { r.checked = (r.value === planValue); });
-    // Update radio label styling
-    const card = document.querySelector(`[${dataAttr}="plan"]`);
-    if (card) {
-      card.querySelectorAll('.anim-radio').forEach(l => {
-        const inp = l.querySelector('input');
-        const txt = l.querySelector('span:last-child');
-        txt.className = inp.checked ? 'text-green-700' : 'text-stone-700';
-        txt.style.fontSize = '';
-      });
-    }
-    updateFn();
-  }
-
   if (source !== 'alacarte') {
     paymentPlan = planValue;
-    applyPlan('payPlan', 'data-payment', paymentPlan, updatePaymentSchedule);
+    updatePaymentSchedule();
   }
   if (source !== 'photography') {
     p_paymentPlan = planValue;
-    applyPlan('p_payPlan', 'data-p-payment', p_paymentPlan, p_updatePaymentSchedule);
+    p_updatePaymentSchedule();
   }
   if (source !== 'videography') {
     v_paymentPlan = planValue;
-    applyPlan('v_payPlan', 'data-v-payment', v_paymentPlan, v_updatePaymentSchedule);
+    v_updatePaymentSchedule();
   }
 }
 
@@ -3955,34 +3885,9 @@ function selectDay(d) {
   document.getElementById('selectedDateDisplay').classList.remove('hidden');
   document.getElementById('selectedDateText').innerHTML = `Your Wedding Date:<br>${monthNames[weddingDate.getMonth()]} ${weddingDate.getDate()}, ${weddingDate.getFullYear()}`;
   // Show payment plan options
-  /* payPlanOptions always visible */
-  document.getElementById('pickDatePrompt').classList.add('hidden');
   updatePaymentSchedule();
   // Sync to other tabs
   syncDateToOtherTabs(weddingDate, 'alacarte');
-}
-
-function selectPayPlan(radio) {
-  if (radio._wasChecked) {
-    radio.checked = false;
-    radio._wasChecked = false;
-    paymentPlan = null;
-  } else {
-    const card = radio.closest('[data-payment="plan"]');
-    card.querySelectorAll('.anim-radio input').forEach(r => { r._wasChecked = false; });
-    radio._wasChecked = true;
-    paymentPlan = radio.value;
-  }
-  const card = radio.closest('[data-payment="plan"]');
-  card.querySelectorAll('.anim-radio').forEach(l => {
-    const inp = l.querySelector('input');
-    const txt = l.querySelector('span:last-child');
-    txt.className = inp.checked ? 'text-green-700' : 'text-stone-700';
-    txt.style.fontSize = '';
-  });
-  updatePaymentSchedule();
-  if (window.wizardActive) wizardUpdateTotal();
-  syncPayPlanToOtherTabs(paymentPlan, 'alacarte');
 }
 
 function calculatePaymentSchedule(total, weddingDateObj, planType, retainerCount) {
@@ -4018,6 +3923,8 @@ function calculatePaymentSchedule(total, weddingDateObj, planType, retainerCount
     const amt = remaining / n;
     const payments = [];
     for (let i = 1; i <= n; i++) { const pd = new Date(today); pd.setMonth(pd.getMonth() + (i * 3)); payments.push({amount: amt, date: pd, label: `Payment ${i}`}); }
+    // Final payment must never land on/after the wedding — pull back to one month before
+    if (payments[n - 1].date >= weddingCopy) { const c = new Date(weddingCopy); c.setMonth(c.getMonth() - 1); payments[n - 1].date = c; }
     return { type: 'Every 3 Months', payments, isMonthly: false };
   }
   if (planType === '6_months') {
@@ -4027,9 +3934,136 @@ function calculatePaymentSchedule(total, weddingDateObj, planType, retainerCount
     const amt = remaining / n;
     const payments = [];
     for (let i = 1; i <= n; i++) { const pd = new Date(today); pd.setMonth(pd.getMonth() + (i * 6)); payments.push({amount: amt, date: pd, label: `Payment ${i}`}); }
+    // Final payment must never land on/after the wedding — pull back to one month before
+    if (payments[n - 1].date >= weddingCopy) { const c = new Date(weddingCopy); c.setMonth(c.getMonth() - 1); payments[n - 1].date = c; }
     return { type: 'Every 6 Months', payments, isMonthly: false };
   }
   return null;
+}
+
+// ===== Compare Payment Schedules (Step 5 comparison table, all tabs) =====
+const comparePlanDefs = [
+  { value: 'monthly', label: 'Monthly' },
+  { value: '3_months', label: 'Every 3 Months' },
+  { value: '6_months', label: 'Every 6 Months' },
+  { value: '15_days', label: '15 Days Before' },
+  { value: 'day_of', label: 'Day of Wedding' }
+];
+
+// Per-tab config: plan variable accessors, cross-tab sync source, and re-render hook
+const compareTabCfg = {
+  payPlanCompare:   { source: 'alacarte',    getPlan: () => paymentPlan,   setPlan: v => { paymentPlan = v; },   update: () => updatePaymentSchedule() },
+  p_payPlanCompare: { source: 'photography', getPlan: () => p_paymentPlan, setPlan: v => { p_paymentPlan = v; }, update: () => p_updatePaymentSchedule() },
+  v_payPlanCompare: { source: 'videography', getPlan: () => v_paymentPlan, setPlan: v => { v_paymentPlan = v; }, update: () => v_updatePaymentSchedule() }
+};
+
+function compareSelectPlan(displayId, planValue, ev) {
+  ev.stopPropagation();
+  const cfg = compareTabCfg[displayId];
+  const next = cfg.getPlan() === planValue ? null : planValue; // tap again to deselect
+  cfg.setPlan(next);
+  cfg.update();
+  if (window.wizardActive) wizardUpdateTotal();
+  syncPayPlanToOtherTabs(next, cfg.source);
+}
+
+function renderPlanComparison(displayId, total, weddingDateObj, retainerCount, selectedPlan) {
+  const box = document.getElementById(displayId);
+  if (!box) return;
+  if (!weddingDateObj) {
+    box.innerHTML = '<p class="text-sm md:text-base text-stone-500 italic text-center py-6">Pick your wedding date to compare payment plans ✨</p>';
+    return;
+  }
+  retainerCount = retainerCount || 1;
+  const isMobile = window.innerWidth <= 768;
+  const fmtMoney = (n) => '$' + n.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+  const fmtDate = isMobile
+    ? (d) => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + ' ’' + String(d.getFullYear()).slice(-2)
+    : (d) => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+  const checkboxHtml = (isSelected, disabled, clickAttr) => {
+    if (disabled) {
+      return `<span class="inline-flex items-center justify-center rounded-full" style="width:20px;height:20px;border:2px dashed #d6d3d1;vertical-align:middle"></span>`;
+    }
+    if (isSelected) {
+      return `<span ${clickAttr} class="inline-flex items-center justify-center rounded-full cursor-pointer" style="width:20px;height:20px;border:2px solid #8a7ef2;background:linear-gradient(135deg,#c0baff,#8a7ef2);vertical-align:middle"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>`;
+    }
+    return `<span ${clickAttr} class="inline-flex items-center justify-center rounded-full cursor-pointer" style="width:20px;height:20px;border:2px solid #a8a29e;background:#fff;vertical-align:middle"></span>`;
+  };
+
+  let cards = '';
+  comparePlanDefs.forEach(def => {
+    const schedule = calculatePaymentSchedule(total, weddingDateObj, def.value, retainerCount);
+    const isSelected = selectedPlan === def.value;
+    const checkClick = `onclick="compareSelectPlan('${displayId}','${def.value}',event)"`;
+    const cardBorder = isSelected ? 'border:2px solid #8a7ef2' : 'border:1px solid #d6d3d1';
+
+    if (!schedule) {
+      cards += `<div class="rounded-xl overflow-hidden px-3 md:px-4 py-3 md:py-2.5 flex items-center gap-2 md:gap-3" style="${cardBorder};background:#eceaff">
+        ${checkboxHtml(isSelected, true, '')}
+        <p class="font-bold text-stone-400 text-sm md:text-base whitespace-nowrap">${def.label}</p>
+        <p class="text-stone-400 italic text-xs md:text-sm ml-auto text-right">Not available for your date</p>
+      </div>`;
+      return;
+    }
+
+    const lines = retainerCount === 2
+      ? [{ label: 'Photography Retainer', sub: null, amount: 1000 }, { label: 'Videography Retainer', sub: null, amount: 1000 }]
+      : [{ label: 'Retainer', sub: null, amount: 1000 }];
+
+    if (schedule.isMonthly) {
+      const p = schedule.payments[0];
+      // Final monthly payment always lands on the wedding day itself
+      const last = new Date(weddingDateObj);
+      last.setHours(0, 0, 0, 0);
+      if (p.count > 1) {
+        const n = p.count - 1;
+        lines.push({ label: n + ' Monthly Payment' + (n > 1 ? 's' : ''), sub: fmtMoney(p.amount) + ' per month', amount: p.amount * n });
+      }
+      lines.push({ label: 'Final Payment', sub: fmtDate(last), amount: p.amount });
+    } else {
+      const pays = schedule.payments;
+      pays.forEach((p, i) => {
+        const isLast = i === pays.length - 1;
+        if (isLast) {
+          // Always label the last payment so it's clear when payments are done
+          lines.push({ label: 'Final Payment', sub: fmtDate(p.date), amount: p.amount });
+        } else {
+          // Mobile: intermediate payments show date-only to save space
+          lines.push(isMobile
+            ? { label: fmtDate(p.date), sub: null, amount: p.amount }
+            : { label: p.label.replace(/<br>/g, ' '), sub: fmtDate(p.date), amount: p.amount });
+        }
+      });
+    }
+
+    let lineRows = '';
+    lines.forEach((r, idx) => {
+      const left = r.sub
+        ? `<span class="font-semibold">${r.label}</span> <span class="text-stone-500">· ${r.sub}</span>`
+        : `<span class="font-semibold">${r.label}</span>`;
+      lineRows += `<div class="flex justify-between items-center gap-3 py-2.5 md:py-1.5${idx < lines.length - 1 ? ' border-b border-stone-200' : ''}">
+        <p class="text-stone-700">${left}</p>
+        <p class="font-semibold text-stone-800 whitespace-nowrap">${fmtMoney(r.amount)}</p>
+      </div>`;
+    });
+
+    cards += `<div class="rounded-xl bg-white overflow-hidden" style="${cardBorder}">
+      <div class="flex items-center gap-2 md:gap-3 px-3 md:px-4 py-3 md:py-2.5 border-b border-stone-200" style="background:#eceaff">
+        ${checkboxHtml(isSelected, false, checkClick)}
+        <p class="font-bold text-stone-800 text-sm md:text-base">${def.label}</p>
+      </div>
+      <div class="px-3 md:px-4 py-1.5 md:py-1 text-xs md:text-sm">${lineRows}</div>
+    </div>`;
+  });
+
+  const retainerNote = retainerCount === 2
+    ? 'All plans begin with your <span class="font-bold">$2,000 in retainers</span> (photo + video) due at the time of signing your contract'
+    : 'All plans begin with your <span class="font-bold">$1,000 retainer</span> due at the time of signing your contract';
+
+  box.innerHTML = `<p class="text-sm md:text-base text-stone-600 text-center mb-3">${retainerNote}</p>
+  <div class="space-y-3 md:space-y-2">${cards}</div>
+  <p class="text-[11px] md:text-xs text-stone-400 text-center mt-2 italic">Tap the circle to select your plan</p>`;
 }
 
 function getEstimatedTotal() {
@@ -4092,77 +4126,7 @@ function p_getRetainerCount() {
 }
 
 function updatePaymentSchedule() {
-  const display = document.getElementById('paymentScheduleDisplay');
-  const tooSoon = document.getElementById('paymentTooSoon');
-  if (!weddingDate || !paymentPlan) { display.innerHTML = ''; tooSoon.classList.add('hidden'); renderInvestment(); return; }
-  const total = getEstimatedTotal();
-  const rc = getRetainerCount();
-  const schedule = calculatePaymentSchedule(total, weddingDate, paymentPlan, rc);
-
-  if (!schedule) {
-    display.innerHTML = '';
-    tooSoon.classList.remove('hidden');
-    renderInvestment();
-    return;
-  }
-  tooSoon.classList.add('hidden');
-
-  const fmtDate = (d) => d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
-  const fmtMoney = (n) => '$' + n.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-
-  let html = `<div class="mt-4 rounded-2xl overflow-hidden" style="background:#f9f9f8;border:1px solid #d6d3d1">
-    <div class="px-4 py-3" style="background:linear-gradient(135deg,#c0baff,#8a7ef2)">
-      <p class="text-base md:text-lg font-bold text-white tracking-wide text-center" style="text-shadow:0 1px 2px rgba(0,0,0,0.15)">${schedule.type}</p>
-    </div>
-    <div class="p-4 space-y-0">`;
-  if (rc === 2) {
-    html += `<div class="flex justify-between items-center py-3 border-b border-stone-300">
-        <div>
-          <p class="text-base md:text-lg font-semibold text-stone-800">Photography Retainer</p>
-          <p class="text-sm md:text-base text-stone-500">Due at signing</p>
-        </div>
-        <p class="text-lg md:text-xl font-bold text-stone-800">$1,000.00</p>
-      </div>
-      <div class="flex justify-between items-center py-3 border-b border-stone-300">
-        <div>
-          <p class="text-base md:text-lg font-semibold text-stone-800">Videography Retainer</p>
-          <p class="text-sm md:text-base text-stone-500">Due at signing</p>
-        </div>
-        <p class="text-lg md:text-xl font-bold text-stone-800">$1,000.00</p>
-      </div>`;
-  } else {
-    html += `<div class="flex justify-between items-center py-3 border-b border-stone-300">
-        <div>
-          <p class="text-base md:text-lg font-semibold text-stone-800">Retainer</p>
-          <p class="text-sm md:text-base text-stone-500">Due at signing</p>
-        </div>
-        <p class="text-lg md:text-xl font-bold text-stone-800">$1,000.00</p>
-      </div>`;
-  }
-
-  if (schedule.isMonthly) {
-    const p = schedule.payments[0];
-    html += `<div class="flex justify-between items-center py-3">
-      <div>
-        <p class="text-base md:text-lg font-semibold text-stone-800">${p.count} Monthly Payments</p>
-        <p class="text-sm md:text-base text-stone-500">${fmtMoney(p.amount)} per month</p>
-      </div>
-      <p class="text-lg md:text-xl font-bold text-stone-800">${fmtMoney(p.amount * p.count)}</p>
-    </div>`;
-  } else {
-    schedule.payments.forEach((p, idx) => {
-      html += `<div class="flex justify-between items-center py-3${idx < schedule.payments.length - 1 ? ' border-b border-stone-300' : ''}">
-        <div>
-          <p class="text-base md:text-lg font-semibold text-stone-800">${p.label}</p>
-          <p class="text-sm md:text-base text-stone-500">${fmtDate(p.date)}</p>
-        </div>
-        <p class="text-lg md:text-xl font-bold text-stone-800">${fmtMoney(p.amount)}</p>
-      </div>`;
-    });
-  }
-
-  html += '</div></div>';
-  display.innerHTML = html;
+  renderPlanComparison('payPlanCompare', getEstimatedTotal(), weddingDate, getRetainerCount(), paymentPlan);
   renderInvestment();
 }
 
@@ -4255,6 +4219,18 @@ function renderInvestment() {
       }
     }
   });
+  // Online Gallery & Printing Rights (included with photography or engagement sessions)
+  let galleryCount = 0;
+  const photoCard = document.querySelector('[data-coverage="photo"]');
+  if (photoCard && (parseFloat(photoCard.querySelector('.qty-display').textContent) || 0) > 0) galleryCount++;
+  document.querySelectorAll('[data-service="engagement_30min"], [data-service="engagement_session"]').forEach(card => {
+    if ((parseFloat(card.querySelector('.qty-display').textContent) || 0) > 0) galleryCount++;
+  });
+  if (galleryCount > 0) {
+    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Online Gallery (${galleryCount})</p><p class="text-green-700 font-medium">Included</p></div>`;
+    html += '<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Printing Rights</p><p class="text-green-700 font-medium">Included</p></div>';
+  }
+
   html += '</div></div>';
 
   // === Section 2: Service Credits ===
@@ -4431,14 +4407,7 @@ function resetAll() {
   viewMonth = now.getMonth();
   setYear(viewYear);
   document.getElementById('selectedDateDisplay').classList.add('hidden');
-  /* payPlanOptions always visible */
-  document.getElementById('pickDatePrompt').classList.remove('hidden');
-  document.getElementById('paymentScheduleDisplay').innerHTML = '';
-  document.getElementById('paymentTooSoon').classList.add('hidden');
-  document.querySelectorAll('[name="payPlan"]').forEach(r => { r.checked = false; r._wasChecked = false; });
-  const planLabels = document.querySelectorAll('[data-payment="plan"] .anim-radio');
-  planLabels.forEach(l => { const txt = l.querySelector('span:last-child'); txt.className = 'text-stone-700'; txt.style.fontSize = ''; });
-  renderInvestment();
+  updatePaymentSchedule();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -4720,9 +4689,11 @@ function toggleHalfHourMode() {
     const display = card.querySelector('.qty-display');
     const resetBtn = card.querySelector('.te-reset');
     let qty = parseFloat(display.textContent) || 0;
-    // À la carte tab: enforce 4hr minimum (skip 0.5-3.5 range)
+    // À la carte tab: enforce 4hr minimum (skip 0.5-3.5 range) — photo/video only,
+    // 2nd photographer and content creator start at 1 hr like other services
     const isAlaCarte = card.closest('#tabContent-alacarte');
-    if (isAlaCarte) {
+    const cov = card.dataset.coverage;
+    if (isAlaCarte && (cov === 'photo' || cov === 'video')) {
       qty = qty + delta;
       if (qty > 0 && qty < 4) qty = delta > 0 ? 4 : 0;
       qty = Math.max(0, qty);
@@ -4818,7 +4789,7 @@ function p_adjustQty(btn, delta) {
   const display = card.querySelector('.qty-display');
   const resetBtn = card.querySelector('.te-reset');
   let qty = parseFloat(display.textContent) || 0;
-  const hasMinimum = card.dataset.pCoverage === 'second' || card.dataset.pCoverage === 'content' || card.dataset.pCoverage === 'video';
+  const hasMinimum = card.dataset.pCoverage === 'video';
   if (hasMinimum) {
     qty = qty + delta;
     if (qty > 0 && qty < 4) qty = delta > 0 ? 4 : 0;
@@ -4999,29 +4970,9 @@ function p_selectDay(d) {
   if (typeof p_fcRefreshClock === 'function') p_fcRefreshClock();
   document.getElementById('p_selectedDateDisplay').classList.remove('hidden');
   document.getElementById('p_selectedDateText').innerHTML = `Your Wedding Date:<br>${monthNames[p_weddingDate.getMonth()]} ${p_weddingDate.getDate()}, ${p_weddingDate.getFullYear()}`;
-  /* p_payPlanOptions always visible */
-  document.getElementById('p_pickDatePrompt').classList.add('hidden');
   p_updatePaymentSchedule();
   // Sync to other tabs
   syncDateToOtherTabs(p_weddingDate, 'photography');
-}
-
-function p_selectPayPlan(radio) {
-  if (radio._wasChecked) {
-    radio.checked = false;
-    radio._wasChecked = false;
-    p_paymentPlan = null;
-  } else {
-    const card = radio.closest('[data-p-payment="plan"]');
-    card.querySelectorAll('.anim-radio input').forEach(r => { r._wasChecked = false; });
-    radio._wasChecked = true;
-    p_paymentPlan = radio.value;
-  }
-  const card = radio.closest('[data-p-payment="plan"]');
-  card.querySelectorAll('.anim-radio').forEach(l => { const inp = l.querySelector('input'); const txt = l.querySelector('span:last-child'); txt.className = inp.checked ? 'text-green-700' : 'text-stone-700'; txt.style.fontSize = ''; });
-  p_updatePaymentSchedule();
-  if (window.wizardActive) wizardUpdateTotal();
-  syncPayPlanToOtherTabs(p_paymentPlan, 'photography');
 }
 
 function p_getEstimatedTotal() {
@@ -5045,27 +4996,7 @@ function p_getEstimatedTotal() {
 }
 
 function p_updatePaymentSchedule() {
-  const display = document.getElementById('p_paymentScheduleDisplay');
-  const tooSoon = document.getElementById('p_paymentTooSoon');
-  if (!p_weddingDate || !p_paymentPlan) { display.innerHTML = ''; tooSoon.classList.add('hidden'); p_renderInvestment(); return; }
-  const total = p_getEstimatedTotal();
-  const prc = p_getRetainerCount();
-  const schedule = calculatePaymentSchedule(total, p_weddingDate, p_paymentPlan, prc);
-  if (!schedule) { display.innerHTML = ''; tooSoon.classList.remove('hidden'); p_renderInvestment(); return; }
-  tooSoon.classList.add('hidden');
-  const fmtDate = (d) => d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
-  const fmtMoney = (n) => '$' + n.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-  let html = `<div class="mt-4 rounded-2xl overflow-hidden" style="background:#f9f9f8;border:1px solid #d6d3d1"><div class="px-4 py-3" style="background:linear-gradient(135deg,#c0baff,#8a7ef2)"><p class="text-base md:text-lg font-bold text-white tracking-wide text-center" style="text-shadow:0 1px 2px rgba(0,0,0,0.15)">${schedule.type}</p></div><div class="p-4 space-y-0">`;
-  if (prc === 2) {
-    html += `<div class="flex justify-between items-center py-3 border-b border-stone-300"><div><p class="text-base md:text-lg font-semibold text-stone-800">Photography Retainer</p><p class="text-sm md:text-base text-stone-500">Due at signing</p></div><p class="text-lg md:text-xl font-bold text-stone-800">$1,000.00</p></div>`;
-    html += `<div class="flex justify-between items-center py-3 border-b border-stone-300"><div><p class="text-base md:text-lg font-semibold text-stone-800">Videography Retainer</p><p class="text-sm md:text-base text-stone-500">Due at signing</p></div><p class="text-lg md:text-xl font-bold text-stone-800">$1,000.00</p></div>`;
-  } else {
-    html += `<div class="flex justify-between items-center py-3 border-b border-stone-300"><div><p class="text-base md:text-lg font-semibold text-stone-800">Retainer</p><p class="text-sm md:text-base text-stone-500">Due at signing</p></div><p class="text-lg md:text-xl font-bold text-stone-800">$1,000.00</p></div>`;
-  }
-  if (schedule.isMonthly) { const p = schedule.payments[0]; html += `<div class="flex justify-between items-center py-3"><div><p class="text-base md:text-lg font-semibold text-stone-800">${p.count} Monthly Payments</p><p class="text-sm md:text-base text-stone-500">${fmtMoney(p.amount)} per month</p></div><p class="text-lg md:text-xl font-bold text-stone-800">${fmtMoney(p.amount * p.count)}</p></div>`; }
-  else { schedule.payments.forEach((p, idx) => { html += `<div class="flex justify-between items-center py-3${idx < schedule.payments.length - 1 ? ' border-b border-stone-300' : ''}"><div><p class="text-base md:text-lg font-semibold text-stone-800">${p.label}</p><p class="text-sm md:text-base text-stone-500">${fmtDate(p.date)}</p></div><p class="text-lg md:text-xl font-bold text-stone-800">${fmtMoney(p.amount)}</p></div>`; }); }
-  html += '</div></div>';
-  display.innerHTML = html;
+  renderPlanComparison('p_payPlanCompare', p_getEstimatedTotal(), p_weddingDate, p_getRetainerCount(), p_paymentPlan);
   p_renderInvestment();
 }
 
@@ -5209,12 +5140,7 @@ function p_resetAll() {
   p_viewMonth = p_now.getMonth();
   p_setYear(p_viewYear);
   document.getElementById('p_selectedDateDisplay').classList.add('hidden');
-  /* p_payPlanOptions always visible */
-  document.getElementById('p_pickDatePrompt').classList.remove('hidden');
-  document.getElementById('p_paymentScheduleDisplay').innerHTML = '';
-  document.getElementById('p_paymentTooSoon').classList.add('hidden');
-  document.querySelectorAll('[name="p_payPlan"]').forEach(r => { r.checked = false; r._wasChecked = false; });
-  document.querySelectorAll('[data-p-payment="plan"] .anim-radio').forEach(l => { const txt = l.querySelector('span:last-child'); txt.className = 'text-stone-700'; txt.style.fontSize = ''; });
+  p_updatePaymentSchedule();
   p_renderCustomize();
   p_renderInvestment();
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -5336,29 +5262,9 @@ function v_selectDay(d) {
   if (typeof v_fcRefreshClock === 'function') v_fcRefreshClock();
   document.getElementById('v_selectedDateDisplay').classList.remove('hidden');
   document.getElementById('v_selectedDateText').innerHTML = `Your Wedding Date:<br>${monthNames[v_weddingDate.getMonth()]} ${v_weddingDate.getDate()}, ${v_weddingDate.getFullYear()}`;
-  /* v_payPlanOptions always visible */
-  document.getElementById('v_pickDatePrompt').classList.add('hidden');
   v_updatePaymentSchedule();
   // Sync to other tabs
   syncDateToOtherTabs(v_weddingDate, 'videography');
-}
-
-function v_selectPayPlan(radio) {
-  if (radio._wasChecked) {
-    radio.checked = false;
-    radio._wasChecked = false;
-    v_paymentPlan = null;
-  } else {
-    const card = radio.closest('[data-v-payment="plan"]');
-    card.querySelectorAll('.anim-radio input').forEach(r => { r._wasChecked = false; });
-    radio._wasChecked = true;
-    v_paymentPlan = radio.value;
-  }
-  const card = radio.closest('[data-v-payment="plan"]');
-  card.querySelectorAll('.anim-radio').forEach(l => { const inp = l.querySelector('input'); const txt = l.querySelector('span:last-child'); txt.className = inp.checked ? 'text-green-700' : 'text-stone-700'; txt.style.fontSize = ''; });
-  v_updatePaymentSchedule();
-  if (window.wizardActive) wizardUpdateTotal();
-  syncPayPlanToOtherTabs(v_paymentPlan, 'videography');
 }
 
 function v_getEstimatedTotal() {
@@ -5372,20 +5278,7 @@ function v_getEstimatedTotal() {
 }
 
 function v_updatePaymentSchedule() {
-  const display = document.getElementById('v_paymentScheduleDisplay');
-  const tooSoon = document.getElementById('v_paymentTooSoon');
-  if (!v_weddingDate || !v_paymentPlan) { display.innerHTML = ''; tooSoon.classList.add('hidden'); v_renderInvestment(); return; }
-  const total = v_getEstimatedTotal();
-  const schedule = calculatePaymentSchedule(total, v_weddingDate, v_paymentPlan);
-  if (!schedule) { display.innerHTML = ''; tooSoon.classList.remove('hidden'); v_renderInvestment(); return; }
-  tooSoon.classList.add('hidden');
-  const fmtDate = (d) => d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
-  const fmtMoney = (n) => '$' + n.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-  let html = `<div class="mt-4 rounded-2xl overflow-hidden" style="background:#f9f9f8;border:1px solid #d6d3d1"><div class="px-4 py-3" style="background:linear-gradient(135deg,#c0baff,#8a7ef2)"><p class="text-base md:text-lg font-bold text-white tracking-wide text-center" style="text-shadow:0 1px 2px rgba(0,0,0,0.15)">${schedule.type}</p></div><div class="p-4 space-y-0"><div class="flex justify-between items-center py-3 border-b border-stone-300"><div><p class="text-base md:text-lg font-semibold text-stone-800">Retainer</p><p class="text-sm md:text-base text-stone-500">Due at signing</p></div><p class="text-lg md:text-xl font-bold text-stone-800">$1,000.00</p></div>`;
-  if (schedule.isMonthly) { const p = schedule.payments[0]; html += `<div class="flex justify-between items-center py-3"><div><p class="text-base md:text-lg font-semibold text-stone-800">${p.count} Monthly Payments</p><p class="text-sm md:text-base text-stone-500">${fmtMoney(p.amount)} per month</p></div><p class="text-lg md:text-xl font-bold text-stone-800">${fmtMoney(p.amount * p.count)}</p></div>`; }
-  else { schedule.payments.forEach((p, idx) => { html += `<div class="flex justify-between items-center py-3${idx < schedule.payments.length - 1 ? ' border-b border-stone-300' : ''}"><div><p class="text-base md:text-lg font-semibold text-stone-800">${p.label}</p><p class="text-sm md:text-base text-stone-500">${fmtDate(p.date)}</p></div><p class="text-lg md:text-xl font-bold text-stone-800">${fmtMoney(p.amount)}</p></div>`; }); }
-  html += '</div></div>';
-  display.innerHTML = html;
+  renderPlanComparison('v_payPlanCompare', v_getEstimatedTotal(), v_weddingDate, 1, v_paymentPlan);
   v_renderInvestment();
 }
 
@@ -5464,13 +5357,7 @@ function v_resetAll() {
   v_viewMonth = v_now.getMonth();
   v_setYear(v_viewYear);
   document.getElementById('v_selectedDateDisplay').classList.add('hidden');
-  /* v_payPlanOptions always visible */
-  document.getElementById('v_pickDatePrompt').classList.remove('hidden');
-  document.getElementById('v_paymentScheduleDisplay').innerHTML = '';
-  document.getElementById('v_paymentTooSoon').classList.add('hidden');
-  document.querySelectorAll('[name="v_payPlan"]').forEach(r => { r.checked = false; r._wasChecked = false; });
-  document.querySelectorAll('[data-v-payment="plan"] .anim-radio').forEach(l => { const txt = l.querySelector('span:last-child'); txt.className = 'text-stone-700'; txt.style.fontSize = ''; });
-  v_renderInvestment();
+  v_updatePaymentSchedule();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
