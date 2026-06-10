@@ -503,48 +503,6 @@ body { background: #e7e4e6; }
   100% { box-shadow: 0 0 0 13px #16a34a30; rotate: 0; }
 }
 .anim-cb.disabled { opacity: 0.35; pointer-events: none; }
-/* Animated Radio (from calculator) */
-.anim-radio { display: flex; align-items: center; gap: 0.75rem; cursor: pointer; }
-.anim-radio input { position: absolute; opacity: 0; cursor: pointer; height: 0; width: 0; }
-.anim-radio .radiomark {
-  --clr: #6038d8;
-  position: relative;
-  top: 0;
-  left: 0;
-  height: 1.6em;
-  width: 1.6em;
-  min-width: 1.6em;
-  font-size: 1.35rem;
-  background-color: rgba(214, 211, 209, 0.75);
-  border-radius: 50%;
-  transition: 300ms;
-}
-.anim-radio input:checked ~ .radiomark {
-  background: #c0baff;
-  border-radius: .5rem;
-  animation: radio-pulse 500ms ease-in-out;
-}
-.anim-radio .radiomark:after {
-  content: "";
-  position: absolute;
-  display: none;
-}
-.anim-radio input:checked ~ .radiomark:after { display: block; }
-.anim-radio .radiomark:after {
-  left: 50%;
-  top: 45%;
-  width: 0.25em;
-  height: 0.5em;
-  border: solid #fff;
-  border-width: 0 0.15em 0.15em 0;
-  transform: translate(-50%, -50%) rotate(45deg);
-}
-@keyframes radio-pulse {
-  0% { box-shadow: 0 0 0 #a098fc90; rotate: 20deg; }
-  50% { rotate: -20deg; }
-  75% { box-shadow: 0 0 0 10px #a098fc60; }
-  100% { box-shadow: 0 0 0 13px #a098fc30; rotate: 0; }
-}
 /* Year tab switcher */
 .tab-header-sm {
   height: 50px;
@@ -1998,16 +1956,9 @@ body { background: #e7e4e6; }
   .tab-header-sm {
     margin-bottom: 16px !important;
   }
-  .wizard-step p[id$="pickDatePrompt"] {
-    text-align: left !important;
-    font-size: 13px !important;
-    color: #a8a29e;
-  }
-  .anim-radio span,
   .anim-cb span {
     font-size: 14px !important;
   }
-  .anim-radio,
   .space-y-3 > * {
     margin-top: 8px !important;
   }
@@ -2200,19 +2151,16 @@ body { background: #e7e4e6; }
 
   /* --- Z-OVERFLOW. GLOBAL OVERFLOW SAFETY --- */
   [id$="investmentContent"] .flex,
-  [id$="paymentScheduleDisplay"] .flex,
   [id$="customizeContent"] .flex {
     min-width: 0 !important;
     gap: 8px !important;
   }
-  [id$="investmentContent"] .flex > *,
-  [id$="paymentScheduleDisplay"] .flex > * {
+  [id$="investmentContent"] .flex > * {
     min-width: 0 !important;
     overflow-wrap: break-word !important;
     word-break: break-word !important;
   }
-  [id$="investmentContent"] .flex > p:last-child,
-  [id$="paymentScheduleDisplay"] .flex > p:last-child {
+  [id$="investmentContent"] .flex > p:last-child {
     flex-shrink: 0 !important;
     white-space: nowrap !important;
   }
@@ -4106,7 +4054,7 @@ function getEstimatedTotal() {
   // Payment method adjustments
   if (paymentMethod === 'cash') total -= 50;
   if (paymentMethod === 'credit') total *= 1.05;
-  return total;
+  return Math.max(0, total);
 }
 
 // Helper: count retainers for À La Carte tab (2 if both photo + video selected)
@@ -4583,10 +4531,6 @@ function initWizardDots() {
   });
 }
 
-function injectMobileDetailsToggles() {
-  // No-op: details are always visible now
-}
-
 function initMobileWizard() {
   // Mobile redesign: wizard is disabled — all sections visible via CSS
   wizardActive = false;
@@ -4682,7 +4626,6 @@ function toggleHalfHourMode() {
 
 // Update adjustQty to respect halfHourMode and enforce 4hr minimum for à la carte
 (function() {
-  const origAdjustQty = adjustQty;
   adjustQty = function(btn, delta) {
     if (halfHourMode) delta = delta * 0.5;
     const card = btn.closest('[data-coverage]');
@@ -4717,7 +4660,6 @@ function toggleHalfHourMode() {
 
 // Update adjustServiceQty for hourly services to respect halfHourMode
 (function() {
-  const origAdjustServiceQty = adjustServiceQty;
   adjustServiceQty = function(btn, delta) {
     const card = btn.closest('[data-service]');
     const serviceId = card.dataset.service;
@@ -4992,7 +4934,7 @@ function p_getEstimatedTotal() {
   if (instaCb && instaCb.checked) total -= 25;
   if (p_paymentMethod === 'cash') total -= 50;
   if (p_paymentMethod === 'credit') total *= 1.05;
-  return total;
+  return Math.max(0, total);
 }
 
 function p_updatePaymentSchedule() {
@@ -5274,7 +5216,7 @@ function v_getEstimatedTotal() {
   }
   if (v_paymentMethod === 'cash') total -= 50;
   if (v_paymentMethod === 'credit') total *= 1.05;
-  return total;
+  return Math.max(0, total);
 }
 
 function v_updatePaymentSchedule() {
