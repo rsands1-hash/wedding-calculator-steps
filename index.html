@@ -2311,6 +2311,37 @@ h3.fc-clock-label,
   animation-fill-mode: both;
 }
 </style>
+<style>
+  /* Photography package cards — desktop only (min-width). The desktop feature list (ul.hidden)
+     is display:none on mobile and the guest-count restructure is media-scoped, so the mobile card
+     layout is left untouched. Left-justified content; guest count in the top-right corner with its
+     number range baseline-aligned to the package name (same size + color, lighter weight); a
+     category icon before each item; no inter-item dividers; fixed-width button sized to every message. */
+  @media (min-width: 768px) {
+    .photo-collections .col-card { position: relative; align-items: flex-start; text-align: left; }
+    .photo-collections .col-card-name,
+    .photo-collections .col-card-price { text-align: left; }
+
+    /* Guest count: top-right corner (top/right = card padding so the range shares the name's baseline) */
+    .photo-collections .col-card-badge { position: absolute; top: 24px; right: 24px; width: auto; margin: 0; padding: 0; border: 0; text-align: center; }
+    /* When selected, the global .col-active rule adds a gradient underline to the badge; that made
+       sense when the badge was the full-width guest line under the price, but here the badge is the
+       top-right corner guest count, so suppress the underline on desktop (mobile keeps its accent). */
+    .photo-collections .col-card.col-active .col-card-badge { border: 0; border-image: none; }
+    .photo-collections .col-card-badge .gc-range { display: block; font-size: 1.5rem; line-height: 2rem; font-weight: 700; color: #292524; letter-spacing: normal; }
+    .photo-collections .col-card-badge .gc-label { display: block; font-size: 0.95rem; line-height: 1.1; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: #a8a29e; }
+
+    /* Feature list: separator line above, left-aligned items with icons, no inter-item dividers */
+    .photo-collections .col-card ul.hidden { border-top: 1px solid #e7e5e4; padding-top: 1rem; margin-top: 0.4rem; }
+    .photo-collections .col-card ul.hidden > li { margin-top: 0 !important; padding: 0; text-align: left; }
+    .photo-collections .col-card ul.hidden > li + li { margin-top: 0.85rem !important; }
+    .photo-collections .col-card ul.hidden > li .feat { display: inline-flex; align-items: center; gap: 0.45rem; }
+    .photo-collections .col-card ul.hidden > li .feat svg { width: 0.95em; height: 0.95em; flex-shrink: 0; opacity: 0.8; }
+
+    /* Choose button: bottom, centered, uniform width to fit all selected messages */
+    .photo-collections .col-card-btn { align-self: center; width: 216px; margin-top: auto; font-size: 1.1rem; padding: 0.55em 1em; }
+  }
+</style>
 </head>
 <body class="font-sans px-4 py-12 md:px-10 md:py-16">
 
@@ -2346,15 +2377,15 @@ h3.fc-clock-label,
   <img src="https://static.showit.co/file/LB0PBwkUcYlFGgQdar6cSQ/293041/tools.png" alt="tools" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
   <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 1: Build Your Custom Package</h2>
 </div>
-<p class="text-center text-stone-600 text-lg md:text-xl mb-10">Create your perfect coverage starting at $300/hour with a 4 hour minimum</p>
+<p class="text-center text-stone-600 text-lg md:text-xl mb-10">Create your perfect coverage starting at $350/hour with a 4 hour minimum</p>
 
-<div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5 wizard-carousel mobile-grid-2x2">
+<div class="max-w-6xl md:max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5 wizard-carousel mobile-grid-2x2">
 
   <!-- Photography -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-coverage="photo">
     <img src="https://static.showit.co/file/5fWMmNfZMkFqvYROPoYu7A/293041/photo-coverage.png" alt="Photography" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
     <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">Photography</div>
-    <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$300/hr</div>
+    <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$350/hr</div>
     <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">Professional photography to preserve every moment of your wedding day.</p>
     <div class="flex flex-col items-center mt-auto">
       <div class="qty-group">
@@ -2386,7 +2417,7 @@ h3.fc-clock-label,
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-coverage="second">
     <img src="https://static.showit.co/file/RrVWNm-zH--na0RvwtkZ7A/293041/2nd-photographer.png" alt="2nd Photographer" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
     <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">2nd Photographer</div>
-    <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$150/hr</div>
+    <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$100/hr</div>
     <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">Extra angles, simultaneous coverage in two locations, and significantly more images captured throughout your day.</p>
     <div class="flex flex-col items-center mt-auto">
       <div class="qty-group">
@@ -2398,21 +2429,6 @@ h3.fc-clock-label,
     </div>
   </div>
 
-  <!-- Content Creator -->
-  <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-coverage="content">
-    <img src="https://static.showit.co/file/AYHOBmdx1ikAIW9YG2HYJg/293041/content-creator.png" alt="Content Creator" class="w-32 h-32 md:w-40 md:h-40 object-contain content-creator-img" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35)); margin-top: 10px; margin-bottom: 2px;">
-    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">Content Creator</div>
-    <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$150/hr</div>
-    <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">Behind-the-scenes content, Instagram reels &amp; stories plus live streaming key moments from your day.</p>
-    <div class="flex flex-col items-center mt-auto">
-      <div class="qty-group">
-        <button class="te-btn" onclick="adjustQty(this, -1)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
-        <span class="qty-display">0</span>
-        <button class="te-btn" onclick="adjustQty(this, 1)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
-      </div>
-      <button class="te-reset" onclick="resetQty(this)" style="opacity: 0.35; pointer-events: none;">RESET</button>
-    </div>
-  </div>
 
 </div>
 </div>
@@ -2512,7 +2528,7 @@ h3.fc-clock-label,
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-service="engagement_30min">
     <img src="https://static.showit.co/file/eTv486_m5iEjoOQD8HEQzw/293041/engagement-session.png" alt="30 Min Engagement" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
     <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center"><span class="name-underline"><span class="fc-line1">30 Minute</span> <span class="fc-line2">Engagement Session</span></span></div>
-    <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$300</div>
+    <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$400</div>
     <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">A quick and fun portrait session to celebrate your engagement together.</p>
     <div class="flex flex-col items-center mt-auto">
       <div class="qty-group">
@@ -2527,8 +2543,8 @@ h3.fc-clock-label,
   <!-- 1 Hour Engagement Session -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-service="engagement_session">
     <img src="https://static.showit.co/file/ze8z3dNzN-JHGQ9Mn5TG-w/293041/engagement-session-1hr.png" alt="1 Hour Engagement" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
-    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center"><span class="name-underline"><span class="fc-line1">One Hour</span> <span class="fc-line2">Engagement Session</span></span></div>
-    <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$600</div>
+    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center"><span class="name-underline"><span class="fc-line1">One Hour</span> <span class="fc-line2" style="display:block">Engagement Session</span></span></div>
+    <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$700</div>
     <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">A full portrait session with time for outfit changes and multiple locations.</p>
     <div class="flex flex-col items-center mt-auto">
       <div class="qty-group">
@@ -2544,7 +2560,7 @@ h3.fc-clock-label,
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-service="bridal_shower">
     <img src="https://static.showit.co/file/ZZxaw2O1AuvEtOS51atIgA/293041/bridal-shower.png" alt="Bridal Shower" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
     <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center"><span class="name-underline"><span class="fc-line1">Bridal Shower</span> <span class="fc-line2">Coverage</span></span></div>
-    <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$300/hr</div>
+    <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$350/hr</div>
     <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">Capture all the fun, laughter, and love shared at your bridal shower celebration.</p>
     <div class="flex flex-col items-center mt-auto">
       <div class="qty-group">
@@ -2560,7 +2576,7 @@ h3.fc-clock-label,
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-service="rehearsal_dinner">
     <img src="https://static.showit.co/file/5aAsyau8JQLDrdxu8Gp-yw/293041/rehearsal-dinner.png" alt="Rehearsal Dinner" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
     <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center"><span class="name-underline"><span class="fc-line1">Rehearsal Dinner</span> <span class="fc-line2">Coverage</span></span></div>
-    <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$300/hr</div>
+    <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$350/hr</div>
     <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">Document the toasts, laughter, and memories the night before your wedding.</p>
     <div class="flex flex-col items-center mt-auto">
       <div class="qty-group">
@@ -2776,12 +2792,33 @@ h3.fc-clock-label,
 </div>
 <p class="text-center text-stone-600 text-lg md:text-xl mb-10">I offer customizable packages to suit you and your fiance's every need</p>
 
-<div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-5 wizard-carousel p-collection-list">
+<div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-6 gap-3 md:gap-5 wizard-carousel p-collection-list photo-collections">
+
+  <!-- Petite -->
+  <div class="col-card flex flex-col items-center p-[15px] md:p-[24px] md:col-span-2" data-p-collection="petite" onclick="p_selectCollection(this)">
+    <div class="col-card-name text-sm md:text-2xl font-extrabold text-stone-800 mb-1 text-center">Petite</div>
+    <div class="col-card-price text-2xl md:text-5xl font-bold text-stone-800 mb-3" style="letter-spacing: -0.02em;">$2,500</div>
+    <div class="col-card-badge text-sm md:text-lg font-semibold text-stone-500 mb-4 pb-4 border-b border-stone-200 w-full text-center tracking-wide uppercase">25–50 Guests</div>
+    <!-- Desktop items -->
+    <ul class="w-full space-y-5 md:space-y-6 text-[15px] md:text-xl mb-6 hidden md:block">
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">6 Hours of Photo Coverage</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">30 Minute Engagement Session</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">Online Gallery (2)</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">Printing Rights</li>
+    </ul>
+    <!-- Mobile items -->
+    <ul class="w-full space-y-5 text-[15px] mb-6 md:hidden">
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">6 Hours of Photography Coverage</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">30 Minute Engagement Session</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">Online Gallery (2) + Printing Rights</li>
+    </ul>
+    <button class="col-card-btn">Choose</button>
+  </div>
 
   <!-- Essential -->
-  <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-p-collection="essential" onclick="p_selectCollection(this)">
+  <div class="col-card flex flex-col items-center p-[15px] md:p-[24px] md:col-span-2" data-p-collection="essential" onclick="p_selectCollection(this)">
     <div class="col-card-name text-sm md:text-2xl font-extrabold text-stone-800 mb-1 text-center">Essential</div>
-    <div class="col-card-price text-2xl md:text-5xl font-bold text-stone-800 mb-3" style="letter-spacing: -0.02em;">$3,000</div>
+    <div class="col-card-price text-2xl md:text-5xl font-bold text-stone-800 mb-3" style="letter-spacing: -0.02em;">$3,500</div>
     <div class="col-card-badge text-sm md:text-lg font-semibold text-stone-500 mb-4 pb-4 border-b border-stone-200 w-full text-center tracking-wide uppercase">50–100 Guests</div>
     <!-- Desktop items -->
     <ul class="w-full space-y-5 md:space-y-6 text-[15px] md:text-xl mb-6 hidden md:block">
@@ -2802,9 +2839,9 @@ h3.fc-clock-label,
   </div>
 
   <!-- Premium -->
-  <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-p-collection="premium" onclick="p_selectCollection(this)">
+  <div class="col-card flex flex-col items-center p-[15px] md:p-[24px] md:col-span-2" data-p-collection="premium" onclick="p_selectCollection(this)">
     <div class="col-card-name text-sm md:text-2xl font-extrabold text-stone-800 mb-1 text-center">Premium</div>
-    <div class="col-card-price text-2xl md:text-5xl font-bold text-stone-800 mb-3" style="letter-spacing: -0.02em;">$4,000</div>
+    <div class="col-card-price text-2xl md:text-5xl font-bold text-stone-800 mb-3" style="letter-spacing: -0.02em;">$4,600</div>
     <div class="col-card-badge text-sm md:text-lg font-semibold text-stone-500 mb-4 pb-4 border-b border-stone-200 w-full text-center tracking-wide uppercase">100–150 Guests</div>
     <!-- Desktop items -->
     <ul class="w-full space-y-5 md:space-y-6 text-[15px] md:text-xl mb-6 hidden md:block">
@@ -2825,16 +2862,16 @@ h3.fc-clock-label,
   </div>
 
   <!-- Signature -->
-  <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-p-collection="signature" onclick="p_selectCollection(this)">
+  <div class="col-card flex flex-col items-center p-[15px] md:p-[24px] md:col-start-2 md:col-span-2" data-p-collection="signature" onclick="p_selectCollection(this)">
     <div class="col-card-name text-sm md:text-2xl font-extrabold text-stone-800 mb-1 text-center">Signature</div>
-    <div class="col-card-price text-2xl md:text-5xl font-bold text-stone-800 mb-3" style="letter-spacing: -0.02em;">$5,500</div>
+    <div class="col-card-price text-2xl md:text-5xl font-bold text-stone-800 mb-3" style="letter-spacing: -0.02em;">$5,400</div>
     <div class="col-card-badge text-sm md:text-lg font-semibold text-stone-500 mb-4 pb-4 border-b border-stone-200 w-full text-center tracking-wide uppercase">150–200 Guests</div>
     <!-- Desktop items -->
     <ul class="w-full space-y-5 md:space-y-6 text-[15px] md:text-xl mb-6 hidden md:block">
       <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">10 Hours of Photo Coverage</li>
       <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">1 Hour Engagement Session</li>
       <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">10x10 Album (50 Pages)</li>
-      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">2nd Photographer (10 Hrs)</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">2nd Photographer (8 Hrs)</li>
       <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">Online Gallery (2)</li>
       <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">Printing Rights</li>
     </ul>
@@ -2843,32 +2880,32 @@ h3.fc-clock-label,
       <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">10 Hours of Photography Coverage</li>
       <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">1 Hour Engagement Session</li>
       <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">10x10 Album w/50 Pages</li>
-      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">2nd Photographer (10 Hours)</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">2nd Photographer (8 Hours)</li>
       <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">Online Gallery (2) + Printing Rights</li>
     </ul>
     <button class="col-card-btn">Choose</button>
   </div>
 
   <!-- Prestige -->
-  <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-p-collection="prestige" onclick="p_selectCollection(this)">
+  <div class="col-card flex flex-col items-center p-[15px] md:p-[24px] md:col-start-4 md:col-span-2" data-p-collection="prestige" onclick="p_selectCollection(this)">
     <div class="col-card-name text-sm md:text-2xl font-extrabold text-stone-800 mb-1 text-center">Prestige</div>
-    <div class="col-card-price text-2xl md:text-5xl font-bold text-stone-800 mb-3" style="letter-spacing: -0.02em;">$6,500</div>
+    <div class="col-card-price text-2xl md:text-5xl font-bold text-stone-800 mb-3" style="letter-spacing: -0.02em;">$6,400</div>
     <div class="col-card-badge text-sm md:text-lg font-semibold text-stone-500 mb-4 pb-4 border-b border-stone-200 w-full text-center tracking-wide uppercase">200+ Guests</div>
     <!-- Desktop items -->
     <ul class="w-full space-y-5 md:space-y-6 text-[15px] md:text-xl mb-6 hidden md:block">
       <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">12 Hours of Photo Coverage</li>
       <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">1 Hour Engagement Session</li>
       <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">12x12 Album (60 Pages)</li>
-      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">2nd Photographer (12 Hrs)</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">2nd Photographer (10 Hrs)</li>
       <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">Online Gallery (2)</li>
       <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">Printing Rights</li>
     </ul>
     <!-- Mobile items -->
     <ul class="w-full space-y-5 text-[15px] mb-6 md:hidden">
       <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">12 Hours of Photography Coverage</li>
-      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">1.5 Hour Engagement Session</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">1 Hour Engagement Session</li>
       <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">12x12 Album w/60 Pages</li>
-      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">2nd Photographer (12 Hours)</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">2nd Photographer (10 Hours)</li>
       <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">Online Gallery (2) + Printing Rights</li>
     </ul>
     <button class="col-card-btn">Choose</button>
@@ -2885,13 +2922,13 @@ h3.fc-clock-label,
 </div>
 <p class="text-center text-stone-600 text-lg md:text-xl mb-10">Need more time? No problem! Add on as much as you like : )</p>
 
-<div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5 wizard-carousel mobile-grid-2x2">
+<div class="max-w-6xl md:max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5 wizard-carousel mobile-grid-2x2">
 
   <!-- Photography -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-p-coverage="photo">
     <img src="https://static.showit.co/file/5fWMmNfZMkFqvYROPoYu7A/293041/photo-coverage.png" alt="Photography" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
     <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">Photography</div>
-    <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$300/hr</div>
+    <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$350/hr</div>
     <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">Professional photography to preserve every moment of your wedding day.</p>
     <div class="flex flex-col items-center mt-auto">
       <div class="qty-group">
@@ -2923,7 +2960,7 @@ h3.fc-clock-label,
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-p-coverage="second">
     <img src="https://static.showit.co/file/RrVWNm-zH--na0RvwtkZ7A/293041/2nd-photographer.png" alt="2nd Photographer" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
     <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">2nd Photographer</div>
-    <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$150/hr</div>
+    <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$100/hr</div>
     <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">Extra angles, simultaneous coverage in two locations, and significantly more images captured throughout your day.</p>
     <div class="flex flex-col items-center mt-auto">
       <div class="qty-group">
@@ -2935,21 +2972,6 @@ h3.fc-clock-label,
     </div>
   </div>
 
-  <!-- Content Creator -->
-  <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-p-coverage="content">
-    <img src="https://static.showit.co/file/AYHOBmdx1ikAIW9YG2HYJg/293041/content-creator.png" alt="Content Creator" class="w-32 h-32 md:w-40 md:h-40 object-contain content-creator-img" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35)); margin-top: 10px; margin-bottom: 2px;">
-    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">Content Creator</div>
-    <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$150/hr</div>
-    <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">Behind-the-scenes content, Instagram reels &amp; stories plus live streaming key moments from your day.</p>
-    <div class="flex flex-col items-center mt-auto">
-      <div class="qty-group">
-        <button class="te-btn" onclick="p_adjustQty(this, -1)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
-        <span class="qty-display">0</span>
-        <button class="te-btn" onclick="p_adjustQty(this, 1)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
-      </div>
-      <button class="te-reset" onclick="p_resetQty(this)" style="opacity: 0.35; pointer-events: none;">RESET</button>
-    </div>
-  </div>
 
 </div>
 </div>
@@ -2968,7 +2990,7 @@ h3.fc-clock-label,
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px] md:!hidden" data-p-service="engagement_30min">
     <img src="https://static.showit.co/file/eTv486_m5iEjoOQD8HEQzw/293041/engagement-session.png" alt="30 Min Engagement" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
     <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center"><span class="name-underline"><span class="fc-line1">30 Minute</span> <span class="fc-line2">Engagement Session</span></span></div>
-    <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$300</div>
+    <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$400</div>
     <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">A quick and fun portrait session to celebrate your engagement together.</p>
     <div class="flex flex-col items-center mt-auto">
       <div class="qty-group">
@@ -2983,8 +3005,8 @@ h3.fc-clock-label,
   <!-- One Hour Engagement Session (mobile only) -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px] md:!hidden" data-p-service="engagement_session">
     <img src="https://static.showit.co/file/ze8z3dNzN-JHGQ9Mn5TG-w/293041/engagement-session-1hr.png" alt="1 Hour Engagement" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
-    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center"><span class="name-underline"><span class="fc-line1">One Hour</span> <span class="fc-line2">Engagement Session</span></span></div>
-    <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$600</div>
+    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center"><span class="name-underline"><span class="fc-line1">One Hour</span> <span class="fc-line2" style="display:block">Engagement Session</span></span></div>
+    <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$700</div>
     <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">A full portrait session with time for outfit changes and multiple locations.</p>
     <div class="flex flex-col items-center mt-auto">
       <div class="qty-group">
@@ -3000,7 +3022,7 @@ h3.fc-clock-label,
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-p-service="bridal_shower">
     <img src="https://static.showit.co/file/ZZxaw2O1AuvEtOS51atIgA/293041/bridal-shower.png" alt="Bridal Shower" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
     <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center"><span class="name-underline"><span class="fc-line1">Bridal Shower</span> <span class="fc-line2">Coverage</span></span></div>
-    <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$300/hr</div>
+    <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$350/hr</div>
     <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">Capture all the fun, laughter, and love shared at your bridal shower celebration.</p>
     <div class="flex flex-col items-center mt-auto">
       <div class="qty-group">
@@ -3016,7 +3038,7 @@ h3.fc-clock-label,
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-p-service="rehearsal_dinner">
     <img src="https://static.showit.co/file/5aAsyau8JQLDrdxu8Gp-yw/293041/rehearsal-dinner.png" alt="Rehearsal Dinner" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
     <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center"><span class="name-underline"><span class="fc-line1">Rehearsal Dinner</span> <span class="fc-line2">Coverage</span></span></div>
-    <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$300/hr</div>
+    <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$350/hr</div>
     <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">Document the toasts, laughter, and memories the night before your wedding.</p>
     <div class="flex flex-col items-center mt-auto">
       <div class="qty-group">
@@ -3447,33 +3469,39 @@ h3.fc-clock-label,
 <script>
 // Collections data (from index.html)
 const collections = {
-  essential: {name: 'Essential Collection', price: 3000, items: [
+  petite: {name: 'Petite Collection', price: 2500, items: [
+    {name: '6 Hours of Photography Coverage', value: 0, removable: false},
+    {name: '30 Minute Engagement Session', value: 400, removable: true, id: 'engagement'},
+    {name: 'Online Gallery (2)', value: 0, removable: false, id: 'online_gallery'},
+    {name: 'Printing Rights', value: 0, removable: false}
+  ]},
+  essential: {name: 'Essential Collection', price: 3500, items: [
     {name: '8 Hours of Photography Coverage', value: 0, removable: false},
-    {name: '30 Minute Engagement Session', value: 300, removable: true, id: 'engagement'},
+    {name: '30 Minute Engagement Session', value: 400, removable: true, id: 'engagement'},
     {name: '8x8 Album (30 Pages)', value: 300, removable: true},
     {name: 'Online Gallery (2)', value: 0, removable: false, id: 'online_gallery'},
     {name: 'Printing Rights', value: 0, removable: false}
   ]},
-  premium: {name: 'Premium Collection', price: 4000, items: [
+  premium: {name: 'Premium Collection', price: 4600, items: [
     {name: '10 Hours of Photography Coverage', value: 0, removable: false},
-    {name: '1 Hour Engagement Session', value: 600, removable: true, id: 'engagement'},
+    {name: '1 Hour Engagement Session', value: 700, removable: true, id: 'engagement'},
     {name: '10x10 Album (40 Pages)', value: 400, removable: true},
     {name: 'Online Gallery (2)', value: 0, removable: false, id: 'online_gallery'},
     {name: 'Printing Rights', value: 0, removable: false}
   ]},
-  signature: {name: 'Signature Collection', price: 5500, items: [
+  signature: {name: 'Signature Collection', price: 5400, items: [
     {name: '10 Hours of Photography Coverage', value: 0, removable: false},
-    {name: '1 Hour Engagement Session', value: 600, removable: true, id: 'engagement'},
+    {name: '1 Hour Engagement Session', value: 700, removable: true, id: 'engagement'},
     {name: '10x10 Album (50 Pages)', value: 400, removable: true},
-    {name: '2nd Photographer (10 Hrs)', value: 1500, removable: true, id: 'second_photographer'},
+    {name: '2nd Photographer (8 Hrs)', value: 800, removable: true, id: 'second_photographer'},
     {name: 'Online Gallery (2)', value: 0, removable: false, id: 'online_gallery'},
     {name: 'Printing Rights', value: 0, removable: false}
   ]},
-  prestige: {name: 'Prestige Collection', price: 6500, items: [
+  prestige: {name: 'Prestige Collection', price: 6400, items: [
     {name: '12 Hours of Photography Coverage', value: 0, removable: false},
-    {name: '1.5 Hour Engagement Session', value: 600, removable: true, id: 'engagement'},
+    {name: '1 Hour Engagement Session', value: 700, removable: true, id: 'engagement'},
     {name: '12x12 Album (60 Pages)', value: 500, removable: true},
-    {name: '2nd Photographer (12 Hrs)', value: 1800, removable: true, id: 'second_photographer'},
+    {name: '2nd Photographer (10 Hrs)', value: 1000, removable: true, id: 'second_photographer'},
     {name: 'Online Gallery (2)', value: 0, removable: false, id: 'online_gallery'},
     {name: 'Printing Rights', value: 0, removable: false}
   ]}
@@ -3495,6 +3523,7 @@ let currentCollection = null;
 let paymentMethod = 'venmo';
 
 const selectedMsgs = {
+  petite: '\u2713  Where do I sign?',
   essential: '\u2713  Let\u2019s Do This!',
   premium: '\u2713  Love this package!',
   signature: '\u2713  Fan Favorite!',
@@ -4020,7 +4049,7 @@ function getEstimatedTotal() {
   document.querySelectorAll('[data-coverage]').forEach(card => {
     const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0;
     if (qty > 0) {
-      const price = parseInt(card.querySelector('.coverage-price').textContent.replace(/[^0-9]/g, '')) || 0;
+      const price = coveragePrices[card.dataset.coverage] || 0;
       total += price * qty;
     }
   });
@@ -4028,7 +4057,7 @@ function getEstimatedTotal() {
   document.querySelectorAll('[data-album]').forEach(card => {
     const qty = parseInt(card.querySelector('.qty-display').textContent) || 0;
     if (qty > 0) {
-      const price = parseInt(card.querySelector('.coverage-price').textContent.replace(/[^0-9]/g, '')) || 0;
+      const price = albumPrices[card.dataset.album] || 0;
       total += price * qty;
     }
   });
@@ -4036,7 +4065,7 @@ function getEstimatedTotal() {
   document.querySelectorAll('[data-service]').forEach(card => {
     const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0;
     if (qty > 0) {
-      const price = parseInt(card.querySelector('.coverage-price').textContent.replace(/[^0-9]/g, '')) || 0;
+      const price = servicePrices[card.dataset.service] || 0;
       total += price * qty;
     }
   });
@@ -4090,12 +4119,35 @@ function toggleItemRemoval(itemName) {
 }
 
 // ===== Your Investment =====
-const coverageNames = { photo: 'Additional Photography Coverage', video: 'Additional Videography Coverage', second: '2nd Photographer', content: 'Content Creator' };
-const coveragePrices = { photo: 300, video: 300, second: 150, content: 150 };
+const coverageNames = { photo: 'Additional Photography Coverage', video: 'Additional Videography Coverage', second: '2nd Photographer' };
+const coveragePrices = { photo: 350, video: 300, second: 100 };
 const albumNames = { album_8x8: '8x8 Album', album_10x10: '10x10 Album', album_12x12: '12x12 Album', parent_album: 'Parent Album' };
 const albumPrices = { album_8x8: 300, album_10x10: 400, album_12x12: 500, parent_album: 500 };
 const serviceNames = { engagement_30min: '30 Minute Engagement Session', engagement_session: 'One Hour Engagement Session', bridal_shower: 'Bridal Shower Coverage', rehearsal_dinner: 'Rehearsal Dinner Coverage' };
-const servicePrices = { engagement_30min: 300, engagement_session: 600, bridal_shower: 300, rehearsal_dinner: 300 };
+const servicePrices = { engagement_30min: 400, engagement_session: 700, bridal_shower: 350, rehearsal_dinner: 350 };
+
+// SINGLE SOURCE OF TRUTH: the maps above (coveragePrices / albumPrices / servicePrices) drive
+// BOTH every card's displayed price AND all totals, breakdowns, and quote emails. To change a
+// price, edit it ONLY in the map — applyPricesToCards() writes the visible card text from the map
+// on load, so the card, the total, and the itemized quote can never disagree. (The dollar amounts
+// hard-coded in the card HTML are just pre-load placeholders; they're overwritten from the map.)
+function applyPricesToCards() {
+  const write = (selector, priceMap, isHourly) => {
+    document.querySelectorAll(selector).forEach(card => {
+      const el = card.querySelector('.coverage-price');
+      if (!el) return;
+      const key = card.dataset.coverage || card.dataset.pCoverage
+        || card.dataset.album || card.dataset.pAlbum
+        || card.dataset.service || card.dataset.pService;
+      const price = priceMap[key];
+      if (price == null) return;
+      el.textContent = '$' + price + (isHourly(key) ? '/hr' : '');
+    });
+  };
+  write('[data-coverage], [data-p-coverage]', coveragePrices, () => true);              // photo/video/2nd — always per hour
+  write('[data-album], [data-p-album]', albumPrices, () => false);                       // albums — flat
+  write('[data-service], [data-p-service]', servicePrices, (id) => hourlyServices.includes(id)); // bridal/rehearsal hourly, engagement flat
+}
 
 function renderInvestment() {
   const container = document.getElementById('investmentContent');
@@ -4241,28 +4293,30 @@ function renderInvestment() {
   // Payment schedule breakdown
   const fmtDate = (d) => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
   const rc = getRetainerCount();
+  const remaining = Math.max(0, total - 1000 * rc); // never show a negative balance
   if (isCash) {
     html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Full Payment (due within 14 days)</p><p class="text-stone-800">${fmtMoney(total)}</p></div>`;
   } else if (rc === 2) {
-    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Photography Retainer (due at signing)</p><p class="text-stone-800">${fmtMoney(1000)}</p></div>`;
-    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Videography Retainer (due at signing)</p><p class="text-stone-800">${fmtMoney(1000)}</p></div>`;
+    const eachRetainer = Math.min(1000, total / 2); // never charge a retainer larger than the order
+    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Photography Retainer (due at signing)</p><p class="text-stone-800">${fmtMoney(eachRetainer)}</p></div>`;
+    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Videography Retainer (due at signing)</p><p class="text-stone-800">${fmtMoney(eachRetainer)}</p></div>`;
   } else {
-    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Retainer (due at signing)</p><p class="text-stone-800">${fmtMoney(1000)}</p></div>`;
+    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Retainer (due at signing)</p><p class="text-stone-800">${fmtMoney(Math.min(1000, total))}</p></div>`;
   }
-  if (weddingDate && paymentPlan) {
+  if (weddingDate && paymentPlan && !isCash) {
     const schedule = calculatePaymentSchedule(total, weddingDate, paymentPlan, rc);
     if (schedule) {
       if (schedule.isMonthly) {
         const p = schedule.payments[0];
-        html += `<div class="flex justify-between items-center text-sm md:text-base" style="${strikeStyle}"><p class="text-stone-600">${p.count} Monthly Payments</p><p class="text-stone-800">${fmtMoney(p.amount)}/mo</p></div>`;
+        html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">${p.count} Monthly Payments</p><p class="text-stone-800">${fmtMoney(p.amount)}/mo</p></div>`;
       } else {
         schedule.payments.forEach(p => {
-          html += `<div class="flex justify-between items-center text-sm md:text-base" style="${strikeStyle}"><p class="text-stone-600">${p.label} (${fmtDate(p.date)})</p><p class="text-stone-800">${fmtMoney(p.amount)}</p></div>`;
+          html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">${p.label} (${fmtDate(p.date)})</p><p class="text-stone-800">${fmtMoney(p.amount)}</p></div>`;
         });
       }
     }
   } else if (!isCash) {
-    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Remaining Balance</p><p class="text-stone-800">${fmtMoney(total - 1000 * rc)}</p></div>`;
+    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Remaining Balance</p><p class="text-stone-800">${fmtMoney(remaining)}</p></div>`;
   }
 
   html += '</div></div>';
@@ -4633,7 +4687,7 @@ function toggleHalfHourMode() {
     const resetBtn = card.querySelector('.te-reset');
     let qty = parseFloat(display.textContent) || 0;
     // À la carte tab: enforce 4hr minimum (skip 0.5-3.5 range) — photo/video only,
-    // 2nd photographer and content creator start at 1 hr like other services
+    // 2nd photographer starts at 1 hr like other services
     const isAlaCarte = card.closest('#tabContent-alacarte');
     const cov = card.dataset.coverage;
     if (isAlaCarte && (cov === 'photo' || cov === 'video')) {
@@ -4697,6 +4751,7 @@ let p_weddingDate = null;
 let p_paymentPlan = null;
 
 const p_selectedMsgs = {
+  petite: '\u2713  Where do I sign?',
   essential: '\u2713  Let\u2019s Do This!',
   premium: '\u2713  Love this package!',
   signature: '\u2713  Fan Favorite!',
@@ -4923,9 +4978,9 @@ function p_getEstimatedTotal() {
     total = collections[p_currentCollection].price;
     collections[p_currentCollection].items.forEach(item => { if (p_removedItems.includes(item.name)) total -= item.value; });
   }
-  document.querySelectorAll('[data-p-coverage]').forEach(card => { const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0; if (qty > 0) { const price = parseInt(card.querySelector('.coverage-price').textContent.replace(/[^0-9]/g, '')) || 0; total += price * qty; } });
-  document.querySelectorAll('[data-p-album]').forEach(card => { const qty = parseInt(card.querySelector('.qty-display').textContent) || 0; if (qty > 0) { const price = parseInt(card.querySelector('.coverage-price').textContent.replace(/[^0-9]/g, '')) || 0; total += price * qty; } });
-  document.querySelectorAll('[data-p-service]').forEach(card => { const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0; if (qty > 0) { const price = parseInt(card.querySelector('.coverage-price').textContent.replace(/[^0-9]/g, '')) || 0; total += price * qty; } });
+  document.querySelectorAll('[data-p-coverage]').forEach(card => { const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0; if (qty > 0) { const price = coveragePrices[card.dataset.pCoverage] || 0; total += price * qty; } });
+  document.querySelectorAll('[data-p-album]').forEach(card => { const qty = parseInt(card.querySelector('.qty-display').textContent) || 0; if (qty > 0) { const price = albumPrices[card.dataset.pAlbum] || 0; total += price * qty; } });
+  document.querySelectorAll('[data-p-service]').forEach(card => { const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0; if (qty > 0) { const price = servicePrices[card.dataset.pService] || 0; total += price * qty; } });
   const p_creditGrid = document.getElementById('p_serviceCreditsList');
   if (p_creditGrid) total -= p_creditGrid.querySelectorAll('[data-p-credit].col-active').length * 50;
   const consultCb = document.getElementById('p_consultationCb');
@@ -4982,7 +5037,7 @@ function p_renderInvestment() {
   html += '<div class="pb-4 border-b border-stone-300">';
   html += `<p class="text-sm md:text-base text-stone-700 uppercase tracking-wider font-bold mb-2">${col.name}</p>`;
   html += '<div class="space-y-2">';
-  html += `<div class="flex justify-between items-start text-sm md:text-base"><div class="text-stone-600"><div>Photography Coverage w/Ryan Sands <span class="text-sm block">(${coverageHours} hours @ $300/hr)</span></div></div><p class="text-stone-800 whitespace-nowrap">${fmtWhole(photoCoveragePrice)}</p></div>`;
+  html += `<div class="flex justify-between items-start text-sm md:text-base"><div class="text-stone-600"><div>Photography Coverage w/Ryan Sands <span class="text-sm block">(${coverageHours} hours @ $350/hr)</span></div></div><p class="text-stone-800 whitespace-nowrap">${fmtWhole(photoCoveragePrice)}</p></div>`;
   col.items.filter(i => i.id === 'engagement' && !p_removedItems.includes(i.name)).forEach(item => { html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">${item.name}</p><p class="text-stone-800">${fmtWhole(item.value)}</p></div>`; });
   col.items.filter(i => i.name.includes('Album') && !p_removedItems.includes(i.name)).forEach(item => { html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">${item.name}</p><p class="text-stone-800">${fmtWhole(item.value)}</p></div>`; });
   col.items.filter(i => i.id === 'second_photographer' && !p_removedItems.includes(i.name)).forEach(item => { html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">${item.name}</p><p class="text-stone-800">${fmtWhole(item.value)}</p></div>`; });
@@ -5026,22 +5081,24 @@ function p_renderInvestment() {
   const p_fmtDate = (d) => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
   const p_schedTotal = p_getEstimatedTotal();
   const prc = p_getRetainerCount();
+  const p_remaining = Math.max(0, p_schedTotal - 1000 * prc); // never show a negative balance
   if (p_isCash) {
     html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Full Payment (due within 14 days)</p><p class="text-stone-800">${fmtMoney(p_schedTotal)}</p></div>`;
   } else if (prc === 2) {
-    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Photography Retainer (due at signing)</p><p class="text-stone-800">${fmtMoney(1000)}</p></div>`;
-    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Videography Retainer (due at signing)</p><p class="text-stone-800">${fmtMoney(1000)}</p></div>`;
+    const p_eachRetainer = Math.min(1000, p_schedTotal / 2); // never charge a retainer larger than the order
+    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Photography Retainer (due at signing)</p><p class="text-stone-800">${fmtMoney(p_eachRetainer)}</p></div>`;
+    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Videography Retainer (due at signing)</p><p class="text-stone-800">${fmtMoney(p_eachRetainer)}</p></div>`;
   } else {
-    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Retainer (due at signing)</p><p class="text-stone-800">${fmtMoney(1000)}</p></div>`;
+    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Retainer (due at signing)</p><p class="text-stone-800">${fmtMoney(Math.min(1000, p_schedTotal))}</p></div>`;
   }
-  if (p_weddingDate && p_paymentPlan) {
+  if (p_weddingDate && p_paymentPlan && !p_isCash) {
     const schedule = calculatePaymentSchedule(p_schedTotal, p_weddingDate, p_paymentPlan, prc);
     if (schedule) {
-      if (schedule.isMonthly) { const p = schedule.payments[0]; html += `<div class="flex justify-between items-center text-sm md:text-base" style="${p_strikeStyle}"><p class="text-stone-600">${p.count} Monthly Payments</p><p class="text-stone-800">${fmtMoney(p.amount)}/mo</p></div>`; }
-      else { schedule.payments.forEach(p => { html += `<div class="flex justify-between items-center text-sm md:text-base" style="${p_strikeStyle}"><p class="text-stone-600">${p.label} (${p_fmtDate(p.date)})</p><p class="text-stone-800">${fmtMoney(p.amount)}</p></div>`; }); }
+      if (schedule.isMonthly) { const p = schedule.payments[0]; html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">${p.count} Monthly Payments</p><p class="text-stone-800">${fmtMoney(p.amount)}/mo</p></div>`; }
+      else { schedule.payments.forEach(p => { html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">${p.label} (${p_fmtDate(p.date)})</p><p class="text-stone-800">${fmtMoney(p.amount)}</p></div>`; }); }
     }
   } else if (!p_isCash) {
-    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Remaining Balance</p><p class="text-stone-800">${fmtMoney(p_schedTotal - 1000 * prc)}</p></div>`;
+    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Remaining Balance</p><p class="text-stone-800">${fmtMoney(p_remaining)}</p></div>`;
   }
 
   html += '</div></div>';
@@ -5262,14 +5319,14 @@ function v_renderInvestment() {
   } else {
     html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Retainer (due at signing)</p><p class="text-stone-800">${fmtMoney(1000)}</p></div>`;
   }
-  if (v_weddingDate && v_paymentPlan) {
+  if (v_weddingDate && v_paymentPlan && !v_isCash) {
     const schedule = calculatePaymentSchedule(v_schedTotal, v_weddingDate, v_paymentPlan);
     if (schedule) {
-      if (schedule.isMonthly) { const p = schedule.payments[0]; html += `<div class="flex justify-between items-center text-sm md:text-base" style="${v_strikeStyle}"><p class="text-stone-600">${p.count} Monthly Payments</p><p class="text-stone-800">${fmtMoney(p.amount)}/mo</p></div>`; }
-      else { schedule.payments.forEach(p => { html += `<div class="flex justify-between items-center text-sm md:text-base" style="${v_strikeStyle}"><p class="text-stone-600">${p.label} (${v_fmtDate(p.date)})</p><p class="text-stone-800">${fmtMoney(p.amount)}</p></div>`; }); }
+      if (schedule.isMonthly) { const p = schedule.payments[0]; html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">${p.count} Monthly Payments</p><p class="text-stone-800">${fmtMoney(p.amount)}/mo</p></div>`; }
+      else { schedule.payments.forEach(p => { html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">${p.label} (${v_fmtDate(p.date)})</p><p class="text-stone-800">${fmtMoney(p.amount)}</p></div>`; }); }
     }
   } else if (!v_isCash) {
-    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Remaining Balance</p><p class="text-stone-800">${fmtMoney(v_schedTotal - 1000)}</p></div>`;
+    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Remaining Balance</p><p class="text-stone-800">${fmtMoney(Math.max(0, v_schedTotal - 1000))}</p></div>`;
   }
 
   html += '</div></div>';
@@ -5411,19 +5468,26 @@ function generateBookingDetails() {
     if (paymentMethod === 'cash') details.push('Cash Discount: -$50');
     if (paymentMethod === 'credit') details.push(`Credit Card Fee (5%): +$${((getEstimatedTotal() / 1.05) * 0.05).toFixed(2)}`);
     details.push('');
-    if (weddingDate) {
+    if (paymentMethod === 'cash') {
+      details.push(`Full Payment (due within 14 days of signing): $${getEstimatedTotal().toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`);
+      details.push('(Cash payment — no installment plan applies.)');
+      if (weddingDate) details.push(`Wedding Date: ${weddingDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`);
+    } else if (weddingDate) {
       details.push(`Wedding Date: ${weddingDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`);
       const alcRC = getRetainerCount();
-      const schedule = calculatePaymentSchedule(getEstimatedTotal(), weddingDate, paymentPlan, alcRC);
+      const alcTotal = getEstimatedTotal();
+      const fmtR = (n) => n.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      const schedule = calculatePaymentSchedule(alcTotal, weddingDate, paymentPlan, alcRC);
       if (schedule) {
         details.push(`Payment Plan: ${schedule.type}`);
         details.push('');
         details.push('PAYMENT SCHEDULE:');
         if (alcRC === 2) {
-          details.push('• Photography Retainer (Due at signing): $1,000.00');
-          details.push('• Videography Retainer (Due at signing): $1,000.00');
+          const each = Math.min(1000, alcTotal / 2);
+          details.push(`• Photography Retainer (Due at signing): $${fmtR(each)}`);
+          details.push(`• Videography Retainer (Due at signing): $${fmtR(each)}`);
         } else {
-          details.push('• Retainer (Due at signing): $1,000.00');
+          details.push(`• Retainer (Due at signing): $${fmtR(Math.min(1000, alcTotal))}`);
         }
         if (schedule.isMonthly) details.push(`• ${schedule.payments[0].count} monthly payments of $${schedule.payments[0].amount.toFixed(2)}`);
         else schedule.payments.forEach(p => details.push(`• ${p.label} (${fmtDate(p.date)}): $${p.amount.toFixed(2)}`));
@@ -5447,8 +5511,8 @@ function generateBookingDetails() {
     document.querySelectorAll('[data-p-coverage]').forEach(card => {
       const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0;
       if (qty > 0) {
-        const price = parseInt(card.querySelector('.coverage-price').textContent.replace(/[^0-9]/g, '')) || 0;
         const id = card.dataset.pCoverage;
+        const price = coveragePrices[id] || 0;
         const name = coverageNames[id] || id;
         pCoverageItems.push(`• ${name} (${qty} ${qty === 1 ? 'hour' : 'hours'} @ $${price}/hr): $${(price * qty).toLocaleString()}`);
       }
@@ -5458,8 +5522,8 @@ function generateBookingDetails() {
     document.querySelectorAll('[data-p-album]').forEach(card => {
       const qty = parseInt(card.querySelector('.qty-display').textContent) || 0;
       if (qty > 0) {
-        const price = parseInt(card.querySelector('.coverage-price').textContent.replace(/[^0-9]/g, '')) || 0;
         const id = card.dataset.pAlbum;
+        const price = albumPrices[id] || 0;
         pAlbums.push(`• ${albumNames[id] || id} (×${qty}): $${(price * qty).toLocaleString()}`);
       }
     });
@@ -5468,8 +5532,8 @@ function generateBookingDetails() {
     document.querySelectorAll('[data-p-service]').forEach(card => {
       const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0;
       if (qty > 0) {
-        const price = parseInt(card.querySelector('.coverage-price').textContent.replace(/[^0-9]/g, '')) || 0;
         const id = card.dataset.pService;
+        const price = servicePrices[id] || 0;
         pServices.push(`• ${serviceNames[id] || id} (${qty}): $${(price * qty).toLocaleString()}`);
       }
     });
@@ -5490,19 +5554,26 @@ function generateBookingDetails() {
     if (p_paymentMethod === 'cash') details.push('Cash Discount: -$50');
     if (p_paymentMethod === 'credit') details.push(`Credit Card Fee (5%): +$${((p_getEstimatedTotal() / 1.05) * 0.05).toFixed(2)}`);
     details.push('');
-    if (p_weddingDate) {
+    if (p_paymentMethod === 'cash') {
+      details.push(`Full Payment (due within 14 days of signing): $${p_getEstimatedTotal().toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`);
+      details.push('(Cash payment — no installment plan applies.)');
+      if (p_weddingDate) details.push(`Wedding Date: ${p_weddingDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`);
+    } else if (p_weddingDate) {
       details.push(`Wedding Date: ${p_weddingDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`);
       const phRC = p_getRetainerCount();
-      const schedule = calculatePaymentSchedule(p_getEstimatedTotal(), p_weddingDate, p_paymentPlan, phRC);
+      const phTotal = p_getEstimatedTotal();
+      const fmtR = (n) => n.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      const schedule = calculatePaymentSchedule(phTotal, p_weddingDate, p_paymentPlan, phRC);
       if (schedule) {
         details.push(`Payment Plan: ${schedule.type}`);
         details.push('');
         details.push('PAYMENT SCHEDULE:');
         if (phRC === 2) {
-          details.push('• Photography Retainer (Due at signing): $1,000.00');
-          details.push('• Videography Retainer (Due at signing): $1,000.00');
+          const each = Math.min(1000, phTotal / 2);
+          details.push(`• Photography Retainer (Due at signing): $${fmtR(each)}`);
+          details.push(`• Videography Retainer (Due at signing): $${fmtR(each)}`);
         } else {
-          details.push('• Retainer (Due at signing): $1,000.00');
+          details.push(`• Retainer (Due at signing): $${fmtR(Math.min(1000, phTotal))}`);
         }
         if (schedule.isMonthly) details.push(`• ${schedule.payments[0].count} monthly payments of $${schedule.payments[0].amount.toFixed(2)}`);
         else schedule.payments.forEach(p => details.push(`• ${p.label} (${fmtDate(p.date)}): $${p.amount.toFixed(2)}`));
@@ -5519,7 +5590,11 @@ function generateBookingDetails() {
     if (v_paymentMethod === 'cash') details.push('Cash Discount: -$50');
     if (v_paymentMethod === 'credit') details.push(`Credit Card Fee (5%): +$${((v_getEstimatedTotal() / 1.05) * 0.05).toFixed(2)}`);
     details.push('');
-    if (v_weddingDate) {
+    if (v_paymentMethod === 'cash') {
+      details.push(`Full Payment (due within 14 days of signing): $${v_getEstimatedTotal().toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`);
+      details.push('(Cash payment — no installment plan applies.)');
+      if (v_weddingDate) details.push(`Wedding Date: ${v_weddingDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`);
+    } else if (v_weddingDate) {
       details.push(`Wedding Date: ${v_weddingDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`);
       const schedule = calculatePaymentSchedule(v_getEstimatedTotal(), v_weddingDate, v_paymentPlan);
       if (schedule) {
@@ -5601,18 +5676,25 @@ function generateBookingDetailsHTML() {
     body += info('Payment Method', getPayMethodLabel(paymentMethod));
     if (paymentMethod === 'cash') body += bullet(`Cash Discount: ${green('-$50')}`);
     if (paymentMethod === 'credit') body += bullet(`Credit Card Fee (5%): ${red('+$' + ((totalAmount / 1.05) * 0.05).toFixed(2))}`);
-    if (weddingDate) {
+    if (paymentMethod === 'cash') {
+      body += sectionTitle('Payment Schedule');
+      body += bullet(`Full Payment (due within 14 days of signing): ${bold('$' + totalAmount.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}))}`);
+      body += bullet('Cash payment — no installment plan applies.');
+      if (weddingDate) body += info('Wedding Date', weddingDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }));
+    } else if (weddingDate) {
       body += info('Wedding Date', weddingDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }));
       const alcHtmlRC = getRetainerCount();
+      const fmtR = (n) => '$' + n.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
       const schedule = calculatePaymentSchedule(totalAmount, weddingDate, paymentPlan, alcHtmlRC);
       if (schedule) {
         body += info('Payment Plan', schedule.type);
         body += sectionTitle('Payment Schedule');
         if (alcHtmlRC === 2) {
-          body += bullet(`Photography Retainer (Due at signing): ${bold('$1,000.00')}`);
-          body += bullet(`Videography Retainer (Due at signing): ${bold('$1,000.00')}`);
+          const each = Math.min(1000, totalAmount / 2);
+          body += bullet(`Photography Retainer (Due at signing): ${bold(fmtR(each))}`);
+          body += bullet(`Videography Retainer (Due at signing): ${bold(fmtR(each))}`);
         } else {
-          body += bullet(`Retainer (Due at signing): ${bold('$1,000.00')}`);
+          body += bullet(`Retainer (Due at signing): ${bold(fmtR(Math.min(1000, totalAmount)))}`);
         }
         if (schedule.isMonthly) body += bullet(`${schedule.payments[0].count} monthly payments of ${bold('$' + schedule.payments[0].amount.toFixed(2))}`);
         else schedule.payments.forEach(p => { body += bullet(`${p.label} (${fmtDate(p.date)}): ${bold('$' + p.amount.toFixed(2))}`); });
@@ -5636,8 +5718,8 @@ function generateBookingDetailsHTML() {
     document.querySelectorAll('[data-p-coverage]').forEach(card => {
       const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0;
       if (qty > 0) {
-        const price = parseInt(card.querySelector('.coverage-price').textContent.replace(/[^0-9]/g, '')) || 0;
         const id = card.dataset.pCoverage;
+        const price = coveragePrices[id] || 0;
         pCoverage.push(`${coverageNames[id] || id} (${qty} ${qty === 1 ? 'hour' : 'hours'}): ${bold('$' + (price * qty).toLocaleString())}`);
       }
     });
@@ -5646,8 +5728,8 @@ function generateBookingDetailsHTML() {
     document.querySelectorAll('[data-p-album]').forEach(card => {
       const qty = parseInt(card.querySelector('.qty-display').textContent) || 0;
       if (qty > 0) {
-        const price = parseInt(card.querySelector('.coverage-price').textContent.replace(/[^0-9]/g, '')) || 0;
         const id = card.dataset.pAlbum;
+        const price = albumPrices[id] || 0;
         pAlbums.push(`${albumNames[id] || id} (×${qty}): ${bold('$' + (price * qty).toLocaleString())}`);
       }
     });
@@ -5656,8 +5738,8 @@ function generateBookingDetailsHTML() {
     document.querySelectorAll('[data-p-service]').forEach(card => {
       const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0;
       if (qty > 0) {
-        const price = parseInt(card.querySelector('.coverage-price').textContent.replace(/[^0-9]/g, '')) || 0;
         const id = card.dataset.pService;
+        const price = servicePrices[id] || 0;
         pServices.push(`${serviceNames[id] || id} (${qty}): ${bold('$' + (price * qty).toLocaleString())}`);
       }
     });
@@ -5676,18 +5758,25 @@ function generateBookingDetailsHTML() {
     body += info('Payment Method', getPayMethodLabel(p_paymentMethod));
     if (p_paymentMethod === 'cash') body += bullet(`Cash Discount: ${green('-$50')}`);
     if (p_paymentMethod === 'credit') body += bullet(`Credit Card Fee (5%): ${red('+$' + ((totalAmount / 1.05) * 0.05).toFixed(2))}`);
-    if (p_weddingDate) {
+    if (p_paymentMethod === 'cash') {
+      body += sectionTitle('Payment Schedule');
+      body += bullet(`Full Payment (due within 14 days of signing): ${bold('$' + totalAmount.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}))}`);
+      body += bullet('Cash payment — no installment plan applies.');
+      if (p_weddingDate) body += info('Wedding Date', p_weddingDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }));
+    } else if (p_weddingDate) {
       body += info('Wedding Date', p_weddingDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }));
       const phHtmlRC = p_getRetainerCount();
+      const fmtR = (n) => '$' + n.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
       const schedule = calculatePaymentSchedule(totalAmount, p_weddingDate, p_paymentPlan, phHtmlRC);
       if (schedule) {
         body += info('Payment Plan', schedule.type);
         body += sectionTitle('Payment Schedule');
         if (phHtmlRC === 2) {
-          body += bullet(`Photography Retainer (Due at signing): ${bold('$1,000.00')}`);
-          body += bullet(`Videography Retainer (Due at signing): ${bold('$1,000.00')}`);
+          const each = Math.min(1000, totalAmount / 2);
+          body += bullet(`Photography Retainer (Due at signing): ${bold(fmtR(each))}`);
+          body += bullet(`Videography Retainer (Due at signing): ${bold(fmtR(each))}`);
         } else {
-          body += bullet(`Retainer (Due at signing): ${bold('$1,000.00')}`);
+          body += bullet(`Retainer (Due at signing): ${bold(fmtR(Math.min(1000, totalAmount)))}`);
         }
         if (schedule.isMonthly) body += bullet(`${schedule.payments[0].count} monthly payments of ${bold('$' + schedule.payments[0].amount.toFixed(2))}`);
         else schedule.payments.forEach(p => { body += bullet(`${p.label} (${fmtDate(p.date)}): ${bold('$' + p.amount.toFixed(2))}`); });
@@ -5705,7 +5794,12 @@ function generateBookingDetailsHTML() {
     body += info('Payment Method', getPayMethodLabel(v_paymentMethod));
     if (v_paymentMethod === 'cash') body += bullet(`Cash Discount: ${green('-$50')}`);
     if (v_paymentMethod === 'credit') body += bullet(`Credit Card Fee (5%): ${red('+$' + ((totalAmount / 1.05) * 0.05).toFixed(2))}`);
-    if (v_weddingDate) {
+    if (v_paymentMethod === 'cash') {
+      body += sectionTitle('Payment Schedule');
+      body += bullet(`Full Payment (due within 14 days of signing): ${bold('$' + totalAmount.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}))}`);
+      body += bullet('Cash payment — no installment plan applies.');
+      if (v_weddingDate) body += info('Wedding Date', v_weddingDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }));
+    } else if (v_weddingDate) {
       body += info('Wedding Date', v_weddingDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }));
       const schedule = calculatePaymentSchedule(totalAmount, v_weddingDate, v_paymentPlan);
       if (schedule) {
@@ -5727,7 +5821,7 @@ function generateBookingDetailsHTML() {
 ${body}
 <div style="margin-top:32px;padding:20px;background:#2c3e50;text-align:center;border-radius:8px;">
 <p style="color:${accentColor};font-size:13px;margin:0 0 4px 0;text-transform:uppercase;letter-spacing:2px;">Estimated Total</p>
-<p style="color:#ffffff;font-size:28px;font-weight:700;margin:0;">$${totalAmount.toFixed(2)}</p>
+<p style="color:#ffffff;font-size:28px;font-weight:700;margin:0;">$${totalAmount.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p>
 </div>
 </div>
 <div style="padding:20px;text-align:center;background:#faf8f5;">
@@ -5767,7 +5861,7 @@ async function handleSubmitBooking(e) {
         phone: clientPhone || 'Not provided',
         package_type: activeTab === 'photography' ? 'Wedding Photography' : activeTab === 'videography' ? 'Wedding Videography' : 'À La Carte',
         booking_details: bookingDetails,
-        total_amount: `$${totalAmount.toFixed(2)}`,
+        total_amount: `$${totalAmount.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`,
         _subject: `New Wedding Quote Request from ${clientName}`
       };
       const formspreeResponse = await fetch('https://formspree.io/f/xblzqrky', {
@@ -5787,16 +5881,19 @@ async function handleSubmitBooking(e) {
           client_name: clientName,
           client_email: clientEmail,
           booking_details: generateBookingDetailsHTML(),
-          total_amount: `$${totalAmount.toFixed(2)}`
+          total_amount: `$${totalAmount.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`
         },
         'UEpeWGxTgUNtX0MG3'
       );
       emailjsSuccess = true;
     } catch (emailjsError) { console.error('EmailJS error:', emailjsError); }
 
-    if (formspreeSuccess) {
+    if (formspreeSuccess || emailjsSuccess) {
+      const clientMsg = emailjsSuccess
+        ? 'Your quote has been sent — check your email!'
+        : 'Your request was received. We’ll email your quote shortly.';
       statusDiv.style.display = 'block';
-      statusDiv.innerHTML = '<div style="background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46;padding:0.75rem 1rem;border-radius:0.5rem;"><p style="font-weight:600;margin:0 0 0.25rem 0;">Success!</p><p style="font-size:0.875rem;margin:0;">Your quote has been sent. Check your email!</p></div>';
+      statusDiv.innerHTML = '<div style="background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46;padding:0.75rem 1rem;border-radius:0.5rem;"><p style="font-weight:600;margin:0 0 0.25rem 0;">Success!</p><p style="font-size:0.875rem;margin:0;">' + clientMsg + '</p></div>';
       setTimeout(() => {
         closeQuoteModal();
         resetEverything();
@@ -5817,6 +5914,7 @@ async function handleSubmitBooking(e) {
 }
 
 // Initialize all calendars on load
+applyPricesToCards();
 initCalendar();
 p_initCalendar();
 v_initCalendar();
@@ -6071,5 +6169,51 @@ v_initCalendar();
   </div>
 </div>
 
+<script>
+// Decorate photography package line items (desktop list only) with a small icon per category.
+// Icons are matched by keyword so they survive wording/hour changes. Runs once on load; the
+// collection feature lists are static HTML and never re-rendered, so a single pass is stable.
+(function(){
+  var cam = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>';
+  var users = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>';
+  var book = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>';
+  var gallery = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>';
+  var printer = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>';
+  function pick(t){
+    t = t.toLowerCase();
+    if (t.indexOf('2nd photographer') > -1 || t.indexOf('second photographer') > -1) return cam + cam; // two cameras
+    if (t.indexOf('coverage') > -1) return cam;
+    if (t.indexOf('engagement') > -1) return users;
+    if (t.indexOf('album') > -1) return book;
+    if (t.indexOf('gallery') > -1) return gallery;
+    if (t.indexOf('printing') > -1 || t.indexOf('print') > -1) return printer;
+    return '';
+  }
+  function decorate(){
+    // Guest count: split "25–50 Guests" into a big number range + a small "Guests" caption.
+    // Desktop CSS stacks them in the top-right corner; the space between the spans keeps the
+    // mobile badge reading "…25–50 Guests" inline (mobile styling is otherwise unchanged).
+    document.querySelectorAll('.photo-collections [data-p-collection]').forEach(function(card){
+      var badge = card.querySelector('.col-card-badge');
+      if (badge && !badge.dataset.gcDone) {
+        var t = badge.textContent.trim().replace(/perfect for/i, '').trim();
+        var range = t.replace(/guests?/i, '').trim();
+        badge.innerHTML = '<span class="gc-range">' + range + '</span> <span class="gc-label">Guests</span>';
+        badge.dataset.gcDone = '1';
+      }
+    });
+    var lists = document.querySelectorAll('.photo-collections .col-card ul.hidden');
+    lists.forEach(function(ul){
+      ul.querySelectorAll(':scope > li').forEach(function(li){
+        if (li.querySelector('.feat')) return; // already decorated
+        var text = li.textContent.trim();
+        li.innerHTML = '<span class="feat">' + pick(text) + '<span>' + text + '</span></span>';
+      });
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', decorate);
+  else decorate();
+})();
+</script>
 </body>
 </html>
