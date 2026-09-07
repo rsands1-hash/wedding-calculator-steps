@@ -611,11 +611,62 @@ body { background: #e7e4e6; }
   .tq-band, .tq-band.rev { flex-direction: column; text-align: center; gap: 20px; padding: 24px 22px; margin: 40px auto; }
   .tq-photo { flex: none; width: 100%; }
   .tq-photo img { height: 170px; }
+  .tq-photo img[alt^="Victoria and Thomas"] { object-position: 50% calc(63% + 20px) !important; }
   .tq-quote { font-size: 1.25rem; }
+  .book-cta { padding: 24px 20px 22px; border-radius: 18px; }
+  .book-cta-head { font-size: 1.3rem; }
+  .book-cta-item { font-size: 0.94rem; padding: 12px 13px; gap: 11px; }
+  .book-cta-badge { min-width: 58px; font-size: 0.9rem; padding: 8px 8px; }
+  .book-cta-line { font-size: 0.94rem; }
+  .opts-cta { padding: 20px 18px; }
+  .opts-cta-item { gap: 12px; }
+  .opts-btn { width: 138px; font-size: 0.92rem; padding: 0.62em 0.6em; }
+  .opts-cta-item span { font-size: 0.86rem; }
 }
 .col-card-photo { display: block; width: 100%; height: 150px; object-fit: cover; border-radius: 12px; margin: 4px 0 18px; box-shadow: 0 6px 16px rgba(0,0,0,0.16); }
 .book-call-btn { font: inherit; font-weight: 800; font-size: 1rem; padding: 0.8em 1.6em; border-radius: 999px; border: 0; cursor: pointer; color: #fff; background: linear-gradient(135deg, #8a7ef2, #6a5ed0); box-shadow: 0 6px 18px rgba(106,94,208,0.35); width: 100%; max-width: 26rem; }
 .book-call-btn:hover { filter: brightness(1.05); }
+.book-cta { width: 100%; max-width: 34rem; margin: 8px auto 0; padding: 30px 30px 26px; border-radius: 22px; background: linear-gradient(160deg, #f5f3ff, #ece9fb); border: 1px solid #ddd7f7; box-shadow: 0 14px 36px rgba(106,94,208,0.16); text-align: center; }
+.book-cta-head { font-size: 1.45rem; font-weight: 800; color: #2c2848; letter-spacing: -0.01em; line-height: 1.2; margin-bottom: 4px; }
+.book-cta-sub { font-size: 0.95rem; color: #6a6588; margin-bottom: 20px; }
+.book-cta-deal { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; text-align: left; }
+.book-cta-item { display: flex; align-items: center; gap: 14px; background: #fff; border-radius: 14px; padding: 13px 16px; box-shadow: 0 2px 10px rgba(106,94,208,0.08); font-size: 0.98rem; color: #38344f; font-weight: 600; line-height: 1.4; }
+.book-cta-badge { flex: 0 0 auto; min-width: 66px; text-align: center; font-weight: 800; font-size: 0.95rem; color: #fff; background: linear-gradient(135deg, #8a7ef2, #6a5ed0); padding: 9px 10px; border-radius: 11px; box-shadow: 0 4px 12px rgba(106,94,208,0.32); }
+.book-cta-line { font-size: 0.98rem; color: #4a4666; line-height: 1.55; margin-bottom: 20px; font-weight: 500; }
+.book-cta .book-call-btn { max-width: 100%; font-size: 1.05rem; padding: 0.95em 1.6em; }
+.book-cta-fine { font-size: 0.8rem; color: #8b87a3; font-style: italic; margin-top: 13px; line-height: 1.4; }
+.opts-cta { width: 100%; max-width: 34rem; margin: 0 auto; padding: 22px 26px; border-radius: 18px; background: #fbfaff; border: 1px solid #e7e3f5; box-shadow: 0 6px 18px rgba(106,94,208,0.07); text-align: center; }
+.opts-cta-head { font-size: 1.05rem; font-weight: 700; color: #46425f; line-height: 1.25; margin-bottom: 2px; }
+.opts-cta-sub { font-size: 0.88rem; color: #8b87a3; margin-bottom: 16px; }
+.opts-cta-list { display: flex; flex-direction: column; gap: 12px; text-align: left; }
+.opts-cta-item { display: flex; align-items: center; gap: 14px; }
+.opts-cta-item span { font-size: 0.9rem; color: #5a5670; line-height: 1.4; }
+.opts-btn { flex: 0 0 auto; width: 168px; font: inherit; font-weight: 700; font-size: 0.98rem; padding: 0.68em 1em; border-radius: 999px; cursor: pointer; transition: 0.15s ease; border: 2px solid; text-align: center; }
+.opts-btn-quote { background: #efeafd; border-color: #b3a8f2; color: #574bbd; }
+.opts-btn-quote:hover { background: #e4dcfb; border-color: #9a8cee; }
+.opts-btn-reset { background: #fff; border-color: #d7d2e8; color: #8b87a3; }
+.opts-btn-reset:hover { background: #f5f3fb; border-color: #c3bddd; }
+.calc-hero { max-width: 52rem; margin: 0 auto 28px; text-align: center; }
+.calc-hero-title { font-size: clamp(1.7rem, 4.6vw, 2.6rem); font-weight: 800; color: #1c1917; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 10px; }
+.calc-hero-sub { font-size: clamp(1rem, 2.4vw, 1.25rem); color: #57534e; line-height: 1.5; margin: 0 auto 18px; max-width: 50rem; }
+.calc-hero-offer { display: inline-block; max-width: 100%; margin: 2px auto 0; padding: 16px 20px 15px; border-radius: 18px; background: linear-gradient(135deg, #f5f3ff, #ece9fb); border: 1px solid #ddd7f7; box-shadow: 0 8px 24px rgba(106,94,208,0.13); }
+.calc-hero-offer-lead { font-size: 1.02rem; font-weight: 600; color: #46425f; line-height: 1.45; margin: 0 auto 13px; max-width: 52rem; }
+.cho-lead-cta { font: inherit; background: none; border: 0; padding: 0; color: #5a4fc0; font-weight: 800; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 2px; transition: color 0.15s ease; }
+.cho-lead-cta:hover { color: #463c9e; }
+.calc-hero-chips { display: flex; flex-wrap: nowrap; gap: 11px; justify-content: center; }
+.cho-chip { display: flex; align-items: center; gap: 11px; min-width: 0; background: #fff; border-radius: 13px; padding: 10px 15px; box-shadow: 0 2px 9px rgba(106,94,208,0.1); text-align: left; }
+.cho-chip-big { flex: 0 0 auto; font-weight: 800; font-size: 1rem; color: #fff; background: linear-gradient(135deg, #8a7ef2, #6a5ed0); padding: 6px 11px; border-radius: 9px; white-space: nowrap; box-shadow: 0 3px 9px rgba(106,94,208,0.28); }
+.cho-chip-label { font-size: 0.9rem; color: #46425f; font-weight: 600; line-height: 1.25; }
+.calc-hero-offer-foot { font-size: 0.88rem; color: #6a6588; margin-top: 12px; }
+@media (max-width: 767px) {
+  .calc-hero { margin-bottom: 22px; }
+  .calc-hero-offer { display: block; padding: 15px 15px 14px; border-radius: 16px; }
+  .calc-hero-offer-lead { font-size: 0.92rem; }
+  .calc-hero-chips { flex-wrap: wrap; }
+  .cho-chip { flex: 1 1 100%; }
+  .cho-chip-label { font-size: 0.88rem; }
+  .calc-hero-offer-foot { font-size: 0.85rem; }
+}
 .booked-notice { margin-top: 12px; background: #eceaff; border: 1.5px solid #c0baff; border-radius: 12px; padding: 10px 14px; font-size: 0.9rem; color: #44403c; text-align: center; }
 /* Heart button on selected day */
 .cal-heart-btn { transform: scale(1.25); }
@@ -1198,11 +1249,11 @@ body { background: #e7e4e6; }
     z-index: -1 !important;
   }
 
-  /* Card images: small icon in row (exclude service credits & payment methods) */
-  .col-card:not([data-credit]):not([data-p-credit]):not([data-pay-method]):not([data-p-pay-method]):not([data-v-pay-method]) > img,
-  .wizard-step .col-card:not([data-credit]):not([data-p-credit]):not([data-pay-method]):not([data-p-pay-method]):not([data-v-pay-method]) > img,
-  #tabContent-alacarte .wizard-step .col-card:not([data-credit]):not([data-p-credit]):not([data-pay-method]):not([data-p-pay-method]):not([data-v-pay-method]) > img,
-  #tabContent-photography [data-step-index="1"] .col-card:not([data-credit]):not([data-p-credit]):not([data-pay-method]):not([data-p-pay-method]):not([data-v-pay-method]) > img {
+  /* Card images: small icon in row (exclude service credits, payment methods & collection photos) */
+  .col-card:not([data-credit]):not([data-p-credit]):not([data-pay-method]):not([data-p-pay-method]):not([data-v-pay-method]) > img:not(.col-card-photo),
+  .wizard-step .col-card:not([data-credit]):not([data-p-credit]):not([data-pay-method]):not([data-p-pay-method]):not([data-v-pay-method]) > img:not(.col-card-photo),
+  #tabContent-alacarte .wizard-step .col-card:not([data-credit]):not([data-p-credit]):not([data-pay-method]):not([data-p-pay-method]):not([data-v-pay-method]) > img:not(.col-card-photo),
+  #tabContent-photography [data-step-index="1"] .col-card:not([data-credit]):not([data-p-credit]):not([data-pay-method]):not([data-p-pay-method]):not([data-v-pay-method]) > img:not(.col-card-photo) {
     width: 40px !important;
     height: 40px !important;
     max-height: 40px !important;
@@ -1651,8 +1702,18 @@ body { background: #e7e4e6; }
   .p-collection-list .col-card-btn {
     display: none !important;
   }
-  .p-collection-list .col-card > img {
+  .p-collection-list .col-card > img:not(.col-card-photo) {
     display: none !important;
+  }
+  .p-collection-list .col-card > img.col-card-photo {
+    display: block !important;
+    width: 100% !important;
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    height: 150px !important;
+    object-fit: cover !important;
+    border-radius: 12px !important;
+    margin: 4px 0 14px !important;
   }
 
   /* --- J. SERVICE CREDITS: CHIP GRID --- */
@@ -1938,10 +1999,7 @@ body { background: #e7e4e6; }
     flex-direction: row !important;
   }
 
-  /* Hide Customize Your Package on Photography tab mobile */
-  #p_customizeBox {
-    display: none !important;
-  }
+  /* Customize Your Package now shows on mobile too (lists everything included) */
   /* Countdown clock: tighter spacing on mobile */
   .fc-clock-wrapper {
     margin-top: 16px !important;
@@ -2390,10 +2448,10 @@ h3.fc-clock-label,
   /* Step-up headline: one short line */
   .nudge-head { font-size: 16px; line-height: 1.35; }
   /* Step-up benefits as a scannable checklist. Match the calculator's body text (Inter, text-xs md:text-base, stone-500); override the PT Sans Narrow that card lists otherwise inherit. */
-  .nudge-list { list-style: none; margin: 10px 0 2px; padding: 0; }
-  #p_upgradeNudge .nudge-list li { position: relative; padding-left: 22px; font-family: 'Inter', system-ui, sans-serif !important; font-size: 12px !important; line-height: 1.625 !important; color: #78716c !important; margin-bottom: 5px; text-align: left; }
+  #p_upgradeNudge .nudge-list { list-style: none !important; margin: 10px 0 2px !important; padding: 0 !important; display: block !important; }
+  #p_upgradeNudge .nudge-list li { display: block !important; position: relative; padding-left: 22px !important; font-family: 'Inter', system-ui, sans-serif !important; font-size: 12px !important; line-height: 1.625 !important; color: #78716c !important; margin: 0 0 5px 0 !important; text-align: left !important; white-space: normal !important; }
   @media (min-width: 768px) { #p_upgradeNudge .nudge-list li { font-size: 16px !important; } }
-  .nudge-list li::before { content: "✓"; position: absolute; left: 0; color: #6a5ed0; font-weight: 700; }
+  #p_upgradeNudge .nudge-list li::before { content: "✓" !important; position: absolute !important; left: 0 !important; margin: 0 !important; font-size: 12px !important; color: #6a5ed0 !important; font-weight: 700 !important; }
   /* Step-up nudge rendered INSIDE the selected collection card: full width at the bottom of that card */
   .col-card > #p_upgradeNudge { width: 100%; margin-top: 32px; text-align: left; cursor: default; }
   .col-card > #p_upgradeNudge .nudge-box { flex-direction: column; align-items: stretch; padding: 12px 14px; }
@@ -2422,6 +2480,19 @@ h3.fc-clock-label,
 <div id="mobileHeader" style="display:none;position:fixed;bottom:0;left:0;right:0;">
   <span class="mh-label">Your Investment</span>
   <span class="mh-total" id="mobileTotal">$0</span>
+</div>
+
+<div class="calc-hero max-w-6xl">
+  <h1 class="calc-hero-title">Honest, upfront pricing. See exactly what your day costs.</h1>
+  <p class="calc-hero-sub">No hidden fees, no forms, and no waiting to hear back. Explore my collections, customize anything you like, and watch your total update as you go.</p>
+  <div class="calc-hero-offer">
+    <p class="calc-hero-offer-lead">Take your time looking around, then <button type="button" class="cho-lead-cta" onclick="p_bookCall()">book a friendly call</button> to get:</p>
+    <div class="calc-hero-chips">
+      <span class="cho-chip"><span class="cho-chip-big">7 days</span><span class="cho-chip-label">Your wedding date held on my calendar just for you, starting the day of our call</span></span>
+      <span class="cho-chip"><span class="cho-chip-big">$100</span><span class="cho-chip-label">A credit toward any collection you choose</span></span>
+    </div>
+    <p class="calc-hero-offer-foot">No pressure and no obligation, just an honest chat to see if we're the right fit.</p>
+  </div>
 </div>
 
 <div class="max-w-6xl mx-auto mb-10">
@@ -4520,10 +4591,7 @@ function renderInvestment() {
   </div>`;
 
   // Action buttons
-  html += `<div class="flex flex-col items-center gap-6 my-16">
-    <button onclick="handleGetQuote()" class="quote-btn">Get my FREE quote!</button>
-    <button onclick="resetAll()" class="reset-btn">Start Over</button>
-  </div>`;
+  html += `<div class="flex flex-col items-center gap-5 my-16">${bookCallCta()}${optsCta('')}</div>`;
 
   html += '</div>';
   container.innerHTML = html;
@@ -5409,11 +5477,39 @@ function p_renderSelectionExtras() {
 function p_bookCall() {
   const t = document.getElementById('quoteModalTitle');
   const sub = document.getElementById('quoteModalSub');
-  if (t) t.textContent = 'Book a Call to Lock Your Date';
-  if (sub) sub.textContent = "Leave your details and I'll reach out to schedule a quick call, hold your date, and answer any questions.";
+  if (t) t.textContent = 'Book a Call to Secure Your Date';
+  if (sub) sub.textContent = "Leave your details and I'll reach out to schedule a quick call, hold your date for 7 days, and lock in your $100 credit.";
   const sb = document.getElementById('submitBtn'); if (sb) sb.textContent = 'Book a Call';
   window.__bookCallMode = true;
   p_handleGetQuote();
+}
+
+// End-of-form deal callout, shared by all three tabs
+function bookCallCta() {
+  return `<div class="book-cta">
+    <div class="book-cta-head">Let's secure your date</div>
+    <div class="book-cta-sub">Here's what you get when you book a quick call:</div>
+    <div class="book-cta-deal">
+      <div class="book-cta-item"><span class="book-cta-badge">7 days</span><span>I hold your wedding date on my calendar, just for you, while you decide.</span></div>
+      <div class="book-cta-item"><span class="book-cta-badge">$100</span><span>A credit toward any collection you choose, yours simply for hopping on a call.</span></div>
+    </div>
+    <p class="book-cta-line">I can only photograph one wedding per date, so once yours is taken it's gone for good. Let's talk, hold your day, and put that $100 in your pocket before another couple claims it.</p>
+    <button type="button" class="book-call-btn" onclick="p_bookCall()">Book a Call &amp; Secure my Date</button>
+    <p class="book-cta-fine">No pressure and no obligation, just a friendly conversation to see if we're the right fit.</p>
+  </div>`;
+}
+
+// Secondary options card (Get a Quote / Start Over), matches the deal callout's design language
+function optsCta(pfx) {
+  pfx = pfx || '';
+  return `<div class="opts-cta">
+    <div class="opts-cta-head">Not ready to book just yet?</div>
+    <div class="opts-cta-sub">No problem. Here are a couple more options:</div>
+    <div class="opts-cta-list">
+      <div class="opts-cta-item"><button type="button" class="opts-btn opts-btn-quote" onclick="${pfx}handleGetQuote()">Get my Free Quote</button><span>I'll email your full pricing so you have it saved to revisit whenever you're ready.</span></div>
+      <div class="opts-cta-item"><button type="button" class="opts-btn opts-btn-reset" onclick="${pfx}resetAll()">Start Over</button><span>Clear your selections and build a fresh estimate from scratch.</span></div>
+    </div>
+  </div>`;
 }
 
 function p_renderCustomize() {
@@ -5571,7 +5667,7 @@ function p_renderInvestment() {
   // Total
   const total = p_getEstimatedTotal();
   html += `<div class="pt-4"><div class="flex justify-between items-center"><p class="text-lg md:text-xl font-sans text-stone-800">Total Investment</p><p class="text-xl md:text-2xl font-bold text-stone-800">${fmtMoney(total)}</p></div></div>`;
-  html += `<div class="flex flex-col items-center gap-4 my-16"><button type="button" class="book-call-btn" onclick="p_bookCall()">Book a Call to Lock Your Date</button><p class="text-xs md:text-sm text-stone-500 italic text-center max-w-md" style="margin-top:-6px">A quick call holds your date while we finalize the details. Booking the call also earns the $100 consultation credit.</p><button onclick="p_handleGetQuote()" class="quote-btn" style="margin-top:10px">Get my FREE quote!</button><button onclick="p_resetAll()" class="reset-btn">Start Over</button></div>`;
+  html += `<div class="flex flex-col items-center gap-5 my-16">${bookCallCta()}${optsCta('p_')}</div>`;
   container.innerHTML = html;
   updateMobileTotal();
 }
@@ -5798,7 +5894,7 @@ function v_renderInvestment() {
   // Total
   const total = v_getEstimatedTotal();
   html += `<div class="pt-4"><div class="flex justify-between items-center"><p class="text-lg md:text-xl font-sans text-stone-800">Total Investment</p><p class="text-xl md:text-2xl font-bold text-stone-800">${fmtMoney(total)}</p></div></div>`;
-  html += `<div class="flex flex-col items-center gap-6 my-16"><button onclick="v_handleGetQuote()" class="quote-btn">Get my FREE quote!</button><button onclick="v_resetAll()" class="reset-btn">Start Over</button></div>`;
+  html += `<div class="flex flex-col items-center gap-5 my-16">${bookCallCta()}${optsCta('v_')}</div>`;
   container.innerHTML = html;
   updateMobileTotal();
 }
