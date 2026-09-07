@@ -84,14 +84,20 @@ body { background: #e7e4e6; }
   filter: none;
   transition: filter 0.3s ease;
 }
+[data-credit] > p,
+[data-p-credit] > p {
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
 [data-credit] > p:first-of-type,
 [data-p-credit] > p:first-of-type {
-  font-size: 1.25rem !important;
+  font-size: 1.05rem !important;
 }
 @media (min-width: 768px) {
   [data-credit] > p:first-of-type,
   [data-p-credit] > p:first-of-type {
-    font-size: 1.5rem !important;
+    font-size: 1.15rem !important;
   }
 }
 [data-credit] > p:last-of-type,
@@ -580,6 +586,37 @@ body { background: #e7e4e6; }
 @media (min-width: 768px) { .cal-day { font-size: 1.125rem; } }
 .cal-day:hover { background: #f0fdf4; color: #166534; }
 .cal-day.cal-today { background: #f5f5f4; color: #1c1917; }
+/* Booked (unavailable) dates: muted, struck through, purple dot, not selectable */
+.cal-day.cal-booked { color: #b8b2ac; text-decoration: line-through; text-decoration-color: #8a7ef2; cursor: not-allowed; position: relative; }
+.cal-day.cal-booked:hover { background: none; color: #b8b2ac; }
+.cal-day.cal-booked::after { content: ''; position: absolute; bottom: 3px; left: 50%; transform: translateX(-50%); width: 5px; height: 5px; border-radius: 50%; background: #8a7ef2; }
+/* Emotional lead-in above the collections */
+.emotional-lead { max-width: 46rem; margin: 0 auto 2.75rem auto; text-align: center; padding: 0 8px; }
+.emotional-lead .lead-main { font-size: 1.35rem; line-height: 1.35; font-weight: 700; color: #44403c; margin: 0 0 0.5rem 0; }
+.emotional-lead .lead-sub { font-size: 1rem; color: #78716c; margin: 0; font-style: italic; }
+@media (min-width: 768px) { .emotional-lead .lead-main { font-size: 1.75rem; } .emotional-lead .lead-sub { font-size: 1.125rem; } }
+.step-divider { border: 0; border-top: 1px solid #a8a29e; width: 100%; margin: 56px auto; }
+/* Testimonial bands (one couple photo + quote between steps) */
+.tq-band { max-width: 56rem; margin: 56px auto 0; display: flex; align-items: center; gap: 28px; background: #fff; border: 1px solid #c5c5c5; border-radius: 22px; padding: 20px 26px; box-shadow: 0 0 15px rgba(0,0,0,0.06); }
+.tq-band.rev { flex-direction: row-reverse; }
+.tq-photo { flex: 0 0 30%; overflow: hidden; border-radius: 16px; }
+.tq-photo img { display: block; width: 100%; height: 180px; object-fit: cover; object-position: 50% 30%; border-radius: 16px; box-shadow: 0 8px 20px rgba(0,0,0,0.20); }
+.tq-body { flex: 1; }
+.tq-stars { color: #f5b301; letter-spacing: 0.14em; font-size: 1.1rem; margin-bottom: 14px; }
+.tq-quote { position: relative; font-size: 1.55rem; line-height: 1.42; font-weight: 700; color: #292524; margin: 0 0 16px 0; }
+.tq-quote .qm { color: #8a7ef2; }
+.tq-who { font-size: 1rem; color: #8a7ef2; font-weight: 700; margin: 0; }
+.tq-who .tq-venue { color: #a8a29e; font-weight: 500; }
+@media (max-width: 767px) {
+  .tq-band, .tq-band.rev { flex-direction: column; text-align: center; gap: 20px; padding: 24px 22px; margin: 40px auto; }
+  .tq-photo { flex: none; width: 100%; }
+  .tq-photo img { height: 170px; }
+  .tq-quote { font-size: 1.25rem; }
+}
+.col-card-photo { display: block; width: 100%; height: 150px; object-fit: cover; border-radius: 12px; margin: 4px 0 18px; box-shadow: 0 6px 16px rgba(0,0,0,0.16); }
+.book-call-btn { font: inherit; font-weight: 800; font-size: 1rem; padding: 0.8em 1.6em; border-radius: 999px; border: 0; cursor: pointer; color: #fff; background: linear-gradient(135deg, #8a7ef2, #6a5ed0); box-shadow: 0 6px 18px rgba(106,94,208,0.35); width: 100%; max-width: 26rem; }
+.book-call-btn:hover { filter: brightness(1.05); }
+.booked-notice { margin-top: 12px; background: #eceaff; border: 1.5px solid #c0baff; border-radius: 12px; padding: 10px 14px; font-size: 0.9rem; color: #44403c; text-align: center; }
 /* Heart button on selected day */
 .cal-heart-btn { transform: scale(1.25); }
 /* Toggle slider */
@@ -957,7 +994,7 @@ body { background: #e7e4e6; }
   .halfhour-btn .rb-inner span { font-size: 17.5px; }
 }
 
-/* ===== MOBILE REDESIGN — PREMIUM SCROLLABLE (< 768px) ===== */
+/* ===== MOBILE REDESIGN: PREMIUM SCROLLABLE (< 768px) ===== */
 @media (max-width: 767px) {
 
   /* --- A. GLOBAL --- */
@@ -973,7 +1010,7 @@ body { background: #e7e4e6; }
     display: none !important;
   }
 
-  /* --- C. TAB HEADER — iOS SEGMENTED CONTROL --- */
+  /* --- C. TAB HEADER: iOS SEGMENTED CONTROL --- */
   .max-w-6xl.mx-auto.mb-10 {
     margin: 0 !important;
     padding: 8px 16px 8px !important;
@@ -1161,7 +1198,7 @@ body { background: #e7e4e6; }
     z-index: -1 !important;
   }
 
-  /* Card images — small icon in row (exclude service credits & payment methods) */
+  /* Card images: small icon in row (exclude service credits & payment methods) */
   .col-card:not([data-credit]):not([data-p-credit]):not([data-pay-method]):not([data-p-pay-method]):not([data-v-pay-method]) > img,
   .wizard-step .col-card:not([data-credit]):not([data-p-credit]):not([data-pay-method]):not([data-p-pay-method]):not([data-v-pay-method]) > img,
   #tabContent-alacarte .wizard-step .col-card:not([data-credit]):not([data-p-credit]):not([data-pay-method]):not([data-p-pay-method]):not([data-v-pay-method]) > img,
@@ -1302,7 +1339,7 @@ body { background: #e7e4e6; }
     display: none !important;
   }
   /* Re-show all text inside investment, customize, and payment containers.
-     Only target <p> and <span> — NOT <div>, which would break inner flex layouts. */
+     Only target <p> and <span>, NOT <div>, which would break inner flex layouts. */
   [id$="investmentContent"] > p,
   [id$="customizeContent"] > p,
   [id$="customizeContent"] span,
@@ -1351,17 +1388,11 @@ body { background: #e7e4e6; }
     padding: 0 !important;
     list-style: none !important;
   }
-  /* Hide the desktop ul (first), show the mobile ul (second) on collections */
-  .wizard-step .col-card[data-p-collection] ul:first-of-type,
-  .wizard-step .col-card[data-v-collection] ul:first-of-type,
-  .col-card[data-p-collection] ul:first-of-type,
-  .col-card[data-v-collection] ul:first-of-type {
-    display: none !important;
-  }
-  .wizard-step .col-card[data-p-collection] ul:last-of-type,
-  .wizard-step .col-card[data-v-collection] ul:last-of-type,
-  .col-card[data-p-collection] ul:last-of-type,
-  .col-card[data-v-collection] ul:last-of-type {
+  /* On mobile, show every mobile feature list (a card can have more than one, e.g. Ultimate) */
+  .wizard-step .col-card[data-p-collection] ul.md\:hidden,
+  .wizard-step .col-card[data-v-collection] ul.md\:hidden,
+  .col-card[data-p-collection] ul.md\:hidden,
+  .col-card[data-v-collection] ul.md\:hidden {
     display: block !important;
   }
   .p-collection-list .col-card ul li,
@@ -1411,7 +1442,7 @@ body { background: #e7e4e6; }
     display: none !important;
   }
 
-  /* --- H. QUANTITY CONTROLS — CLEAN CIRCLE BUTTONS --- */
+  /* --- H. QUANTITY CONTROLS: CLEAN CIRCLE BUTTONS --- */
   .qty-group,
   .wizard-step .qty-group {
     display: flex !important;
@@ -1426,7 +1457,7 @@ body { background: #e7e4e6; }
     grid-template-rows: unset !important;
   }
 
-  /* Tally display — plain number only, no background, no border, no blob */
+  /* Tally display: plain number only, no background, no border, no blob */
   .qty-display,
   .wizard-step .qty-display,
   #tabContent-photography [data-step-index="1"] .qty-group .qty-display {
@@ -1479,7 +1510,7 @@ body { background: #e7e4e6; }
   .te-btn::before {
     display: none !important;
   }
-  /* Hide the old inline SVGs — JS will replace them */
+  /* Hide the old inline SVGs; JS will replace them */
   .te-btn > svg.te-old-icon {
     display: none !important;
   }
@@ -1501,7 +1532,7 @@ body { background: #e7e4e6; }
     fill: rgba(124,106,255,0.08);
   }
 
-  /* Override desktop coverage-active styles — match collection selected look */
+  /* Override desktop coverage-active styles to match the collection selected look */
   .coverage-active .te-btn {
     background: none !important;
     box-shadow: none !important;
@@ -1559,7 +1590,7 @@ body { background: #e7e4e6; }
     flex-direction: row !important;
   }
 
-  /* --- I. COLLECTION CARDS (Photo/Video tabs) — separate white boxes --- */
+  /* --- I. COLLECTION CARDS (Photo/Video tabs): separate white boxes --- */
   .p-collection-list {
     display: grid !important;
     grid-template-columns: 1fr !important;
@@ -1624,7 +1655,7 @@ body { background: #e7e4e6; }
     display: none !important;
   }
 
-  /* --- J. SERVICE CREDITS — CHIP GRID --- */
+  /* --- J. SERVICE CREDITS: CHIP GRID --- */
   #serviceCreditsList,
   #p_serviceCreditsList {
     display: grid !important;
@@ -1743,7 +1774,7 @@ body { background: #e7e4e6; }
     text-align: left !important;
   }
 
-  /* --- L. PAYMENT METHODS — ICON TOP, NAME BELOW --- */
+  /* --- L. PAYMENT METHODS: ICON TOP, NAME BELOW --- */
   #payMethodGrid,
   #p_payMethodGrid,
   #v_payMethodGrid {
@@ -1832,7 +1863,7 @@ body { background: #e7e4e6; }
     border-bottom: 1px solid rgba(0,0,0,0.05) !important;
     cursor: default !important;
   }
-  /* Top-level layout grid inside calendar — stack on mobile */
+  /* Top-level layout grid inside calendar: stack on mobile */
   [data-payment="plan"] > .grid,
   [data-p-payment="plan"] > .grid,
   [data-v-payment="plan"] > .grid {
@@ -1911,16 +1942,16 @@ body { background: #e7e4e6; }
   #p_customizeBox {
     display: none !important;
   }
-  /* Countdown clock — tighter spacing on mobile */
+  /* Countdown clock: tighter spacing on mobile */
   .fc-clock-wrapper {
     margin-top: 16px !important;
   }
-  /* Month grid — no borders between months */
+  /* Month grid: no borders between months */
   .month-btn {
     border: none !important;
     border-bottom: none !important;
   }
-  /* Calendar inner container — stable width */
+  /* Calendar inner container: stable width */
   [data-payment="plan"] .border.border-stone-200.rounded-xl,
   [data-p-payment="plan"] .border.border-stone-200.rounded-xl,
   [data-v-payment="plan"] .border.border-stone-200.rounded-xl {
@@ -1931,7 +1962,7 @@ body { background: #e7e4e6; }
     -webkit-overflow-scrolling: auto !important;
     touch-action: manipulation !important;
   }
-  /* Day grid — fixed layout to prevent resize on selection */
+  /* Day grid: fixed layout to prevent resize on selection */
   #dayGrid, #p_dayGrid, #v_dayGrid {
     display: grid !important;
     grid-template-columns: repeat(7, 1fr) !important;
@@ -1941,14 +1972,14 @@ body { background: #e7e4e6; }
   #dayGrid > div, #p_dayGrid > div, #v_dayGrid > div {
     overflow: visible !important;
   }
-  /* Month grid — stable sizing */
+  /* Month grid: stable sizing */
   #monthGrid, #p_monthGrid, #v_monthGrid {
     display: grid !important;
     grid-template-columns: repeat(3, 1fr) !important;
     width: 100% !important;
     gap: 0 !important;
   }
-  /* Month grid — fill mobile width */
+  /* Month grid: fill mobile width */
   .month-grid-container {
     max-width: 100% !important;
   }
@@ -1999,7 +2030,7 @@ body { background: #e7e4e6; }
     flex: none !important;
   }
 
-  /* --- O. MAX-WIDTH — FILL MOBILE --- */
+  /* --- O. MAX-WIDTH: FILL MOBILE --- */
   .max-w-6xl,
   .max-w-4xl,
   .max-w-3xl {
@@ -2033,7 +2064,7 @@ body { background: #e7e4e6; }
     padding: 10px 8px !important;
   }
 
-  /* --- R. GLOW TEXT — SIMPLER ON MOBILE --- */
+  /* --- R. GLOW TEXT: SIMPLER ON MOBILE --- */
   .glow-text {
     animation: none !important;
     background: none !important;
@@ -2072,8 +2103,8 @@ body { background: #e7e4e6; }
   .wizard-step > .mt-16 { margin-top: 0 !important; }
   .wizard-step > .mb-10 { margin-bottom: 8px !important; }
 
-  /* --- W. FIX ROW LAYOUT — override Tailwind block/width classes --- */
-  /* Coverage price must not be w-full block — it's inline in a row now */
+  /* --- W. FIX ROW LAYOUT: override Tailwind block/width classes --- */
+  /* Coverage price must not be w-full block; it's inline in a row now */
   .col-card .coverage-price,
   .col-card .col-card-price {
     width: auto !important;
@@ -2089,7 +2120,7 @@ body { background: #e7e4e6; }
     overflow: visible !important;
     text-overflow: unset !important;
   }
-  /* Steps with grid layout: name must NOT stretch — divider line stays with text */
+  /* Steps with grid layout: name must NOT stretch, so the divider line stays with the text */
   #tabContent-photography [data-step-index="1"] .col-card .coverage-name,
   #tabContent-photography [data-step-index="2"] .col-card .coverage-name,
   #tabContent-alacarte [data-step-index="0"] .col-card .coverage-name,
@@ -2104,7 +2135,7 @@ body { background: #e7e4e6; }
   #tabContent-photography [data-step-index="2"] .coverage-name .fc-line2 {
     display: block !important;
   }
-  /* Sub-labels like "(30 Pages)" — hide on mobile row view */
+  /* Sub-labels like "(30 Pages)": hide on mobile row view */
   .col-card .text-stone-400.mb-1 {
     display: none !important;
   }
@@ -2115,7 +2146,7 @@ body { background: #e7e4e6; }
     overflow-x: hidden !important;
   }
 
-  /* --- X. CREDIT CHIP LABELS — force visible --- */
+  /* --- X. CREDIT CHIP LABELS: force visible --- */
   #serviceCreditsList p,
   #p_serviceCreditsList p {
     display: block !important;
@@ -2312,7 +2343,7 @@ h3.fc-clock-label,
 }
 </style>
 <style>
-  /* Photography package cards — desktop only (min-width). The desktop feature list (ul.hidden)
+  /* Photography package cards, desktop only (min-width). The desktop feature list (ul.hidden)
      is display:none on mobile and the guest-count restructure is media-scoped, so the mobile card
      layout is left untouched. Left-justified content; guest count in the top-right corner with its
      number range baseline-aligned to the package name (same size + color, lighter weight); a
@@ -2340,7 +2371,49 @@ h3.fc-clock-label,
 
     /* Choose button: bottom, centered, uniform width to fit all selected messages */
     .photo-collections .col-card-btn { align-self: center; width: 216px; margin-top: auto; font-size: 1.1rem; padding: 0.55em 1em; }
+    /* Featured tier ("Most Popular"): badge only, same size as the other cards */
+    .photo-collections .col-card-meta { text-align: left; }
   }
+  /* Featured tier: persistent "Most Popular" pill + accent border (all breakpoints) */
+  .col-card-hero { position: relative; overflow: visible; box-shadow: 0 8px 24px rgba(138,126,242,0.16); }
+  .col-card-hero-topper { position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 5px; margin-bottom: 10px; width: max-content; z-index: 2; pointer-events: none; }
+  .col-card-hero-pill { background: linear-gradient(135deg, #c0baff, #8a7ef2); color: #fff; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.3em 0.9em; border-radius: 999px; white-space: nowrap; box-shadow: 0 2px 6px rgba(80,48,192,0.3); }
+  .col-card-hero-social { font-size: 0.82rem; font-weight: 600; color: #6a5ed0; white-space: nowrap; }
+  @media (max-width: 767px) {
+    .col-card-hero-topper { position: static; transform: none; margin: 0 0 8px 0; flex-basis: 100%; order: -1; align-items: flex-start; }
+    .p-collection-list .col-card-meta { flex-basis: 100%; order: 5; text-align: left; margin: 2px 0 0 0 !important; }
+    .p-collection-list .col-card-meta.col-card-extras { margin-bottom: 6px !important; }
+  }
+  /* Upgrade nudge + order bump */
+  .nudge-box { background: #eceaff; border: 1.5px solid #c0baff; border-radius: 14px; padding: 14px 18px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px; }
+  .nudge-box p { margin: 0; }
+  /* Step-up headline: one short line */
+  .nudge-head { font-size: 16px; line-height: 1.35; }
+  /* Step-up benefits as a scannable checklist. Match the calculator's body text (Inter, text-xs md:text-base, stone-500); override the PT Sans Narrow that card lists otherwise inherit. */
+  .nudge-list { list-style: none; margin: 10px 0 2px; padding: 0; }
+  #p_upgradeNudge .nudge-list li { position: relative; padding-left: 22px; font-family: 'Inter', system-ui, sans-serif !important; font-size: 12px !important; line-height: 1.625 !important; color: #78716c !important; margin-bottom: 5px; text-align: left; }
+  @media (min-width: 768px) { #p_upgradeNudge .nudge-list li { font-size: 16px !important; } }
+  .nudge-list li::before { content: "✓"; position: absolute; left: 0; color: #6a5ed0; font-weight: 700; }
+  /* Step-up nudge rendered INSIDE the selected collection card: full width at the bottom of that card */
+  .col-card > #p_upgradeNudge { width: 100%; margin-top: 32px; text-align: left; cursor: default; }
+  .col-card > #p_upgradeNudge .nudge-box { flex-direction: column; align-items: stretch; padding: 12px 14px; }
+  .col-card > #p_upgradeNudge .bump-btn { width: 100%; }
+  @media (max-width: 767px) {
+    /* mobile card is a wrapping flex-row: put the nudge on its own full-width line after the feature list */
+    .p-collection-list .col-card > #p_upgradeNudge { flex-basis: 100% !important; order: 20; margin: 10px 0 0 0 !important; }
+  }
+  .bump-btn { font: inherit; font-size: 0.85rem; font-weight: 700; padding: 0.5em 1.1em; border-radius: 999px; border: 1.5px solid #8a7ef2; background: #fff; color: #6a5ed0; cursor: pointer; white-space: nowrap; }
+  .bump-btn.bump-primary { background: linear-gradient(135deg, #c0baff, #8a7ef2); color: #fff; }
+  .bump-btn:disabled { border-color: #d6d3d1; background: #f5f5f4; color: #a8a29e; cursor: not-allowed; }
+  .bump-card { background: #fff; border: 1px solid #d6d3d1; border-radius: 14px; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .bump-card.bump-added { border-color: #c5c5c5; box-shadow: 0 0 15px rgba(0,0,0,0.06); }
+  /* Featured parent-album bump: plain white box like every other card; discount shown via badge + struck price, not a highlighted border */
+  .bump-card.bump-featured { position: relative; border: 1px solid #c5c5c5; background: #fff; box-shadow: 0 0 15px rgba(0,0,0,0.06); margin-top: 12px; padding: 26px 32px; }
+  .bump-price-line { margin: 6px 0 8px; }
+  .bump-price { color: #6a5ed0; font-weight: 800; font-size: 1.8rem; line-height: 1; }
+  .bump-was { color: #a8a29e; text-decoration: line-through; font-weight: 500; font-size: 1.05rem; margin-left: 7px; }
+  .bump-save-badge { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #c0baff, #8a7ef2); color: #fff; font-size: 0.82rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; padding: 0.4em 1.05em; border-radius: 999px; box-shadow: 0 3px 9px rgba(80,48,192,0.35); }
+  .bump-btn-lg { font-size: 1rem; padding: 0.72em 1.8em; }
 </style>
 </head>
 <body class="font-sans px-4 py-12 md:px-10 md:py-16">
@@ -2373,11 +2446,11 @@ h3.fc-clock-label,
 <div class="wizard-progress md:hidden" id="wizardProgress-alacarte"></div>
 <div class="wizard-step" data-step-index="0" data-step-name="Coverage">
 <!-- Choose Your Service -->
-<div class="flex items-center justify-center gap-3 mb-2">
+<div class="flex items-center justify-center gap-3 mb-4">
   <img src="https://static.showit.co/file/LB0PBwkUcYlFGgQdar6cSQ/293041/tools.png" alt="tools" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
   <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 1: Build Your Custom Package</h2>
 </div>
-<p class="text-center text-stone-600 text-lg md:text-xl mb-10">Create your perfect coverage starting at $350/hour with a 4 hour minimum</p>
+<p class="text-center text-stone-600 text-lg md:text-xl mb-10">Create your perfect coverage starting at $350/hour with a 2 hour minimum<br><span class="text-base md:text-lg text-stone-500">Perfect for intimate weddings &amp; events under 6 hours. Full wedding days are booked as a collection</span></p>
 
 <div class="max-w-6xl md:max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5 wizard-carousel mobile-grid-2x2">
 
@@ -2417,7 +2490,7 @@ h3.fc-clock-label,
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-coverage="second">
     <img src="https://static.showit.co/file/RrVWNm-zH--na0RvwtkZ7A/293041/2nd-photographer.png" alt="2nd Photographer" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
     <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">2nd Photographer</div>
-    <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$100/hr</div>
+    <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$150/hr</div>
     <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">Extra angles, simultaneous coverage in two locations, and significantly more images captured throughout your day.</p>
     <div class="flex flex-col items-center mt-auto">
       <div class="qty-group">
@@ -2431,11 +2504,27 @@ h3.fc-clock-label,
 
 
 </div>
+
+<!-- 6-hour gate notice: shown when à la carte photography would reach 6+ hrs -->
+<div id="alacarteGateNotice" class="max-w-6xl md:max-w-4xl mx-auto mt-6 rounded-xl px-5 py-5 md:px-8 md:py-6 text-center" style="display:none;background:#eceaff;border:2px solid #8a7ef2">
+  <p class="text-stone-800 font-extrabold text-lg md:text-2xl mb-2">Planning a full wedding day?</p>
+  <p class="text-stone-600 text-sm md:text-lg leading-relaxed mb-4">À la carte is perfect for smaller gatherings, up to 5 hours of coverage. A full wedding day is booked as a collection, starting with Essential at 8 hours, which also bundles in your engagement session, album, gallery, and printing rights.</p>
+  <button type="button" onclick="setMainTab('photography')" class="col-card-btn" style="width:auto;padding:0.55em 1.4em;display:inline-block;margin:0 auto">See the Collections →</button>
+</div>
 </div>
 
+<div class="tq-band">
+  <div class="tq-photo"><img src="https://static.showit.co/1200/xfPqxGIuLHDj4aHZBey40w/293041/primavera-regency-wedding-photo-groom-bride-smiling-wedding-day-stirling-new-jersey.jpg" alt="Amanda and Brian wedding at The Primavera Regency" loading="lazy" style="object-position:35% 42%"></div>
+  <div class="tq-body">
+    <div class="tq-stars">★★★★★</div>
+    <p class="tq-quote"><span class="qm">"</span>The quality of the pictures were amazing and we are very satisfied.<span class="qm">"</span></p>
+    <p class="tq-who">Amanda &amp; Brian<span class="tq-venue"> · The Primavera Regency</span></p>
+  </div>
+</div>
 <div class="wizard-step" data-step-index="1" data-step-name="Albums">
 <!-- Wedding Albums -->
-<div class="flex items-center justify-center gap-3 mb-2 mt-16">
+<hr class="step-divider">
+<div class="flex items-center justify-center gap-3 mb-4">
   <img src="https://static.showit.co/file/gWhA3U1p57GTjTp7KYkqKg/293041/album.png" alt="album" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
   <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 2: Wedding Albums</h2>
 </div>
@@ -2514,11 +2603,20 @@ h3.fc-clock-label,
 </div>
 </div>
 
+<div class="tq-band rev">
+  <div class="tq-photo"><img src="https://static.showit.co/1200/K9i6oNWBI5DgPdeU1qXYxw/293041/lambertville-new-jersey-wedding-photo-bride-groom-walking-down-street-unionville-vineyards-ringoes_copy.jpg" alt="Sarena and Jordan wedding at Unionville Vineyards" loading="lazy" style="object-position:38% 28%"></div>
+  <div class="tq-body">
+    <div class="tq-stars">★★★★★</div>
+    <p class="tq-quote"><span class="qm">"</span>Ryan has a passion for what he does and he shows up to everything with a great attitude.<span class="qm">"</span></p>
+    <p class="tq-who">Sarena &amp; Jordan<span class="tq-venue"> · Unionville Vineyards</span></p>
+  </div>
+</div>
 <div class="wizard-step" data-step-index="2" data-step-name="Services">
 <!-- Other Services -->
-<div class="flex items-center justify-center gap-3 mb-2 mt-16">
-  <img src="https://static.showit.co/file/eFfc8a1XACHVPrdxtk9HeA/293041/other.png" alt="other services" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
-  <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 3: Other Services</h2>
+<hr class="step-divider">
+<div class="flex items-center justify-center gap-3 mb-4">
+  <img src="https://static.showit.co/file/eFfc8a1XACHVPrdxtk9HeA/293041/other.png" alt="additional coverage" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
+  <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 3: Additional Coverage</h2>
 </div>
 <p class="text-center text-stone-600 text-lg md:text-xl mb-10">Add even more coverage to make your wedding experience unforgettable</p>
 
@@ -2591,85 +2689,23 @@ h3.fc-clock-label,
 </div>
 </div>
 
-<div class="wizard-step" data-step-index="3" data-step-name="Credits">
-<!-- Service Credits -->
-<div class="flex items-center justify-center gap-3 mb-2 mt-16">
-  <img src="https://static.showit.co/file/NArGw95RaAiEJj5S2p6SyA/293041/credits.png" alt="credits" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
-  <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 4: Service Credits</h2>
-</div>
-<p class="text-center text-stone-500 text-base md:text-lg mb-2 italic">As a small thank you to those who dedicate their lives to serving our community, we're honored to offer these credits toward your wedding photography.</p>
-<p class="text-center text-stone-400 text-sm md:text-base mb-10">(Two selections / One per Partner)</p>
-
-
-<div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-4 mb-10 wizard-carousel" id="serviceCreditsList">
-  <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-credit="law_enforcement" onclick="toggleCreditCard(this)">
-    <img src="https://static.showit.co/file/dr9_VGpMzgNOYxe5J6bdiQ/293041/police.png" alt="Police" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3" style="transform: scaleX(-1)">
-    <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Police Officer</p>
-    <p class="text-sm md:text-base text-green-600 text-center">$50 Credit</p>
-  </div>
-  <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-credit="fire_fighter" onclick="toggleCreditCard(this)">
-    <img src="https://static.showit.co/file/IJ7B1gv4EvyqGc5nL0kKpQ/293041/fire-fighter.png" alt="Fire Fighter" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3">
-    <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Fire Fighter</p>
-    <p class="text-sm md:text-base text-green-600 text-center">$50 Credit</p>
-  </div>
-  <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-credit="emt" onclick="toggleCreditCard(this)">
-    <img src="https://static.showit.co/file/l9WERuLpJwxwjDKuLhxuvw/293041/emt.png" alt="EMT" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3" style="transform: scaleX(-1)">
-    <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">EMT</p>
-    <p class="text-sm md:text-base text-green-600 text-center">$50 Credit</p>
-  </div>
-  <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-credit="nurse" onclick="toggleCreditCard(this)">
-    <img src="https://static.showit.co/file/4AzqhtyIZRwrjIZydCrB1g/293041/nurse.png" alt="Nurse" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3">
-    <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Nurse</p>
-    <p class="text-sm md:text-base text-green-600 text-center">$50 Credit</p>
-  </div>
-  <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-credit="teacher" onclick="toggleCreditCard(this)">
-    <img src="https://static.showit.co/file/0ykozwXusradv-95nF8Hrw/293041/teacher.png" alt="Teacher" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3" style="transform: scaleX(-1)">
-    <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Teacher</p>
-    <p class="text-sm md:text-base text-green-600 text-center">$50 Credit</p>
-  </div>
-  <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-credit="military" onclick="toggleCreditCard(this)">
-    <img src="https://static.showit.co/file/UXKgFtqqmaYXGOsIoHB2nQ/293041/military.png" alt="Military" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3">
-    <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Military</p>
-    <p class="text-sm md:text-base text-green-600 text-center">$50 Credit</p>
-  </div>
-  <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-credit="clergy" onclick="toggleCreditCard(this)">
-    <img src="https://static.showit.co/file/bFvxLbewkRqjrqfDRuFqtg/293041/clergy.png" alt="Clergy" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3" style="transform: scaleX(-1)">
-    <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Clergy</p>
-    <p class="text-sm md:text-base text-green-600 text-center">$50 Credit</p>
-  </div>
-  <div class="col-card flex flex-col items-center justify-center p-5 md:p-6 cursor-pointer transition-all hover:shadow-md" data-credit="veteran" onclick="toggleCreditCard(this)">
-    <img src="https://static.showit.co/file/5fQblzQx7hQ9MHIMeWsajQ/293041/veteran.png" alt="Veteran" class="w-24 h-24 md:w-36 md:h-36 object-contain mb-3">
-    <p class="text-base md:text-lg font-bold text-stone-700 text-center leading-tight">Veteran</p>
-    <p class="text-sm md:text-base text-green-600 text-center">$50 Credit</p>
+<div class="tq-band">
+  <div class="tq-photo"><img src="https://static.showit.co/1200/yGTYJVaOKoXDl4ahUsxWmA/293041/stone-house-wedding-couple-hugging-and-smiling-in-front-of-red-door-warren-new-jersey.jpg" alt="Michelle and Paul wedding at The Stone House at Stirling Ridge" loading="lazy" style="object-position:50% 68%"></div>
+  <div class="tq-body">
+    <div class="tq-stars">★★★★★</div>
+    <p class="tq-quote"><span class="qm">"</span>His photographs literally jumped off the canvas. It outshined all the others.<span class="qm">"</span></p>
+    <p class="tq-who">Michelle &amp; Paul<span class="tq-venue"> · The Stone House at Stirling Ridge</span></p>
   </div>
 </div>
-
-<!-- Unlock More Credits Mini Header -->
-<div class="flex items-center justify-center gap-3 mb-2 mt-8">
-  <img src="https://static.showit.co/file/oSrIOpGKGgGvXVnMdQL-AQ/293041/key.png" alt="key" class="w-10 h-10 md:w-12 md:h-12 object-contain">
-  <div class="text-base md:text-xl font-extrabold text-stone-700">Unlock More Credits</div>
-</div>
-<p class="text-center text-base md:text-lg leading-relaxed mb-6 italic" style="color:#44403c;font-size:16px;">Want to save even more? We've got a couple easy ways for you to unlock extra credits toward your package!</p>
-
-<div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
-  <div class="col-card flex flex-col p-[15px] md:p-[24px]" data-credits="consultation">
-    <label class="anim-cb"><input type="checkbox" id="consultationCb" onchange="toggleUnlock(this)"><span class="checkmark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Book a Consultation</span><br>($100 Credit)</span></label>
-    <p class="text-base md:text-lg text-stone-700 ml-11 italic" style="margin-top:-1px">Let's chat! Schedule a quick phone or video call and earn $100 toward your package.</p>
-  </div>
-  <div class="col-card flex flex-col p-[15px] md:p-[24px]" data-credits="instagram">
-    <label class="anim-cb"><input type="checkbox" id="instagramCb" onchange="toggleUnlock(this)"><span class="checkmark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Follow on Instagram</span><br>($25 Credit)</span></label>
-    <p class="text-base md:text-lg text-stone-700 ml-11 italic" style="margin-top:-1px">Follow me on IG @ryansandsphotography and earn yourself a cool $25 credit.</p>
-  </div>
-</div>
-</div>
-
-<div class="wizard-step" data-step-index="4" data-step-name="Date &amp; Plan">
-<!-- Choose a Payment Plan -->
-<div class="flex items-center justify-center gap-3 mb-2 mt-16">
+<div class="wizard-step" data-step-index="3" data-step-name="Date &amp; Plan">
+<!-- Reserve Your Date: fixed 50/50 payment schedule (no plan choice in the à la carte lane) -->
+<hr class="step-divider">
+<div class="flex items-center justify-center gap-3 mb-4">
   <img src="https://static.showit.co/file/aPLMXJ_TUyQH5ii36mai5Q/293041/calendar.png" alt="calendar" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
-  <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl"><span class="hidden md:inline">Step 5: Choose a Payment Plan</span><span class="md:hidden">Step 5: Payment Plans</span></h2>
+  <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl"><span class="hidden md:inline">Step 4: Reserve Your Date</span><span class="md:hidden">Step 4: Reserve Your Date</span></h2>
 </div>
-<p class="text-center text-stone-600 text-lg md:text-xl mb-10">Select your wedding date and choose a payment schedule</p>
+<p class="text-center text-stone-600 text-lg md:text-xl mb-3">Pick your wedding date. A 50% retainer reserves it, and the balance is due 30 days before your day</p>
+<p class="text-center text-stone-500 text-sm md:text-base italic mb-10 max-w-3xl mx-auto">I only photograph one wedding a day, so dates are first come, first reserved. Peak Saturdays book far in advance.</p>
 
 <div class="max-w-4xl mx-auto">
   <div class="col-card p-[15px] md:p-[24px]" data-payment="plan">
@@ -2696,14 +2732,15 @@ h3.fc-clock-label,
           <div class="mt-4 text-center hidden" id="selectedDateDisplay">
             <p class="text-base md:text-lg text-stone-700 font-medium" id="selectedDateText"></p>
           </div>
+          <div class="booked-notice" id="bookedNotice" style="display:none">That date is already booked. Reach out and I'll add you to my waitlist or suggest nearby openings.<br><button type="button" class="bump-btn mt-2" onclick="handleGetQuote()">Reach out about this date</button></div>
         </div>
       </div>
 
-      <!-- RIGHT: Choose Your Payment Schedule (plan comparison cards) -->
+      <!-- RIGHT: Fixed payment schedule (50% retainer at booking, 50% balance 30 days before the wedding), rendered by renderAlacarteSchedule -->
       <div>
-        <h3 class="text-lg md:text-2xl font-extrabold text-stone-800 mb-4 text-center mt-4 md:mt-0">Choose Your Payment Schedule</h3>
-        <div class="border border-stone-200 rounded-xl p-4 md:p-6 bg-stone-50" id="payPlanCompare">
-          <p class="text-sm md:text-base text-stone-500 italic text-center py-6">Pick your wedding date to compare payment plans ✨</p>
+        <h3 class="text-lg md:text-2xl font-extrabold text-stone-800 mb-4 text-center mt-4 md:mt-0">Your Payment Schedule</h3>
+        <div class="border border-stone-200 rounded-xl p-4 md:p-6 bg-stone-50" id="alacarteSchedule">
+          <p class="text-sm md:text-base text-stone-500 italic text-center py-6">Add coverage in Step 1 to see your two simple payments ✨</p>
         </div>
       </div>
 
@@ -2718,11 +2755,20 @@ h3.fc-clock-label,
 </div>
 </div>
 
-<div class="wizard-step" data-step-index="5" data-step-name="Payment">
-<!-- Step 6: Payment Method -->
-<div class="flex items-center justify-center gap-3 mb-2 mt-16">
+<div class="tq-band rev">
+  <div class="tq-photo"><img src="https://static.showit.co/1200/2o4IZ1cV2ygE7thjMuT47w/293041/the-grove-bride-laughing-groom-whispering-summer-wedding-cedar-grove-new-jersey.jpg" alt="David and Joyce wedding at The Grove" loading="lazy" style="object-position:70% 55%; transform:scale(1.2)"></div>
+  <div class="tq-body">
+    <div class="tq-stars">★★★★★</div>
+    <p class="tq-quote"><span class="qm">"</span>Perhaps Ryan's greatest strength is the sheer enthusiasm he has for his work.<span class="qm">"</span></p>
+    <p class="tq-who">David &amp; Joyce<span class="tq-venue"> · The Grove</span></p>
+  </div>
+</div>
+<div class="wizard-step" data-step-index="4" data-step-name="Payment">
+<!-- Step 5: Payment Method -->
+<hr class="step-divider">
+<div class="flex items-center justify-center gap-3 mb-4">
   <img src="https://static.showit.co/file/kN5dwSDD1VZ2PRPu6NhYKQ/293041/credit-card.png" alt="credit card" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
-  <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 6: Payment Method</h2>
+  <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 5: Payment Method</h2>
 </div>
 <p class="text-center text-stone-600 text-lg md:text-xl mb-10">Choose how you'd like to pay</p>
 
@@ -2756,11 +2802,20 @@ h3.fc-clock-label,
 </div>
 </div>
 
-<div class="wizard-step" data-step-index="6" data-step-name="Summary">
-<!-- Step 7: Your Investment -->
-<div class="flex items-center justify-center gap-3 mb-2 mt-16">
+<div class="tq-band">
+  <div class="tq-photo"><img src="https://static.showit.co/1200/eImCrEjn7eq2tCY_Yljwyg/293041/logan-inn-wedding-photo-groom-kissing-bride-neon-sign-trendy-bar-new-hope-pennsylvania.jpg" alt="Christine and Justin wedding at The Logan Inn" loading="lazy" style="object-position:25% 38%; transform:scale(1.1)"></div>
+  <div class="tq-body">
+    <div class="tq-stars">★★★★★</div>
+    <p class="tq-quote"><span class="qm">"</span>He cares about you and making your celebration special.<span class="qm">"</span></p>
+    <p class="tq-who">Christine &amp; Justin<span class="tq-venue"> · The Logan Inn</span></p>
+  </div>
+</div>
+<div class="wizard-step" data-step-index="5" data-step-name="Summary">
+<!-- Step 6: Your Investment -->
+<hr class="step-divider">
+<div class="flex items-center justify-center gap-3 mb-4">
   <img src="https://static.showit.co/file/ueHGE8iMCHrL5egxLgOVLQ/293041/cash.png" alt="cash" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
-  <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 7: Your Investment</h2>
+  <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 6: Your Investment</h2>
 </div>
 <p class="text-center text-stone-600 text-lg md:text-xl mb-10">Review your selections and see your total investment</p>
 
@@ -2786,40 +2841,22 @@ h3.fc-clock-label,
 <div id="tabContent-photography">
 <div class="wizard-progress md:hidden" id="wizardProgress-photography"></div>
 <div class="wizard-step" data-step-index="0" data-step-name="Collection">
+
 <div class="flex items-center justify-center gap-3 mb-2">
   <img src="https://static.showit.co/file/bnOCMC9XnbvrlasKA2Pm0Q/293041/collection.png" alt="collection" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
   <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl"><span class="hidden md:inline">Step 1: Choose a Collection</span><span class="md:hidden">Step 1: Wedding Collections</span></h2>
 </div>
-<p class="text-center text-stone-600 text-lg md:text-xl mb-10">I offer customizable packages to suit you and your fiance's every need</p>
+<p class="text-center text-stone-600 text-lg md:text-xl mb-6">I offer customizable packages to suit you and your fiance's every need</p>
 
-<div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-6 gap-3 md:gap-5 wizard-carousel p-collection-list photo-collections">
-
-  <!-- Petite -->
-  <div class="col-card flex flex-col items-center p-[15px] md:p-[24px] md:col-span-2" data-p-collection="petite" onclick="p_selectCollection(this)">
-    <div class="col-card-name text-sm md:text-2xl font-extrabold text-stone-800 mb-1 text-center">Petite</div>
-    <div class="col-card-price text-2xl md:text-5xl font-bold text-stone-800 mb-3" style="letter-spacing: -0.02em;">$2,500</div>
-    <div class="col-card-badge text-sm md:text-lg font-semibold text-stone-500 mb-4 pb-4 border-b border-stone-200 w-full text-center tracking-wide uppercase">25–50 Guests</div>
-    <!-- Desktop items -->
-    <ul class="w-full space-y-5 md:space-y-6 text-[15px] md:text-xl mb-6 hidden md:block">
-      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">6 Hours of Photo Coverage</li>
-      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">30 Minute Engagement Session</li>
-      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">Online Gallery (2)</li>
-      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">Printing Rights</li>
-    </ul>
-    <!-- Mobile items -->
-    <ul class="w-full space-y-5 text-[15px] mb-6 md:hidden">
-      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">6 Hours of Photography Coverage</li>
-      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">30 Minute Engagement Session</li>
-      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">Online Gallery (2) + Printing Rights</li>
-    </ul>
-    <button class="col-card-btn">Choose</button>
-  </div>
+<div class="max-w-6xl mx-auto mt-16 md:mt-[90px] grid grid-cols-1 md:grid-cols-6 gap-3 md:gap-5 wizard-carousel p-collection-list photo-collections">
 
   <!-- Essential -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px] md:col-span-2" data-p-collection="essential" onclick="p_selectCollection(this)">
     <div class="col-card-name text-sm md:text-2xl font-extrabold text-stone-800 mb-1 text-center">Essential</div>
     <div class="col-card-price text-2xl md:text-5xl font-bold text-stone-800 mb-3" style="letter-spacing: -0.02em;">$3,500</div>
     <div class="col-card-badge text-sm md:text-lg font-semibold text-stone-500 mb-4 pb-4 border-b border-stone-200 w-full text-center tracking-wide uppercase">50–100 Guests</div>
+    <div class="col-card-meta col-card-monthly text-sm md:text-base font-semibold text-stone-600 text-center w-full mb-1" data-meta="monthly"></div>
+    <img src="https://static.showit.co/1200/Bejd7IvuNGbKX2RU8QFP_Q/293041/english-manor-wedding-photo-bridesmaids-dancing-laughing-ballroom-ocean-township-new-jersey.jpg" alt="English Manor wedding bridal party" class="col-card-photo" loading="lazy" style="object-position:50% calc(24% - 12px)">
     <!-- Desktop items -->
     <ul class="w-full space-y-5 md:space-y-6 text-[15px] md:text-xl mb-6 hidden md:block">
       <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">8 Hours of Photo Coverage</li>
@@ -2839,10 +2876,13 @@ h3.fc-clock-label,
   </div>
 
   <!-- Premium -->
-  <div class="col-card flex flex-col items-center p-[15px] md:p-[24px] md:col-span-2" data-p-collection="premium" onclick="p_selectCollection(this)">
+  <div class="col-card col-card-hero flex flex-col items-center p-[15px] md:p-[24px] md:col-span-2" data-p-collection="premium" onclick="p_selectCollection(this)">
+    <div class="col-card-hero-topper"><div class="col-card-hero-pill">Most Popular</div><div class="col-card-hero-social">Most couples choose Premium.</div></div>
     <div class="col-card-name text-sm md:text-2xl font-extrabold text-stone-800 mb-1 text-center">Premium</div>
     <div class="col-card-price text-2xl md:text-5xl font-bold text-stone-800 mb-3" style="letter-spacing: -0.02em;">$4,600</div>
     <div class="col-card-badge text-sm md:text-lg font-semibold text-stone-500 mb-4 pb-4 border-b border-stone-200 w-full text-center tracking-wide uppercase">100–150 Guests</div>
+    <div class="col-card-meta col-card-monthly text-sm md:text-base font-semibold text-stone-600 text-center w-full mb-1" data-meta="monthly"></div>
+    <img src="https://static.showit.co/1200/3EepIdafapTjjvp-dz2x6w/293041/hamilton-manor-summer-wedding-night-photo-bride-groom-kissing-gazebo-ivy-flowers-twinkle-lights-hamilton-township-new-jersey.jpg" alt="Hamilton Manor gazebo night wedding couple" class="col-card-photo" loading="lazy" style="object-position:48% 38%">
     <!-- Desktop items -->
     <ul class="w-full space-y-5 md:space-y-6 text-[15px] md:text-xl mb-6 hidden md:block">
       <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">10 Hours of Photo Coverage</li>
@@ -2862,10 +2902,12 @@ h3.fc-clock-label,
   </div>
 
   <!-- Signature -->
-  <div class="col-card flex flex-col items-center p-[15px] md:p-[24px] md:col-start-2 md:col-span-2" data-p-collection="signature" onclick="p_selectCollection(this)">
+  <div class="col-card flex flex-col items-center p-[15px] md:p-[24px] md:col-span-2" data-p-collection="signature" onclick="p_selectCollection(this)">
     <div class="col-card-name text-sm md:text-2xl font-extrabold text-stone-800 mb-1 text-center">Signature</div>
-    <div class="col-card-price text-2xl md:text-5xl font-bold text-stone-800 mb-3" style="letter-spacing: -0.02em;">$5,400</div>
+    <div class="col-card-price text-2xl md:text-5xl font-bold text-stone-800 mb-3" style="letter-spacing: -0.02em;">$5,800</div>
     <div class="col-card-badge text-sm md:text-lg font-semibold text-stone-500 mb-4 pb-4 border-b border-stone-200 w-full text-center tracking-wide uppercase">150–200 Guests</div>
+    <div class="col-card-meta col-card-monthly text-sm md:text-base font-semibold text-stone-600 text-center w-full mb-1" data-meta="monthly"></div>
+    <img src="https://static.showit.co/1200/Se5AE1sDkj4LXxyDun_R0w/293041/maritime-parc-wedding-sparkler-exit-bride-and-groom-leaving-venue-jersey-city-new-jersey.jpg" alt="Maritime Parc sparkler exit wedding couple" class="col-card-photo" loading="lazy" style="object-position:50% calc(32% - 12px)">
     <!-- Desktop items -->
     <ul class="w-full space-y-5 md:space-y-6 text-[15px] md:text-xl mb-6 hidden md:block">
       <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">10 Hours of Photo Coverage</li>
@@ -2887,10 +2929,12 @@ h3.fc-clock-label,
   </div>
 
   <!-- Prestige -->
-  <div class="col-card flex flex-col items-center p-[15px] md:p-[24px] md:col-start-4 md:col-span-2" data-p-collection="prestige" onclick="p_selectCollection(this)">
+  <div class="col-card flex flex-col items-center p-[15px] md:p-[24px] md:col-start-2 md:col-span-2" data-p-collection="prestige" onclick="p_selectCollection(this)">
     <div class="col-card-name text-sm md:text-2xl font-extrabold text-stone-800 mb-1 text-center">Prestige</div>
-    <div class="col-card-price text-2xl md:text-5xl font-bold text-stone-800 mb-3" style="letter-spacing: -0.02em;">$6,400</div>
-    <div class="col-card-badge text-sm md:text-lg font-semibold text-stone-500 mb-4 pb-4 border-b border-stone-200 w-full text-center tracking-wide uppercase">200+ Guests</div>
+    <div class="col-card-price text-2xl md:text-5xl font-bold text-stone-800 mb-3" style="letter-spacing: -0.02em;">$6,900</div>
+    <div class="col-card-badge text-sm md:text-lg font-semibold text-stone-500 mb-4 pb-4 border-b border-stone-200 w-full text-center tracking-wide uppercase">200–250 Guests</div>
+    <div class="col-card-meta col-card-monthly text-sm md:text-base font-semibold text-stone-600 text-center w-full mb-1" data-meta="monthly"></div>
+    <img src="https://static.showit.co/1200/gwqZ9uSZSBKtzP62OrpFOA/293041/smoke-rise-village-inn-fall-wedding-photo-bride-groom-walking-holding-hands-stone-wall-kinnelon-new-jersey.jpg" alt="Smoke Rise Village Inn fall wedding couple" class="col-card-photo" loading="lazy" style="object-position:52% calc(26% - 12px)">
     <!-- Desktop items -->
     <ul class="w-full space-y-5 md:space-y-6 text-[15px] md:text-xl mb-6 hidden md:block">
       <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">12 Hours of Photo Coverage</li>
@@ -2911,14 +2955,79 @@ h3.fc-clock-label,
     <button class="col-card-btn">Choose</button>
   </div>
 
+  <!-- Ultimate -->
+  <div class="col-card flex flex-col items-center p-[15px] md:p-[24px] md:col-start-4 md:col-span-2" data-p-collection="ultimate" onclick="p_selectCollection(this)">
+    <div class="col-card-name text-sm md:text-2xl font-extrabold text-stone-800 mb-1 text-center">Ultimate</div>
+    <div class="col-card-price text-2xl md:text-5xl font-bold text-stone-800 mb-3" style="letter-spacing: -0.02em;">$9,900</div>
+    <div class="col-card-badge text-sm md:text-lg font-semibold text-stone-500 mb-4 pb-4 border-b border-stone-200 w-full text-center tracking-wide uppercase">250+ Guests</div>
+    <div class="col-card-meta col-card-monthly text-sm md:text-base font-semibold text-stone-600 text-center w-full mb-1" data-meta="monthly"></div>
+    <img src="https://static.showit.co/1200/a-Xv15p7vRXs4gd7ws1fYA/293041/bear-brook-valley-winery-summer-wedding-photo-bride-groom-walking-hand-in-hand-fredon-township-new-jersey.jpg" alt="Bear Brook Valley Winery wedding couple" class="col-card-photo" loading="lazy" style="object-position:50% 22%">
+    <!-- Desktop items -->
+    <ul class="w-full space-y-5 md:space-y-6 text-[15px] md:text-xl mb-6 hidden md:block">
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">12 Hours of Photo Coverage</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">1 Hour Engagement Session</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">12x12 Album (60 Pages)</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">2nd Photographer (10 Hrs)</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">Online Gallery (2)</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">Printing Rights</li>
+    </ul>
+    <!-- Videography (divider line above, same style as the line under the photo) -->
+    <ul class="w-full space-y-5 md:space-y-6 text-[15px] md:text-xl mb-6 hidden md:block">
+      <li class="text-stone-600 font-semibold leading-relaxed text-center">10 Hours of Videography Coverage</li>
+      <li class="text-stone-600 font-semibold leading-relaxed text-center">3-4 Minute Highlight Reel</li>
+      <li class="text-stone-600 font-semibold leading-relaxed text-center">1 Hour+ Feature Length Film</li>
+    </ul>
+    <!-- Mobile items -->
+    <ul class="w-full space-y-5 text-[15px] mb-6 md:hidden">
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">12 Hours of Photography Coverage</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">1 Hour Engagement Session</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">12x12 Album w/60 Pages</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">2nd Photographer (10 Hours)</li>
+      <li class="text-stone-600 font-semibold leading-relaxed whitespace-nowrap text-center">Online Gallery (2) + Printing Rights</li>
+    </ul>
+    <ul class="w-full space-y-5 text-[15px] mb-6 md:hidden" style="border-top:1px solid #e7e5e4; padding-top:1rem;">
+      <li class="text-stone-600 font-semibold leading-relaxed text-center">10 Hours of Videography Coverage</li>
+      <li class="text-stone-600 font-semibold leading-relaxed text-center">3-4 Minute Highlight Reel</li>
+      <li class="text-stone-600 font-semibold leading-relaxed text-center">1 Hour+ Feature Length Film</li>
+    </ul>
+    <button class="col-card-btn">Choose</button>
+  </div>
+
+
+</div>
+
+<!-- "One step up" nudge + "Complete your collection" order bump, rendered by p_renderSelectionExtras() once a collection is chosen -->
+<!-- The nudge element is MOVED into the selected collection card by p_renderSelectionExtras(); this is its parked/home slot -->
+<div id="p_upgradeNudgeHome" hidden><div id="p_upgradeNudge" class="w-full" style="display:none" onclick="event.stopPropagation()"></div></div>
+<div id="p_orderBump" class="max-w-4xl mx-auto mt-4" style="display:none"></div>
+
+<!-- Testimonial bands now live between each step below -->
+<div id="p_testimonials" style="display:none"></div>
+<!-- Persistent (visually hidden) Parent Album counter for the Photography tab. The order bump drives it through the
+     existing p_adjustAlbumQty / albumPrices mechanism, so totals, investment, quote and email pick it up automatically. -->
+<div data-p-album="parent_album" hidden aria-hidden="true">
+  <span class="coverage-price"></span>
+  <button type="button" class="te-btn" onclick="p_adjustAlbumQty(this, -1)" tabindex="-1"></button>
+  <span class="qty-display">0</span>
+  <button type="button" class="te-btn" onclick="p_adjustAlbumQty(this, 1)" tabindex="-1"></button>
+  <button type="button" class="te-reset" onclick="p_resetAlbumQty(this)" tabindex="-1" style="opacity: 0.35; pointer-events: none;">RESET</button>
 </div>
 </div>
 
+<div class="tq-band">
+  <div class="tq-photo"><img src="https://static.showit.co/1200/3I6bwdj3rQJe1aFVA9TKxw/293041/inn-at-barley-sheaf-wedding-photo-bride-groom-posing-barn-background-holicong-pennsylvania.jpg" alt="Samantha and David wedding at The Inn at Barley Sheaf" loading="lazy" style="object-position:50% 14%"></div>
+  <div class="tq-body">
+    <div class="tq-stars">★★★★★</div>
+    <p class="tq-quote"><span class="qm">"</span>Ryan far out-shined our expectations.<span class="qm">"</span></p>
+    <p class="tq-who">Samantha &amp; David<span class="tq-venue"> · The Inn at Barley Sheaf</span></p>
+  </div>
+</div>
 <div class="wizard-step" data-step-index="1" data-step-name="Coverage">
 <!-- Additional Coverage Time -->
-<div class="flex items-center justify-center gap-3 mb-2 mt-16">
+<hr class="step-divider">
+<div class="flex items-center justify-center gap-3 mb-4">
   <img src="https://static.showit.co/file/Q86uOG_Zc1KRe2oQdXaRXA/293041/clock.png" alt="clock" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
-  <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl"><span class="hidden md:inline">Step 2: Additional Coverage Time</span><span class="md:hidden">Step 2: Additional Coverage</span></h2>
+  <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl"><span class="hidden md:inline">Step 2: Additional Coverage</span><span class="md:hidden">Step 2: Additional Coverage</span></h2>
 </div>
 <p class="text-center text-stone-600 text-lg md:text-xl mb-10">Need more time? No problem! Add on as much as you like : )</p>
 
@@ -2929,7 +3038,7 @@ h3.fc-clock-label,
     <img src="https://static.showit.co/file/5fWMmNfZMkFqvYROPoYu7A/293041/photo-coverage.png" alt="Photography" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
     <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">Photography</div>
     <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$350/hr</div>
-    <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">Professional photography to preserve every moment of your wedding day.</p>
+    <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">Every couple who cut an hour wishes they'd kept shooting through the send-off. More time means you miss nothing.</p>
     <div class="flex flex-col items-center mt-auto">
       <div class="qty-group">
         <button class="te-btn" onclick="p_adjustQty(this, -1)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
@@ -2960,7 +3069,7 @@ h3.fc-clock-label,
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-p-coverage="second">
     <img src="https://static.showit.co/file/RrVWNm-zH--na0RvwtkZ7A/293041/2nd-photographer.png" alt="2nd Photographer" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
     <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center">2nd Photographer</div>
-    <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$100/hr</div>
+    <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$150/hr</div>
     <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">Extra angles, simultaneous coverage in two locations, and significantly more images captured throughout your day.</p>
     <div class="flex flex-col items-center mt-auto">
       <div class="qty-group">
@@ -2974,49 +3083,18 @@ h3.fc-clock-label,
 
 
 </div>
+
+<!-- 12-hour coverage ceiling notice: shown when additional photography hours would exceed 12 hrs total -->
+<div id="p_coverageCapNotice" class="max-w-6xl md:max-w-4xl mx-auto mt-6 rounded-xl px-5 py-4 md:px-8 md:py-5 text-center" style="display:none;background:#eceaff;border:2px solid #8a7ef2">
+  <p class="text-stone-800 font-extrabold text-base md:text-xl mb-1">That's the ceiling: 12 hours</p>
+  <p class="text-stone-600 text-sm md:text-base leading-relaxed">12 hours is my maximum coverage. For a bigger day, reach out for a custom quote.</p>
+</div>
 </div>
 
 <div class="wizard-step" data-step-index="2" data-step-name="Services">
 <!-- Other Services -->
-<div class="flex items-center justify-center gap-3 mb-2 mt-16">
-  <img src="https://static.showit.co/file/eFfc8a1XACHVPrdxtk9HeA/293041/other.png" alt="other services" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
-  <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 3: Other Services</h2>
-</div>
-<p class="text-center text-stone-600 text-lg md:text-xl mb-10">Add even more coverage to make your wedding experience unforgettable</p>
 
-<div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-2 md:max-w-2xl gap-3 md:gap-5 wizard-carousel mobile-grid-2x2">
-
-  <!-- 30 Minute Engagement Session (mobile only) -->
-  <div class="col-card flex flex-col items-center p-[15px] md:p-[24px] md:!hidden" data-p-service="engagement_30min">
-    <img src="https://static.showit.co/file/eTv486_m5iEjoOQD8HEQzw/293041/engagement-session.png" alt="30 Min Engagement" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
-    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center"><span class="name-underline"><span class="fc-line1">30 Minute</span> <span class="fc-line2">Engagement Session</span></span></div>
-    <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$400</div>
-    <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">A quick and fun portrait session to celebrate your engagement together.</p>
-    <div class="flex flex-col items-center mt-auto">
-      <div class="qty-group">
-        <button class="te-btn" onclick="p_adjustServiceQty(this, -1)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
-        <span class="qty-display">0</span>
-        <button class="te-btn" onclick="p_adjustServiceQty(this, 1)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
-      </div>
-      <button class="te-reset" onclick="p_resetServiceQty(this)" style="opacity: 0.35; pointer-events: none;">RESET</button>
-    </div>
-  </div>
-
-  <!-- One Hour Engagement Session (mobile only) -->
-  <div class="col-card flex flex-col items-center p-[15px] md:p-[24px] md:!hidden" data-p-service="engagement_session">
-    <img src="https://static.showit.co/file/ze8z3dNzN-JHGQ9Mn5TG-w/293041/engagement-session-1hr.png" alt="1 Hour Engagement" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-3" style="filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));">
-    <div class="coverage-name text-xs md:text-xl font-extrabold text-stone-800 mb-1 text-center"><span class="name-underline"><span class="fc-line1">One Hour</span> <span class="fc-line2" style="display:block">Engagement Session</span></span></div>
-    <div class="coverage-price text-xl md:text-4xl font-bold text-stone-800 mb-4 pb-4 border-b border-stone-200 w-full text-center" style="letter-spacing: -0.02em;">$700</div>
-    <p class="text-xs md:text-base text-stone-500 text-center leading-relaxed mb-6">A full portrait session with time for outfit changes and multiple locations.</p>
-    <div class="flex flex-col items-center mt-auto">
-      <div class="qty-group">
-        <button class="te-btn" onclick="p_adjustServiceQty(this, -1)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
-        <span class="qty-display">0</span>
-        <button class="te-btn" onclick="p_adjustServiceQty(this, 1)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
-      </div>
-      <button class="te-reset" onclick="p_resetServiceQty(this)" style="opacity: 0.35; pointer-events: none;">RESET</button>
-    </div>
-  </div>
+<div class="max-w-6xl mx-auto mt-8 md:mt-12 grid grid-cols-2 md:grid-cols-2 md:max-w-2xl gap-3 md:gap-5 wizard-carousel mobile-grid-2x2">
 
   <!-- Bridal Shower Coverage -->
   <div class="col-card flex flex-col items-center p-[15px] md:p-[24px]" data-p-service="bridal_shower">
@@ -3053,14 +3131,24 @@ h3.fc-clock-label,
 </div>
 </div>
 
+<div class="tq-band">
+  <div class="tq-photo"><img src="https://static.showit.co/1200/OzMWPn7G8_AU-XBo97I4ug/293041/hoboken-new-jersey-wedding-photography-kolo-club.jpg" alt="Katie and Matthew wedding at The KOLO Klub in Hoboken" loading="lazy" style="object-position:52% 32%; transform:scale(1.3)"></div>
+  <div class="tq-body">
+    <div class="tq-stars">★★★★★</div>
+    <p class="tq-quote"><span class="qm">"</span>He was so fun to work with and the photos speak for themselves.<span class="qm">"</span></p>
+    <p class="tq-who">Katie &amp; Matthew<span class="tq-venue"> · The KOLO Klub</span></p>
+  </div>
+</div>
 <div class="wizard-step" data-step-index="3" data-step-name="Credits">
 <!-- Service Credits -->
-<div class="flex items-center justify-center gap-3 mb-2 mt-16">
+<hr class="step-divider">
+<div class="flex items-center justify-center gap-3 mb-4">
   <img src="https://static.showit.co/file/NArGw95RaAiEJj5S2p6SyA/293041/credits.png" alt="credits" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
-  <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 4: Service Credits</h2>
+  <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 3: Service Credits</h2>
 </div>
-<p class="text-center text-stone-500 text-base md:text-lg mb-2 italic">As a small thank you to those who dedicate their lives to serving our community, we're honored to offer these credits toward your wedding photography.</p>
-<p class="text-center text-stone-400 text-sm md:text-base mb-10">(Two selections / One per Partner)</p>
+<p class="text-center text-stone-500 text-base md:text-lg mb-4 italic max-w-4xl mx-auto">As a small thank you to those who dedicate their lives to serving our community, we're honored to offer these credits toward your wedding photography.</p>
+<p class="text-center text-stone-400 text-sm md:text-base mb-2">(Two selections / One per Partner)</p>
+<p class="text-center text-stone-400 text-sm md:text-base mb-10 italic">Career credits are valid for 7 days after your consultation · All credits combined are capped at $225</p>
 
 
 <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-4 mb-10 wizard-carousel" id="p_serviceCreditsList">
@@ -3107,7 +3195,7 @@ h3.fc-clock-label,
 </div>
 
 <!-- Unlock More Credits Mini Header -->
-<div class="flex items-center justify-center gap-3 mb-2 mt-8">
+<div class="flex items-center justify-center gap-3 mb-4 mt-8">
   <img src="https://static.showit.co/file/oSrIOpGKGgGvXVnMdQL-AQ/293041/key.png" alt="key" class="w-10 h-10 md:w-12 md:h-12 object-contain">
   <div class="text-base md:text-xl font-extrabold text-stone-700">Unlock More Credits</div>
 </div>
@@ -3116,22 +3204,32 @@ h3.fc-clock-label,
 <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
   <div class="col-card flex flex-col p-[15px] md:p-[24px]" data-p-credits="consultation">
     <label class="anim-cb"><input type="checkbox" id="p_consultationCb" onchange="p_toggleUnlock(this)"><span class="checkmark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Book a Consultation</span><br>($100 Credit)</span></label>
-    <p class="text-base md:text-lg text-stone-700 ml-11 italic" style="margin-top:-1px">Let's chat! Schedule a quick phone or video call and earn $100 toward your package.</p>
+    <p class="text-base md:text-lg text-stone-700 ml-11 italic" style="margin-top:-1px">Let's chat! Schedule a quick phone or video call and earn $100 toward your package. This credit never expires.</p>
   </div>
   <div class="col-card flex flex-col p-[15px] md:p-[24px]" data-p-credits="instagram">
     <label class="anim-cb"><input type="checkbox" id="p_instagramCb" onchange="p_toggleUnlock(this)"><span class="checkmark"></span><span style="font-size:17px" class="text-stone-700"><span class="font-bold">Follow on Instagram</span><br>($25 Credit)</span></label>
-    <p class="text-base md:text-lg text-stone-700 ml-11 italic" style="margin-top:-1px">Follow me on IG @ryansandsphotography and earn yourself a cool $25 credit.</p>
+    <p class="text-base md:text-lg text-stone-700 ml-11 italic" style="margin-top:-1px">Follow me on IG @ryansandsphotography and earn yourself a cool $25 credit. Valid for 7 days after your consultation.</p>
   </div>
 </div>
 </div>
 
+<div class="tq-band rev">
+  <div class="tq-photo"><img src="https://static.showit.co/1200/q2XU6b-E3Paz2bTJL4k9OA/293041/618-restaurant-wedding-photo-bride-groom-posing-ivy-wall-freehold-new-jersey.jpg" alt="Delilah and Jaime wedding at 618 Restaurant in Freehold" loading="lazy" style="object-position:50% 68%"></div>
+  <div class="tq-body">
+    <div class="tq-stars">★★★★★</div>
+    <p class="tq-quote"><span class="qm">"</span>Easiest five stars we have ever given.<span class="qm">"</span></p>
+    <p class="tq-who">Delilah &amp; Jaime<span class="tq-venue"> · 618 Restaurant</span></p>
+  </div>
+</div>
 <div class="wizard-step" data-step-index="4" data-step-name="Date &amp; Plan">
 <!-- Choose a Payment Plan -->
-<div class="flex items-center justify-center gap-3 mb-2 mt-16">
+<hr class="step-divider">
+<div class="flex items-center justify-center gap-3 mb-4">
   <img src="https://static.showit.co/file/aPLMXJ_TUyQH5ii36mai5Q/293041/calendar.png" alt="calendar" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
-  <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl"><span class="hidden md:inline">Step 5: Choose a Payment Plan</span><span class="md:hidden">Step 5: Payment Plans</span></h2>
+  <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl"><span class="hidden md:inline">Step 4: Choose a Payment Plan</span><span class="md:hidden">Step 4: Payment Plans</span></h2>
 </div>
-<p class="text-center text-stone-600 text-lg md:text-xl mb-10">Select your wedding date and choose a payment schedule</p>
+<p class="text-center text-stone-600 text-lg md:text-xl mb-3">Select your wedding date and choose a payment schedule</p>
+<p class="text-center text-stone-500 text-sm md:text-base italic mb-10 max-w-3xl mx-auto">I only photograph one wedding a day, so dates are first come, first reserved. Peak Saturdays book far in advance.</p>
 
 <div class="max-w-4xl mx-auto">
   <div class="col-card p-[15px] md:p-[24px]" data-p-payment="plan">
@@ -3158,6 +3256,7 @@ h3.fc-clock-label,
           <div class="mt-4 text-center hidden" id="p_selectedDateDisplay">
             <p class="text-base md:text-lg text-stone-700 font-medium" id="p_selectedDateText"></p>
           </div>
+          <div class="booked-notice" id="p_bookedNotice" style="display:none">That date is already booked. Reach out and I'll add you to my waitlist or suggest nearby openings.<br><button type="button" class="bump-btn mt-2" onclick="p_bookCall()">Reach out about this date</button></div>
         </div>
       </div>
 
@@ -3180,11 +3279,20 @@ h3.fc-clock-label,
 </div>
 </div>
 
+<div class="tq-band">
+  <div class="tq-photo"><img src="https://static.showit.co/1200/kB_-1oXdcf_ydvGtManqUg/293041/fall-wedding-photos-olde-mill-inn-basking-ridge.jpg" alt="Victoria and Thomas wedding at The Olde Mill Inn" loading="lazy" style="object-position:50% 63%"></div>
+  <div class="tq-body">
+    <div class="tq-stars">★★★★★</div>
+    <p class="tq-quote"><span class="qm">"</span>His pricing is incredibly fair for the quality you get.<span class="qm">"</span></p>
+    <p class="tq-who">Victoria &amp; Thomas<span class="tq-venue"> · The Olde Mill Inn</span></p>
+  </div>
+</div>
 <div class="wizard-step" data-step-index="5" data-step-name="Payment">
-<!-- Step 6: Payment Method -->
-<div class="flex items-center justify-center gap-3 mb-2 mt-16">
+<!-- Step 5: Payment Method -->
+<hr class="step-divider">
+<div class="flex items-center justify-center gap-3 mb-4">
   <img src="https://static.showit.co/file/kN5dwSDD1VZ2PRPu6NhYKQ/293041/credit-card.png" alt="credit card" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
-  <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 6: Payment Method</h2>
+  <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 5: Payment Method</h2>
 </div>
 <p class="text-center text-stone-600 text-lg md:text-xl mb-10">Choose how you'd like to pay</p>
 
@@ -3218,11 +3326,20 @@ h3.fc-clock-label,
 </div>
 </div>
 
+<div class="tq-band rev">
+  <div class="tq-photo"><img src="https://static.showit.co/1200/Z8sOMZKKfxLXbrpqR2C4nw/293041/st-francis-metuchen-wedding-photo-bride-groom-exit-church-olde-mill-inn-basking-ridge-new-jersey.jpg" alt="Mairead and Matthew wedding at The Olde Mill Inn" loading="lazy" style="object-position:50% 45%; transform:scale(1.15)"></div>
+  <div class="tq-body">
+    <div class="tq-stars">★★★★★</div>
+    <p class="tq-quote"><span class="qm">"</span>Of all the decisions we made for our wedding, choosing Ryan was the easiest. We could not be happier.<span class="qm">"</span></p>
+    <p class="tq-who">Mairead &amp; Matthew<span class="tq-venue"> · The Olde Mill Inn</span></p>
+  </div>
+</div>
 <div class="wizard-step" data-step-index="6" data-step-name="Summary">
-<!-- Step 7: Your Investment -->
-<div class="flex items-center justify-center gap-3 mb-2 mt-16">
+<!-- Step 6: Your Investment -->
+<hr class="step-divider">
+<div class="flex items-center justify-center gap-3 mb-4">
   <img src="https://static.showit.co/file/ueHGE8iMCHrL5egxLgOVLQ/293041/cash.png" alt="cash" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
-  <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 7: Your Investment</h2>
+  <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 6: Your Investment</h2>
 </div>
 <p class="text-center text-stone-600 text-lg md:text-xl mb-10">Review your selections and see your total investment</p>
 
@@ -3259,7 +3376,7 @@ h3.fc-clock-label,
 <div id="tabContent-videography" style="display: none;">
 <div class="wizard-progress md:hidden" id="wizardProgress-videography"></div>
 <div class="wizard-step" data-step-index="0" data-step-name="Package">
-<div class="flex items-center justify-center gap-3 mb-2">
+<div class="flex items-center justify-center gap-3 mb-4">
   <img src="https://static.showit.co/file/27pLrmW1fIwbhBNqYK0JEA/293041/videography-coverage.png" alt="video camera" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
   <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 1: Video Packages</h2>
 </div>
@@ -3350,9 +3467,18 @@ h3.fc-clock-label,
 </div>
 </div>
 
+<div class="tq-band">
+  <div class="tq-photo"><img src="https://static.showit.co/1200/tLoujZ-z5NTZEoRg-ZFUuA/293041/wedding-photography-imperia-somerset-new-jersey.jpg" alt="Melodi and Ayal wedding at The Imperia by Dhaba" loading="lazy" style="object-position:50% 68%"></div>
+  <div class="tq-body">
+    <div class="tq-stars">★★★★★</div>
+    <p class="tq-quote"><span class="qm">"</span>He was organized and practical.<span class="qm">"</span></p>
+    <p class="tq-who">Melodi &amp; Ayal<span class="tq-venue"> · The Imperia by Dhaba</span></p>
+  </div>
+</div>
 <div class="wizard-step" data-step-index="1" data-step-name="Date &amp; Plan">
 <!-- Step 2: Choose a Payment Plan -->
-<div class="flex items-center justify-center gap-3 mb-2 mt-16">
+<hr class="step-divider">
+<div class="flex items-center justify-center gap-3 mb-4">
   <img src="https://static.showit.co/file/aPLMXJ_TUyQH5ii36mai5Q/293041/calendar.png" alt="calendar" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
   <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl"><span class="hidden md:inline">Step 2: Choose a Payment Plan</span><span class="md:hidden">Step 2: Payment Plans</span></h2>
 </div>
@@ -3407,7 +3533,8 @@ h3.fc-clock-label,
 
 <div class="wizard-step" data-step-index="2" data-step-name="Payment">
 <!-- Step 3: Payment Method -->
-<div class="flex items-center justify-center gap-3 mb-2 mt-16">
+<hr class="step-divider">
+<div class="flex items-center justify-center gap-3 mb-4">
   <img src="https://static.showit.co/file/kN5dwSDD1VZ2PRPu6NhYKQ/293041/credit-card.png" alt="credit card" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
   <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 3: Payment Method</h2>
 </div>
@@ -3443,9 +3570,18 @@ h3.fc-clock-label,
 </div>
 </div>
 
+<div class="tq-band rev">
+  <div class="tq-photo"><img src="https://static.showit.co/1200/W5bIBrY4TTCdMLXMEfJ-4Q/293041/hamilton-farms-wedding-couple-holding-hands-in-front-of-tin-roof-barn-gladstone-new-jersey.jpg" alt="Kelly and John wedding at Hamilton Farm Golf Club" loading="lazy" style="object-position:50% 60%"></div>
+  <div class="tq-body">
+    <div class="tq-stars">★★★★★</div>
+    <p class="tq-quote"><span class="qm">"</span>He was super attentive and made sure that all our wants and needs were met.<span class="qm">"</span></p>
+    <p class="tq-who">Kelly &amp; John<span class="tq-venue"> · Hamilton Farm Golf Club</span></p>
+  </div>
+</div>
 <div class="wizard-step" data-step-index="3" data-step-name="Summary">
 <!-- Step 4: Your Investment -->
-<div class="flex items-center justify-center gap-3 mb-2 mt-16">
+<hr class="step-divider">
+<div class="flex items-center justify-center gap-3 mb-4">
   <img src="https://static.showit.co/file/ueHGE8iMCHrL5egxLgOVLQ/293041/cash.png" alt="cash" class="w-10 h-10 md:w-[3.25rem] md:h-[3.25rem] object-contain">
   <h2 class="text-center text-stone-800 font-extrabold text-2xl md:text-4xl">Step 4: Your Investment</h2>
 </div>
@@ -3469,39 +3605,43 @@ h3.fc-clock-label,
 <script>
 // Collections data (from index.html)
 const collections = {
-  petite: {name: 'Petite Collection', price: 2500, items: [
-    {name: '6 Hours of Photography Coverage', value: 0, removable: false},
-    {name: '30 Minute Engagement Session', value: 400, removable: true, id: 'engagement'},
-    {name: 'Online Gallery (2)', value: 0, removable: false, id: 'online_gallery'},
-    {name: 'Printing Rights', value: 0, removable: false}
-  ]},
   essential: {name: 'Essential Collection', price: 3500, items: [
     {name: '8 Hours of Photography Coverage', value: 0, removable: false},
-    {name: '30 Minute Engagement Session', value: 400, removable: true, id: 'engagement'},
-    {name: '8x8 Album (30 Pages)', value: 300, removable: true},
+    {name: '30 Minute Engagement Session', value: 400, removable: false, id: 'engagement'},
+    {name: '8x8 Album (30 Pages)', value: 300, removable: false, id: 'album'},
     {name: 'Online Gallery (2)', value: 0, removable: false, id: 'online_gallery'},
     {name: 'Printing Rights', value: 0, removable: false}
   ]},
   premium: {name: 'Premium Collection', price: 4600, items: [
     {name: '10 Hours of Photography Coverage', value: 0, removable: false},
-    {name: '1 Hour Engagement Session', value: 700, removable: true, id: 'engagement'},
-    {name: '10x10 Album (40 Pages)', value: 400, removable: true},
+    {name: '1 Hour Engagement Session', value: 700, removable: false, id: 'engagement'},
+    {name: '10x10 Album (40 Pages)', value: 400, removable: false, id: 'album'},
     {name: 'Online Gallery (2)', value: 0, removable: false, id: 'online_gallery'},
     {name: 'Printing Rights', value: 0, removable: false}
   ]},
-  signature: {name: 'Signature Collection', price: 5400, items: [
+  signature: {name: 'Signature Collection', price: 5800, items: [
     {name: '10 Hours of Photography Coverage', value: 0, removable: false},
-    {name: '1 Hour Engagement Session', value: 700, removable: true, id: 'engagement'},
-    {name: '10x10 Album (50 Pages)', value: 400, removable: true},
-    {name: '2nd Photographer (8 Hrs)', value: 800, removable: true, id: 'second_photographer'},
+    {name: '1 Hour Engagement Session', value: 700, removable: false, id: 'engagement'},
+    {name: '10x10 Album (50 Pages)', value: 400, removable: false, id: 'album'},
+    {name: '2nd Photographer (8 Hrs)', value: 1200, removable: false, id: 'second_photographer'},
     {name: 'Online Gallery (2)', value: 0, removable: false, id: 'online_gallery'},
     {name: 'Printing Rights', value: 0, removable: false}
   ]},
-  prestige: {name: 'Prestige Collection', price: 6400, items: [
+  prestige: {name: 'Prestige Collection', price: 6900, items: [
     {name: '12 Hours of Photography Coverage', value: 0, removable: false},
-    {name: '1 Hour Engagement Session', value: 700, removable: true, id: 'engagement'},
-    {name: '12x12 Album (60 Pages)', value: 500, removable: true},
-    {name: '2nd Photographer (10 Hrs)', value: 1000, removable: true, id: 'second_photographer'},
+    {name: '1 Hour Engagement Session', value: 700, removable: false, id: 'engagement'},
+    {name: '12x12 Album (60 Pages)', value: 500, removable: false, id: 'album'},
+    {name: '2nd Photographer (10 Hrs)', value: 1500, removable: false, id: 'second_photographer'},
+    {name: 'Online Gallery (2)', value: 0, removable: false, id: 'online_gallery'},
+    {name: 'Printing Rights', value: 0, removable: false}
+  ]},
+  ultimate: {name: 'Ultimate Collection', price: 9900, items: [
+    {name: '12 Hours of Photography Coverage', value: 0, removable: false},
+    {name: '10 Hours of Video Coverage', value: 0, removable: false},
+    {name: 'Highlight Reel + Feature Film', value: 0, removable: false},
+    {name: '1 Hour Engagement Session', value: 700, removable: false, id: 'engagement'},
+    {name: '12x12 Album (60 Pages)', value: 500, removable: false, id: 'album'},
+    {name: '2nd Photographer (10 Hrs)', value: 1500, removable: false, id: 'second_photographer'},
     {name: 'Online Gallery (2)', value: 0, removable: false, id: 'online_gallery'},
     {name: 'Printing Rights', value: 0, removable: false}
   ]}
@@ -3518,16 +3658,58 @@ const discountLabels = {
   veteran: 'Veteran'
 };
 
+// Collections are fixed, all-in bundles: engagement / album / 2nd photographer are locked
+// inclusions and the collection price never changes. Where the remove toggle used to be, the
+// customize panel shows one of these notes instead. (Any coverage swap is handled by Ryan on
+// the consultation call. It is deliberately NOT a calculator action.)
+const inclusionNotes = {
+  engagement: 'Included with your collection; the collections are all-in. Not planning to use it? We’ll roll it into extra wedding-day coverage on your consultation call.',
+  album: 'Included with your collection; the collections are all-in. Not planning to use it? We’ll roll it into extra wedding-day coverage on your consultation call.',
+  second_photographer: 'Included with this collection. Prefer not to have a second photographer? The Premium collection is built without one.'
+};
+
+// ===== Discount engine =====
+// $100 consultation credit is permanent. Career/service credits ($50 each) and the Instagram
+// credit ($25) are time-limited: they expire 7 days after the consultation (surfaced as labeling
+// only; a static page can't enforce wall-clock expiry, so that's enforced at booking). Total credits
+// are capped at DISCOUNT_CAP.
+const DISCOUNT_CAP = 225;
+const CAREER_CREDIT = 50;
+const CONSULT_CREDIT = 100;
+const INSTAGRAM_CREDIT = 25;
+function computeCredits(gridId, creditAttr, consultId, instaId) {
+  const grid = document.getElementById(gridId);
+  const careerCount = grid ? grid.querySelectorAll('[' + creditAttr + '].col-active').length : 0;
+  const consultCb = document.getElementById(consultId);
+  const instaCb = document.getElementById(instaId);
+  const consult = (consultCb && consultCb.checked) ? CONSULT_CREDIT : 0;
+  const insta = (instaCb && instaCb.checked) ? INSTAGRAM_CREDIT : 0;
+  const raw = careerCount * CAREER_CREDIT + consult + insta;
+  const applied = Math.min(raw, DISCOUNT_CAP);
+  return { careerCount, consult, insta, raw, applied, capped: raw > DISCOUNT_CAP };
+}
+
+// À la carte photography coverage must stay under this many hours; 6+ hour weddings are
+// booked as a collection (collections begin at 6 hrs, picking up where
+// hourly stops). Video and 2nd-photographer hours are NOT gated.
+const ALACARTE_PHOTO_MAX_HRS = 6;
+function showAlacarteGate(show) {
+  const el = document.getElementById('alacarteGateNotice');
+  if (!el) return;
+  el.style.display = show ? '' : 'none';
+  if (show) el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
 let removedItems = [];
 let currentCollection = null;
 let paymentMethod = 'venmo';
 
 const selectedMsgs = {
-  petite: '\u2713  Where do I sign?',
   essential: '\u2713  Let\u2019s Do This!',
   premium: '\u2713  Love this package!',
-  signature: '\u2713  Fan Favorite!',
-  prestige: '\u2713  The Full Dream!'
+  signature: '\u2713  Excellent Choice!',
+  prestige: '\u2713  The Full Dream!',
+  ultimate: '\u2713  The Ultimate!'
 };
 
 function selectCollection(card) {
@@ -3561,6 +3743,9 @@ function adjustQty(btn, delta) {
   const resetBtn = card.querySelector('.te-reset');
   let qty = parseInt(display.textContent) || 0;
   qty = Math.max(0, qty + delta);
+  // Hard cap: à la carte videography and 2nd shooter top out at 5 hours (full weddings book a collection)
+  const cov = card.dataset.coverage;
+  if ((cov === 'video' || cov === 'second') && qty > 5) qty = 5;
   var isMobile = window.innerWidth <= 768;
   display.textContent = isMobile ? qty : qty + ' hrs';
 
@@ -3584,6 +3769,7 @@ function resetQty(btn) {
   card.classList.remove('coverage-active');
   btn.style.opacity = '0.35';
   btn.style.pointerEvents = 'none';
+  if (card.dataset.coverage === 'photo') showAlacarteGate(false);
   updatePaymentSchedule();
 }
 
@@ -3768,6 +3954,16 @@ function renderMonths() {
   ).join('');
 }
 
+// ===== Real date scarcity =====
+// Ryan's ACTUAL booked wedding dates (ISO yyyy-mm-dd). Edit this list as bookings come in. These render as
+// unavailable in the date pickers; nothing here is invented scarcity.
+const BOOKED_DATES = [];
+const bookedDateSet = new Set(BOOKED_DATES);
+function isDateBooked(y, m0, d) { return bookedDateSet.has(`${y}-${String(m0 + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`); }
+function showBookedNotice(id, show) { const el = document.getElementById(id); if (el) el.style.display = show ? '' : 'none'; }
+// À la carte picker: a booked day is not selectable; it surfaces the waitlist notice instead
+function bookedDayClick(d) { showBookedNotice('bookedNotice', true); }
+
 function renderDays() {
   const grid = document.getElementById('dayGrid');
   const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
@@ -3787,8 +3983,9 @@ function renderDays() {
         </button>
       </div>`;
     } else {
+      const booked = isDateBooked(viewYear, viewMonth, d);
       html += `<div class="flex items-center justify-center" style="aspect-ratio:1">
-        <button onclick="selectDay(${d})" class="cal-day${isToday ? ' cal-today' : ''}">${d}</button>
+        ${booked ? `<button type="button" onclick="bookedDayClick(${d})" class="cal-day cal-booked" aria-disabled="true" title="Already booked">${d}</button>` : `<button onclick="selectDay(${d})" class="cal-day${isToday ? ' cal-today' : ''}">${d}</button>`}
       </div>`;
     }
   }
@@ -3852,6 +4049,8 @@ function syncPayPlanToOtherTabs(planValue, source) {
 }
 
 function selectDay(d) {
+  if (isDateBooked(viewYear, viewMonth, d)) { bookedDayClick(d); return; }
+  showBookedNotice('bookedNotice', false);
   const m = String(viewMonth + 1).padStart(2, '0');
   const ds = String(d).padStart(2, '0');
   weddingDate = new Date(`${viewYear}-${m}-${ds}T00:00:00`);
@@ -3867,6 +4066,20 @@ function selectDay(d) {
   syncDateToOtherTabs(weddingDate, 'alacarte');
 }
 
+// Every collection payment plan lands its FINAL payment exactly this many days before the wedding
+// (never on the wedding day, never inside this window). The à la carte 50/50 lane uses the same number.
+const FINAL_PAYMENT_DAYS_BEFORE = 30;
+// Add calendar months without overflowing (e.g. Jan 31 + 1 month = Feb 28/29, not Mar 3)
+function addMonthsClamped(date, months) {
+  const d = new Date(date);
+  const day = d.getDate();
+  d.setDate(1);
+  d.setMonth(d.getMonth() + months);
+  const lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+  d.setDate(Math.min(day, lastDay));
+  return d;
+}
+
 function calculatePaymentSchedule(total, weddingDateObj, planType, retainerCount) {
   if (!weddingDateObj) return null;
   retainerCount = retainerCount || 1;
@@ -3878,42 +4091,46 @@ function calculatePaymentSchedule(total, weddingDateObj, planType, retainerCount
   if (daysUntil < 1) return null;
   const retainer = 1000 * retainerCount;
   const remaining = Math.max(0, total - retainer);
-  // Calculate months using actual calendar difference
-  const monthsUntil = (weddingCopy.getFullYear() - today.getFullYear()) * 12 + (weddingCopy.getMonth() - today.getMonth());
-  if (planType === 'day_of') {
-    return { type: 'Day of Your Wedding', payments: [{amount: remaining, date: new Date(weddingDateObj), label: 'Final Payment<br>(day of wedding)'}], isMonthly: false };
+  // The final payment date every plan is anchored to: 30 days before the wedding. It must still be in the future.
+  const finalDue = new Date(weddingCopy);
+  finalDue.setDate(finalDue.getDate() - FINAL_PAYMENT_DAYS_BEFORE);
+  if (finalDue <= today) return null;
+  // Whole calendar months between today and the final-payment date
+  const monthsUntilFinal = (finalDue.getFullYear() - today.getFullYear()) * 12 + (finalDue.getMonth() - today.getMonth());
+  const finalLabel = `Final Payment<br>(${FINAL_PAYMENT_DAYS_BEFORE} days before wedding)`;
+
+  if (planType === '30_days') {
+    return { type: `${FINAL_PAYMENT_DAYS_BEFORE} Days Before Wedding`, payments: [{amount: remaining, date: new Date(finalDue), label: finalLabel}], isMonthly: false, finalDate: new Date(finalDue) };
   }
-  if (daysUntil < 15) return null;
-  if (planType === '15_days') {
-    const dueDate = new Date(weddingDateObj);
-    dueDate.setDate(dueDate.getDate() - 15);
-    return { type: '15 Days Before Wedding', payments: [{amount: remaining, date: dueDate, label: 'Final Payment<br>(15 days before wedding)'}], isMonthly: false };
-  }
+  // Installment plans: n payments every `step` months, counted BACK from the final-due date so the last one
+  // lands exactly 30 days before the wedding. The first installment must still be in the future.
+  const buildInstallments = (step, minMonths) => {
+    if (monthsUntilFinal < minMonths) return null;
+    let n = Math.floor(monthsUntilFinal / step);
+    while (n > 0 && addMonthsClamped(finalDue, -(n - 1) * step) <= today) n--;
+    if (n < 1) return null;
+    const amt = remaining / n;
+    const payments = [];
+    for (let i = 1; i <= n; i++) {
+      const pd = i === n ? new Date(finalDue) : addMonthsClamped(finalDue, -(n - i) * step);
+      payments.push({ amount: amt, date: pd, label: i === n ? finalLabel : `Payment ${i}` });
+    }
+    return payments;
+  };
   if (planType === 'monthly') {
-    if (monthsUntil < 2) return null;
-    return { type: 'Monthly Payments', payments: [{amount: remaining / monthsUntil, count: monthsUntil, label: 'Monthly Payment'}], isMonthly: true };
+    const pays = buildInstallments(1, 2);
+    if (!pays || pays.length < 2) return null;
+    return { type: 'Monthly Payments', payments: [{amount: remaining / pays.length, count: pays.length, label: 'Monthly Payment', firstDate: pays[0].date, date: pays[pays.length - 1].date}], isMonthly: true, finalDate: new Date(finalDue), installments: pays };
   }
   if (planType === '3_months') {
-    if (monthsUntil < 3) return null;
-    const n = Math.floor(monthsUntil / 3);
-    if (n < 1) return null;
-    const amt = remaining / n;
-    const payments = [];
-    for (let i = 1; i <= n; i++) { const pd = new Date(today); pd.setMonth(pd.getMonth() + (i * 3)); payments.push({amount: amt, date: pd, label: `Payment ${i}`}); }
-    // Final payment must never land on/after the wedding — pull back to one month before
-    if (payments[n - 1].date >= weddingCopy) { const c = new Date(weddingCopy); c.setMonth(c.getMonth() - 1); payments[n - 1].date = c; }
-    return { type: 'Every 3 Months', payments, isMonthly: false };
+    const pays = buildInstallments(3, 3);
+    if (!pays) return null;
+    return { type: 'Every 3 Months', payments: pays, isMonthly: false, finalDate: new Date(finalDue) };
   }
   if (planType === '6_months') {
-    if (monthsUntil < 6) return null;
-    const n = Math.floor(monthsUntil / 6);
-    if (n < 1) return null;
-    const amt = remaining / n;
-    const payments = [];
-    for (let i = 1; i <= n; i++) { const pd = new Date(today); pd.setMonth(pd.getMonth() + (i * 6)); payments.push({amount: amt, date: pd, label: `Payment ${i}`}); }
-    // Final payment must never land on/after the wedding — pull back to one month before
-    if (payments[n - 1].date >= weddingCopy) { const c = new Date(weddingCopy); c.setMonth(c.getMonth() - 1); payments[n - 1].date = c; }
-    return { type: 'Every 6 Months', payments, isMonthly: false };
+    const pays = buildInstallments(6, 6);
+    if (!pays) return null;
+    return { type: 'Every 6 Months', payments: pays, isMonthly: false, finalDate: new Date(finalDue) };
   }
   return null;
 }
@@ -3923,8 +4140,7 @@ const comparePlanDefs = [
   { value: 'monthly', label: 'Monthly' },
   { value: '3_months', label: 'Every 3 Months' },
   { value: '6_months', label: 'Every 6 Months' },
-  { value: '15_days', label: '15 Days Before' },
-  { value: 'day_of', label: 'Day of Wedding' }
+  { value: '30_days', label: '30 Days Before' }
 ];
 
 // Per-tab config: plan variable accessors, cross-tab sync source, and re-render hook
@@ -3990,8 +4206,8 @@ function renderPlanComparison(displayId, total, weddingDateObj, retainerCount, s
 
     if (schedule.isMonthly) {
       const p = schedule.payments[0];
-      // Final monthly payment always lands on the wedding day itself
-      const last = new Date(weddingDateObj);
+      // Final monthly payment lands 30 days before the wedding (schedule.finalDate)
+      const last = new Date(schedule.finalDate);
       last.setHours(0, 0, 0, 0);
       if (p.count > 1) {
         const n = p.count - 1;
@@ -4069,17 +4285,7 @@ function getEstimatedTotal() {
       total += price * qty;
     }
   });
-  // Service credit discounts (-$50 each)
-  const creditGrid = document.getElementById('serviceCreditsList');
-  if (creditGrid) {
-    const activeCredits = creditGrid.querySelectorAll('[data-credit].col-active').length;
-    total -= activeCredits * 50;
-  }
-  // Unlock credits
-  const consultCb = document.getElementById('consultationCb');
-  if (consultCb && consultCb.checked) total -= 100;
-  const instaCb = document.getElementById('instagramCb');
-  if (instaCb && instaCb.checked) total -= 25;
+  // No credits in the à la carte lane. Service/consultation/Instagram credits apply to collections only.
   // Payment method adjustments
   if (paymentMethod === 'cash') total -= 50;
   if (paymentMethod === 'credit') total *= 1.05;
@@ -4102,8 +4308,50 @@ function p_getRetainerCount() {
   return hasVideo ? 2 : 1;
 }
 
+// ===== À la carte fixed payment schedule =====
+// The à la carte lane has ONE payment structure (no plan choice): a 50% retainer due at booking
+// and the remaining 50% due 30 days before the wedding. Computed off the FINAL à la carte total
+// (after the cash/credit payment-method adjustment). Collections keep their $1,000 retainer +
+// multi-plan comparison; this helper is never used by the p_/v_ flows.
+const ALACARTE_BALANCE_DAYS_BEFORE = FINAL_PAYMENT_DAYS_BEFORE; // same 30-day rule as the collection plans
+function getAlacarteSchedule() {
+  const total = getEstimatedTotal();
+  const retainer = Math.round(total * 50) / 100; // 50%, to the cent
+  const balance = Math.max(0, total - retainer);
+  let dueDate = null;
+  if (weddingDate) { dueDate = new Date(weddingDate); dueDate.setDate(dueDate.getDate() - ALACARTE_BALANCE_DAYS_BEFORE); }
+  return { total, retainer, balance, dueDate };
+}
+
+function renderAlacarteSchedule() {
+  const box = document.getElementById('alacarteSchedule');
+  if (!box) return;
+  const s = getAlacarteSchedule();
+  if (s.total <= 0) {
+    box.innerHTML = '<p class="text-sm md:text-base text-stone-500 italic text-center py-6">Add coverage in Step 1 to see your two simple payments ✨</p>';
+    return;
+  }
+  const fmtMoney = (n) => '$' + n.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+  const fmtDate = (d) => d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+  const dueText = s.dueDate ? `Due ${fmtDate(s.dueDate)} (30 days before your wedding)` : 'Due 30 days before your wedding date';
+  const row = (title, sub, amount) => `<div class="rounded-xl bg-white overflow-hidden" style="border:1px solid #d6d3d1">
+      <div class="flex items-center justify-between gap-3 px-3 md:px-4 py-3 md:py-2.5 border-b border-stone-200" style="background:#eceaff">
+        <p class="font-bold text-stone-800 text-sm md:text-base">${title}</p>
+        <p class="font-bold text-stone-800 text-sm md:text-base whitespace-nowrap">${fmtMoney(amount)}</p>
+      </div>
+      <p class="px-3 md:px-4 py-2 text-xs md:text-sm text-stone-600">${sub}</p>
+    </div>`;
+  let html = '<p class="text-sm md:text-base text-stone-600 text-center mb-3">Two simple payments, nothing to compare.</p><div class="space-y-3 md:space-y-2">';
+  html += row('Retainer (50%)', 'Due at booking to reserve your date', s.retainer);
+  html += row('Balance (50%)', dueText, s.balance);
+  html += '</div>';
+  if (!weddingDate) html += '<p class="text-[11px] md:text-xs text-stone-400 text-center mt-2 italic">Pick your wedding date to see your exact balance-due date</p>';
+  if (paymentMethod === 'cash') html += '<p class="text-[11px] md:text-xs text-stone-500 text-center mt-2 italic">*Cash discount: the full balance must be paid in physical cash within 14 days of signing.</p>';
+  box.innerHTML = html;
+}
+
 function updatePaymentSchedule() {
-  renderPlanComparison('payPlanCompare', getEstimatedTotal(), weddingDate, getRetainerCount(), paymentPlan);
+  renderAlacarteSchedule();
   renderInvestment();
 }
 
@@ -4120,15 +4368,15 @@ function toggleItemRemoval(itemName) {
 
 // ===== Your Investment =====
 const coverageNames = { photo: 'Additional Photography Coverage', video: 'Additional Videography Coverage', second: '2nd Photographer' };
-const coveragePrices = { photo: 350, video: 300, second: 100 };
+const coveragePrices = { photo: 350, video: 300, second: 150 };
 const albumNames = { album_8x8: '8x8 Album', album_10x10: '10x10 Album', album_12x12: '12x12 Album', parent_album: 'Parent Album' };
-const albumPrices = { album_8x8: 300, album_10x10: 400, album_12x12: 500, parent_album: 500 };
+const albumPrices = { album_8x8: 300, album_10x10: 400, album_12x12: 500, parent_album: 400 };
 const serviceNames = { engagement_30min: '30 Minute Engagement Session', engagement_session: 'One Hour Engagement Session', bridal_shower: 'Bridal Shower Coverage', rehearsal_dinner: 'Rehearsal Dinner Coverage' };
 const servicePrices = { engagement_30min: 400, engagement_session: 700, bridal_shower: 350, rehearsal_dinner: 350 };
 
 // SINGLE SOURCE OF TRUTH: the maps above (coveragePrices / albumPrices / servicePrices) drive
 // BOTH every card's displayed price AND all totals, breakdowns, and quote emails. To change a
-// price, edit it ONLY in the map — applyPricesToCards() writes the visible card text from the map
+// price, edit it ONLY in the map. applyPricesToCards() writes the visible card text from the map
 // on load, so the card, the total, and the itemized quote can never disagree. (The dollar amounts
 // hard-coded in the card HTML are just pre-load placeholders; they're overwritten from the map.)
 function applyPricesToCards() {
@@ -4144,8 +4392,8 @@ function applyPricesToCards() {
       el.textContent = '$' + price + (isHourly(key) ? '/hr' : '');
     });
   };
-  write('[data-coverage], [data-p-coverage]', coveragePrices, () => true);              // photo/video/2nd — always per hour
-  write('[data-album], [data-p-album]', albumPrices, () => false);                       // albums — flat
+  write('[data-coverage], [data-p-coverage]', coveragePrices, () => true);              // photo/video/2nd: always per hour
+  write('[data-album], [data-p-album]', albumPrices, () => false);                       // albums: flat
   write('[data-service], [data-p-service]', servicePrices, (id) => hourlyServices.includes(id)); // bridal/rehearsal hourly, engagement flat
 }
 
@@ -4167,7 +4415,7 @@ function renderInvestment() {
   }
 
   const payMethodLabels = { cash: 'Cash', zelle: 'Zelle', venmo: 'Venmo', paypal: 'PayPal', credit: 'Credit Card', check: 'Check' };
-  const payPlanLabels = { monthly: 'Monthly Payments', '3_months': 'Every 3 Months', '6_months': 'Every 6 Months', '15_days': '15 Days Before Wedding', day_of: 'Day of Your Wedding' };
+  const payPlanLabels = { monthly: 'Monthly Payments', '3_months': 'Every 3 Months', '6_months': 'Every 6 Months', '30_days': '30 Days Before Wedding' };
 
   let html = '<div class="space-y-4 mb-6">';
 
@@ -4233,40 +4481,9 @@ function renderInvestment() {
 
   html += '</div></div>';
 
-  // === Section 2: Service Credits ===
-  html += '<div class="pb-4 border-b border-stone-300">';
-  html += '<p class="text-sm md:text-base text-stone-700 uppercase tracking-wider font-bold mb-2">Service Credits</p>';
-  html += '<div class="space-y-2">';
+  // (Service credits are not offered in the à la carte lane; collections only.)
 
-  let hasCredits = false;
-  const creditGrid2 = document.getElementById('serviceCreditsList');
-  if (creditGrid2) {
-    creditGrid2.querySelectorAll('[data-credit].col-active').forEach(card => {
-      hasCredits = true;
-      const key = card.dataset.credit;
-      const name = discountLabels[key] || key;
-      html += `<div class="flex justify-between items-center text-sm md:text-base text-green-700"><p>${name} Discount</p><p>-$50</p></div>`;
-    });
-  }
-
-  const consultCb = document.getElementById('consultationCb');
-  if (consultCb && consultCb.checked) {
-    hasCredits = true;
-    html += '<div class="flex justify-between items-center text-sm md:text-base text-green-700"><p>Consultation Discount</p><p>-$100</p></div>';
-  }
-
-  const instaCb = document.getElementById('instagramCb');
-  if (instaCb && instaCb.checked) {
-    hasCredits = true;
-    html += '<div class="flex justify-between items-center text-sm md:text-base text-green-700"><p>Instagram Follow Discount</p><p>-$25</p></div>';
-  }
-
-  if (!hasCredits) {
-    html += '<p class="text-sm md:text-base text-stone-400 italic">No credits applied</p>';
-  }
-  html += '</div></div>';
-
-  // === Section 3: Payment Info ===
+  // === Section 2: Payment Info ===
   html += '<div class="pb-4">';
   html += '<p class="text-sm md:text-base text-stone-700 uppercase tracking-wider font-bold mb-2">Payment Info</p>';
   html += '<div class="space-y-2">';
@@ -4283,41 +4500,14 @@ function renderInvestment() {
     html += `<div class="flex justify-between items-center text-sm md:text-base text-stone-600"><p>Credit Card Fee (5%)</p><p>+${fmtMoney(feeAmount)}</p></div>`;
   }
 
-  const isCash = paymentMethod === 'cash';
-  const strikeStyle = isCash ? 'text-decoration: line-through; text-decoration-color: red; text-decoration-thickness: 2px;' : '';
-
-  if (paymentPlan) {
-    html += `<div class="flex justify-between items-center text-sm md:text-base" style="${strikeStyle}"><p class="text-stone-600">Payment Plan</p><p class="text-stone-800">${payPlanLabels[paymentPlan] || paymentPlan}</p></div>`;
-  }
-
-  // Payment schedule breakdown
+  // Fixed schedule: 50% retainer at booking, 50% balance 30 days before the wedding (no plan choice)
   const fmtDate = (d) => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-  const rc = getRetainerCount();
-  const remaining = Math.max(0, total - 1000 * rc); // never show a negative balance
-  if (isCash) {
-    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Full Payment (due within 14 days)</p><p class="text-stone-800">${fmtMoney(total)}</p></div>`;
-  } else if (rc === 2) {
-    const eachRetainer = Math.min(1000, total / 2); // never charge a retainer larger than the order
-    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Photography Retainer (due at signing)</p><p class="text-stone-800">${fmtMoney(eachRetainer)}</p></div>`;
-    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Videography Retainer (due at signing)</p><p class="text-stone-800">${fmtMoney(eachRetainer)}</p></div>`;
-  } else {
-    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Retainer (due at signing)</p><p class="text-stone-800">${fmtMoney(Math.min(1000, total))}</p></div>`;
+  const sched = getAlacarteSchedule();
+  if (weddingDate) {
+    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Wedding Date</p><p class="text-stone-800">${fmtDate(weddingDate)}</p></div>`;
   }
-  if (weddingDate && paymentPlan && !isCash) {
-    const schedule = calculatePaymentSchedule(total, weddingDate, paymentPlan, rc);
-    if (schedule) {
-      if (schedule.isMonthly) {
-        const p = schedule.payments[0];
-        html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">${p.count} Monthly Payments</p><p class="text-stone-800">${fmtMoney(p.amount)}/mo</p></div>`;
-      } else {
-        schedule.payments.forEach(p => {
-          html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">${p.label} (${fmtDate(p.date)})</p><p class="text-stone-800">${fmtMoney(p.amount)}</p></div>`;
-        });
-      }
-    }
-  } else if (!isCash) {
-    html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Remaining Balance</p><p class="text-stone-800">${fmtMoney(remaining)}</p></div>`;
-  }
+  html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Retainer: 50% (due at booking)</p><p class="text-stone-800">${fmtMoney(sched.retainer)}</p></div>`;
+  html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Balance: 50% (due ${sched.dueDate ? fmtDate(sched.dueDate) + ', 30 days before' : '30 days before your wedding'})</p><p class="text-stone-800">${fmtMoney(sched.balance)}</p></div>`;
 
   html += '</div></div>';
 
@@ -4355,6 +4545,7 @@ function resetAll() {
     c.querySelector('.col-card-btn').textContent = 'Choose';
   });
   // Reset coverage
+  showAlacarteGate(false);
   var isMobileReset = window.innerWidth <= 768;
   document.querySelectorAll('[data-coverage]').forEach(card => {
     card.querySelector('.qty-display').textContent = isMobileReset ? '0' : '0 hrs';
@@ -4458,7 +4649,7 @@ var wizardActive = false;
 var wizardState = {
   photography: { step: 0, total: 7, names: ['Collection','Coverage','Services','Credits','Date & Plan','Payment','Summary'] },
   videography: { step: 0, total: 4, names: ['Package','Date & Plan','Payment','Summary'] },
-  alacarte: { step: 0, total: 7, names: ['Coverage','Albums','Services','Credits','Date & Plan','Payment','Summary'] }
+  alacarte: { step: 0, total: 6, names: ['Coverage','Albums','Services','Date & Plan','Payment','Summary'] }
 };
 
 function getActiveTabKey() {
@@ -4586,7 +4777,7 @@ function initWizardDots() {
 }
 
 function initMobileWizard() {
-  // Mobile redesign: wizard is disabled — all sections visible via CSS
+  // Mobile redesign: wizard is disabled; all sections are visible via CSS
   wizardActive = false;
   var bar = document.getElementById('wizardBottomBar');
   if (bar) bar.style.display = 'none';
@@ -4653,10 +4844,10 @@ window.addEventListener('resize', function() {
     // Only trigger if horizontal swipe is dominant
     if (Math.abs(dx) < minSwipeDistance || Math.abs(dy) > Math.abs(dx)) return;
     if (dx < 0) {
-      // Swipe left — next step
+      // Swipe left: next step
       wizardNext();
     } else {
-      // Swipe right — previous step
+      // Swipe right: previous step
       wizardBack();
     }
   }, { passive: true });
@@ -4678,7 +4869,7 @@ function toggleHalfHourMode() {
   }
 }
 
-// Update adjustQty to respect halfHourMode and enforce 4hr minimum for à la carte
+// Update adjustQty to respect halfHourMode and enforce 2hr minimum for à la carte
 (function() {
   adjustQty = function(btn, delta) {
     if (halfHourMode) delta = delta * 0.5;
@@ -4686,17 +4877,27 @@ function toggleHalfHourMode() {
     const display = card.querySelector('.qty-display');
     const resetBtn = card.querySelector('.te-reset');
     let qty = parseFloat(display.textContent) || 0;
-    // À la carte tab: enforce 4hr minimum (skip 0.5-3.5 range) — photo/video only,
+    // À la carte tab: enforce 2hr minimum (skip 0.5-1.5 range) for photo/video only;
     // 2nd photographer starts at 1 hr like other services
     const isAlaCarte = card.closest('#tabContent-alacarte');
     const cov = card.dataset.coverage;
     if (isAlaCarte && (cov === 'photo' || cov === 'video')) {
       qty = qty + delta;
-      if (qty > 0 && qty < 4) qty = delta > 0 ? 4 : 0;
+      if (qty > 0 && qty < 2) qty = delta > 0 ? 2 : 0;
       qty = Math.max(0, qty);
+      // 6-hour gate: à la carte photography stops below 6 hrs. At 6+ the increment is blocked
+      // (counter stays put) and the couple is routed to the collections instead.
+      if (cov === 'photo') {
+        // Global 12-hr ceiling (kept for consistency; the 6-hr gate below fires first in practice)
+        if (qty > MAX_COVERAGE_HOURS) { showAlacarteGate(true); return; }
+        if (qty >= ALACARTE_PHOTO_MAX_HRS) { showAlacarteGate(true); return; }
+        showAlacarteGate(false);
+      }
     } else {
       qty = Math.max(0, qty + delta);
     }
+    // Hard cap: à la carte videography and 2nd shooter top out at 5 hours (full weddings book a collection)
+    if (isAlaCarte && (cov === 'video' || cov === 'second') && qty > 5) qty = 5;
     display.textContent = (window.innerWidth <= 768) ? qty : qty + ' hrs';
     if (qty > 0) {
       card.classList.add('coverage-active');
@@ -4751,11 +4952,11 @@ let p_weddingDate = null;
 let p_paymentPlan = null;
 
 const p_selectedMsgs = {
-  petite: '\u2713  Where do I sign?',
   essential: '\u2713  Let\u2019s Do This!',
   premium: '\u2713  Love this package!',
-  signature: '\u2713  Fan Favorite!',
-  prestige: '\u2713  The Full Dream!'
+  signature: '\u2713  Excellent Choice!',
+  prestige: '\u2713  The Full Dream!',
+  ultimate: '\u2713  The Ultimate!'
 };
 
 function p_selectCollection(card) {
@@ -4770,9 +4971,13 @@ function p_selectCollection(card) {
     card.querySelector('.col-card-btn').textContent = p_selectedMsgs[key];
     p_currentCollection = key;
     p_removedItems = [];
+    p_flippedItems = [];
+    if (!p_clampAddonToCap()) p_showCoverageCap(false);
   } else {
     p_currentCollection = null;
     p_removedItems = [];
+    p_flippedItems = [];
+    p_showCoverageCap(false);
   }
   p_renderCustomize();
   p_renderInvestment();
@@ -4794,9 +4999,16 @@ function p_adjustQty(btn, delta) {
   } else {
     qty = Math.max(0, qty + delta);
   }
+  // 12-hour ceiling: additional photography hours can't push total coverage (base + add-on + flips) past 12
+  if (card.dataset.pCoverage === 'photo') {
+    const otherHours = p_totalCoverageHours() - p_addonPhotoHours();
+    if (delta > 0 && otherHours + qty > MAX_COVERAGE_HOURS) { p_showCoverageCap(true); p_renderCustomize(); return; }
+    p_showCoverageCap(false);
+  }
   display.textContent = (window.innerWidth <= 768) ? qty : qty + ' hrs';
   if (qty > 0) { card.classList.add('coverage-active'); resetBtn.style.opacity = '1'; resetBtn.style.pointerEvents = 'auto'; }
   else { card.classList.remove('coverage-active'); resetBtn.style.opacity = '0.35'; resetBtn.style.pointerEvents = 'none'; }
+  if (card.dataset.pCoverage === 'photo') p_renderCustomize(); // flip availability depends on total coverage
   p_renderInvestment();
   p_updatePaymentSchedule();
   if (window.wizardActive) wizardUpdateTotal();
@@ -4807,8 +5019,26 @@ function p_resetQty(btn) {
   card.querySelector('.qty-display').textContent = (window.innerWidth <= 768) ? '0' : '0 hrs';
   card.classList.remove('coverage-active');
   btn.style.opacity = '0.35'; btn.style.pointerEvents = 'none';
+  if (card.dataset.pCoverage === 'photo') { p_showCoverageCap(false); p_renderCustomize(); }
   p_renderInvestment();
   p_updatePaymentSchedule();
+}
+
+// When the collection changes, an add-on that fit before may now bust the 12-hr ceiling, so clamp it.
+function p_clampAddonToCap() {
+  const card = document.querySelector('[data-p-coverage="photo"]');
+  if (!card || !p_currentCollection) return false;
+  const base = p_baseCoverageHours(collections[p_currentCollection]);
+  const room = Math.max(0, MAX_COVERAGE_HOURS - base - p_getFlipHours());
+  let qty = parseFloat(card.querySelector('.qty-display').textContent) || 0;
+  if (qty <= room) return false;
+  qty = room;
+  card.querySelector('.qty-display').textContent = (window.innerWidth <= 768) ? qty : qty + ' hrs';
+  const resetBtn = card.querySelector('.te-reset');
+  if (qty > 0) { card.classList.add('coverage-active'); resetBtn.style.opacity = '1'; resetBtn.style.pointerEvents = 'auto'; }
+  else { card.classList.remove('coverage-active'); resetBtn.style.opacity = '0.35'; resetBtn.style.pointerEvents = 'none'; }
+  p_showCoverageCap(true);
+  return true;
 }
 
 function p_adjustAlbumQty(btn, delta) {
@@ -4820,8 +5050,10 @@ function p_adjustAlbumQty(btn, delta) {
   display.textContent = qty;
   if (qty > 0) { card.classList.add('coverage-active'); resetBtn.style.opacity = '1'; resetBtn.style.pointerEvents = 'auto'; }
   else { card.classList.remove('coverage-active'); resetBtn.style.opacity = '0.35'; resetBtn.style.pointerEvents = 'none'; }
+  p_renderSelectionExtras(); // order bump reflects the parent-album count
   p_renderInvestment();
   p_updatePaymentSchedule();
+  if (window.wizardActive) wizardUpdateTotal();
 }
 
 function p_resetAlbumQty(btn) {
@@ -4829,6 +5061,7 @@ function p_resetAlbumQty(btn) {
   card.querySelector('.qty-display').textContent = '0';
   card.classList.remove('coverage-active');
   btn.style.opacity = '0.35'; btn.style.pointerEvents = 'none';
+  p_renderSelectionExtras();
   p_renderInvestment();
   p_updatePaymentSchedule();
 }
@@ -4952,13 +5185,19 @@ function p_renderDays() {
     if (isSelected) {
       html += `<div class="flex items-center justify-center" style="aspect-ratio:1"><button onclick="p_selectDay(${d})" class="cal-heart-btn w-full h-full flex items-center justify-center p-0.5"><svg viewBox="0 0 50 47" class="w-full h-full" style="filter:drop-shadow(0 2px 4px rgba(219,39,119,0.3))"><path d="M25 47 C25 47 0 30 0 14 C0 6 6 0 13 0 C18 0 22 3 25 7 C28 3 32 0 37 0 C44 0 50 6 50 14 C50 30 25 47 25 47Z" fill="#ec4899"/><text x="25" y="29" text-anchor="middle" fill="white" font-weight="700" font-size="16" font-family="system-ui,sans-serif">${d}</text></svg></button></div>`;
     } else {
-      html += `<div class="flex items-center justify-center" style="aspect-ratio:1"><button onclick="p_selectDay(${d})" class="cal-day${isToday ? ' cal-today' : ''}">${d}</button></div>`;
+      const booked = isDateBooked(p_viewYear, p_viewMonth, d);
+      html += `<div class="flex items-center justify-center" style="aspect-ratio:1">${booked ? `<button type="button" onclick="p_bookedDayClick(${d})" class="cal-day cal-booked" aria-disabled="true" title="Already booked">${d}</button>` : `<button onclick="p_selectDay(${d})" class="cal-day${isToday ? ' cal-today' : ''}">${d}</button>`}</div>`;
     }
   }
   grid.innerHTML = html;
 }
 
+// Collections picker: a booked day is not selectable; it surfaces the waitlist notice instead
+function p_bookedDayClick(d) { showBookedNotice('p_bookedNotice', true); }
+
 function p_selectDay(d) {
+  if (isDateBooked(p_viewYear, p_viewMonth, d)) { p_bookedDayClick(d); return; }
+  showBookedNotice('p_bookedNotice', false);
   const m = String(p_viewMonth + 1).padStart(2, '0');
   const ds = String(d).padStart(2, '0');
   p_weddingDate = new Date(`${p_viewYear}-${m}-${ds}T00:00:00`);
@@ -4975,18 +5214,14 @@ function p_selectDay(d) {
 function p_getEstimatedTotal() {
   let total = 0;
   if (p_currentCollection) {
+    // Collections are fixed bundles: the price is locked and never reduced for declined inclusions.
     total = collections[p_currentCollection].price;
-    collections[p_currentCollection].items.forEach(item => { if (p_removedItems.includes(item.name)) total -= item.value; });
   }
   document.querySelectorAll('[data-p-coverage]').forEach(card => { const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0; if (qty > 0) { const price = coveragePrices[card.dataset.pCoverage] || 0; total += price * qty; } });
   document.querySelectorAll('[data-p-album]').forEach(card => { const qty = parseInt(card.querySelector('.qty-display').textContent) || 0; if (qty > 0) { const price = albumPrices[card.dataset.pAlbum] || 0; total += price * qty; } });
   document.querySelectorAll('[data-p-service]').forEach(card => { const qty = parseFloat(card.querySelector('.qty-display').textContent) || 0; if (qty > 0) { const price = servicePrices[card.dataset.pService] || 0; total += price * qty; } });
-  const p_creditGrid = document.getElementById('p_serviceCreditsList');
-  if (p_creditGrid) total -= p_creditGrid.querySelectorAll('[data-p-credit].col-active').length * 50;
-  const consultCb = document.getElementById('p_consultationCb');
-  if (consultCb && consultCb.checked) total -= 100;
-  const instaCb = document.getElementById('p_instagramCb');
-  if (instaCb && instaCb.checked) total -= 25;
+  // Credits: career (-$50 each) + consultation (-$100) + Instagram (-$25), capped at $225 total
+  total -= computeCredits('p_serviceCreditsList', 'data-p-credit', 'p_consultationCb', 'p_instagramCb').applied;
   if (p_paymentMethod === 'cash') total -= 50;
   if (p_paymentMethod === 'credit') total *= 1.05;
   return Math.max(0, total);
@@ -4998,24 +5233,242 @@ function p_updatePaymentSchedule() {
 }
 
 function p_toggleItemRemoval(itemName) {
-  if (p_removedItems.includes(itemName)) p_removedItems = p_removedItems.filter(i => i !== itemName);
-  else p_removedItems.push(itemName);
+  // Disabled: collection inclusions are locked (fixed bundles). Kept as a no-op so nothing can
+  // strip an item or lower the collection price.
+  p_removedItems = [];
   p_renderCustomize();
   p_renderInvestment();
   p_updatePaymentSchedule();
 }
 
+function p_toggleInclusionNote(btn) {
+  const row = btn.closest('.inclusion-row');
+  const note = row ? row.querySelector('.inclusion-note') : null;
+  if (!note) return;
+  const open = note.style.display !== 'none';
+  note.style.display = open ? 'none' : '';
+  btn.setAttribute('aria-expanded', open ? 'false' : 'true');
+}
+
+// ===== Flip-to-coverage (collections only) =====
+// The album and the engagement session can each be FLIPPED into extra wedding-day photography
+// coverage. This is a value swap, never a discount: the collection price is untouched, the flipped
+// line item is hidden, and the "N Hours of Photography Coverage" line grows by the flip amount.
+// Flip amounts: album -> +1 hr; engagement -> length-aware (30-minute session -> +1 hr, 1-hour
+// session -> +2 hrs), detected from the item name. Each flip is independent, reversible, and
+// all-or-nothing: it's only offered when it fits under the 12-hour coverage ceiling below.
+// The 2nd photographer is NOT flippable (locked).
+const ALBUM_FLIP_HOURS = 1;
+const flippableIds = ['album', 'engagement'];
+let p_flippedItems = []; // item ids currently swapped for coverage
+
+// Hours of coverage a given inclusion flips into
+function p_flipHoursFor(item) {
+  if (!item || !item.id || !flippableIds.includes(item.id)) return 0;
+  if (item.id === 'album') return ALBUM_FLIP_HOURS;
+  // engagement: "30 Minute Engagement Session" -> 1 hr; "1 Hour Engagement Session" -> 2 hrs
+  if (/minute/i.test(item.name)) return 1;
+  const hrs = parseInt((item.name.match(/(\d+)\s*hour/i) || [0, 1])[1]) || 1;
+  return hrs * 2;
+}
+
+// ===== 12-hour coverage ceiling (global) =====
+// Total wedding-day photography coverage can never exceed MAX_COVERAGE_HOURS. In the collections
+// flow, total = collection base hours + "Additional Photography Coverage" add-on hours + flipped
+// hours. The add-on increment is blocked at the ceiling and a flip is only allowed if it fits fully.
+const MAX_COVERAGE_HOURS = 12;
+const COVERAGE_CAP_MESSAGE = '12 hours is my maximum coverage. For a bigger day, reach out for a custom quote.';
+function p_addonPhotoHours() {
+  const card = document.querySelector('[data-p-coverage="photo"]');
+  return card ? (parseFloat(card.querySelector('.qty-display').textContent) || 0) : 0;
+}
+function p_totalCoverageHours(col) {
+  col = col || (p_currentCollection ? collections[p_currentCollection] : null);
+  return (col ? p_baseCoverageHours(col) : 0) + p_addonPhotoHours() + p_getFlipHours();
+}
+// Would flipping this (currently un-flipped) item still fit under the ceiling?
+function p_canFlip(item, col) { return p_totalCoverageHours(col) + p_flipHoursFor(item) <= MAX_COVERAGE_HOURS; }
+function p_showCoverageCap(show) {
+  const el = document.getElementById('p_coverageCapNotice');
+  if (!el) return;
+  el.style.display = show ? '' : 'none';
+}
+
+function p_isFlipped(item) { return !!item && !!item.id && p_flippedItems.includes(item.id); }
+function p_getFlipHours() {
+  if (!p_currentCollection) return 0;
+  return collections[p_currentCollection].items.filter(i => p_isFlipped(i)).reduce((s, i) => s + p_flipHoursFor(i), 0);
+}
+function p_baseCoverageHours(col) { return parseInt((col.items[0].name.match(/\d+/) || ['0'])[0]) || 0; }
+// Effective coverage line, e.g. "10 Hours of Photography Coverage" -> "11 Hours of Photography Coverage"
+function p_coverageItemName(col) {
+  return col.items[0].name.replace(/^\d+/, String(p_baseCoverageHours(col) + p_getFlipHours()));
+}
+// Items as they should be summarized: coverage renamed, flipped items omitted
+function p_effectiveItems(col) {
+  return col.items.filter(i => !p_isFlipped(i)).map((i, idx) => idx === 0 ? Object.assign({}, i, { name: p_coverageItemName(col) }) : i);
+}
+function p_flippedItemsOf(col) { return col.items.filter(i => p_isFlipped(i)); }
+
+function p_toggleFlip(itemId) {
+  if (!flippableIds.includes(itemId) || !p_currentCollection) return;
+  const col = collections[p_currentCollection];
+  const item = col.items.find(i => i.id === itemId);
+  if (!item) return;
+  if (p_flippedItems.includes(itemId)) p_flippedItems = p_flippedItems.filter(i => i !== itemId);
+  else if (p_canFlip(item, col)) p_flippedItems.push(itemId);
+  else { p_renderCustomize(); return; } // all-or-nothing: doesn't fit under the 12-hr ceiling, leave as is
+  p_renderCustomize();
+  p_renderInvestment();
+  p_updatePaymentSchedule();
+  if (window.wizardActive) wizardUpdateTotal();
+}
+
+// ===== Collection merchandising (data-driven from `collections`; never affects price) =====
+const collectionOrder = ['essential', 'premium', 'signature', 'prestige', 'ultimate'];
+const upgradeItems = {
+  essential: ['2 more hours of coverage', 'A full 1-hour engagement session', 'A larger 10×10 album (40 pages)'],
+  premium: ['A second photographer (8 hours)', 'A larger 50-page album'],
+  signature: ['2 more hours of coverage', 'A second photographer (10 hours)', 'A larger 12×12 album (60 pages)'],
+  prestige: ['10 hours of cinematic video coverage', 'A highlight reel', 'A one-hour feature film']
+};
+// Illustrative monthly figure: balance after the $1,000 retainer spread over 12 months
+function p_monthlyFrom(key) { return Math.round((collections[key].price - 1000) / 12); }
+// "Extras" = every non-coverage inclusion with a value (engagement + album + 2nd photographer)
+function p_extrasValue(key) { return collections[key].items.filter(i => i.value > 0).reduce((s, i) => s + i.value, 0); }
+function p_nextCollectionKey(key) { const i = collectionOrder.indexOf(key); return (i >= 0 && i < collectionOrder.length - 1) ? collectionOrder[i + 1] : null; }
+function p_shortName(key) { return collections[key].name.replace(/ Collection$/, ''); }
+
+// Fill the "from ~$X/mo" monthly line on every collection card from the data
+function p_applyCardMeta() {
+  document.querySelectorAll('[data-p-collection]').forEach(card => {
+    const key = card.dataset.pCollection;
+    if (!collections[key]) return;
+    const monthly = card.querySelector('[data-meta="monthly"]');
+    if (monthly) monthly.textContent = `or from $${p_monthlyFrom(key).toLocaleString()}/mo with a payment plan`;
+  });
+}
+
+// "One step up" nudge + "Complete your collection" order bump, shown once a collection is chosen
+function p_stepUp() {
+  const next = p_nextCollectionKey(p_currentCollection);
+  if (!next) return;
+  const card = document.querySelector(`[data-p-collection="${next}"]`);
+  if (card) { p_selectCollection(card); card.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
+}
+// Order bump: +1 hr goes through the existing Additional Photography Coverage counter (so $350/hr and the 12-hr cap apply)
+function p_bumpExtraHour(delta) {
+  const card = document.querySelector('[data-p-coverage="photo"]');
+  if (!card) return;
+  const btn = card.querySelectorAll('.te-btn')[delta > 0 ? 1 : 0];
+  const savedHalf = halfHourMode; halfHourMode = false; // the bump is always a full hour
+  try { p_adjustQty(btn, delta > 0 ? 1 : -1); } finally { halfHourMode = savedHalf; }
+}
+// Order bump: the parent album goes through the existing album counter (albumPrices.parent_album)
+function p_bumpParentAlbum(delta) {
+  const card = document.querySelector('[data-p-album="parent_album"]');
+  if (!card) return;
+  const btn = card.querySelectorAll('.te-btn')[delta > 0 ? 1 : 0];
+  p_adjustAlbumQty(btn, delta > 0 ? 1 : -1);
+}
+function p_renderSelectionExtras() {
+  const nudge = document.getElementById('p_upgradeNudge');
+  const bump = document.getElementById('p_orderBump');
+  if (!nudge || !bump) return;
+  // The nudge lives INSIDE the selected card (appended as its last child) so it's visibly attached to the
+  // choice in both the desktop grid and the mobile stack; when hidden it's parked back in #p_upgradeNudgeHome.
+  const parkNudge = () => { nudge.style.display = 'none'; const home = document.getElementById('p_upgradeNudgeHome'); if (home && nudge.parentElement !== home) home.appendChild(nudge); };
+  if (!p_currentCollection) { parkNudge(); bump.style.display = 'none'; return; }
+  const key = p_currentCollection;
+  const next = p_nextCollectionKey(key);
+  const selectedCard = document.querySelector(`[data-p-collection="${key}"]`);
+  if (next && selectedCard) {
+    const delta = collections[next].price - collections[key].price;
+    const itemsHtml = upgradeItems[key].map(i => `<li>${i}</li>`).join('');
+    nudge.innerHTML = `<div class="nudge-box"><p class="nudge-head font-bold text-stone-800">Step up to ${p_shortName(next)} for only $${delta.toLocaleString()}.</p><ul class="nudge-list">${itemsHtml}</ul><button type="button" class="bump-btn" onclick="event.stopPropagation(); p_stepUp()">Step up →</button></div>`;
+    if (nudge.parentElement !== selectedCard) selectedCard.appendChild(nudge);
+    nudge.style.display = '';
+  } else {
+    parkNudge();
+  }
+  // Order bump
+  const albumCard = document.querySelector('[data-p-album="parent_album"]');
+  const albumQty = albumCard ? (parseInt(albumCard.querySelector('.qty-display').textContent) || 0) : 0;
+  const addonHrs = p_addonPhotoHours();
+  const total = p_totalCoverageHours();
+  const hourFits = total + 1 <= MAX_COVERAGE_HOURS;
+  const fmt = (n) => '$' + n.toLocaleString();
+  let html = `<p class="text-center text-stone-700 font-extrabold text-lg md:text-2xl mb-1">Complete your collection</p><p class="text-center text-stone-500 text-sm md:text-base italic mb-4">A favorite couples add at this point. One tap, and it shows up in your total.</p><div class="grid grid-cols-1 max-w-5xl mx-auto">`;
+  html += `<div class="bump-card bump-featured${albumQty > 0 ? ' coverage-active' : ''}"><span class="bump-save-badge">Save $100</span><div><p class="font-bold text-stone-800 text-lg md:text-2xl">Parent Album</p><p class="bump-price-line"><span class="bump-price">${fmt(albumPrices.parent_album)}</span> <span class="bump-was">${fmt(albumPrices.parent_album + 100)} later</span></p><p class="text-sm md:text-base text-stone-500">A matching keepsake album for the parents. Add it with your collection and save $100.${albumQty > 0 ? ` <span class="text-green-700 font-semibold">${albumQty} added</span>` : ''}</p></div><div class="qty-group"><button type="button" class="te-btn" onclick="p_bumpParentAlbum(-1)" aria-label="Remove one parent album"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/></svg></button><span class="qty-display">${albumQty}</span><button type="button" class="te-btn" onclick="p_bumpParentAlbum(1)" aria-label="Add one parent album"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div>`;
+  html += '</div>';
+  bump.innerHTML = html;
+  bump.style.display = '';
+}
+
+// "Book a Call" CTA: reuses the existing quote/contact modal, reframed as a call request
+function p_bookCall() {
+  const t = document.getElementById('quoteModalTitle');
+  const sub = document.getElementById('quoteModalSub');
+  if (t) t.textContent = 'Book a Call to Lock Your Date';
+  if (sub) sub.textContent = "Leave your details and I'll reach out to schedule a quick call, hold your date, and answer any questions.";
+  const sb = document.getElementById('submitBtn'); if (sb) sb.textContent = 'Book a Call';
+  window.__bookCallMode = true;
+  p_handleGetQuote();
+}
+
 function p_renderCustomize() {
+  p_renderSelectionExtras();
   const container = document.getElementById('p_customizeContent');
   if (!p_currentCollection) { container.innerHTML = '<p class="text-stone-500 text-center py-8 italic">Select a collection to customize your package</p>'; return; }
   const col = collections[p_currentCollection];
   let html = '<div class="space-y-3">';
-  col.items.forEach(item => {
+  // Value framing (data-driven): sum of the non-coverage inclusions' values
+  const flipHours = p_getFlipHours();
+  const totalCoverage = p_totalCoverageHours(col);
+  const addonHours = p_addonPhotoHours();
+  col.items.forEach((item, idx) => {
     const isRemoved = p_removedItems.includes(item.name);
-    const strikeClass = isRemoved ? 'line-through opacity-50' : '';
-    html += `<div class="flex items-center justify-between p-4 bg-stone-50 rounded-lg"><div class="flex-1 pr-3"><span class="text-stone-700 font-medium block ${strikeClass}">${item.name}</span>${item.value > 0 ? `<span class="text-sm md:text-base text-stone-500 block ${strikeClass}">($${item.value.toLocaleString()})</span>` : ''}</div>${item.removable ? `<div onclick="p_toggleItemRemoval('${item.name.replace(/'/g, "\\'")}')" class="tog-slider ${!isRemoved ? 'tog-on' : 'tog-off'}"><span class="tog-knob"></span></div>` : '<span class="text-xs text-stone-400 italic flex-shrink-0">Included</span>'}</div>`;
+    const isFlippable = !!item.id && flippableIds.includes(item.id);
+    const isFlipped = p_isFlipped(item);
+    const strikeClass = (isRemoved || isFlipped) ? 'line-through opacity-50' : '';
+    // Coverage line reflects any flips, price line untouched
+    const displayName = idx === 0 ? p_coverageItemName(col) : item.name;
+    let coverageSub = '';
+    if (idx === 0) {
+      if (flipHours > 0) coverageSub += `<span class="text-sm md:text-base text-green-700 block">includes +${flipHours} hr${flipHours === 1 ? '' : 's'} swapped in at the same price</span>`;
+      if (addonHours > 0) coverageSub += `<span class="text-sm md:text-base text-stone-500 block">+ ${addonHours} hr${addonHours === 1 ? '' : 's'} additional coverage added = ${totalCoverage} hrs total</span>`;
+      if (totalCoverage >= MAX_COVERAGE_HOURS) coverageSub += `<span class="text-xs md:text-sm text-stone-500 italic block">${totalCoverage} hrs, my maximum coverage.</span>`;
+    }
+    const note = (item.id && !isFlippable) ? inclusionNotes[item.id] : null;
+    let control, sub = '';
+    if (isFlippable) {
+      // Live flip toggle: swap this inclusion for extra wedding-day coverage (reversible, price fixed).
+      // Only offered when the whole flip fits under the 12-hour ceiling.
+      const fh = p_flipHoursFor(item);
+      const fits = isFlipped || p_canFlip(item, col);
+      const hrWord = fh === 1 ? 'hour' : 'hours';
+      if (isFlipped) {
+        control = `<button type="button" onclick="p_toggleFlip('${item.id}')" aria-pressed="true" class="flip-btn flex-shrink-0 rounded-full font-semibold cursor-pointer" style="font:inherit;font-size:0.75rem;padding:0.35em 0.9em;border:1.5px solid #8a7ef2;background:linear-gradient(135deg,#c0baff,#8a7ef2);color:#fff">↩ Undo flip</button>`;
+        sub = `<p class="flip-label text-xs md:text-sm text-green-700 italic mt-2 pt-2 border-t border-stone-200 leading-relaxed">Swapped for +${fh} ${hrWord} of wedding-day coverage at the same price. Tap Undo to get it back.</p>`;
+      } else if (fits) {
+        control = `<button type="button" onclick="p_toggleFlip('${item.id}')" aria-pressed="false" class="flip-btn flex-shrink-0 rounded-full font-semibold cursor-pointer" style="font:inherit;font-size:0.75rem;padding:0.35em 0.9em;border:1.5px solid #8a7ef2;background:#fff;color:#6a5ed0">⇄ Flip → +${fh} hr${fh === 1 ? '' : 's'}</button>`;
+        sub = `<p class="flip-label text-xs md:text-sm text-stone-500 italic mt-2 pt-2 border-t border-stone-200 leading-relaxed">Prefer more time on your wedding day? Flip this into +${fh} ${hrWord} of coverage at the same price.</p>`;
+      } else {
+        control = `<button type="button" disabled aria-disabled="true" aria-pressed="false" class="flip-btn flip-btn-disabled flex-shrink-0 rounded-full font-semibold" style="font:inherit;font-size:0.75rem;padding:0.35em 0.9em;border:1.5px solid #d6d3d1;background:#f5f5f4;color:#a8a29e;cursor:not-allowed">⇄ Flip → +${fh} hr${fh === 1 ? '' : 's'}</button>`;
+        sub = `<p class="flip-label flip-cap-note text-xs md:text-sm text-stone-500 italic mt-2 pt-2 border-t border-stone-200 leading-relaxed">Flipping this would take you to ${totalCoverage + fh} hours. ${COVERAGE_CAP_MESSAGE}</p>`;
+      }
+    } else if (note) {
+      // Locked inclusion with an explanatory note: an "Included ⓘ" tap reveals the note (no remove control, no price change)
+      control = `<button type="button" onclick="p_toggleInclusionNote(this)" aria-expanded="false" class="text-xs text-stone-500 italic flex-shrink-0 inline-flex items-center gap-1 cursor-pointer bg-transparent border-0 p-0" style="font:inherit;font-size:0.75rem">Included <span class="inline-flex items-center justify-center rounded-full font-bold not-italic" style="width:18px;height:18px;border:1.5px solid #8a7ef2;color:#8a7ef2;font-size:11px;line-height:1">i</span></button>`;
+      // Second photographer: one visible value line (what a single shooter would miss)
+      if (item.id === 'second_photographer') sub += `<p class="value-line text-xs md:text-sm mt-2 pt-2 border-t border-stone-200 leading-relaxed" style="color:#6a5ed0">Two photographers, so nothing gets missed. The tears during your vows AND your guests arriving.</p>`;
+      sub += `<p class="inclusion-note text-xs md:text-sm text-stone-500 italic mt-2 pt-2 border-t border-stone-200 leading-relaxed" style="display:none">${note}</p>`;
+    } else {
+      control = item.removable ? `<div onclick="p_toggleItemRemoval('${item.name.replace(/'/g, "\\'")}')" class="tog-slider ${!isRemoved ? 'tog-on' : 'tog-off'}"><span class="tog-knob"></span></div>` : '<span class="text-xs text-stone-400 italic flex-shrink-0">Included</span>';
+    }
+    html += `<div class="inclusion-row p-4 bg-stone-50 rounded-lg"><div class="flex items-center justify-between"><div class="flex-1 pr-3"><span class="text-stone-700 font-medium block ${strikeClass}">${displayName}</span>${coverageSub}${item.value > 0 ? `<span class="text-sm md:text-base text-stone-500 block ${strikeClass}">($${item.value.toLocaleString()})</span>` : ''}</div>${control}</div>${sub}</div>`;
   });
-  html += `<div class="p-4 bg-white rounded-lg text-center"><p class="text-sm md:text-base text-stone-400 italic">Toggle off albums or engagement sessions to reduce your investment.</p></div></div>`;
+  html += `<div class="p-4 bg-white rounded-lg text-center"><p class="text-sm md:text-base text-stone-400 italic">Collections are all-in bundles, so the price never changes. Flip the album or engagement session into extra wedding-day coverage (up to ${MAX_COVERAGE_HOURS} hours total), or tap ⓘ on an item to learn more.</p></div></div>`;
   container.innerHTML = html;
 }
 
@@ -5025,11 +5478,15 @@ function p_renderInvestment() {
   const col = collections[p_currentCollection];
   const fmtMoney = (n) => '$' + n.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
   const fmtWhole = (n) => '$' + n.toLocaleString();
-  const coverageHours = parseInt((col.items[0].name.match(/\d+/) || ['0'])[0]) || 0;
-  const removableTotal = col.items.filter(i => i.value > 0).reduce((s, i) => s + i.value, 0);
+  // Flips fold the swapped item's value into the coverage line (+1 hr each) so the lines still sum to the fixed price
+  const flipHours = p_getFlipHours();
+  const coverageHours = p_baseCoverageHours(col) + flipHours;
+  const removableTotal = col.items.filter(i => i.value > 0 && !p_isFlipped(i)).reduce((s, i) => s + i.value, 0);
   const photoCoveragePrice = col.price - removableTotal;
+  const coverageSubLabel = flipHours > 0 ? `(${coverageHours} hours, including +${flipHours} hr${flipHours === 1 ? '' : 's'} swapped in)` : `(${coverageHours} hours @ $350/hr)`;
+  const totalCoverage = p_totalCoverageHours(col);
   const payMethodLabels = { cash: 'Cash', zelle: 'Zelle', venmo: 'Venmo', paypal: 'PayPal', credit: 'Credit Card', check: 'Check' };
-  const payPlanLabels = { monthly: 'Monthly Payments', '3_months': 'Every 3 Months', '6_months': 'Every 6 Months', '15_days': '15 Days Before Wedding', day_of: 'Day of Your Wedding' };
+  const payPlanLabels = { monthly: 'Monthly Payments', '3_months': 'Every 3 Months', '6_months': 'Every 6 Months', '30_days': '30 Days Before Wedding' };
 
   let html = '<div class="space-y-4 mb-6">';
 
@@ -5037,9 +5494,10 @@ function p_renderInvestment() {
   html += '<div class="pb-4 border-b border-stone-300">';
   html += `<p class="text-sm md:text-base text-stone-700 uppercase tracking-wider font-bold mb-2">${col.name}</p>`;
   html += '<div class="space-y-2">';
-  html += `<div class="flex justify-between items-start text-sm md:text-base"><div class="text-stone-600"><div>Photography Coverage w/Ryan Sands <span class="text-sm block">(${coverageHours} hours @ $350/hr)</span></div></div><p class="text-stone-800 whitespace-nowrap">${fmtWhole(photoCoveragePrice)}</p></div>`;
-  col.items.filter(i => i.id === 'engagement' && !p_removedItems.includes(i.name)).forEach(item => { html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">${item.name}</p><p class="text-stone-800">${fmtWhole(item.value)}</p></div>`; });
-  col.items.filter(i => i.name.includes('Album') && !p_removedItems.includes(i.name)).forEach(item => { html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">${item.name}</p><p class="text-stone-800">${fmtWhole(item.value)}</p></div>`; });
+  html += `<div class="flex justify-between items-start text-sm md:text-base"><div class="text-stone-600"><div>Photography Coverage w/Ryan Sands <span class="text-sm block">${coverageSubLabel}</span></div></div><p class="text-stone-800 whitespace-nowrap">${fmtWhole(photoCoveragePrice)}</p></div>`;
+  col.items.filter(i => i.id === 'engagement' && !p_removedItems.includes(i.name) && !p_isFlipped(i)).forEach(item => { html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">${item.name}</p><p class="text-stone-800">${fmtWhole(item.value)}</p></div>`; });
+  col.items.filter(i => i.name.includes('Album') && !p_removedItems.includes(i.name) && !p_isFlipped(i)).forEach(item => { html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">${item.name}</p><p class="text-stone-800">${fmtWhole(item.value)}</p></div>`; });
+  p_flippedItemsOf(col).forEach(item => { const fh = p_flipHoursFor(item); html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Swapped: ${item.name} → +${fh} hr${fh === 1 ? '' : 's'} coverage</p><p class="text-green-700 font-medium">Same price</p></div>`; });
   col.items.filter(i => i.id === 'second_photographer' && !p_removedItems.includes(i.name)).forEach(item => { html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">${item.name}</p><p class="text-stone-800">${fmtWhole(item.value)}</p></div>`; });
   col.items.filter(i => i.id === 'online_gallery' && !p_removedItems.includes(i.name)).forEach(item => { html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">${item.name}</p><p class="text-green-700 font-medium">Included</p></div>`; });
   col.items.filter(i => i.name === 'Printing Rights' && !p_removedItems.includes(i.name)).forEach(item => { html += `<div class="flex justify-between items-center text-sm md:text-base"><p class="text-stone-600">Printing Rights</p><p class="text-green-700 font-medium">Included</p></div>`; });
@@ -5063,6 +5521,11 @@ function p_renderInvestment() {
   const instaCb = document.getElementById('p_instagramCb');
   if (instaCb && instaCb.checked) { p_hasCredits = true; html += '<div class="flex justify-between items-center text-sm md:text-base text-green-700"><p>Instagram Follow Discount</p><p>-$25</p></div>'; }
   if (!p_hasCredits) { html += '<p class="text-sm md:text-base text-stone-400 italic">No credits applied</p>'; }
+  else {
+    const p_cr = computeCredits('p_serviceCreditsList', 'data-p-credit', 'p_consultationCb', 'p_instagramCb');
+    if (p_cr.capped) html += `<div class="flex justify-between items-center text-sm md:text-base text-stone-600"><p>Credit cap applied (max $${DISCOUNT_CAP})</p><p>+$${p_cr.raw - p_cr.applied}</p></div>`;
+    if (p_cr.careerCount > 0 || p_cr.insta > 0) html += '<p class="text-xs md:text-sm text-stone-400 italic mt-1">Career &amp; Instagram credits are valid for 7 days after your consultation. The $100 consultation credit never expires. Credits are capped at $225 total.</p>';
+  }
   html += '</div></div>';
 
   // === Section 3: Payment Info ===
@@ -5108,7 +5571,7 @@ function p_renderInvestment() {
   // Total
   const total = p_getEstimatedTotal();
   html += `<div class="pt-4"><div class="flex justify-between items-center"><p class="text-lg md:text-xl font-sans text-stone-800">Total Investment</p><p class="text-xl md:text-2xl font-bold text-stone-800">${fmtMoney(total)}</p></div></div>`;
-  html += `<div class="flex flex-col items-center gap-6 my-16"><button onclick="p_handleGetQuote()" class="quote-btn">Get my FREE quote!</button><button onclick="p_resetAll()" class="reset-btn">Start Over</button></div>`;
+  html += `<div class="flex flex-col items-center gap-4 my-16"><button type="button" class="book-call-btn" onclick="p_bookCall()">Book a Call to Lock Your Date</button><p class="text-xs md:text-sm text-stone-500 italic text-center max-w-md" style="margin-top:-6px">A quick call holds your date while we finalize the details. Booking the call also earns the $100 consultation credit.</p><button onclick="p_handleGetQuote()" class="quote-btn" style="margin-top:10px">Get my FREE quote!</button><button onclick="p_resetAll()" class="reset-btn">Start Over</button></div>`;
   container.innerHTML = html;
   updateMobileTotal();
 }
@@ -5116,7 +5579,7 @@ function p_renderInvestment() {
 function p_handleGetQuote() { document.getElementById('quoteModal').style.display = 'block'; window.scrollTo({ top: 0, behavior: 'smooth' }); window.parent.postMessage({scrollToCalc: true}, '*'); }
 
 function p_resetAll() {
-  p_currentCollection = null; p_removedItems = [];
+  p_currentCollection = null; p_removedItems = []; p_flippedItems = []; p_showCoverageCap(false);
   document.querySelectorAll('[data-p-collection]').forEach(c => { c.classList.remove('col-active'); c.querySelector('.col-card-btn').textContent = 'Choose'; });
   var p_isMobileReset = window.innerWidth <= 768;
   document.querySelectorAll('[data-p-coverage]').forEach(card => { card.querySelector('.qty-display').textContent = p_isMobileReset ? '0' : '0 hrs'; card.classList.remove('coverage-active'); const rb = card.querySelector('.te-reset'); rb.style.opacity = '0.35'; rb.style.pointerEvents = 'none'; });
@@ -5288,7 +5751,7 @@ function v_renderInvestment() {
   const fmtMoney = (n) => '$' + n.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
   const fmtWhole = (n) => '$' + n.toLocaleString();
   const payMethodLabels = { cash: 'Cash', zelle: 'Zelle', venmo: 'Venmo', paypal: 'PayPal', credit: 'Credit Card', check: 'Check' };
-  const payPlanLabels = { monthly: 'Monthly Payments', '3_months': 'Every 3 Months', '6_months': 'Every 6 Months', '15_days': '15 Days Before Wedding', day_of: 'Day of Your Wedding' };
+  const payPlanLabels = { monthly: 'Monthly Payments', '3_months': 'Every 3 Months', '6_months': 'Every 6 Months', '30_days': '30 Days Before Wedding' };
 
   let html = '<div class="space-y-4 mb-6">';
 
@@ -5397,12 +5860,16 @@ document.addEventListener('DOMContentLoaded', function() {
 // ===== Quote Modal & Submission =====
 function closeQuoteModal() {
   document.getElementById('quoteModal').style.display = 'none';
+  // Restore the default quote framing (the Book-a-Call CTA may have reframed it)
+  const qt = document.getElementById('quoteModalTitle'); if (qt) qt.textContent = 'Get Your Quote';
+  const qs = document.getElementById('quoteModalSub'); if (qs) qs.textContent = 'Enter your contact information to receive your customized wedding quote.';
   document.getElementById('clientName').value = '';
   document.getElementById('clientEmail').value = '';
   document.getElementById('clientPhone').value = '';
   document.getElementById('submitStatus').style.display = 'none';
   document.getElementById('submitBtn').disabled = false;
   document.getElementById('submitBtn').textContent = 'Send Quote';
+  window.__bookCallMode = false;
 }
 
 function getPayMethodLabel(method) {
@@ -5452,46 +5919,21 @@ function generateBookingDetails() {
       }
     });
     if (services.length > 0) { details.push('EXTRA SERVICES:'); services.forEach(s => details.push(s)); details.push(''); }
-    const creditGrid = document.getElementById('serviceCreditsList');
-    const activeCredits = creditGrid ? creditGrid.querySelectorAll('[data-credit].col-active') : [];
-    const consultCb = document.getElementById('consultationCb');
-    const instaCb = document.getElementById('instagramCb');
-    if (activeCredits.length > 0 || (consultCb && consultCb.checked) || (instaCb && instaCb.checked)) {
-      details.push('DISCOUNTS APPLIED:');
-      activeCredits.forEach(c => { const name = c.querySelector('p').textContent; details.push(`• ${name} Discount: -$50`); });
-      if (consultCb && consultCb.checked) details.push('• Consultation Discount: -$100');
-      if (instaCb && instaCb.checked) details.push('• Instagram Follow Discount: -$25');
-      details.push('');
-    }
+    // (No credits in the à la carte lane; collections only.)
     details.push('PAYMENT INFORMATION:');
     details.push(`Payment Method: ${getPayMethodLabel(paymentMethod)}`);
     if (paymentMethod === 'cash') details.push('Cash Discount: -$50');
     if (paymentMethod === 'credit') details.push(`Credit Card Fee (5%): +$${((getEstimatedTotal() / 1.05) * 0.05).toFixed(2)}`);
     details.push('');
-    if (paymentMethod === 'cash') {
-      details.push(`Full Payment (due within 14 days of signing): $${getEstimatedTotal().toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`);
-      details.push('(Cash payment — no installment plan applies.)');
-      if (weddingDate) details.push(`Wedding Date: ${weddingDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`);
-    } else if (weddingDate) {
-      details.push(`Wedding Date: ${weddingDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`);
-      const alcRC = getRetainerCount();
-      const alcTotal = getEstimatedTotal();
+    // Fixed à la carte schedule: 50% retainer at booking, 50% balance 30 days before the wedding
+    {
+      const alcS = getAlacarteSchedule();
       const fmtR = (n) => n.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-      const schedule = calculatePaymentSchedule(alcTotal, weddingDate, paymentPlan, alcRC);
-      if (schedule) {
-        details.push(`Payment Plan: ${schedule.type}`);
-        details.push('');
-        details.push('PAYMENT SCHEDULE:');
-        if (alcRC === 2) {
-          const each = Math.min(1000, alcTotal / 2);
-          details.push(`• Photography Retainer (Due at signing): $${fmtR(each)}`);
-          details.push(`• Videography Retainer (Due at signing): $${fmtR(each)}`);
-        } else {
-          details.push(`• Retainer (Due at signing): $${fmtR(Math.min(1000, alcTotal))}`);
-        }
-        if (schedule.isMonthly) details.push(`• ${schedule.payments[0].count} monthly payments of $${schedule.payments[0].amount.toFixed(2)}`);
-        else schedule.payments.forEach(p => details.push(`• ${p.label} (${fmtDate(p.date)}): $${p.amount.toFixed(2)}`));
-      }
+      if (weddingDate) details.push(`Wedding Date: ${weddingDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`);
+      details.push('PAYMENT SCHEDULE:');
+      details.push(`• Retainer: 50% (due at booking to reserve your date): $${fmtR(alcS.retainer)}`);
+      details.push(`• Balance: 50% (due ${alcS.dueDate ? fmtDate(alcS.dueDate) + ', 30 days before your wedding' : '30 days before your wedding date'}): $${fmtR(alcS.balance)}`);
+      if (paymentMethod === 'cash') details.push('(Cash discount: the full balance must be paid in physical cash within 14 days of signing.)');
     }
   } else if (activeTab === 'photography') {
     if (!p_currentCollection) return 'No collection selected.';
@@ -5500,8 +5942,15 @@ function generateBookingDetails() {
     details.push(`Base Price: $${col.price.toLocaleString()}`);
     details.push('');
     details.push('INCLUDED IN PACKAGE:');
-    col.items.forEach(item => { if (!p_removedItems.includes(item.name)) details.push(`• ${item.name}`); });
+    p_effectiveItems(col).forEach(item => { if (!p_removedItems.includes(item.name)) details.push(`• ${item.name}`); });
     details.push('');
+    const pFlipped = p_flippedItemsOf(col);
+    if (pFlipped.length > 0) {
+      details.push('SWAPPED FOR COVERAGE (same price):');
+      pFlipped.forEach(item => { const fh = p_flipHoursFor(item); details.push(`• ${item.name} → +${fh} ${fh === 1 ? 'hour' : 'hours'} of wedding-day photography coverage`); });
+      details.push('');
+    }
+    { const tc = p_totalCoverageHours(col); details.push(`Total wedding-day photography coverage: ${tc} hours${tc >= MAX_COVERAGE_HOURS ? ' (maximum)' : ''}`); details.push(''); }
     if (p_removedItems.length > 0) {
       details.push('ITEMS REMOVED:');
       col.items.forEach(item => { if (p_removedItems.includes(item.name) && item.value > 0) details.push(`• ${item.name} (-$${item.value})`); });
@@ -5547,6 +5996,9 @@ function generateBookingDetails() {
       pActiveCredits.forEach(c => { const name = c.querySelector('p').textContent; details.push(`• ${name} Discount: -$50`); });
       if (pConsultCb && pConsultCb.checked) details.push('• Consultation Discount: -$100');
       if (pInstaCb && pInstaCb.checked) details.push('• Instagram Follow Discount: -$25');
+      const phCr = computeCredits('p_serviceCreditsList', 'data-p-credit', 'p_consultationCb', 'p_instagramCb');
+      if (phCr.capped) details.push(`• Credit cap applied (max $${DISCOUNT_CAP}): +$${phCr.raw - phCr.applied}`);
+      if (phCr.careerCount > 0 || phCr.insta > 0) details.push('(Career & Instagram credits valid 7 days after consultation; $100 consultation credit never expires.)');
       details.push('');
     }
     details.push('PAYMENT INFORMATION:');
@@ -5556,7 +6008,7 @@ function generateBookingDetails() {
     details.push('');
     if (p_paymentMethod === 'cash') {
       details.push(`Full Payment (due within 14 days of signing): $${p_getEstimatedTotal().toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`);
-      details.push('(Cash payment — no installment plan applies.)');
+      details.push('(Cash payment; no installment plan applies.)');
       if (p_weddingDate) details.push(`Wedding Date: ${p_weddingDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`);
     } else if (p_weddingDate) {
       details.push(`Wedding Date: ${p_weddingDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`);
@@ -5576,7 +6028,7 @@ function generateBookingDetails() {
           details.push(`• Retainer (Due at signing): $${fmtR(Math.min(1000, phTotal))}`);
         }
         if (schedule.isMonthly) details.push(`• ${schedule.payments[0].count} monthly payments of $${schedule.payments[0].amount.toFixed(2)}`);
-        else schedule.payments.forEach(p => details.push(`• ${p.label} (${fmtDate(p.date)}): $${p.amount.toFixed(2)}`));
+        else schedule.payments.forEach(p => details.push(`• ${p.label.replace(/<br>/g, ' ')} (${fmtDate(p.date)}): $${p.amount.toFixed(2)}`));
       }
     }
   } else if (activeTab === 'videography') {
@@ -5592,7 +6044,7 @@ function generateBookingDetails() {
     details.push('');
     if (v_paymentMethod === 'cash') {
       details.push(`Full Payment (due within 14 days of signing): $${v_getEstimatedTotal().toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`);
-      details.push('(Cash payment — no installment plan applies.)');
+      details.push('(Cash payment; no installment plan applies.)');
       if (v_weddingDate) details.push(`Wedding Date: ${v_weddingDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`);
     } else if (v_weddingDate) {
       details.push(`Wedding Date: ${v_weddingDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`);
@@ -5603,7 +6055,7 @@ function generateBookingDetails() {
         details.push('PAYMENT SCHEDULE:');
         details.push('• Retainer (Due at signing): $1,000.00');
         if (schedule.isMonthly) details.push(`• ${schedule.payments[0].count} monthly payments of $${schedule.payments[0].amount.toFixed(2)}`);
-        else schedule.payments.forEach(p => details.push(`• ${p.label} (${fmtDate(p.date)}): $${p.amount.toFixed(2)}`));
+        else schedule.payments.forEach(p => details.push(`• ${p.label.replace(/<br>/g, ' ')} (${fmtDate(p.date)}): $${p.amount.toFixed(2)}`));
       }
     }
   }
@@ -5662,43 +6114,20 @@ function generateBookingDetailsHTML() {
       }
     });
     if (services.length > 0) { body += sectionTitle('Extra Services'); services.forEach(s => { body += bullet(s); }); }
-    const creditGrid = document.getElementById('serviceCreditsList');
-    const activeCredits = creditGrid ? creditGrid.querySelectorAll('[data-credit].col-active') : [];
-    const consultCb = document.getElementById('consultationCb');
-    const instaCb = document.getElementById('instagramCb');
-    if (activeCredits.length > 0 || (consultCb && consultCb.checked) || (instaCb && instaCb.checked)) {
-      body += sectionTitle('Discounts Applied');
-      activeCredits.forEach(c => { body += bullet(`${c.querySelector('p').textContent} Discount: ${green('-$50')}`); });
-      if (consultCb && consultCb.checked) body += bullet(`Consultation Discount: ${green('-$100')}`);
-      if (instaCb && instaCb.checked) body += bullet(`Instagram Follow Discount: ${green('-$25')}`);
-    }
+    // (No credits in the à la carte lane; collections only.)
     body += sectionTitle('Payment Information');
     body += info('Payment Method', getPayMethodLabel(paymentMethod));
     if (paymentMethod === 'cash') body += bullet(`Cash Discount: ${green('-$50')}`);
     if (paymentMethod === 'credit') body += bullet(`Credit Card Fee (5%): ${red('+$' + ((totalAmount / 1.05) * 0.05).toFixed(2))}`);
-    if (paymentMethod === 'cash') {
-      body += sectionTitle('Payment Schedule');
-      body += bullet(`Full Payment (due within 14 days of signing): ${bold('$' + totalAmount.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}))}`);
-      body += bullet('Cash payment — no installment plan applies.');
-      if (weddingDate) body += info('Wedding Date', weddingDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }));
-    } else if (weddingDate) {
-      body += info('Wedding Date', weddingDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }));
-      const alcHtmlRC = getRetainerCount();
+    // Fixed à la carte schedule: 50% retainer at booking, 50% balance 30 days before the wedding
+    {
+      const alcS = getAlacarteSchedule();
       const fmtR = (n) => '$' + n.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-      const schedule = calculatePaymentSchedule(totalAmount, weddingDate, paymentPlan, alcHtmlRC);
-      if (schedule) {
-        body += info('Payment Plan', schedule.type);
-        body += sectionTitle('Payment Schedule');
-        if (alcHtmlRC === 2) {
-          const each = Math.min(1000, totalAmount / 2);
-          body += bullet(`Photography Retainer (Due at signing): ${bold(fmtR(each))}`);
-          body += bullet(`Videography Retainer (Due at signing): ${bold(fmtR(each))}`);
-        } else {
-          body += bullet(`Retainer (Due at signing): ${bold(fmtR(Math.min(1000, totalAmount)))}`);
-        }
-        if (schedule.isMonthly) body += bullet(`${schedule.payments[0].count} monthly payments of ${bold('$' + schedule.payments[0].amount.toFixed(2))}`);
-        else schedule.payments.forEach(p => { body += bullet(`${p.label} (${fmtDate(p.date)}): ${bold('$' + p.amount.toFixed(2))}`); });
-      }
+      if (weddingDate) body += info('Wedding Date', weddingDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }));
+      body += sectionTitle('Payment Schedule');
+      body += bullet(`Retainer: 50% (due at booking to reserve your date): ${bold(fmtR(alcS.retainer))}`);
+      body += bullet(`Balance: 50% (due ${alcS.dueDate ? fmtDate(alcS.dueDate) + ', 30 days before your wedding' : '30 days before your wedding date'}): ${bold(fmtR(alcS.balance))}`);
+      if (paymentMethod === 'cash') body += bullet('Cash discount: the full balance must be paid in physical cash within 14 days of signing.');
     }
   } else if (activeTab === 'photography') {
     totalAmount = p_getEstimatedTotal();
@@ -5709,7 +6138,13 @@ function generateBookingDetailsHTML() {
     body += info('Package', col.name);
     body += info('Base Price', `$${col.price.toLocaleString()}`);
     body += sectionTitle('Included in Package');
-    col.items.forEach(item => { if (!p_removedItems.includes(item.name)) body += bullet(item.name); });
+    p_effectiveItems(col).forEach(item => { if (!p_removedItems.includes(item.name)) body += bullet(item.name); });
+    const pFlippedHtml = p_flippedItemsOf(col);
+    if (pFlippedHtml.length > 0) {
+      body += sectionTitle('Swapped for Coverage (same price)');
+      pFlippedHtml.forEach(item => { const fh = p_flipHoursFor(item); body += bullet(`${item.name} → ${green('+' + fh + (fh === 1 ? ' hour' : ' hours') + ' of wedding-day photography coverage')}`); });
+    }
+    { const tc = p_totalCoverageHours(col); body += info('Total Wedding-Day Coverage', `${tc} hours${tc >= MAX_COVERAGE_HOURS ? ' (maximum)' : ''}`); }
     if (p_removedItems.length > 0) {
       body += sectionTitle('Items Removed');
       col.items.forEach(item => { if (p_removedItems.includes(item.name) && item.value > 0) body += bullet(`${item.name} ${red('(-$' + item.value + ')')}`); });
@@ -5753,6 +6188,9 @@ function generateBookingDetailsHTML() {
       pActiveCredits.forEach(c => { body += bullet(`${c.querySelector('p').textContent} Discount: ${green('-$50')}`); });
       if (pConsultCb && pConsultCb.checked) body += bullet(`Consultation Discount: ${green('-$100')}`);
       if (pInstaCb && pInstaCb.checked) body += bullet(`Instagram Follow Discount: ${green('-$25')}`);
+      const phCr = computeCredits('p_serviceCreditsList', 'data-p-credit', 'p_consultationCb', 'p_instagramCb');
+      if (phCr.capped) body += bullet(`Credit cap applied (max $${DISCOUNT_CAP}): +$${phCr.raw - phCr.applied}`);
+      if (phCr.careerCount > 0 || phCr.insta > 0) body += bullet('Career &amp; Instagram credits are valid for 7 days after your consultation; the $100 consultation credit never expires.');
     }
     body += sectionTitle('Payment Information');
     body += info('Payment Method', getPayMethodLabel(p_paymentMethod));
@@ -5761,7 +6199,7 @@ function generateBookingDetailsHTML() {
     if (p_paymentMethod === 'cash') {
       body += sectionTitle('Payment Schedule');
       body += bullet(`Full Payment (due within 14 days of signing): ${bold('$' + totalAmount.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}))}`);
-      body += bullet('Cash payment — no installment plan applies.');
+      body += bullet('Cash payment; no installment plan applies.');
       if (p_weddingDate) body += info('Wedding Date', p_weddingDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }));
     } else if (p_weddingDate) {
       body += info('Wedding Date', p_weddingDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }));
@@ -5797,7 +6235,7 @@ function generateBookingDetailsHTML() {
     if (v_paymentMethod === 'cash') {
       body += sectionTitle('Payment Schedule');
       body += bullet(`Full Payment (due within 14 days of signing): ${bold('$' + totalAmount.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}))}`);
-      body += bullet('Cash payment — no installment plan applies.');
+      body += bullet('Cash payment; no installment plan applies.');
       if (v_weddingDate) body += info('Wedding Date', v_weddingDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }));
     } else if (v_weddingDate) {
       body += info('Wedding Date', v_weddingDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }));
@@ -5862,7 +6300,7 @@ async function handleSubmitBooking(e) {
         package_type: activeTab === 'photography' ? 'Wedding Photography' : activeTab === 'videography' ? 'Wedding Videography' : 'À La Carte',
         booking_details: bookingDetails,
         total_amount: `$${totalAmount.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`,
-        _subject: `New Wedding Quote Request from ${clientName}`
+        _subject: (window.__bookCallMode ? `Book a Call request from ${clientName}` : `New Wedding Quote Request from ${clientName}`)
       };
       const formspreeResponse = await fetch('https://formspree.io/f/xblzqrky', {
         method: 'POST',
@@ -5889,9 +6327,11 @@ async function handleSubmitBooking(e) {
     } catch (emailjsError) { console.error('EmailJS error:', emailjsError); }
 
     if (formspreeSuccess || emailjsSuccess) {
-      const clientMsg = emailjsSuccess
-        ? 'Your quote has been sent — check your email!'
-        : 'Your request was received. We’ll email your quote shortly.';
+      const clientMsg = window.__bookCallMode
+        ? "Your request is in. I'll reach out to schedule your call and hold your date."
+        : (emailjsSuccess
+            ? 'Your quote has been sent. Check your email!'
+            : 'Your request was received. We’ll email your quote shortly.');
       statusDiv.style.display = 'block';
       statusDiv.innerHTML = '<div style="background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46;padding:0.75rem 1rem;border-radius:0.5rem;"><p style="font-weight:600;margin:0 0 0.25rem 0;">Success!</p><p style="font-size:0.875rem;margin:0;">' + clientMsg + '</p></div>';
       setTimeout(() => {
@@ -5902,22 +6342,26 @@ async function handleSubmitBooking(e) {
       statusDiv.style.display = 'block';
       statusDiv.innerHTML = '<div style="background:#fef2f2;border:1px solid #fecaca;color:#991b1b;padding:0.75rem 1rem;border-radius:0.5rem;"><p style="font-weight:600;margin:0 0 0.25rem 0;">Error</p><p style="font-size:0.875rem;margin:0;">Something went wrong. Please try again.</p></div>';
       submitBtn.disabled = false;
-      submitBtn.textContent = 'Send Quote';
+      submitBtn.textContent = window.__bookCallMode ? 'Book a Call' : 'Send Quote';
     }
   } catch (error) {
     console.error('General error:', error);
     statusDiv.style.display = 'block';
     statusDiv.innerHTML = '<div style="background:#fef2f2;border:1px solid #fecaca;color:#991b1b;padding:0.75rem 1rem;border-radius:0.5rem;"><p style="font-weight:600;margin:0 0 0.25rem 0;">Error</p><p style="font-size:0.875rem;margin:0;">Something went wrong. Please try again.</p></div>';
     submitBtn.disabled = false;
-    submitBtn.textContent = 'Send Quote';
+    submitBtn.textContent = window.__bookCallMode ? 'Book a Call' : 'Send Quote';
   }
 }
 
 // Initialize all calendars on load
 applyPricesToCards();
+p_applyCardMeta();
 initCalendar();
 p_initCalendar();
 v_initCalendar();
+// Assumptive close: land on the collections step with Premium (the featured tier) already selected,
+// unless something is already chosen. Runs once on load only.
+if (!p_currentCollection) { const premiumCard = document.querySelector('[data-p-collection="premium"]'); if (premiumCard) p_selectCollection(premiumCard); }
 </script>
 
 <!-- Height messaging for Showit iframe embed -->
@@ -5964,8 +6408,8 @@ v_initCalendar();
 <div id="quoteModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;background:rgba(0,0,0,0.65);overflow-y:auto;padding:2rem 1rem;">
   <div style="max-width:28rem;margin:0 auto;background:#fff;border-radius:1rem;box-shadow:0 25px 50px rgba(0,0,0,0.25);padding:1.5rem;position:relative;">
     <button onclick="closeQuoteModal()" style="position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.5rem;color:#a8a29e;cursor:pointer;line-height:1;">&times;</button>
-    <h2 style="font-size:1.5rem;font-weight:bold;color:#292524;margin:0 0 0.5rem 0;font-family:system-ui,sans-serif;">Get Your Quote</h2>
-    <p style="color:#78716c;margin:0 0 1.5rem 0;font-size:0.95rem;">Enter your contact information to receive your customized wedding quote.</p>
+    <h2 id="quoteModalTitle" style="font-size:1.5rem;font-weight:bold;color:#292524;margin:0 0 0.5rem 0;font-family:system-ui,sans-serif;">Get Your Quote</h2>
+    <p id="quoteModalSub" style="color:#78716c;margin:0 0 1.5rem 0;font-size:0.95rem;">Enter your contact information to receive your customized wedding quote.</p>
     <form id="quoteForm" onsubmit="handleSubmitBooking(event)" style="display:flex;flex-direction:column;gap:1rem;">
       <div>
         <label style="display:block;color:#57534e;font-weight:500;margin-bottom:0.5rem;font-size:0.95rem;">Name *</label>
@@ -6020,7 +6464,7 @@ v_initCalendar();
 })();
 
 /* ============================================
-   FLIP-CLOCK WEDDING COUNTDOWN — JS
+   FLIP-CLOCK WEDDING COUNTDOWN: JS
    ============================================ */
 (function() {
   function FCCountdownTracker(label, value) {
